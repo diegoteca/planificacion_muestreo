@@ -1,15 +1,6 @@
 ---
 title: "Taller Muestreo"
-format: html
-editor: visual
-code-fold: true
-code-tools:
-      source: true
-      toggle: true
-      caption: "Código"
 ---
-
-## 
 
 Una muestra es una parte de un todo. En los muestreos que aspiran a ser representativos (en algún grado) lo que se intenta lograr es que esa parte que se seleccione no sea muy diferente al todo. En este sentido, lo que sigue en cuanto a muestreo tiene mayor pertinencia cuando en la investigación se intenta maximizar la **representatividad** pero por alguna razón no es posible o conveniente la realización de un censo de todas las partes de ese todo.Hacer muestras también puede ser importante cuando se necesitan construir grupos de tratamiento y control en diseños experimentales.
 

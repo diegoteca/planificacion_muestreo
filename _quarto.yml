@@ -1,0 +1,46 @@
+project:
+  type: book
+  output-dir: "_book"
+  execute-dir: project
+
+book:
+  title: "Taller Muestreo"
+#  author: ""
+#  date: ""
+  chapters:
+    - index.qmd
+    - azar.qmd
+    
+page-navigation: true
+
+search: true
+
+# bibliography: references.bib
+
+preview:
+  port: 4200
+  browser: true
+
+format:
+  html:
+    toc: true
+    theme: cosmo
+    other-links:
+      - text: Repositorio del taller
+        href: https://github.com/diegoteca/planificacion_muestreo
+        icon: github
+    code-fold: true
+    code-tools:
+       source: true
+       toggle: true
+       caption: "Código"
+
+editor: visual
+lang: es
+language:
+  search-text-placeholder: Buscar
+
+# Extensiones
+
+filters:
+  - first-line-indent
