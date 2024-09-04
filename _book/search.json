@@ -8,5 +8,15 @@
     "crumbs": [
       "<span class='chapter-number'>1</span>  <span class='chapter-title'>Taller Muestreo</span>"
     ]
+  },
+  {
+    "objectID": "azar.html",
+    "href": "azar.html",
+    "title": "2  Azar simple",
+    "section": "",
+    "text": "Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Básicamente vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R.\n\n\nCódigo\n# Hay que instalar las librerias previamente sino las tienen instaladas\n\nlibrary(here)\n\n\nhere() starts at C:/Users/dquar/OneDrive/Documentos/R_Studio_Projects/planificacion_muestreo\n\n\nCódigo\nlibrary(readxl)\nlibrary(janitor)\n\n\n\nAdjuntando el paquete: 'janitor'\n\n\nThe following objects are masked from 'package:stats':\n\n    chisq.test, fisher.test\n\n\nCódigo\ni_am(\"azar.qmd\")\n\n\nhere() starts at C:/Users/dquar/OneDrive/Documentos/R_Studio_Projects/planificacion_muestreo\n\n\n\n\nCódigo\nbase = read_xlsx(here(\"Inputs\", \"base_escuelas_primaria.xlsx\")) |&gt;\nclean_names()\n\n\nComo puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de las escuelas en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades agregadas de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una “buena” muestra desde este archivo. Claramente este archivo es bueno para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos…al menos si se tiene acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las diferentes muestras y los respectivos valores o parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Azar simple</span>"
+    ]
   }
 ]
