@@ -2,7 +2,7 @@
 title: "Azar simple"
 ---
 
-Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Básicamente vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R.
+Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Por ahora vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R. Por otro lado, con este insumo nos vamos a focalizar en el *diseño* de las muestras y en la construcción de ponderadores y expansores pero no vamos a ver estrategias de calibración. En otras palabras, vamos a ver estrategias *ex-ante* la producción del dato primario y no vamos a ver estrategias, usualmente más realistas pero también más variables de forma circunstancial (p.e. no respuesta ), *ex-post* producción del dato primario.
 
 ```{r}
 #| label: setting
@@ -12,6 +12,8 @@ Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuan
 library(here)
 library(readxl)
 library(janitor)
+library(tidyverse)
+library(gt)
 
 i_am("azar.qmd")
 ```
@@ -21,6 +23,23 @@ i_am("azar.qmd")
 
 base = read_xlsx(here("Inputs", "base_escuelas_primaria.xlsx")) |>
 clean_names()
+
+base |>
+slice_head(n = 3) |>
+gt()
 ```
 
-Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de las escuelas en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades agregadas de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una "buena" muestra desde este archivo. Claramente este archivo es bueno para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se tiene acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las diferentes muestras y los respectivos valores o parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
+Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades derivadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara con tener acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las estimaciones de las diferentes muestras y los respectivos valores de los parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
+
+## Azar simple
+
+Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunos ambientes. Por ejemplo, en contextos antropológicos o arqueológicos. Aunque es entendible que la mayor abundancia actual d Si bien no se puede [^azar-1]
+
+```{r}
+#| label: azar_simple
+
+m_azar_simple_100 = base |>
+slice_sample(n = 100)
+```
+
+[^azar-1]: Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos ".

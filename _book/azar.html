@@ -183,8 +183,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <div class="quarto-other-links"><h2>Otros Enlaces</h2><ul><li><a href="https://github.com/diegoteca/planificacion_muestreo"><i class="bi bi-github"></i>Repositorio del taller</a></li></ul></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Tabla de contenidos</h2>
+   
+  <ul>
+  <li><a href="#azar-simple" id="toc-azar-simple" class="nav-link active" data-scroll-target="#azar-simple"><span class="header-section-number">2.1</span> Azar simple</a></li>
+  </ul>
+<div class="quarto-other-links"><h2>Otros Enlaces</h2><ul><li><a href="https://github.com/diegoteca/planificacion_muestreo"><i class="bi bi-github"></i>Repositorio del taller</a></li></ul></div></nav>
+    </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -208,7 +214,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="no-first-line-indent-after"></div>
-<p>Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Básicamente vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R.</p>
+<p>Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Por ahora vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R. Por otro lado, con este insumo nos vamos a focalizar en el <em>diseño</em> de las muestras y en la construcción de ponderadores y expansores pero no vamos a ver estrategias de calibración. En otras palabras, vamos a ver estrategias <em>ex-ante</em> la producción del dato primario y no vamos a ver estrategias, usualmente más realistas pero también más variables de forma circunstancial (p.e. no respuesta ), <em>ex-post</em> producción del dato primario.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -235,7 +241,27 @@ Adjuntando el paquete: 'janitor'</code></pre>
 </div>
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">i_am</span>(<span class="st">"azar.qmd"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+✔ purrr     1.0.2     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">i_am</span>(<span class="st">"azar.qmd"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>here() starts at C:/Users/dquar/OneDrive/Documentos/R_Studio_Projects/planificacion_muestreo</code></pre>
@@ -244,15 +270,716 @@ Adjuntando el paquete: 'janitor'</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>()</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>base <span class="sc">|&gt;</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="gpqbvjzvee" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#gpqbvjzvee table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#gpqbvjzvee thead, #gpqbvjzvee tbody, #gpqbvjzvee tfoot, #gpqbvjzvee tr, #gpqbvjzvee td, #gpqbvjzvee th {
+  border-style: none;
+}
+
+#gpqbvjzvee p {
+  margin: 0;
+  padding: 0;
+}
+
+#gpqbvjzvee .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#gpqbvjzvee .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gpqbvjzvee .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gpqbvjzvee .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gpqbvjzvee .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gpqbvjzvee .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gpqbvjzvee .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gpqbvjzvee .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gpqbvjzvee .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#gpqbvjzvee .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#gpqbvjzvee .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gpqbvjzvee .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gpqbvjzvee .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gpqbvjzvee .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gpqbvjzvee .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gpqbvjzvee .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#gpqbvjzvee .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#gpqbvjzvee .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#gpqbvjzvee .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gpqbvjzvee .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#gpqbvjzvee .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gpqbvjzvee .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gpqbvjzvee .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gpqbvjzvee .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gpqbvjzvee .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gpqbvjzvee .gt_left {
+  text-align: left;
+}
+
+#gpqbvjzvee .gt_center {
+  text-align: center;
+}
+
+#gpqbvjzvee .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gpqbvjzvee .gt_font_normal {
+  font-weight: normal;
+}
+
+#gpqbvjzvee .gt_font_bold {
+  font-weight: bold;
+}
+
+#gpqbvjzvee .gt_font_italic {
+  font-style: italic;
+}
+
+#gpqbvjzvee .gt_super {
+  font-size: 65%;
+}
+
+#gpqbvjzvee .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#gpqbvjzvee .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#gpqbvjzvee .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#gpqbvjzvee .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#gpqbvjzvee .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#gpqbvjzvee .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#gpqbvjzvee .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#gpqbvjzvee .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#gpqbvjzvee div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_col_headings">
+<th id="clave" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">clave</th>
+<th id="region" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">region</th>
+<th id="nombre_distrito" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">nombre_distrito</th>
+<th id="localidad" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">localidad</th>
+<th id="ambito" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">ambito</th>
+<th id="cueanexo" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">cueanexo</th>
+<th id="matricula" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">matricula</th>
+<th id="secciones" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">secciones</th>
+<th id="matri_seccion" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">matri_seccion</th>
+<th id="jornada" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">jornada</th>
+<th id="porc_auh_2023" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">porc_auh_2023</th>
+<th id="indice_de_vulnerabilidad" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_de_vulnerabilidad</th>
+<th id="prueba2_23_pd_l_a3_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba2_23_pd_l_a3_irdg</th>
+<th id="prueba2_23_pd_l_a4_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba2_23_pd_l_a4_irdg</th>
+<th id="prueba2_23_pd_l_a6_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba2_23_pd_l_a6_irdg</th>
+<th id="prueba2_23_mat_a3_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba2_23_mat_a3_irdg</th>
+<th id="prueba2_23_mat_a4_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba2_23_mat_a4_irdg</th>
+<th id="prueba2_23_mat_a6_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba2_23_mat_a6_irdg</th>
+<th id="prueba1_23_pd_l_a3_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba1_23_pd_l_a3_irdg</th>
+<th id="prueba1_23_pd_l_a6_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba1_23_pd_l_a6_irdg</th>
+<th id="prueba1_23_mat_a3_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba1_23_mat_a3_irdg</th>
+<th id="prueba1_23_mat_a6_irdg" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">prueba1_23_mat_a6_irdg</th>
+<th id="sondeo_primero" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">sondeo_primero</th>
+<th id="sondeo_segundo" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">sondeo_segundo</th>
+<th id="indice_presencialidad_total" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_presencialidad_total</th>
+<th id="indice_presencialidad_marzo" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_presencialidad_marzo</th>
+<th id="indice_presencialidad_abril" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_presencialidad_abril</th>
+<th id="indice_presencialidad_mayo" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_presencialidad_mayo</th>
+<th id="indice_presencialidad_junio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_presencialidad_junio</th>
+<th id="indice_presencialidad_julio" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_presencialidad_julio</th>
+<th id="indice_presencialidad_agosto" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">indice_presencialidad_agosto</th>
+<th id="direct_con_0_y_1_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_0_y_1_anos</th>
+<th id="direct_con_2_y_3_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_2_y_3_anos</th>
+<th id="direct_con_4_a_6_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_4_a_6_anos</th>
+<th id="direct_con_7_a_9_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_7_a_9_anos</th>
+<th id="direct_con_10_y_11_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_10_y_11_anos</th>
+<th id="direct_con_12_a_14_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_12_a_14_anos</th>
+<th id="direct_con_15_y_16_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_15_y_16_anos</th>
+<th id="direct_con_17_a_19_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_17_a_19_anos</th>
+<th id="direct_con_20_y_21_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_20_y_21_anos</th>
+<th id="direct_con_22_y_23_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_22_y_23_anos</th>
+<th id="direct_con_24_anos_o_mas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">direct_con_24_anos_o_mas</th>
+<th id="mg_con_0_y_1_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_0_y_1_anos</th>
+<th id="mg_con_2_y_3_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_2_y_3_anos</th>
+<th id="mg_con_4_a_6_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_4_a_6_anos</th>
+<th id="mg_con_7_a_9_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_7_a_9_anos</th>
+<th id="mg_con_10_y_11_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_10_y_11_anos</th>
+<th id="mg_con_12_a_14_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_12_a_14_anos</th>
+<th id="mg_con_15_y_16_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_15_y_16_anos</th>
+<th id="mg_con_17_a_19_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_17_a_19_anos</th>
+<th id="mg_con_20_y_21_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_20_y_21_anos</th>
+<th id="mg_con_22_y_23_anos" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_22_y_23_anos</th>
+<th id="mg_con_24_anos_o_mas" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mg_con_24_anos_o_mas</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="clave">0001PP0001</td>
+<td class="gt_row gt_right" headers="region">01</td>
+<td class="gt_row gt_left" headers="nombre_distrito">La Plata</td>
+<td class="gt_row gt_left" headers="localidad">LA PLATA</td>
+<td class="gt_row gt_left" headers="ambito">Urbano</td>
+<td class="gt_row gt_right" headers="cueanexo">060882200</td>
+<td class="gt_row gt_right" headers="matricula">678</td>
+<td class="gt_row gt_right" headers="secciones">24</td>
+<td class="gt_row gt_right" headers="matri_seccion">28.25000</td>
+<td class="gt_row gt_left" headers="jornada">JS</td>
+<td class="gt_row gt_right" headers="porc_auh_2023">43.72414</td>
+<td class="gt_row gt_right" headers="indice_de_vulnerabilidad">0.1294078</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a3_irdg">69.44444</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a4_irdg">79.11504</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a6_irdg">75.70146</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a3_irdg">63.16872</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a4_irdg">62.00935</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a6_irdg">78.61635</td>
+<td class="gt_row gt_right" headers="prueba1_23_pd_l_a3_irdg">68.79167</td>
+<td class="gt_row gt_right" headers="prueba1_23_pd_l_a6_irdg">52.70270</td>
+<td class="gt_row gt_right" headers="prueba1_23_mat_a3_irdg">55.16055</td>
+<td class="gt_row gt_right" headers="prueba1_23_mat_a6_irdg">81.460177</td>
+<td class="gt_row gt_right" headers="sondeo_primero">60.74747</td>
+<td class="gt_row gt_right" headers="sondeo_segundo">76.80882</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_total">0.9366830</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_marzo">0.9057018</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_abril">0.9166667</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_mayo">0.9090909</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_junio">0.941176470588235</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_julio">1</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_agosto">1</td>
+<td class="gt_row gt_right" headers="direct_con_0_y_1_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_2_y_3_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_4_a_6_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_7_a_9_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_10_y_11_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_12_a_14_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_15_y_16_anos">100</td>
+<td class="gt_row gt_right" headers="direct_con_17_a_19_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_20_y_21_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_22_y_23_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_24_anos_o_mas">0</td>
+<td class="gt_row gt_right" headers="mg_con_0_y_1_anos">11.111111</td>
+<td class="gt_row gt_right" headers="mg_con_2_y_3_anos">7.407407</td>
+<td class="gt_row gt_right" headers="mg_con_4_a_6_anos">14.81481</td>
+<td class="gt_row gt_right" headers="mg_con_7_a_9_anos">14.814815</td>
+<td class="gt_row gt_right" headers="mg_con_10_y_11_anos">14.814815</td>
+<td class="gt_row gt_right" headers="mg_con_12_a_14_anos">7.407407</td>
+<td class="gt_row gt_right" headers="mg_con_15_y_16_anos">3.703704</td>
+<td class="gt_row gt_right" headers="mg_con_17_a_19_anos">3.703704</td>
+<td class="gt_row gt_right" headers="mg_con_20_y_21_anos">7.407407</td>
+<td class="gt_row gt_right" headers="mg_con_22_y_23_anos">7.407407</td>
+<td class="gt_row gt_right" headers="mg_con_24_anos_o_mas">7.407407</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="clave">0001PP0002</td>
+<td class="gt_row gt_right" headers="region">01</td>
+<td class="gt_row gt_left" headers="nombre_distrito">La Plata</td>
+<td class="gt_row gt_left" headers="localidad">LA PLATA</td>
+<td class="gt_row gt_left" headers="ambito">Urbano</td>
+<td class="gt_row gt_right" headers="cueanexo">060881800</td>
+<td class="gt_row gt_right" headers="matricula">424</td>
+<td class="gt_row gt_right" headers="secciones">14</td>
+<td class="gt_row gt_right" headers="matri_seccion">30.28571</td>
+<td class="gt_row gt_left" headers="jornada">JC</td>
+<td class="gt_row gt_right" headers="porc_auh_2023">44.71744</td>
+<td class="gt_row gt_right" headers="indice_de_vulnerabilidad">0.0677139</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a3_irdg">62.32439</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a4_irdg">64.45312</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a6_irdg">60.83333</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a3_irdg">74.54780</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a4_irdg">50.07813</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a6_irdg">63.79630</td>
+<td class="gt_row gt_right" headers="prueba1_23_pd_l_a3_irdg">62.61364</td>
+<td class="gt_row gt_right" headers="prueba1_23_pd_l_a6_irdg">62.50000</td>
+<td class="gt_row gt_right" headers="prueba1_23_mat_a3_irdg">58.045977</td>
+<td class="gt_row gt_right" headers="prueba1_23_mat_a6_irdg">76.0769229999999</td>
+<td class="gt_row gt_right" headers="sondeo_primero">51.00000</td>
+<td class="gt_row gt_right" headers="sondeo_segundo">66.45370</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_total">0.8851541</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_marzo">0.7481203</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_abril">0.8857143</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_mayo">0.9188312</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_junio">0.88235294117647</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_julio">1</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_agosto">0.928571428571428</td>
+<td class="gt_row gt_right" headers="direct_con_0_y_1_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_2_y_3_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_4_a_6_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_7_a_9_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_10_y_11_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_12_a_14_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_15_y_16_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_17_a_19_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_20_y_21_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_22_y_23_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_24_anos_o_mas">100</td>
+<td class="gt_row gt_right" headers="mg_con_0_y_1_anos">5.882353</td>
+<td class="gt_row gt_right" headers="mg_con_2_y_3_anos">0.000000</td>
+<td class="gt_row gt_right" headers="mg_con_4_a_6_anos">11.76471</td>
+<td class="gt_row gt_right" headers="mg_con_7_a_9_anos">17.647059</td>
+<td class="gt_row gt_right" headers="mg_con_10_y_11_anos">5.882353</td>
+<td class="gt_row gt_right" headers="mg_con_12_a_14_anos">0.000000</td>
+<td class="gt_row gt_right" headers="mg_con_15_y_16_anos">5.882353</td>
+<td class="gt_row gt_right" headers="mg_con_17_a_19_anos">11.764706</td>
+<td class="gt_row gt_right" headers="mg_con_20_y_21_anos">0.000000</td>
+<td class="gt_row gt_right" headers="mg_con_22_y_23_anos">0.000000</td>
+<td class="gt_row gt_right" headers="mg_con_24_anos_o_mas">41.176471</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="clave">0001PP0003</td>
+<td class="gt_row gt_right" headers="region">01</td>
+<td class="gt_row gt_left" headers="nombre_distrito">La Plata</td>
+<td class="gt_row gt_left" headers="localidad">ANGEL ETCHEVERRY</td>
+<td class="gt_row gt_left" headers="ambito">Urbano</td>
+<td class="gt_row gt_right" headers="cueanexo">060886200</td>
+<td class="gt_row gt_right" headers="matricula">464</td>
+<td class="gt_row gt_right" headers="secciones">20</td>
+<td class="gt_row gt_right" headers="matri_seccion">23.20000</td>
+<td class="gt_row gt_left" headers="jornada">JS</td>
+<td class="gt_row gt_right" headers="porc_auh_2023">67.61711</td>
+<td class="gt_row gt_right" headers="indice_de_vulnerabilidad">0.7271001</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a3_irdg">54.22980</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a4_irdg">61.34615</td>
+<td class="gt_row gt_right" headers="prueba2_23_pd_l_a6_irdg">81.15942</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a3_irdg">64.39394</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a4_irdg">53.61842</td>
+<td class="gt_row gt_right" headers="prueba2_23_mat_a6_irdg">77.69841</td>
+<td class="gt_row gt_right" headers="prueba1_23_pd_l_a3_irdg">57.72152</td>
+<td class="gt_row gt_right" headers="prueba1_23_pd_l_a6_irdg">79.44444</td>
+<td class="gt_row gt_right" headers="prueba1_23_mat_a3_irdg">55.640244</td>
+<td class="gt_row gt_right" headers="prueba1_23_mat_a6_irdg">88.4154929999999</td>
+<td class="gt_row gt_right" headers="sondeo_primero">58.39394</td>
+<td class="gt_row gt_right" headers="sondeo_segundo">53.43284</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_total">1.0000000</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_marzo">1.0000000</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_abril">1.0000000</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_mayo">1.0000000</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_junio">1</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_julio">1</td>
+<td class="gt_row gt_right" headers="indice_presencialidad_agosto">1</td>
+<td class="gt_row gt_right" headers="direct_con_0_y_1_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_2_y_3_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_4_a_6_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_7_a_9_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_10_y_11_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_12_a_14_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_15_y_16_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_17_a_19_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_20_y_21_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_22_y_23_anos">0</td>
+<td class="gt_row gt_right" headers="direct_con_24_anos_o_mas">100</td>
+<td class="gt_row gt_right" headers="mg_con_0_y_1_anos">0.000000</td>
+<td class="gt_row gt_right" headers="mg_con_2_y_3_anos">9.523810</td>
+<td class="gt_row gt_right" headers="mg_con_4_a_6_anos">14.28571</td>
+<td class="gt_row gt_right" headers="mg_con_7_a_9_anos">4.761905</td>
+<td class="gt_row gt_right" headers="mg_con_10_y_11_anos">9.523810</td>
+<td class="gt_row gt_right" headers="mg_con_12_a_14_anos">4.761905</td>
+<td class="gt_row gt_right" headers="mg_con_15_y_16_anos">14.285714</td>
+<td class="gt_row gt_right" headers="mg_con_17_a_19_anos">28.571429</td>
+<td class="gt_row gt_right" headers="mg_con_20_y_21_anos">0.000000</td>
+<td class="gt_row gt_right" headers="mg_con_22_y_23_anos">0.000000</td>
+<td class="gt_row gt_right" headers="mg_con_24_anos_o_mas">14.285714</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<p>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades derivadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una “buena” muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos…al menos si se lo compara con tener acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las estimaciones de las diferentes muestras y los respectivos valores de los parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</p>
+<section id="azar-simple" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="azar-simple"><span class="header-section-number">2.1</span> Azar simple</h2>
+<p>Dentro de los métodos aleatorios el método del azar simple (<em>random sampling</em>) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo “único” que pide es una lista de “contactos” de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunos ambientes. Por ejemplo, en contextos antropológicos o arqueológicos. Aunque es entendible que la mayor abundancia actual d Si bien no se puede <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>m_azar_simple_100 <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de las escuelas en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades agregadas de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una “buena” muestra desde este archivo. Claramente este archivo es bueno para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos…al menos si se tiene acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las diferentes muestras y los respectivos valores o parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</p>
 
 
 <!-- -->
 
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una “lista” previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo “Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos”.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -735,32 +1462,51 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   <div class="nav-page nav-page-next">
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb9" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Azar simple"</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Básicamente vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R.</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setting</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que instalar las librerias previamente sino las tienen instaladas</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">i_am</span>(<span class="st">"azar.qmd"</span>)</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: input</span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>()</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de las escuelas en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades agregadas de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una "buena" muestra desde este archivo. Claramente este archivo es bueno para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se tiene acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las diferentes muestras y los respectivos valores o parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</span>
+<div class="sourceCode" id="cb13" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Azar simple"</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Por ahora vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R. Por otro lado, con este insumo nos vamos a focalizar en el *diseño* de las muestras y en la construcción de ponderadores y expansores pero no vamos a ver estrategias de calibración. En otras palabras, vamos a ver estrategias *ex-ante* la producción del dato primario y no vamos a ver estrategias, usualmente más realistas pero también más variables de forma circunstancial (p.e. no respuesta ), *ex-post* producción del dato primario.</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setting</span></span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que instalar las librerias previamente sino las tienen instaladas</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a><span class="fu">i_am</span>(<span class="st">"azar.qmd"</span>)</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: input</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>()</span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>base <span class="sc">|&gt;</span></span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades derivadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara con tener acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las estimaciones de las diferentes muestras y los respectivos valores de los parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a><span class="fu">## Azar simple</span></span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunos ambientes. Por ejemplo, en contextos antropológicos o arqueológicos. Aunque es entendible que la mayor abundancia actual d Si bien no se puede <span class="ot">[^azar-1]</span></span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple</span></span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a>m_azar_simple_100 <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb13-48"><a href="#cb13-48" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)</span>
+<span id="cb13-49"><a href="#cb13-49" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb13-50"><a href="#cb13-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-51"><a href="#cb13-51" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-1]: </span>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos ".</span>
 </code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
