@@ -127,15 +127,7 @@ mean_value <- lapply(secciones, mean, na.rm = TRUE) |>
 unlist()
 mean_value
 
-bind_rows(sample_list) %>%
-           group_by(ID, Species) %>%
-           summarise_each(funs(mean))
 
-estimaciones_azar_simple = sample_list |>
-unnest()
-
-opa = m_azares_2 |>
-unnest(col = c(V1, V2))
 ```
 
 ## Muestreo sistemático
