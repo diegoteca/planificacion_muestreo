@@ -2,22 +2,13 @@
 title: "Azar simple"
 ---
 
-Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Por ahora vamos a trabajar con un sólo insumo que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código va a ser en lenguaje R. Por otro lado, con este insumo nos vamos a focalizar en el *diseño* de las muestras y en la construcción de ponderadores y expansores pero no vamos a ver estrategias de calibración. En otras palabras, vamos a ver estrategias *ex-ante* la producción del dato primario y no vamos a ver estrategias, usualmente más realistas pero también más variables de forma circunstancial (p.e. no respuesta ), *ex-post* producción del dato primario.
+Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Por ahora vamos a trabajar con un sólo insumo empírico que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código con que vamos a procesar los datos va a ser en lenguaje R. Por otro lado, con este insumo nos vamos a focalizar en el *diseño* de las muestras y en la construcción de ponderadores y expansores pero no vamos a ver por ahora estrategias de calibración. En otras palabras, vamos a ver estrategias *ex-ante* la producción del dato primario y no vamos a ver estrategias, usualmente más realistas pero también más variables de forma circunstancial (p.e. ajuste por no respuesta ), *ex-post* producción del dato primario.
 
-```{r}
-#| label: setting
+## Porqué el azar produce muestras (aproximadamente) representativas
 
-# Hay que instalar las librerias previamente sino las tienen instaladas
+Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
 
-library(here)
-library(readxl)
-library(janitor)
-library(tidyverse)
-library(gt)
-library(sampling)
-
-i_am("azar.qmd")
-```
+Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este [link](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html).
 
 ```{=html}
 <iframe 
@@ -27,6 +18,29 @@ src = "https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html"
 title = "Webpage example">
 </iframe>
 ```
+## Población
+
+```{r}
+#| label: setting
+
+# Hay que instalar las siguientes librerias previamente sino las tienen instaladas
+
+library(here)
+library(readxl)
+library(janitor)
+library(tidyverse)
+library(gt)
+library(sampling)
+library(gtsummary)
+
+i_am("azar.qmd")
+
+theme_gtsummary_language(
+language = "es",
+decimal.mark = ",",
+big.mark = ".")
+```
+
 ```{r}
 #| label: input
 
@@ -40,32 +54,88 @@ gt()
 
 Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.) pero otras pueden considerarse como propiedades derivadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara con tener acceso a lista de estudiantes o directivos con el respectivo dato de la escuela. Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener siempre los valores de las estimaciones de las diferentes muestras y los respectivos valores de los parámetros poblaciones para comparar resultados. Esta situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
 
+Dentro de los parámetros poblacionales vamos a calcular los siguientes:
+
+-   Matrícula
+
+-   Secciones
+
+-   Sondeo primero
+
+-   Sondeo segundo
+
+-   Región
+
+-   Ámbito
+
+    Algunas de las variables anteriores son categóricas (región) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (región) que una variable categórica de 3 categorías (Ámbito).
+
+    ```{r}
+    #| label: parametros_base
+
+    base_toy = base |>
+    select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) 
+    pob_param = base_toy |>
+    tbl_summary(include = !clave,
+                statistic = list(
+          all_continuous() ~ "{mean} ({p25}, {p75})"))
+
+    pob_param
+    ```
+
+Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos van a servir, más adelante, para mejorar las muestras efectivamente obtenidas.
+
 ## Azar simple
 
-Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones. [^azar-1]
+Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. Es el que hemos utilizado en la simulación anterior. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de contactos de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones.[^azar-1]
 
 ```{r}
 #| label: azar_simple
-#| eval: false
-set.seed(1) 
 
-sizes <- c(100, 200, 300, 400, 500, )
-sample_set <- lapply(sizes, function(i) base[sample(nrow(base), i), ])
+set.seed(3) 
 
-m_azar_simple_100 = base |>
+sizes <- c(100, 200, 300, 400, 500)
+sample_list <- lapply(sizes, function(i) base_toy[sample(nrow(base_toy), i), ])
+
+m_azar_simple_100 = base_toy |>
 slice_sample(n = 100, replace = T)
 
-m_azar_simple_200 = base |>
+m_azar_simple_200 = base_toy |>
 slice_sample(n = 200, replace = T)
 
-m_azar_simple_300 = base |>
+m_azar_simple_300 = base_toy |>
 slice_sample(n = 300, replace = T)
 
-m_azares = base |>
+m_azares = base_toy |>
 summary(papa = map(1:n, \(i) slice_sample(n = 100)))
 
-m_azares_2 = replicate(2, slice_sample(base, n = 100, replace = T))
+m_azares_2 = replicate(2, slice_sample(base_toy, n = 100, replace = T))
 
+```
+
+```{r}
+#| label: estimaciones_azar_simple
+
+
+matricula <- lapply(sample_list, pluck, 2)
+mean_value <- lapply(matricula, mean, na.rm = TRUE) |> 
+unlist()
+mean_value
+
+secciones <- lapply(sample_list, pluck, 3)
+mean_value <- lapply(secciones, mean, na.rm = TRUE) |> 
+unlist()
+mean_value
+
+bind_rows(sample_list) %>%
+           group_by(ID, Species) %>%
+           summarise_each(funs(mean))
+
+estimaciones_azar_simple = sample_list |>
+unnest()
+
+opa = m_azares_2 |>
+unnest(col = c(V1, V2))
 ```
 
 ## Muestreo sistemático
