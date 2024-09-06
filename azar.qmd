@@ -20,10 +20,11 @@ i_am("azar.qmd")
 ```
 
 ```{=html}
-<iframe width="780" 
-height="500" 
-src="https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" 
-title="Webpage example">
+<iframe 
+width = 100% 
+height = "500" 
+src = "https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" 
+title = "Webpage example">
 </iframe>
 ```
 ```{r}

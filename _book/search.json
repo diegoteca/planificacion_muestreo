@@ -20,21 +20,21 @@
     ]
   },
   {
-    "objectID": "azar.html#footnotes",
-    "href": "azar.html#footnotes",
-    "title": "2  Azar simple",
-    "section": "",
-    "text": "Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una “lista” previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo “Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos”.↩︎",
-    "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Azar simple</span>"
-    ]
-  },
-  {
     "objectID": "azar.html#muestreo-sistemático",
     "href": "azar.html#muestreo-sistemático",
     "title": "2  Azar simple",
     "section": "2.2 Muestreo sistemático",
     "text": "2.2 Muestreo sistemático\n\n\nCódigo\nstart &lt;- sample(1:10, size = 1)\nm_azar_sistematico_100 = base |&gt;\n  slice(seq(start, n(), by = ))",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Azar simple</span>"
+    ]
+  },
+  {
+    "objectID": "azar.html#footnotes",
+    "href": "azar.html#footnotes",
+    "title": "2  Azar simple",
+    "section": "",
+    "text": "Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una “lista” previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo “Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos”.↩︎",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Azar simple</span>"
     ]

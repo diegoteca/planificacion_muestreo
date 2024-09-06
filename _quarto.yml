@@ -3,6 +3,9 @@ project:
   output-dir: "_book"
   execute-dir: project
 
+resources:
+  simulador_teorema_limite_central.html
+
 book:
   title: "Taller Muestreo"
 #  author: ""
