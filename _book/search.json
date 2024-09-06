@@ -14,7 +14,7 @@
     "href": "azar.html",
     "title": "2  Azar simple",
     "section": "",
-    "text": "2.1 Azar simple\nDentro de los métodos aleatorios el método del azar simple (random sampling) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo “único” que pide es una lista de “contactos” de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunos ambientes. Por ejemplo, en contextos antropológicos o arqueológicos. Aunque es entendible que la mayor abundancia actual d Si bien no se puede 1\nCódigo\nm_azar_simple_100 = base |&gt;\nslice_sample(n = 100)",
+    "text": "2.1 Azar simple\nDentro de los métodos aleatorios el método del azar simple (random sampling) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo “único” que pide es una lista de “contactos” de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de “contacto” es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones. 1\nCódigo\nset.seed(1) \n\nsizes &lt;- c(100, 200, 300, 400, 500, )\nsample_set &lt;- lapply(sizes, function(i) base[sample(nrow(base), i), ])\n\nm_azar_simple_100 = base |&gt;\nslice_sample(n = 100, replace = T)\n\nm_azar_simple_200 = base |&gt;\nslice_sample(n = 200, replace = T)\n\nm_azar_simple_300 = base |&gt;\nslice_sample(n = 300, replace = T)\n\nm_azares = base |&gt;\nsummary(papa = map(1:n, \\(i) slice_sample(n = 100)))\n\nm_azares_2 = replicate(2, slice_sample(base, n = 100, replace = T))",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Azar simple</span>"
     ]
@@ -25,6 +25,16 @@
     "title": "2  Azar simple",
     "section": "",
     "text": "Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una “lista” previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo “Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos”.↩︎",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Azar simple</span>"
+    ]
+  },
+  {
+    "objectID": "azar.html#muestreo-sistemático",
+    "href": "azar.html#muestreo-sistemático",
+    "title": "2  Azar simple",
+    "section": "2.2 Muestreo sistemático",
+    "text": "2.2 Muestreo sistemático\n\n\nCódigo\nstart &lt;- sample(1:10, size = 1)\nm_azar_sistematico_100 = base |&gt;\n  slice(seq(start, n(), by = ))",
     "crumbs": [
       "<span class='chapter-number'>2</span>  <span class='chapter-title'>Azar simple</span>"
     ]

@@ -14,10 +14,18 @@ library(readxl)
 library(janitor)
 library(tidyverse)
 library(gt)
+library(sampling)
 
 i_am("azar.qmd")
 ```
 
+```{=html}
+<iframe width="780" 
+height="500" 
+src="https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" 
+title="Webpage example">
+</iframe>
+```
 ```{r}
 #| label: input
 
@@ -33,19 +41,30 @@ Como puede observarse se trata de una base de escuelas en el sentido que en cada
 
 ## Azar simple
 
-Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones. [^azar-1]
+Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que único y contactos se encuentran entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones. [^azar-1]
 
 ```{r}
 #| label: azar_simple
+#| eval: false
+set.seed(1) 
+
+sizes <- c(100, 200, 300, 400, 500, )
+sample_set <- lapply(sizes, function(i) base[sample(nrow(base), i), ])
 
 m_azar_simple_100 = base |>
 slice_sample(n = 100, replace = T)
 
+m_azar_simple_200 = base |>
+slice_sample(n = 200, replace = T)
+
+m_azar_simple_300 = base |>
+slice_sample(n = 300, replace = T)
+
 m_azares = base |>
 summary(papa = map(1:n, \(i) slice_sample(n = 100)))
 
-
 m_azares_2 = replicate(2, slice_sample(base, n = 100, replace = T))
+
 ```
 
 ## Muestreo sistemático
