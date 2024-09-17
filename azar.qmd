@@ -6,7 +6,7 @@ Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuan
 
 ## Porqué el azar produce muestras (aproximadamente) representativas
 
-Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
+Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
 
 Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este [link](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html).
 
@@ -18,6 +18,10 @@ src = "https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html"
 title = "Webpage example">
 </iframe>
 ```
+Con este programa podemos jugar de varias formas. Aquí nos interesa las siguientes. En primer lugar ver que pasa, en los términos de la figura "datos acumulativos de las muestras" cuando realizamos muchas muestras sobre una misma población. Como veremos, estas distribuciones, en especial si la muestra contiene más de 30 casos, converge hacia un patrón de distribución "normal". Lo interesante es que esta distribución emerge con mayor o menor rapidez, de manera independiente de la forma de la población. Esto se puede probar escogiendo diferente poblaciones.
+
+Por otro lado se puede probar que sucede si, frente a una misma población (p.e. la población "Opción 3"), se realizan muestras (\>30) de diferente tamaño. Como se observará siempre se obtiene una distribución "normal" aunque con diferente varianza.
+
 ## Población
 
 ```{r}
@@ -68,10 +72,13 @@ Dentro de los parámetros poblacionales vamos a calcular los siguientes:
 
 -   Ámbito
 
-    Algunas de las variables anteriores son categóricas (región) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (región) que una variable categórica de 3 categorías (Ámbito).
+    Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (región) que una variable categórica de 3 categorías (ámbito).
+
+    En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría.
 
     ```{r}
-    #| label: parametros_base
+    #| label: tbl-parametros_base
+    #| tbl-cap: Valores poblacionales de las escuelas
 
     base_toy = base |>
     select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) 
@@ -83,19 +90,22 @@ Dentro de los parámetros poblacionales vamos a calcular los siguientes:
     pob_param
     ```
 
-Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos van a servir, más adelante, para mejorar las muestras efectivamente obtenidas.
+Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos van a servir, más adelante, para mejorar las muestras unitarias o individuales efectivamente obtenidas. Esto último, más allá de las tecnicas específicas que se utilicen, es importante por lo siguiente:
+
+Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría muchas veces supone una distribución de muestras (como en las simulaciones que se hicieron antes en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y la idea es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.
 
 ## Azar simple
 
-Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. Es el que hemos utilizado en la simulación anterior. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de contactos de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones.[^azar-1]
+Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de contactos de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de contacto es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones.[^azar-1]
 
 ```{r}
 #| label: azar_simple
 
 set.seed(3) 
 
-sizes <- c(100, 200, 300, 400, 500)
-sample_list <- lapply(sizes, function(i) base_toy[sample(nrow(base_toy), i), ])
+sizes = c(100, 200, 300, 400, 500)
+n = 5
+sample_list <- lapply(n, function(i) base_toy[sample(nrow(base_toy), i), ])
 
 m_azar_simple_100 = base_toy |>
 slice_sample(n = 100, replace = T)
@@ -109,7 +119,9 @@ slice_sample(n = 300, replace = T)
 m_azares = base_toy |>
 summary(papa = map(1:n, \(i) slice_sample(n = 100)))
 
-m_azares_2 = replicate(2, slice_sample(base_toy, n = 100, replace = T))
+m_azares_2 = lapply(replicate(2, slice_sample(base_toy, 
+                                       n = 100, 
+                                       replace = T)))
 
 ```
 
