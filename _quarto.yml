@@ -13,12 +13,14 @@ book:
   chapters:
     - index.qmd
     - azar.qmd
+    - references.qmd
     
 page-navigation: true
 
 search: true
 
-# bibliography: references.bib
+bibliography: references.bib
+#csl: apa.csl
 
 preview:
   port: 4200
