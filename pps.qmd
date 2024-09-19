@@ -1,0 +1,11 @@
+---
+title: "pps"
+---
+
+PPS (undPPS
+
+PPS (Probability Proportional to Size)
+
+La probabilidad de salir de una escuela es proporcional a la cantidad de estudiantes. Es importante que el archivo se encuentre ordenado (p.e. según cantidad y distrito).
+
+Se suele afirmar que se trata de una muestra "autoponderada".
