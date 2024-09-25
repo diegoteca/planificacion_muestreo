@@ -2,9 +2,7 @@
 title: "Azar simple"
 ---
 
-Como se trata de un formato tipo taller a partir de ahora vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Por ahora vamos a trabajar con un sólo insumo empírico que es una base de datos de establecimientos educativos de nivel primario, de gestión estatal, de la provincia de Buenos Aires y el código con que vamos a procesar los datos va a ser en lenguaje R. Por otro lado, con este insumo nos vamos a focalizar en el *diseño* de las muestras y en la construcción de ponderadores y expansores pero no vamos a ver por ahora estrategias de calibración. En otras palabras, vamos a ver estrategias *ex-ante* la producción del dato primario y no vamos a ver estrategias, usualmente más realistas pero también más variables de forma circunstancial (p.e. ajuste por no respuesta ), *ex-post* producción del dato primario.
-
-## Porqué el azar produce muestras (aproximadamente) representativas
+## Porqué usamos el azar para producir muestras (aproximadamente) representativas
 
 Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
 
@@ -18,15 +16,16 @@ src = "https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html"
 title = "Webpage example">
 </iframe>
 ```
+
 Con este programa podemos jugar de varias formas. Aquí nos interesa las siguientes.
 
-1.  En primer lugar ver que pasa, en los términos de la figura "datos acumulativos de las muestras" cuando realizamos muchas muestras sobre una misma población. Como veremos, estas distribuciones, en especial si la muestra contiene más de 30 casos, converge hacia un patrón de distribución "normal". Lo interesante es que esta distribución emerge con mayor o menor rapidez, de manera independiente de la forma de la población. Esto se puede probar escogiendo diferente poblaciones.
+1.  En primer lugar ver que pasa, en los términos de la figura "datos acumulativos de las muestras" cuando realizamos muchas muestras sobre una misma población (p.e. Población = "Opción 3"). Como veremos, estas distribuciones, en especial si la muestra contiene más de 30 casos, converge hacia un patrón de distribución "normal". Lo interesante es que esta distribución emerge con mayor o menor rapidez, de manera independiente de la forma de la población. Esto se puede probar escogiendo diferente poblaciones (p.e. Tamaño de la muestra = 30 y 200).
 
-2.  Por otro lado se puede probar que sucede si, frente a una misma población (p.e. la población "Opción 3"), se realizan muestras (\>30) de diferente tamaño. Como se observará siempre se obtiene una distribución "normal" aunque con diferente varianza.
+2.  Por otro lado se puede probar que sucede si, se hace el ejercicio anterior en diferentes poblaciones (p.e. con Población = "Opción 6"). Como se observará siempre se obtiene una distribución "normal" aunque en mayor tiempo y con una diferente varianza.
 
 ## Población
 
-Nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, de cada una de las unidades de selección se tiene la siguiente información:
+Nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, de cada una de las unidades de selección se tiene la siguiente información. Como veremos más adelante tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.
 
 ```{r}
 #| label: setting
@@ -60,9 +59,9 @@ slice_head(n = 3) |>
 gt()
 ```
 
-Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica posibilidades y límites sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela.
+Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).[^azar-1]
 
-Por ahora trabajaremos con este archivo para realizar diferentes muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interes de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
+Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
 
 Dentro de los parámetros poblacionales vamos a calcular los siguientes:
 
@@ -78,41 +77,27 @@ Dentro de los parámetros poblacionales vamos a calcular los siguientes:
 
 -   Ámbito
 
-    Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).
+Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).
 
-    En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.
+En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.
 
-    ```{r}
-    #| label: tbl-parametros_base
-    #| tbl-cap: Valores poblacionales de las escuelas
+```{r}
+#| label: tbl-parametros_base
+#| tbl-cap: Valores poblacionales de las escuelas
 
-    base_toy = base |>
-    select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) 
-    pob_param = base_toy |>
-    tbl_summary(include = !clave,
-                statistic = list(
-          all_continuous() ~ "{mean} ({p25}, {p75})"))
+base_toy = base |>
+select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) 
+pob_param = base_toy |>
+tbl_summary(include = !clave,
+            statistic = list(
+      all_continuous() ~ "{mean} ({p25}, {p75})"))
 
-    pob_param
-    ```
+pob_param
+```
 
-Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos van a servir, más adelante, para mejorar las muestras unitarias o individuales efectivamente obtenidas. Esto último, más allá de las tecnicas específicas que se utilicen, es importante por lo siguiente:
+Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar *ex-ante* las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:
 
-Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría de muestreo derivada de la aleatoriedad muchas veces supone una distribución de muestras (como en las simulaciones que se hicieron antes en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.
-
-## Librerias
-
-R es un lenguaje de programación que parece una opción razonable tanto para el diseño de la muestra como el posterior ajuste y análisis de los mismos. Si bien diseños de métodos de muestreo relativamente simples son posibles de realizarse con código R base la situación se complica un poco a medida que se quieren utilizar, y luego analizar, diseños más complejos.
-
-Ejemplos de librerías para analizar datos producidos con diseños muestrales pueden considerarse [survey](https://r-survey.r-forge.r-project.org/survey/), [svrep](https://bschneidr.github.io/svrep/) y su correspondiente versión tidy [srvyr](http://gdfe.co/srvyr/). Estas librerías generalmente agregan metainformación al dataframe original. Esta información hace referencia al modo en que fue realizada la muestra y es luego utilizada para realizar estimaciones puntuales con sus respectivos errores standards o intervalos de confianza. La librería survey es una librería madura mantenida principalmente por Thomas Lumley (un personaje conocido dentro de la comunidad de R) y la librería srvyr puede considerarse como su sucesora más moderna, aunque como lo destacan sus propios autores se trata de una librería más amigable en donde la mayoría del trabajo sucio lo sigue haciendo survey. Algo similar resulta entre survey y svrep ya que esta última se puede considerar una extensión (para algunas tareas más complejas) de la primera. Algo no menor es que no sólo existe compatibilidad entre las 3 librerías sino que, a pesar de la diferencia generacional (Lumley es el mayor) existe una relación afectuosa entre los diferentes autores. En efecto, Ben Schneider es un asiduo contribuidor de los 3 paquetes.[^azar-1]
-
-Ejemplos de librerías que sirvan para el diseño de las muestras y su posterior ajuste son [sampling](https://cran.r-project.org/web/packages/sampling/index.html), [balanced sampling](https://www.antongrafstrom.se/balancedsampling/). Al igual que con las librerías anteriores, aquí también existe relación entre los diferentes autores. La librería sampling es una librería madura creada bajo la tutela Yver Tillé, un personaje bastante conocido en el mundo de la estadística. La librería balanced sampling es una librería más moderna (corre en C^++^) y es mantenida por Anton Grafstrom que ha escrito con Tillé.
-
-## Spbsampling: Spatially Balanced Sampling
-
-Para el cálculo de los tamaños muestrales con diferentes diseños puede consultarse la librería [PracTools](https://cran.r-project.org/web/packages/PracTools/index.html).
-
-Dick J. Brus Spatial sampling <https://dickbrus.github.io/SpatialSamplingwithR/>
+Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría de muestreo derivada de la aleatoriedad muchas veces supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.
 
 ## Azar simple
 
@@ -170,6 +155,6 @@ m_azar_sistematico_100 = base |>
   slice(seq(start, n(), by = ))
 ```
 
-[^azar-1]: Existen más librerías que extienden a survey. [robsurvey](https://cran.r-project.org/web/packages/robsurvey/index.html), para la realización de estimaciones robustas, es otro ejemplo.
+[^azar-1]: Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.
 
 [^azar-2]: Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos ".

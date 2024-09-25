@@ -12,6 +12,7 @@ book:
 #  date: ""
   chapters:
     - index.qmd
+    - ecosistema_r.qmd
     - azar.qmd
     - references.qmd
     
