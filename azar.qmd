@@ -25,7 +25,7 @@ Con este programa podemos jugar de varias formas. Aquí nos interesa las siguien
 
 ## Población
 
-Nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, de cada una de las unidades de selección se tiene la siguiente información. Como veremos más adelante tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.
+Como se dijo anteriormente, nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, como se observa en @tbl-escuelas, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.
 
 ```{r}
 #| label: setting
@@ -49,7 +49,8 @@ big.mark = ".")
 ```
 
 ```{r}
-#| label: input
+#| label: tbl-escuelas
+#| tbl-cap: Información de las escuelas
 
 base = read_xlsx(here("Inputs", "base_escuelas_primaria.xlsx")) |>
 clean_names()

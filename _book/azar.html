@@ -243,7 +243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="población" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="población"><span class="header-section-number">3.2</span> Población</h2>
-<p>Nuestra <strong>población</strong> será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como <strong>unidades de selección</strong>, el subconjunto finalmente seleccionado será la <strong>muestra</strong> y la cantidad de los miembros seleccionados será el <strong>tamaño de la muestra</strong>. En este caso, de cada una de las unidades de selección se tiene la siguiente información. Como veremos más adelante tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.</p>
+<p>Como se dijo anteriormente, nuestra <strong>población</strong> será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como <strong>unidades de selección</strong>, el subconjunto finalmente seleccionado será la <strong>muestra</strong> y la cantidad de los miembros seleccionados será el <strong>tamaño de la muestra</strong>. En este caso, como se observa en <a href="#tbl-escuelas" class="quarto-xref">Tabla&nbsp;<span>3.1</span></a>, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -318,24 +318,30 @@ Adjuntando el paquete: 'janitor'</code></pre>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
 <span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div id="tbl-escuelas" class="cell quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-escuelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabla&nbsp;3.1: Información de las escuelas
+</figcaption>
+<div aria-describedby="tbl-escuelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="vjmebwvdyl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vjmebwvdyl table {
+<div id="tatoorrgcq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tatoorrgcq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vjmebwvdyl thead, #vjmebwvdyl tbody, #vjmebwvdyl tfoot, #vjmebwvdyl tr, #vjmebwvdyl td, #vjmebwvdyl th {
+#tatoorrgcq thead, #tatoorrgcq tbody, #tatoorrgcq tfoot, #tatoorrgcq tr, #tatoorrgcq td, #tatoorrgcq th {
   border-style: none;
 }
 
-#vjmebwvdyl p {
+#tatoorrgcq p {
   margin: 0;
   padding: 0;
 }
 
-#vjmebwvdyl .gt_table {
+#tatoorrgcq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -361,12 +367,12 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_caption {
+#tatoorrgcq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vjmebwvdyl .gt_title {
+#tatoorrgcq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -378,7 +384,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-bottom-width: 0;
 }
 
-#vjmebwvdyl .gt_subtitle {
+#tatoorrgcq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -390,7 +396,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-top-width: 0;
 }
 
-#vjmebwvdyl .gt_heading {
+#tatoorrgcq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -402,13 +408,13 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_bottom_border {
+#tatoorrgcq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_col_headings {
+#tatoorrgcq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -423,7 +429,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_col_heading {
+#tatoorrgcq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -443,7 +449,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   overflow-x: hidden;
 }
 
-#vjmebwvdyl .gt_column_spanner_outer {
+#tatoorrgcq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -455,15 +461,15 @@ Adjuntando el paquete: 'janitor'</code></pre>
   padding-right: 4px;
 }
 
-#vjmebwvdyl .gt_column_spanner_outer:first-child {
+#tatoorrgcq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vjmebwvdyl .gt_column_spanner_outer:last-child {
+#tatoorrgcq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vjmebwvdyl .gt_column_spanner {
+#tatoorrgcq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -475,11 +481,11 @@ Adjuntando el paquete: 'janitor'</code></pre>
   width: 100%;
 }
 
-#vjmebwvdyl .gt_spanner_row {
+#tatoorrgcq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vjmebwvdyl .gt_group_heading {
+#tatoorrgcq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -505,7 +511,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   text-align: left;
 }
 
-#vjmebwvdyl .gt_empty_group_heading {
+#tatoorrgcq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -520,15 +526,15 @@ Adjuntando el paquete: 'janitor'</code></pre>
   vertical-align: middle;
 }
 
-#vjmebwvdyl .gt_from_md > :first-child {
+#tatoorrgcq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vjmebwvdyl .gt_from_md > :last-child {
+#tatoorrgcq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vjmebwvdyl .gt_row {
+#tatoorrgcq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -547,7 +553,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   overflow-x: hidden;
 }
 
-#vjmebwvdyl .gt_stub {
+#tatoorrgcq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -560,7 +566,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   padding-right: 5px;
 }
 
-#vjmebwvdyl .gt_stub_row_group {
+#tatoorrgcq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -574,15 +580,15 @@ Adjuntando el paquete: 'janitor'</code></pre>
   vertical-align: top;
 }
 
-#vjmebwvdyl .gt_row_group_first td {
+#tatoorrgcq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vjmebwvdyl .gt_row_group_first th {
+#tatoorrgcq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vjmebwvdyl .gt_summary_row {
+#tatoorrgcq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -592,16 +598,16 @@ Adjuntando el paquete: 'janitor'</code></pre>
   padding-right: 5px;
 }
 
-#vjmebwvdyl .gt_first_summary_row {
+#tatoorrgcq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_first_summary_row.thick {
+#tatoorrgcq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vjmebwvdyl .gt_last_summary_row {
+#tatoorrgcq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -611,7 +617,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_grand_summary_row {
+#tatoorrgcq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -621,7 +627,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   padding-right: 5px;
 }
 
-#vjmebwvdyl .gt_first_grand_summary_row {
+#tatoorrgcq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -631,7 +637,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_last_grand_summary_row_top {
+#tatoorrgcq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -641,11 +647,11 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_striped {
+#tatoorrgcq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vjmebwvdyl .gt_table_body {
+#tatoorrgcq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -654,7 +660,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_footnotes {
+#tatoorrgcq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -668,7 +674,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_footnote {
+#tatoorrgcq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -677,7 +683,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   padding-right: 5px;
 }
 
-#vjmebwvdyl .gt_sourcenotes {
+#tatoorrgcq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -691,7 +697,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vjmebwvdyl .gt_sourcenote {
+#tatoorrgcq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -699,77 +705,77 @@ Adjuntando el paquete: 'janitor'</code></pre>
   padding-right: 5px;
 }
 
-#vjmebwvdyl .gt_left {
+#tatoorrgcq .gt_left {
   text-align: left;
 }
 
-#vjmebwvdyl .gt_center {
+#tatoorrgcq .gt_center {
   text-align: center;
 }
 
-#vjmebwvdyl .gt_right {
+#tatoorrgcq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vjmebwvdyl .gt_font_normal {
+#tatoorrgcq .gt_font_normal {
   font-weight: normal;
 }
 
-#vjmebwvdyl .gt_font_bold {
+#tatoorrgcq .gt_font_bold {
   font-weight: bold;
 }
 
-#vjmebwvdyl .gt_font_italic {
+#tatoorrgcq .gt_font_italic {
   font-style: italic;
 }
 
-#vjmebwvdyl .gt_super {
+#tatoorrgcq .gt_super {
   font-size: 65%;
 }
 
-#vjmebwvdyl .gt_footnote_marks {
+#tatoorrgcq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vjmebwvdyl .gt_asterisk {
+#tatoorrgcq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vjmebwvdyl .gt_indent_1 {
+#tatoorrgcq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vjmebwvdyl .gt_indent_2 {
+#tatoorrgcq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vjmebwvdyl .gt_indent_3 {
+#tatoorrgcq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vjmebwvdyl .gt_indent_4 {
+#tatoorrgcq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vjmebwvdyl .gt_indent_5 {
+#tatoorrgcq .gt_indent_5 {
   text-indent: 25px;
 }
 
-#vjmebwvdyl .katex-display {
+#tatoorrgcq .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#vjmebwvdyl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#tatoorrgcq div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_col_headings">
 <th id="clave" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">clave</th>
@@ -999,6 +1005,9 @@ Adjuntando el paquete: 'janitor'</code></pre>
 </div>
 </div>
 </div>
+</figure>
+</div>
+</div>
 <p>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una “buena” muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos…al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 <p>Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</p>
 <p>Dentro de los parámetros poblacionales vamos a calcular los siguientes:</p>
@@ -1012,7 +1021,7 @@ Adjuntando el paquete: 'janitor'</code></pre>
 </ul>
 <div class="no-first-line-indent-after"></div>
 <p>Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).</p>
-<p>En la <a href="#tbl-parametros_base" class="quarto-xref">Tabla&nbsp;<span>3.1</span></a> puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.</p>
+<p>En la <a href="#tbl-parametros_base" class="quarto-xref">Tabla&nbsp;<span>3.2</span></a> puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -1028,27 +1037,27 @@ Adjuntando el paquete: 'janitor'</code></pre>
 <div id="tbl-parametros_base" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-parametros_base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Tabla&nbsp;3.1: Valores poblacionales de las escuelas
+Tabla&nbsp;3.2: Valores poblacionales de las escuelas
 </figcaption>
 <div aria-describedby="tbl-parametros_base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="rxfznjpwzx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rxfznjpwzx table {
+<div id="pbdvjoifre" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pbdvjoifre table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rxfznjpwzx thead, #rxfznjpwzx tbody, #rxfznjpwzx tfoot, #rxfznjpwzx tr, #rxfznjpwzx td, #rxfznjpwzx th {
+#pbdvjoifre thead, #pbdvjoifre tbody, #pbdvjoifre tfoot, #pbdvjoifre tr, #pbdvjoifre td, #pbdvjoifre th {
   border-style: none;
 }
 
-#rxfznjpwzx p {
+#pbdvjoifre p {
   margin: 0;
   padding: 0;
 }
 
-#rxfznjpwzx .gt_table {
+#pbdvjoifre .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1074,12 +1083,12 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-left-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_caption {
+#pbdvjoifre .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rxfznjpwzx .gt_title {
+#pbdvjoifre .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1091,7 +1100,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-bottom-width: 0;
 }
 
-#rxfznjpwzx .gt_subtitle {
+#pbdvjoifre .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1103,7 +1112,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-top-width: 0;
 }
 
-#rxfznjpwzx .gt_heading {
+#pbdvjoifre .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1115,13 +1124,13 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_bottom_border {
+#pbdvjoifre .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_col_headings {
+#pbdvjoifre .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1136,7 +1145,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_col_heading {
+#pbdvjoifre .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1156,7 +1165,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   overflow-x: hidden;
 }
 
-#rxfznjpwzx .gt_column_spanner_outer {
+#pbdvjoifre .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1168,15 +1177,15 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   padding-right: 4px;
 }
 
-#rxfznjpwzx .gt_column_spanner_outer:first-child {
+#pbdvjoifre .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rxfznjpwzx .gt_column_spanner_outer:last-child {
+#pbdvjoifre .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rxfznjpwzx .gt_column_spanner {
+#pbdvjoifre .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1188,11 +1197,11 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   width: 100%;
 }
 
-#rxfznjpwzx .gt_spanner_row {
+#pbdvjoifre .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rxfznjpwzx .gt_group_heading {
+#pbdvjoifre .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1218,7 +1227,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   text-align: left;
 }
 
-#rxfznjpwzx .gt_empty_group_heading {
+#pbdvjoifre .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1233,15 +1242,15 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   vertical-align: middle;
 }
 
-#rxfznjpwzx .gt_from_md > :first-child {
+#pbdvjoifre .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rxfznjpwzx .gt_from_md > :last-child {
+#pbdvjoifre .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rxfznjpwzx .gt_row {
+#pbdvjoifre .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1260,7 +1269,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   overflow-x: hidden;
 }
 
-#rxfznjpwzx .gt_stub {
+#pbdvjoifre .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1273,7 +1282,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#rxfznjpwzx .gt_stub_row_group {
+#pbdvjoifre .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1287,15 +1296,15 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   vertical-align: top;
 }
 
-#rxfznjpwzx .gt_row_group_first td {
+#pbdvjoifre .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rxfznjpwzx .gt_row_group_first th {
+#pbdvjoifre .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rxfznjpwzx .gt_summary_row {
+#pbdvjoifre .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1305,16 +1314,16 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#rxfznjpwzx .gt_first_summary_row {
+#pbdvjoifre .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_first_summary_row.thick {
+#pbdvjoifre .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rxfznjpwzx .gt_last_summary_row {
+#pbdvjoifre .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1324,7 +1333,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_grand_summary_row {
+#pbdvjoifre .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1334,7 +1343,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#rxfznjpwzx .gt_first_grand_summary_row {
+#pbdvjoifre .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1344,7 +1353,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-top-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_last_grand_summary_row_top {
+#pbdvjoifre .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1354,11 +1363,11 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_striped {
+#pbdvjoifre .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rxfznjpwzx .gt_table_body {
+#pbdvjoifre .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1367,7 +1376,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_footnotes {
+#pbdvjoifre .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1381,7 +1390,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_footnote {
+#pbdvjoifre .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1390,7 +1399,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#rxfznjpwzx .gt_sourcenotes {
+#pbdvjoifre .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1404,7 +1413,7 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#rxfznjpwzx .gt_sourcenote {
+#pbdvjoifre .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1412,72 +1421,72 @@ Tabla&nbsp;3.1: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#rxfznjpwzx .gt_left {
+#pbdvjoifre .gt_left {
   text-align: left;
 }
 
-#rxfznjpwzx .gt_center {
+#pbdvjoifre .gt_center {
   text-align: center;
 }
 
-#rxfznjpwzx .gt_right {
+#pbdvjoifre .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rxfznjpwzx .gt_font_normal {
+#pbdvjoifre .gt_font_normal {
   font-weight: normal;
 }
 
-#rxfznjpwzx .gt_font_bold {
+#pbdvjoifre .gt_font_bold {
   font-weight: bold;
 }
 
-#rxfznjpwzx .gt_font_italic {
+#pbdvjoifre .gt_font_italic {
   font-style: italic;
 }
 
-#rxfznjpwzx .gt_super {
+#pbdvjoifre .gt_super {
   font-size: 65%;
 }
 
-#rxfznjpwzx .gt_footnote_marks {
+#pbdvjoifre .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rxfznjpwzx .gt_asterisk {
+#pbdvjoifre .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rxfznjpwzx .gt_indent_1 {
+#pbdvjoifre .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rxfznjpwzx .gt_indent_2 {
+#pbdvjoifre .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rxfznjpwzx .gt_indent_3 {
+#pbdvjoifre .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rxfznjpwzx .gt_indent_4 {
+#pbdvjoifre .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rxfznjpwzx .gt_indent_5 {
+#pbdvjoifre .gt_indent_5 {
   text-indent: 25px;
 }
 
-#rxfznjpwzx .katex-display {
+#pbdvjoifre .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#rxfznjpwzx div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#pbdvjoifre div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2251,7 +2260,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Población</span></span>
 <span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>Nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, de cada una de las unidades de selección se tiene la siguiente información. Como veremos más adelante tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.</span>
+<span id="cb21-28"><a href="#cb21-28" aria-hidden="true" tabindex="-1"></a>Como se dijo anteriormente, nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, como se observa en @tbl-escuelas, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.</span>
 <span id="cb21-29"><a href="#cb21-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-32"><a href="#cb21-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb21-33"><a href="#cb21-33" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setting</span></span>
@@ -2275,115 +2284,116 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb21-51"><a href="#cb21-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb21-52"><a href="#cb21-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb21-55"><a href="#cb21-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: input</span></span>
-<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>()</span>
-<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a>base <span class="sc">|&gt;</span></span>
-<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span>
-<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).<span class="ot">[^azar-1]</span></span>
-<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a>Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</span>
-<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a>Dentro de los parámetros poblacionales vamos a calcular los siguientes:</span>
-<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Matrícula</span>
-<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Secciones</span>
-<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo primero</span>
-<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo segundo</span>
-<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Región</span>
-<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ámbito</span>
-<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a>Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).</span>
-<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a>En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.</span>
-<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-90"><a href="#cb21-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-parametros_base</span></span>
-<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Valores poblacionales de las escuelas</span></span>
-<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a>base_toy <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
-<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) </span>
-<span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a>pob_param <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
-<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">include =</span> <span class="sc">!</span>clave,</span>
-<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a>            <span class="at">statistic =</span> <span class="fu">list</span>(</span>
-<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({p25}, {p75})"</span>))</span>
-<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a>pob_param</span>
-<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a>Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar *ex-ante* las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:</span>
-<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a>Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría de muestreo derivada de la aleatoriedad muchas veces supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.</span>
-<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## Azar simple</span></span>
-<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a>Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de contactos de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de contacto es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones.<span class="ot">[^azar-2]</span></span>
-<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-114"><a href="#cb21-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple</span></span>
-<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>) </span>
-<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span>
-<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a>sample_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(n, <span class="cf">function</span>(i) base_toy[<span class="fu">sample</span>(<span class="fu">nrow</span>(base_toy), i), ])</span>
-<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a>m_azar_simple_100 <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
-<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">replace =</span> T)</span>
-<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a>m_azar_simple_200 <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
-<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">replace =</span> T)</span>
-<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a>m_azar_simple_300 <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
-<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">300</span>, <span class="at">replace =</span> T)</span>
-<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a>m_azares <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
-<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="at">papa =</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span>n, \(i) <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)))</span>
-<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a><span class="co"># m_azares_2 = lapply(replicate(2, slice_sample(base_toy, </span></span>
-<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a>                            <span class="co">#           n = 100, </span></span>
-<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>                             <span class="co">#          replace = T)))</span></span>
-<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-143"><a href="#cb21-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: estimaciones_azar_simple</span></span>
-<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-56"><a href="#cb21-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-escuelas</span></span>
+<span id="cb21-57"><a href="#cb21-57" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Información de las escuelas</span></span>
+<span id="cb21-58"><a href="#cb21-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-59"><a href="#cb21-59" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-60"><a href="#cb21-60" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>()</span>
+<span id="cb21-61"><a href="#cb21-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-62"><a href="#cb21-62" aria-hidden="true" tabindex="-1"></a>base <span class="sc">|&gt;</span></span>
+<span id="cb21-63"><a href="#cb21-63" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb21-64"><a href="#cb21-64" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span>
+<span id="cb21-65"><a href="#cb21-65" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-66"><a href="#cb21-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-67"><a href="#cb21-67" aria-hidden="true" tabindex="-1"></a>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).<span class="ot">[^azar-1]</span></span>
+<span id="cb21-68"><a href="#cb21-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-69"><a href="#cb21-69" aria-hidden="true" tabindex="-1"></a>Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</span>
+<span id="cb21-70"><a href="#cb21-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-71"><a href="#cb21-71" aria-hidden="true" tabindex="-1"></a>Dentro de los parámetros poblacionales vamos a calcular los siguientes:</span>
+<span id="cb21-72"><a href="#cb21-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-73"><a href="#cb21-73" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Matrícula</span>
+<span id="cb21-74"><a href="#cb21-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-75"><a href="#cb21-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Secciones</span>
+<span id="cb21-76"><a href="#cb21-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-77"><a href="#cb21-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo primero</span>
+<span id="cb21-78"><a href="#cb21-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-79"><a href="#cb21-79" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo segundo</span>
+<span id="cb21-80"><a href="#cb21-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-81"><a href="#cb21-81" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Región</span>
+<span id="cb21-82"><a href="#cb21-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-83"><a href="#cb21-83" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ámbito</span>
+<span id="cb21-84"><a href="#cb21-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-85"><a href="#cb21-85" aria-hidden="true" tabindex="-1"></a>Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).</span>
+<span id="cb21-86"><a href="#cb21-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-87"><a href="#cb21-87" aria-hidden="true" tabindex="-1"></a>En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.</span>
+<span id="cb21-88"><a href="#cb21-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-91"><a href="#cb21-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-92"><a href="#cb21-92" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-parametros_base</span></span>
+<span id="cb21-93"><a href="#cb21-93" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Valores poblacionales de las escuelas</span></span>
+<span id="cb21-94"><a href="#cb21-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-95"><a href="#cb21-95" aria-hidden="true" tabindex="-1"></a>base_toy <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb21-96"><a href="#cb21-96" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) </span>
+<span id="cb21-97"><a href="#cb21-97" aria-hidden="true" tabindex="-1"></a>pob_param <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb21-98"><a href="#cb21-98" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">include =</span> <span class="sc">!</span>clave,</span>
+<span id="cb21-99"><a href="#cb21-99" aria-hidden="true" tabindex="-1"></a>            <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb21-100"><a href="#cb21-100" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({p25}, {p75})"</span>))</span>
+<span id="cb21-101"><a href="#cb21-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-102"><a href="#cb21-102" aria-hidden="true" tabindex="-1"></a>pob_param</span>
+<span id="cb21-103"><a href="#cb21-103" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-104"><a href="#cb21-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-105"><a href="#cb21-105" aria-hidden="true" tabindex="-1"></a>Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar *ex-ante* las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:</span>
+<span id="cb21-106"><a href="#cb21-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-107"><a href="#cb21-107" aria-hidden="true" tabindex="-1"></a>Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría de muestreo derivada de la aleatoriedad muchas veces supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.</span>
+<span id="cb21-108"><a href="#cb21-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-109"><a href="#cb21-109" aria-hidden="true" tabindex="-1"></a><span class="fu">## Azar simple</span></span>
+<span id="cb21-110"><a href="#cb21-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-111"><a href="#cb21-111" aria-hidden="true" tabindex="-1"></a>Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de contactos de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de contacto es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones.<span class="ot">[^azar-2]</span></span>
+<span id="cb21-112"><a href="#cb21-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-115"><a href="#cb21-115" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-116"><a href="#cb21-116" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple</span></span>
+<span id="cb21-117"><a href="#cb21-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-118"><a href="#cb21-118" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">3</span>) </span>
+<span id="cb21-119"><a href="#cb21-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-120"><a href="#cb21-120" aria-hidden="true" tabindex="-1"></a>sizes <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>, <span class="dv">400</span>, <span class="dv">500</span>)</span>
+<span id="cb21-121"><a href="#cb21-121" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb21-122"><a href="#cb21-122" aria-hidden="true" tabindex="-1"></a>sample_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(n, <span class="cf">function</span>(i) base_toy[<span class="fu">sample</span>(<span class="fu">nrow</span>(base_toy), i), ])</span>
+<span id="cb21-123"><a href="#cb21-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-124"><a href="#cb21-124" aria-hidden="true" tabindex="-1"></a>m_azar_simple_100 <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb21-125"><a href="#cb21-125" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">replace =</span> T)</span>
+<span id="cb21-126"><a href="#cb21-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-127"><a href="#cb21-127" aria-hidden="true" tabindex="-1"></a>m_azar_simple_200 <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb21-128"><a href="#cb21-128" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">replace =</span> T)</span>
+<span id="cb21-129"><a href="#cb21-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-130"><a href="#cb21-130" aria-hidden="true" tabindex="-1"></a>m_azar_simple_300 <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb21-131"><a href="#cb21-131" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">300</span>, <span class="at">replace =</span> T)</span>
+<span id="cb21-132"><a href="#cb21-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-133"><a href="#cb21-133" aria-hidden="true" tabindex="-1"></a>m_azares <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb21-134"><a href="#cb21-134" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="at">papa =</span> <span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span>n, \(i) <span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">100</span>)))</span>
+<span id="cb21-135"><a href="#cb21-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-136"><a href="#cb21-136" aria-hidden="true" tabindex="-1"></a><span class="co"># m_azares_2 = lapply(replicate(2, slice_sample(base_toy, </span></span>
+<span id="cb21-137"><a href="#cb21-137" aria-hidden="true" tabindex="-1"></a>                            <span class="co">#           n = 100, </span></span>
+<span id="cb21-138"><a href="#cb21-138" aria-hidden="true" tabindex="-1"></a>                             <span class="co">#          replace = T)))</span></span>
+<span id="cb21-139"><a href="#cb21-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-140"><a href="#cb21-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-141"><a href="#cb21-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-144"><a href="#cb21-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-145"><a href="#cb21-145" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: estimaciones_azar_simple</span></span>
 <span id="cb21-146"><a href="#cb21-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a>matricula <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sample_list, pluck, <span class="dv">2</span>)</span>
-<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a>mean_value <span class="ot">&lt;-</span> <span class="fu">lapply</span>(matricula, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>()</span>
-<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a>mean_value</span>
-<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a>secciones <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sample_list, pluck, <span class="dv">3</span>)</span>
-<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a>mean_value <span class="ot">&lt;-</span> <span class="fu">lapply</span>(secciones, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>()</span>
-<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a>mean_value</span>
-<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-147"><a href="#cb21-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-148"><a href="#cb21-148" aria-hidden="true" tabindex="-1"></a>matricula <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sample_list, pluck, <span class="dv">2</span>)</span>
+<span id="cb21-149"><a href="#cb21-149" aria-hidden="true" tabindex="-1"></a>mean_value <span class="ot">&lt;-</span> <span class="fu">lapply</span>(matricula, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-150"><a href="#cb21-150" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>()</span>
+<span id="cb21-151"><a href="#cb21-151" aria-hidden="true" tabindex="-1"></a>mean_value</span>
+<span id="cb21-152"><a href="#cb21-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-153"><a href="#cb21-153" aria-hidden="true" tabindex="-1"></a>secciones <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sample_list, pluck, <span class="dv">3</span>)</span>
+<span id="cb21-154"><a href="#cb21-154" aria-hidden="true" tabindex="-1"></a>mean_value <span class="ot">&lt;-</span> <span class="fu">lapply</span>(secciones, mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb21-155"><a href="#cb21-155" aria-hidden="true" tabindex="-1"></a><span class="fu">unlist</span>()</span>
+<span id="cb21-156"><a href="#cb21-156" aria-hidden="true" tabindex="-1"></a>mean_value</span>
 <span id="cb21-157"><a href="#cb21-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo sistemático</span></span>
-<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-164"><a href="#cb21-164" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a>m_azar_sistematico_100 <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
-<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">seq</span>(start, <span class="fu">n</span>(), <span class="at">by =</span> ))</span>
-<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-1]: </span>Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.</span>
-<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-2]: </span>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos ".</span>
+<span id="cb21-158"><a href="#cb21-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-159"><a href="#cb21-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-160"><a href="#cb21-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-161"><a href="#cb21-161" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo sistemático</span></span>
+<span id="cb21-162"><a href="#cb21-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-165"><a href="#cb21-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb21-166"><a href="#cb21-166" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
+<span id="cb21-167"><a href="#cb21-167" aria-hidden="true" tabindex="-1"></a>m_azar_sistematico_100 <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb21-168"><a href="#cb21-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">seq</span>(start, <span class="fu">n</span>(), <span class="at">by =</span> ))</span>
+<span id="cb21-169"><a href="#cb21-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb21-170"><a href="#cb21-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-171"><a href="#cb21-171" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-1]: </span>Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.</span>
+<span id="cb21-172"><a href="#cb21-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-173"><a href="#cb21-173" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-2]: </span>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos ".</span>
 </code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
