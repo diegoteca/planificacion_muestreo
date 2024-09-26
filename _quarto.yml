@@ -31,6 +31,7 @@ format:
   html:
     toc: true
     theme: cosmo
+    fig-cap-location: top
     other-links:
       - text: Repositorio del taller
         href: https://github.com/diegoteca/planificacion_muestreo
@@ -40,6 +41,9 @@ format:
        source: true
        toggle: true
        caption: "Código"
+    css: css_book.css
+    first-line-indent:
+      size: 0.5em
 
 editor: visual
 lang: es

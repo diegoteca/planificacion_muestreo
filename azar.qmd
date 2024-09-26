@@ -8,14 +8,12 @@ Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justif
 
 Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este [link](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html).
 
-```{=html}
 <iframe 
 width = 100% 
 height = "500" 
 src = "https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" 
 title = "Webpage example">
 </iframe>
-```
 
 Con este programa podemos jugar de varias formas. Aquí nos interesa las siguientes.
 
@@ -107,7 +105,7 @@ Dentro de los métodos aleatorios el método del azar simple (*random sampling*)
 
 Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.[^azar-2]
 
-A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras.
+A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior.
 
 ```{r}
 #| label: azar_simple

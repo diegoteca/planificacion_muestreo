@@ -1,0 +1,13 @@
+---
+title: "Untitled"
+---
+
+FALTA
+
+Muestreo del CUBO
+
+Muestreo del CUBO SPACIAL
+
+AGREGAR EL SURVEY o el SVRY para ver margen de error
+
+Construcción de ponderadores
