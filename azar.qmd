@@ -8,11 +8,8 @@ Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justif
 
 Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este [link](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html).
 
-<iframe 
-width = 100% 
-height = "500" 
-src = "https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" 
-title = "Webpage example">
+<iframe width="100%" height="500" src="https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" title="Webpage example">
+
 </iframe>
 
 Con este programa podemos jugar de varias formas. Aquí nos interesa las siguientes.
@@ -39,6 +36,8 @@ library(sampling)
 library(gtsummary)
 library(infer)
 library(patchwork)
+library(srvyr)
+library(survey)
 
 i_am("azar.qmd")
 
@@ -56,6 +55,9 @@ base = read_xlsx(here("Inputs", "base_escuelas_primaria.xlsx")) |>
 clean_names() |>
 mutate(ambito = as_factor(ambito),
        region = as_factor(region))
+
+# Le agrego las coordenadas de los colegios
+
 
 base |>
 slice_head(n = 3) |>
@@ -111,9 +113,9 @@ Desde una perspectiva amplia, en la actualidad se podría afirmar que este méto
 A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. Esto se puede observar en la @tbl-medias_muestrales_azar_simple.
 
 ```{r}
-#| label: azar_simple
+#| label: azar_simple_rep
 
-set.seed(3) 
+set.seed(123) 
 
 muestras_azar_simple = base_toy |>
 rep_slice_sample(n = 300,
@@ -139,7 +141,7 @@ tbl_summary(include = !replicate,
 tbl_medias_muestrales
 ```
 
-Como se puede comparar entre @tbl-parametros_base y @tbl-medias_muestrales_azar_simple los valores entre los parámetros poblacionales y la media de las estimaciones muestrales coincide. No sólo eso. También podemos chequear que la distribución de esas medias sigue una distribución aproximadamente normal. Esto es lo que precisamente hacemos en la @fig-medias_muestrales_azar_simple
+Como se puede comparar entre @tbl-parametros_base y @tbl-medias_muestrales_azar_simple los valores entre los parámetros poblacionales y la media de las estimaciones muestrales coincide. No sólo eso. También podemos chequear que la distribución de esas medias sigue una distribución aproximadamente normal. Esto es lo que precisamente hacemos en la @fig-medias_muestrales_azar_simple .
 
 ```{r}
 #| label: fig-medias_muestrales_azar_simple
@@ -184,16 +186,51 @@ fig_medias_muestrales_sondeo_primero +
 fig_medias_muestrales_sondeo_segundo
 ```
 
-```{r}
-#| label: using_survey
+En esta figura se observa que la distribución de las 1000 muestras que tomamos si bien se aproximan tampoco son idénticas a una distribución normal. Seguramente, si haríamos más muestras nos acercaríamos aún más a una distribución muestral pero quizá este ejemplo baste para explicitar el siguiente punto. Si haríamos muchas muestras vamos a saber con cierta seguridad que la media de las muestras será aproximadamente similar al parámetro poblacional pero ¿Qué sucede si sólo tomamos una sola muestra? ¿Cómo sabemos si nuestra (única) muestra es de las buenas o de las malas? ¿Cómo sabemos que nuestra muestra no es alguna de las que están más a la izquierda o más a la derecha en la @fig-medias_muestrales_azar_simple ?
 
-# library(survey)
-# 
-# design_si = svydesign(id = ~ 1, 
-#                       probs = ~ pi, 
-#                       data = mysample)
-# 
-# svymean(~ z, design = design_si)
+Ahí es donde entra la ayuda de las librerías específicas. En la sección XXX se había comentado sobre la existencia de librerías específicas para el análisis
+
+Aun cuando sea con azar simple es importante aclarar algunas cuestiones. El tipo de muestras que nos interesan generalmente son "sin reemplazo" en el sentido que no queremos que, por ejemplo, un mismo colegio aparezca dos veces en la muestra...al menos si queremos hacer una muestra de colegios y no de estudiantes.
+
+```{r}
+#| label: azar_simple
+
+set.seed(123) 
+
+# fpc = ((N-n)/(N-1))1/2
+
+
+
+muestra_azar_simple = base |>
+slice_sample(n = 300, replace = FALSE)
+
+n = nrow(muestra_azar_simple)
+N = nrow(base)
+
+muestra_azar_simple = muestra_azar_simple |>
+mutate(pw = N/n,
+       fpc = ((N-n)/(N-1))^(1/2))
+
+muestra_azar_simple_sv = muestra_azar_simple |>
+as_survey_design(ids = 1,
+                 weights = pw,
+                 fpc = fpc )
+```
+
+```{r}
+#| label: tbl-azar_simple
+#| tbl-cap: Estimaciones con azar simple
+
+library(cardx)
+
+tbl_azar_simple = muestra_azar_simple_sv |>
+tbl_svysummary(include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+               statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                                all_categorical() ~ "{n} {n_unweighted} ({p}%) {p.std.error}"))
+
+tbl_azar_simple
+
+
 
 ```
 
