@@ -39,6 +39,7 @@ library(tidyverse)
 library(gt)
 library(sampling)
 library(gtsummary)
+library(infer)
 
 i_am("azar.qmd")
 
@@ -102,50 +103,58 @@ Las muestras que se hacen en la realidad son "únicas" o "individuales" en el se
 
 ## Azar simple
 
-Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) del azar simple. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior. En la actualidad se podría afirmar que se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de contactos de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente. La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de contacto es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones.[^azar-2]
+Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) de este. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior.
+
+Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.[^azar-2]
+
+A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras.
 
 ```{r}
 #| label: azar_simple
 
 set.seed(3) 
 
-sizes = c(100, 200, 300, 400, 500)
-n = 5
-sample_list <- lapply(n, function(i) base_toy[sample(nrow(base_toy), i), ])
-
-m_azar_simple_100 = base_toy |>
-slice_sample(n = 100, replace = T)
-
-m_azar_simple_200 = base_toy |>
-slice_sample(n = 200, replace = T)
-
-m_azar_simple_300 = base_toy |>
-slice_sample(n = 300, replace = T)
-
-m_azares = base_toy |>
-summary(papa = map(1:n, \(i) slice_sample(n = 100)))
-
-# m_azares_2 = lapply(replicate(2, slice_sample(base_toy, 
-                            #           n = 100, 
-                             #          replace = T)))
+muestras_azar_simple = base_toy |>
+rep_slice_sample(n = 300,
+                 replace = FALSE,
+                 reps = 1000)  
 
 ```
 
 ```{r}
-#| label: estimaciones_azar_simple
+#| label: medias_muestrales_azar_simple
 
+tbl_medias_muestrales = muestras_azar_simple |>
+group_by(replicate) |>
+summarise(matricula = mean(matricula, na.rm = TRUE),
+          secciones = mean(secciones, na.rm = TRUE),
+          sondeo_primero = mean(sondeo_primero, na.rm = TRUE),
+          sondeo_segundo = mean(sondeo_segundo, na.rm = TRUE)) |>
+tbl_summary(include = !replicate)
 
-matricula <- lapply(sample_list, pluck, 2)
-mean_value <- lapply(matricula, mean, na.rm = TRUE) |> 
-unlist()
-mean_value
+tbl_medias_muestrales
+```
 
-secciones <- lapply(sample_list, pluck, 3)
-mean_value <- lapply(secciones, mean, na.rm = TRUE) |> 
-unlist()
-mean_value
+```{r}
+#| label: using_survey
 
+# library(survey)
+# 
+# design_si = svydesign(id = ~ 1, 
+#                       probs = ~ pi, 
+#                       data = mysample)
+# 
+# svymean(~ z, design = design_si)
 
+```
+
+```{r}
+library(PracTools)
+
+ceiling(nPropMoe(moe.sw = 1, 
+                 e = seq(0.01,0.08,0.01), 
+                 alpha = 0.05, 
+                 pU = 0.5))
 ```
 
 ## Muestreo sistemático
@@ -158,4 +167,4 @@ m_azar_sistematico_100 = base |>
 
 [^azar-1]: Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.
 
-[^azar-2]: Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x casos ".
+[^azar-2]: Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición, eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x cantidad de casos ".

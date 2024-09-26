@@ -45,6 +45,10 @@ editor: visual
 lang: es
 language:
   search-text-placeholder: Buscar
+  
+execute: 
+  warning: false
+  message: false
 
 # Extensiones
 
