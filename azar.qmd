@@ -38,6 +38,7 @@ library(gt)
 library(sampling)
 library(gtsummary)
 library(infer)
+library(patchwork)
 
 i_am("azar.qmd")
 
@@ -52,7 +53,9 @@ big.mark = ".")
 #| tbl-cap: Información de las escuelas
 
 base = read_xlsx(here("Inputs", "base_escuelas_primaria.xlsx")) |>
-clean_names()
+clean_names() |>
+mutate(ambito = as_factor(ambito),
+       region = as_factor(region))
 
 base |>
 slice_head(n = 3) |>
@@ -105,7 +108,7 @@ Dentro de los métodos aleatorios el método del azar simple (*random sampling*)
 
 Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.[^azar-2]
 
-A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior.
+A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. Esto se puede observar en la @tbl-medias_muestrales_azar_simple.
 
 ```{r}
 #| label: azar_simple
@@ -120,7 +123,8 @@ rep_slice_sample(n = 300,
 ```
 
 ```{r}
-#| label: medias_muestrales_azar_simple
+#| label: tbl-medias_muestrales_azar_simple
+#| tbl-cap: Medias de las medias muestrales
 
 tbl_medias_muestrales = muestras_azar_simple |>
 group_by(replicate) |>
@@ -128,9 +132,56 @@ summarise(matricula = mean(matricula, na.rm = TRUE),
           secciones = mean(secciones, na.rm = TRUE),
           sondeo_primero = mean(sondeo_primero, na.rm = TRUE),
           sondeo_segundo = mean(sondeo_segundo, na.rm = TRUE)) |>
-tbl_summary(include = !replicate)
+tbl_summary(include = !replicate,
+            statistic = list(
+      all_continuous() ~ "{mean} ({p25}, {p75})"))
 
 tbl_medias_muestrales
+```
+
+Como se puede comparar entre @tbl-parametros_base y @tbl-medias_muestrales_azar_simple los valores entre los parámetros poblacionales y la media de las estimaciones muestrales coincide. No sólo eso. También podemos chequear que la distribución de esas medias sigue una distribución aproximadamente normal. Esto es lo que precisamente hacemos en la @fig-medias_muestrales_azar_simple
+
+```{r}
+#| label: fig-medias_muestrales_azar_simple
+#| fig-cap: Distribución de las medias muestrales
+
+fig_medias_muestrales_matricula = muestras_azar_simple |>
+group_by(replicate) |>
+summarise(matricula = mean(matricula, na.rm = TRUE)) |>
+ggplot(aes(matricula)) +
+geom_histogram() + 
+xlab("Matrícula") +
+ylab("Cantidad de muestras")
+
+fig_medias_muestrales_secciones = muestras_azar_simple |>
+group_by(replicate) |>
+summarise(secciones = mean(secciones, na.rm = TRUE)) |>
+ggplot(aes(secciones)) +
+geom_histogram() + 
+xlab("Secciones") +
+ylab("Cantidad de muestras")
+
+fig_medias_muestrales_sondeo_primero = muestras_azar_simple |>
+group_by(replicate) |>
+summarise(sondeo_primero = mean(sondeo_primero, na.rm = TRUE)) |>
+ggplot(aes(sondeo_primero)) +
+geom_histogram() + 
+xlab("Primer Sondeo") +
+ylab("Cantidad de muestras")
+
+fig_medias_muestrales_sondeo_segundo = muestras_azar_simple |>
+group_by(replicate) |>
+summarise(sondeo_segundo = mean(sondeo_segundo, na.rm = TRUE)) |>
+ggplot(aes(sondeo_segundo)) +
+geom_histogram() + 
+xlab("Segundo Sondeo") +
+ylab("Cantidad de muestras")
+
+
+fig_medias_muestrales_matricula +
+fig_medias_muestrales_secciones +
+fig_medias_muestrales_sondeo_primero +
+fig_medias_muestrales_sondeo_segundo
 ```
 
 ```{r}
