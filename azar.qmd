@@ -224,15 +224,18 @@ as_survey_design(ids = 1,
 library(cardx)
 
 tbl_azar_simple = muestra_azar_simple_sv |>
-tbl_svysummary(include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-               statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
-                                all_categorical() ~ "{n} {n_unweighted} ({p}%) {p.std.error}"))
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{n} {n_unweighted} ({p}%) {p.std.error}"))
 
 tbl_azar_simple
 
 
 
 ```
+
+Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surguen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.
 
 ```{r}
 library(PracTools)
