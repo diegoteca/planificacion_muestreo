@@ -65,7 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./references.html" rel="next">
-<link href="./ecosistema_r.html" rel="prev">
+<link href="./muestras.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -129,6 +129,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="css_book.css">
 </head>
@@ -170,13 +199,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Taller Muestreo</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Código para activar librerias. Instala también las librerías que se necesitan pero no están instaladas previamente</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ecosistema_r.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  <a href="./muestras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cuando y porqué hacer muestras</span></span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -292,23 +321,23 @@ Tabla&nbsp;3.1: Información de las escuelas
 </figcaption>
 <div aria-describedby="tbl-escuelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="ejrqowxeex" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ejrqowxeex table {
+<div id="cwwbgdmfmz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#cwwbgdmfmz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ejrqowxeex thead, #ejrqowxeex tbody, #ejrqowxeex tfoot, #ejrqowxeex tr, #ejrqowxeex td, #ejrqowxeex th {
+#cwwbgdmfmz thead, #cwwbgdmfmz tbody, #cwwbgdmfmz tfoot, #cwwbgdmfmz tr, #cwwbgdmfmz td, #cwwbgdmfmz th {
   border-style: none;
 }
 
-#ejrqowxeex p {
+#cwwbgdmfmz p {
   margin: 0;
   padding: 0;
 }
 
-#ejrqowxeex .gt_table {
+#cwwbgdmfmz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -334,12 +363,12 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-left-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_caption {
+#cwwbgdmfmz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ejrqowxeex .gt_title {
+#cwwbgdmfmz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -351,7 +380,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-width: 0;
 }
 
-#ejrqowxeex .gt_subtitle {
+#cwwbgdmfmz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -363,7 +392,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-top-width: 0;
 }
 
-#ejrqowxeex .gt_heading {
+#cwwbgdmfmz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -375,13 +404,13 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_bottom_border {
+#cwwbgdmfmz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_col_headings {
+#cwwbgdmfmz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -396,7 +425,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_col_heading {
+#cwwbgdmfmz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -416,7 +445,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   overflow-x: hidden;
 }
 
-#ejrqowxeex .gt_column_spanner_outer {
+#cwwbgdmfmz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -428,15 +457,15 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 4px;
 }
 
-#ejrqowxeex .gt_column_spanner_outer:first-child {
+#cwwbgdmfmz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ejrqowxeex .gt_column_spanner_outer:last-child {
+#cwwbgdmfmz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ejrqowxeex .gt_column_spanner {
+#cwwbgdmfmz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -448,11 +477,11 @@ Tabla&nbsp;3.1: Información de las escuelas
   width: 100%;
 }
 
-#ejrqowxeex .gt_spanner_row {
+#cwwbgdmfmz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ejrqowxeex .gt_group_heading {
+#cwwbgdmfmz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -478,7 +507,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   text-align: left;
 }
 
-#ejrqowxeex .gt_empty_group_heading {
+#cwwbgdmfmz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -493,15 +522,15 @@ Tabla&nbsp;3.1: Información de las escuelas
   vertical-align: middle;
 }
 
-#ejrqowxeex .gt_from_md > :first-child {
+#cwwbgdmfmz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ejrqowxeex .gt_from_md > :last-child {
+#cwwbgdmfmz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ejrqowxeex .gt_row {
+#cwwbgdmfmz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -520,7 +549,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   overflow-x: hidden;
 }
 
-#ejrqowxeex .gt_stub {
+#cwwbgdmfmz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -533,7 +562,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#ejrqowxeex .gt_stub_row_group {
+#cwwbgdmfmz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -547,15 +576,15 @@ Tabla&nbsp;3.1: Información de las escuelas
   vertical-align: top;
 }
 
-#ejrqowxeex .gt_row_group_first td {
+#cwwbgdmfmz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ejrqowxeex .gt_row_group_first th {
+#cwwbgdmfmz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ejrqowxeex .gt_summary_row {
+#cwwbgdmfmz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -565,16 +594,16 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#ejrqowxeex .gt_first_summary_row {
+#cwwbgdmfmz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_first_summary_row.thick {
+#cwwbgdmfmz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ejrqowxeex .gt_last_summary_row {
+#cwwbgdmfmz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -584,7 +613,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_grand_summary_row {
+#cwwbgdmfmz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -594,7 +623,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#ejrqowxeex .gt_first_grand_summary_row {
+#cwwbgdmfmz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -604,7 +633,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-top-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_last_grand_summary_row_top {
+#cwwbgdmfmz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -614,11 +643,11 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_striped {
+#cwwbgdmfmz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ejrqowxeex .gt_table_body {
+#cwwbgdmfmz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -627,7 +656,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_footnotes {
+#cwwbgdmfmz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -641,7 +670,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_footnote {
+#cwwbgdmfmz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -650,7 +679,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#ejrqowxeex .gt_sourcenotes {
+#cwwbgdmfmz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -664,7 +693,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#ejrqowxeex .gt_sourcenote {
+#cwwbgdmfmz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -672,72 +701,72 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#ejrqowxeex .gt_left {
+#cwwbgdmfmz .gt_left {
   text-align: left;
 }
 
-#ejrqowxeex .gt_center {
+#cwwbgdmfmz .gt_center {
   text-align: center;
 }
 
-#ejrqowxeex .gt_right {
+#cwwbgdmfmz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ejrqowxeex .gt_font_normal {
+#cwwbgdmfmz .gt_font_normal {
   font-weight: normal;
 }
 
-#ejrqowxeex .gt_font_bold {
+#cwwbgdmfmz .gt_font_bold {
   font-weight: bold;
 }
 
-#ejrqowxeex .gt_font_italic {
+#cwwbgdmfmz .gt_font_italic {
   font-style: italic;
 }
 
-#ejrqowxeex .gt_super {
+#cwwbgdmfmz .gt_super {
   font-size: 65%;
 }
 
-#ejrqowxeex .gt_footnote_marks {
+#cwwbgdmfmz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ejrqowxeex .gt_asterisk {
+#cwwbgdmfmz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ejrqowxeex .gt_indent_1 {
+#cwwbgdmfmz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ejrqowxeex .gt_indent_2 {
+#cwwbgdmfmz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ejrqowxeex .gt_indent_3 {
+#cwwbgdmfmz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ejrqowxeex .gt_indent_4 {
+#cwwbgdmfmz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ejrqowxeex .gt_indent_5 {
+#cwwbgdmfmz .gt_indent_5 {
   text-indent: 25px;
 }
 
-#ejrqowxeex .katex-display {
+#cwwbgdmfmz .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#ejrqowxeex div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#cwwbgdmfmz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1008,23 +1037,23 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
 </figcaption>
 <div aria-describedby="tbl-parametros_base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="nfotaalodn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#nfotaalodn table {
+<div id="alxokhvubj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#alxokhvubj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#nfotaalodn thead, #nfotaalodn tbody, #nfotaalodn tfoot, #nfotaalodn tr, #nfotaalodn td, #nfotaalodn th {
+#alxokhvubj thead, #alxokhvubj tbody, #alxokhvubj tfoot, #alxokhvubj tr, #alxokhvubj td, #alxokhvubj th {
   border-style: none;
 }
 
-#nfotaalodn p {
+#alxokhvubj p {
   margin: 0;
   padding: 0;
 }
 
-#nfotaalodn .gt_table {
+#alxokhvubj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1050,12 +1079,12 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-left-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_caption {
+#alxokhvubj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#nfotaalodn .gt_title {
+#alxokhvubj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1067,7 +1096,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-width: 0;
 }
 
-#nfotaalodn .gt_subtitle {
+#alxokhvubj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1079,7 +1108,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-top-width: 0;
 }
 
-#nfotaalodn .gt_heading {
+#alxokhvubj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1091,13 +1120,13 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_bottom_border {
+#alxokhvubj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_col_headings {
+#alxokhvubj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1112,7 +1141,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_col_heading {
+#alxokhvubj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1132,7 +1161,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   overflow-x: hidden;
 }
 
-#nfotaalodn .gt_column_spanner_outer {
+#alxokhvubj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1144,15 +1173,15 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 4px;
 }
 
-#nfotaalodn .gt_column_spanner_outer:first-child {
+#alxokhvubj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#nfotaalodn .gt_column_spanner_outer:last-child {
+#alxokhvubj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#nfotaalodn .gt_column_spanner {
+#alxokhvubj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1164,11 +1193,11 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   width: 100%;
 }
 
-#nfotaalodn .gt_spanner_row {
+#alxokhvubj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#nfotaalodn .gt_group_heading {
+#alxokhvubj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1194,7 +1223,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   text-align: left;
 }
 
-#nfotaalodn .gt_empty_group_heading {
+#alxokhvubj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1209,15 +1238,15 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   vertical-align: middle;
 }
 
-#nfotaalodn .gt_from_md > :first-child {
+#alxokhvubj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#nfotaalodn .gt_from_md > :last-child {
+#alxokhvubj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#nfotaalodn .gt_row {
+#alxokhvubj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1236,7 +1265,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   overflow-x: hidden;
 }
 
-#nfotaalodn .gt_stub {
+#alxokhvubj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1249,7 +1278,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#nfotaalodn .gt_stub_row_group {
+#alxokhvubj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1263,15 +1292,15 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   vertical-align: top;
 }
 
-#nfotaalodn .gt_row_group_first td {
+#alxokhvubj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#nfotaalodn .gt_row_group_first th {
+#alxokhvubj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#nfotaalodn .gt_summary_row {
+#alxokhvubj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1281,16 +1310,16 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#nfotaalodn .gt_first_summary_row {
+#alxokhvubj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_first_summary_row.thick {
+#alxokhvubj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#nfotaalodn .gt_last_summary_row {
+#alxokhvubj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1300,7 +1329,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_grand_summary_row {
+#alxokhvubj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1310,7 +1339,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#nfotaalodn .gt_first_grand_summary_row {
+#alxokhvubj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1320,7 +1349,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-top-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_last_grand_summary_row_top {
+#alxokhvubj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1330,11 +1359,11 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_striped {
+#alxokhvubj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#nfotaalodn .gt_table_body {
+#alxokhvubj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1343,7 +1372,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_footnotes {
+#alxokhvubj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1357,7 +1386,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_footnote {
+#alxokhvubj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1366,7 +1395,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#nfotaalodn .gt_sourcenotes {
+#alxokhvubj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1380,7 +1409,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#nfotaalodn .gt_sourcenote {
+#alxokhvubj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1388,72 +1417,72 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#nfotaalodn .gt_left {
+#alxokhvubj .gt_left {
   text-align: left;
 }
 
-#nfotaalodn .gt_center {
+#alxokhvubj .gt_center {
   text-align: center;
 }
 
-#nfotaalodn .gt_right {
+#alxokhvubj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#nfotaalodn .gt_font_normal {
+#alxokhvubj .gt_font_normal {
   font-weight: normal;
 }
 
-#nfotaalodn .gt_font_bold {
+#alxokhvubj .gt_font_bold {
   font-weight: bold;
 }
 
-#nfotaalodn .gt_font_italic {
+#alxokhvubj .gt_font_italic {
   font-style: italic;
 }
 
-#nfotaalodn .gt_super {
+#alxokhvubj .gt_super {
   font-size: 65%;
 }
 
-#nfotaalodn .gt_footnote_marks {
+#alxokhvubj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#nfotaalodn .gt_asterisk {
+#alxokhvubj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#nfotaalodn .gt_indent_1 {
+#alxokhvubj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#nfotaalodn .gt_indent_2 {
+#alxokhvubj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#nfotaalodn .gt_indent_3 {
+#alxokhvubj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#nfotaalodn .gt_indent_4 {
+#alxokhvubj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#nfotaalodn .gt_indent_5 {
+#alxokhvubj .gt_indent_5 {
   text-indent: 25px;
 }
 
-#nfotaalodn .katex-display {
+#alxokhvubj .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#nfotaalodn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#alxokhvubj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2892,7 +2921,7 @@ Tabla&nbsp;3.4: Estimaciones con azar simple
 </figure>
 </div>
 </div>
-<p>Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surguen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.</p>
+<p>Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surgen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -2910,14 +2939,40 @@ Tabla&nbsp;3.4: Estimaciones con azar simple
 </section>
 <section id="muestreo-sistemático" class="level2" data-number="3.4">
 <h2 data-number="3.4" class="anchored" data-anchor-id="muestreo-sistemático"><span class="header-section-number">3.4</span> Muestreo sistemático</h2>
+<p>El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de “contactos” a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, <em>in situ</em>, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no tenga un sesgo particular en su orden o, de ser posible, poder reordenarla bajo algún criterio que fuerce el azar.</p>
+<p>Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una <span class="math inline">\(X\)</span> cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar <span class="math inline">\(K\)</span> estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, <span class="math inline">\(K\)</span> representa el cociente entre el tamaño de la población a seleccionar (<span class="math inline">\(N\)</span> o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra (<span class="math inline">\(n\)</span> o la cantidad de estudiantes que se quiere seleccionar de esa lista).</p>
+<p><span class="math display">\[
+K = \frac{N}{n}
+\]</span></p>
+<p>Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>m_azar_sistematico_100 <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">seq</span>(start, <span class="fu">n</span>(), <span class="at">by =</span> ))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>lista_estudiantes <span class="ot">=</span> <span class="fu">as_data_frame</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">50</span> </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">ceiling</span>(N<span class="sc">/</span>n) <span class="co"># K = 10</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Se sortea el primer estudiante</span></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>inicio_sistematico <span class="ot">=</span> <span class="fu">sample</span>(n, <span class="at">size =</span> <span class="dv">1</span>) </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Luego se continua de manera sistemática</span></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>sorteo <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> inicio_sistematico, </span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> k , </span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">length.out =</span> n)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>muestra_sistematica <span class="ot">=</span> lista_estudiantes[sorteo, ]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<p>Muestreo Estratificado</p>
+<p>El muestreo estratificado es un tipo de muestreo en donde se intenta construir estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratficado.</p>
+<p><a href="https://tidyclust.tidymodels.org/" class="uri">https://tidyclust.tidymodels.org/</a></p>
+<p>Cluster sampling</p>
+<p>Autoponderado</p>
 
 
 <!-- -->
@@ -3405,8 +3460,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./ecosistema_r.html" class="pagination-link" aria-label="Introducción">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Introducción</span></span>
+      <a href="./muestras.html" class="pagination-link" aria-label="Cuando y porqué hacer muestras">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cuando y porqué hacer muestras</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
@@ -3652,7 +3707,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surguen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.</span>
+<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surgen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.</span>
 <span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PracTools)</span>
@@ -3665,15 +3720,52 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo sistemático</span></span>
 <span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">size =</span> <span class="dv">1</span>)</span>
-<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a>m_azar_sistematico_100 <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
-<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="fu">seq</span>(start, <span class="fu">n</span>(), <span class="at">by =</span> ))</span>
-<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a>El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no tenga un sesgo particular en su orden o, de ser posible, poder reordenarla bajo algún criterio que fuerce el azar.</span>
+<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a>Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar ($N$ o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra ($n$ o la cantidad de estudiantes que se quiere seleccionar de esa lista).</span>
+<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>K = \frac{N}{n}</span>
+<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>$$</span>
 <span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-1]: </span>Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.</span>
+<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código</span>
 <span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-2]: </span>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición, eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x cantidad de casos ".</span>
+<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: sistematico</span></span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>lista_estudiantes <span class="ot">=</span> <span class="fu">as_data_frame</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>))</span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">50</span> </span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">ceiling</span>(N<span class="sc">/</span>n) <span class="co"># K = 10</span></span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a><span class="co"># Se sortea el primer estudiante</span></span>
+<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a>inicio_sistematico <span class="ot">=</span> <span class="fu">sample</span>(n, <span class="at">size =</span> <span class="dv">1</span>) </span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a><span class="co"># Luego se continua de manera sistemática</span></span>
+<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a>sorteo <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> inicio_sistematico, </span>
+<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> k , </span>
+<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a>             <span class="at">length.out =</span> n)</span>
+<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a>muestra_sistematica <span class="ot">=</span> lista_estudiantes[sorteo, ]</span>
+<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a>Muestreo Estratificado</span>
+<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a>El muestreo estratificado es un tipo de muestreo en donde se intenta construir estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratficado.</span>
+<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://tidyclust.tidymodels.org/&gt;</span></span>
+<span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a>Cluster sampling</span>
+<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a>Autoponderado</span>
+<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-1]: </span>Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.</span>
+<span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-2]: </span>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición, eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x cantidad de casos ".</span>
 </code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

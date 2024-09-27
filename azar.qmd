@@ -235,7 +235,7 @@ tbl_azar_simple
 
 ```
 
-Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surguen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.
+Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surgen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.
 
 ```{r}
 library(PracTools)
@@ -248,11 +248,48 @@ ceiling(nPropMoe(moe.sw = 1,
 
 ## Muestreo sistemático
 
+El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no tenga un sesgo particular en su orden o, de ser posible, poder reordenarla bajo algún criterio que fuerce el azar.
+
+Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar ($N$ o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra ($n$ o la cantidad de estudiantes que se quiere seleccionar de esa lista).
+
+$$
+K = \frac{N}{n}
+$$
+
+Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código
+
 ```{r}
-start <- sample(1:10, size = 1)
-m_azar_sistematico_100 = base |>
-  slice(seq(start, n(), by = ))
+#| label: sistematico
+
+set.seed(123)
+
+n = 5
+lista_estudiantes = as_data_frame(c(1:50))
+N = 50 
+k = ceiling(N/n) # K = 10
+
+# Se sortea el primer estudiante
+
+inicio_sistematico = sample(n, size = 1) 
+
+# Luego se continua de manera sistemática
+
+sorteo = seq(from = inicio_sistematico, 
+             by = k , 
+             length.out = n)
+
+muestra_sistematica = lista_estudiantes[sorteo, ]
 ```
+
+Muestreo Estratificado
+
+El muestreo estratificado es un tipo de muestreo en donde se intenta construir estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratficado.
+
+<https://tidyclust.tidymodels.org/>
+
+Cluster sampling
+
+Autoponderado
 
 [^azar-1]: Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.
 
