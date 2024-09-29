@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -233,7 +253,14 @@ window.Quarto = {
   <li><a href="#porqué-usamos-el-azar-para-producir-muestras-aproximadamente-representativas" id="toc-porqué-usamos-el-azar-para-producir-muestras-aproximadamente-representativas" class="nav-link active" data-scroll-target="#porqué-usamos-el-azar-para-producir-muestras-aproximadamente-representativas"><span class="header-section-number">3.1</span> Porqué usamos el azar para producir muestras (aproximadamente) representativas</a></li>
   <li><a href="#población" id="toc-población" class="nav-link" data-scroll-target="#población"><span class="header-section-number">3.2</span> Población</a></li>
   <li><a href="#azar-simple" id="toc-azar-simple" class="nav-link" data-scroll-target="#azar-simple"><span class="header-section-number">3.3</span> Azar simple</a></li>
-  <li><a href="#muestreo-sistemático" id="toc-muestreo-sistemático" class="nav-link" data-scroll-target="#muestreo-sistemático"><span class="header-section-number">3.4</span> Muestreo sistemático</a></li>
+  <li><a href="#muestreo-sistemático" id="toc-muestreo-sistemático" class="nav-link" data-scroll-target="#muestreo-sistemático"><span class="header-section-number">3.4</span> Muestreo Sistemático</a></li>
+  <li><a href="#muestreo-estratificado" id="toc-muestreo-estratificado" class="nav-link" data-scroll-target="#muestreo-estratificado"><span class="header-section-number">3.5</span> Muestreo Estratificado</a>
+  <ul class="collapse">
+  <li><a href="#estratos-teóricos-con-asignación-proporcional" id="toc-estratos-teóricos-con-asignación-proporcional" class="nav-link" data-scroll-target="#estratos-teóricos-con-asignación-proporcional"><span class="header-section-number">3.5.1</span> Estratos teóricos con asignación proporcional</a></li>
+  <li><a href="#estratos-teóricos-con-asignación-óptimizada-no-proporcional" id="toc-estratos-teóricos-con-asignación-óptimizada-no-proporcional" class="nav-link" data-scroll-target="#estratos-teóricos-con-asignación-óptimizada-no-proporcional"><span class="header-section-number">3.5.2</span> Estratos teóricos con asignación óptimizada (no proporcional)</a></li>
+  </ul></li>
+  <li><a href="#muestreo-por-clusters" id="toc-muestreo-por-clusters" class="nav-link" data-scroll-target="#muestreo-por-clusters"><span class="header-section-number">3.6</span> Muestreo por Clusters</a></li>
+  <li><a href="#muestreo-proporcional-al-tamaño" id="toc-muestreo-proporcional-al-tamaño" class="nav-link" data-scroll-target="#muestreo-proporcional-al-tamaño"><span class="header-section-number">3.7</span> Muestreo Proporcional al tamaño</a></li>
   </ul>
 <div class="quarto-other-links"><h2>Otros Enlaces</h2><ul><li><a href="https://github.com/diegoteca/planificacion_muestreo"><i class="bi bi-github"></i>Repositorio del taller</a></li></ul></div></nav>
     </div>
@@ -321,23 +348,23 @@ Tabla&nbsp;3.1: Información de las escuelas
 </figcaption>
 <div aria-describedby="tbl-escuelas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="cwwbgdmfmz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cwwbgdmfmz table {
+<div id="fnyfxpkxsh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fnyfxpkxsh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cwwbgdmfmz thead, #cwwbgdmfmz tbody, #cwwbgdmfmz tfoot, #cwwbgdmfmz tr, #cwwbgdmfmz td, #cwwbgdmfmz th {
+#fnyfxpkxsh thead, #fnyfxpkxsh tbody, #fnyfxpkxsh tfoot, #fnyfxpkxsh tr, #fnyfxpkxsh td, #fnyfxpkxsh th {
   border-style: none;
 }
 
-#cwwbgdmfmz p {
+#fnyfxpkxsh p {
   margin: 0;
   padding: 0;
 }
 
-#cwwbgdmfmz .gt_table {
+#fnyfxpkxsh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -363,12 +390,12 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-left-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_caption {
+#fnyfxpkxsh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cwwbgdmfmz .gt_title {
+#fnyfxpkxsh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -380,7 +407,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-width: 0;
 }
 
-#cwwbgdmfmz .gt_subtitle {
+#fnyfxpkxsh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -392,7 +419,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-top-width: 0;
 }
 
-#cwwbgdmfmz .gt_heading {
+#fnyfxpkxsh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -404,13 +431,13 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_bottom_border {
+#fnyfxpkxsh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_col_headings {
+#fnyfxpkxsh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -425,7 +452,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_col_heading {
+#fnyfxpkxsh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -445,7 +472,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   overflow-x: hidden;
 }
 
-#cwwbgdmfmz .gt_column_spanner_outer {
+#fnyfxpkxsh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -457,15 +484,15 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 4px;
 }
 
-#cwwbgdmfmz .gt_column_spanner_outer:first-child {
+#fnyfxpkxsh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cwwbgdmfmz .gt_column_spanner_outer:last-child {
+#fnyfxpkxsh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cwwbgdmfmz .gt_column_spanner {
+#fnyfxpkxsh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -477,11 +504,11 @@ Tabla&nbsp;3.1: Información de las escuelas
   width: 100%;
 }
 
-#cwwbgdmfmz .gt_spanner_row {
+#fnyfxpkxsh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cwwbgdmfmz .gt_group_heading {
+#fnyfxpkxsh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -507,7 +534,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   text-align: left;
 }
 
-#cwwbgdmfmz .gt_empty_group_heading {
+#fnyfxpkxsh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -522,15 +549,15 @@ Tabla&nbsp;3.1: Información de las escuelas
   vertical-align: middle;
 }
 
-#cwwbgdmfmz .gt_from_md > :first-child {
+#fnyfxpkxsh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cwwbgdmfmz .gt_from_md > :last-child {
+#fnyfxpkxsh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cwwbgdmfmz .gt_row {
+#fnyfxpkxsh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -549,7 +576,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   overflow-x: hidden;
 }
 
-#cwwbgdmfmz .gt_stub {
+#fnyfxpkxsh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -562,7 +589,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#cwwbgdmfmz .gt_stub_row_group {
+#fnyfxpkxsh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -576,15 +603,15 @@ Tabla&nbsp;3.1: Información de las escuelas
   vertical-align: top;
 }
 
-#cwwbgdmfmz .gt_row_group_first td {
+#fnyfxpkxsh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cwwbgdmfmz .gt_row_group_first th {
+#fnyfxpkxsh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cwwbgdmfmz .gt_summary_row {
+#fnyfxpkxsh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -594,16 +621,16 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#cwwbgdmfmz .gt_first_summary_row {
+#fnyfxpkxsh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_first_summary_row.thick {
+#fnyfxpkxsh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cwwbgdmfmz .gt_last_summary_row {
+#fnyfxpkxsh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -613,7 +640,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_grand_summary_row {
+#fnyfxpkxsh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -623,7 +650,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#cwwbgdmfmz .gt_first_grand_summary_row {
+#fnyfxpkxsh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -633,7 +660,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-top-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_last_grand_summary_row_top {
+#fnyfxpkxsh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -643,11 +670,11 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_striped {
+#fnyfxpkxsh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cwwbgdmfmz .gt_table_body {
+#fnyfxpkxsh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -656,7 +683,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_footnotes {
+#fnyfxpkxsh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -670,7 +697,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_footnote {
+#fnyfxpkxsh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -679,7 +706,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#cwwbgdmfmz .gt_sourcenotes {
+#fnyfxpkxsh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -693,7 +720,7 @@ Tabla&nbsp;3.1: Información de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#cwwbgdmfmz .gt_sourcenote {
+#fnyfxpkxsh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -701,72 +728,72 @@ Tabla&nbsp;3.1: Información de las escuelas
   padding-right: 5px;
 }
 
-#cwwbgdmfmz .gt_left {
+#fnyfxpkxsh .gt_left {
   text-align: left;
 }
 
-#cwwbgdmfmz .gt_center {
+#fnyfxpkxsh .gt_center {
   text-align: center;
 }
 
-#cwwbgdmfmz .gt_right {
+#fnyfxpkxsh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cwwbgdmfmz .gt_font_normal {
+#fnyfxpkxsh .gt_font_normal {
   font-weight: normal;
 }
 
-#cwwbgdmfmz .gt_font_bold {
+#fnyfxpkxsh .gt_font_bold {
   font-weight: bold;
 }
 
-#cwwbgdmfmz .gt_font_italic {
+#fnyfxpkxsh .gt_font_italic {
   font-style: italic;
 }
 
-#cwwbgdmfmz .gt_super {
+#fnyfxpkxsh .gt_super {
   font-size: 65%;
 }
 
-#cwwbgdmfmz .gt_footnote_marks {
+#fnyfxpkxsh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cwwbgdmfmz .gt_asterisk {
+#fnyfxpkxsh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cwwbgdmfmz .gt_indent_1 {
+#fnyfxpkxsh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cwwbgdmfmz .gt_indent_2 {
+#fnyfxpkxsh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cwwbgdmfmz .gt_indent_3 {
+#fnyfxpkxsh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cwwbgdmfmz .gt_indent_4 {
+#fnyfxpkxsh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cwwbgdmfmz .gt_indent_5 {
+#fnyfxpkxsh .gt_indent_5 {
   text-indent: 25px;
 }
 
-#cwwbgdmfmz .katex-display {
+#fnyfxpkxsh .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#cwwbgdmfmz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#fnyfxpkxsh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1037,23 +1064,23 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
 </figcaption>
 <div aria-describedby="tbl-parametros_base-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="alxokhvubj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#alxokhvubj table {
+<div id="guhbakviyg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#guhbakviyg table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#alxokhvubj thead, #alxokhvubj tbody, #alxokhvubj tfoot, #alxokhvubj tr, #alxokhvubj td, #alxokhvubj th {
+#guhbakviyg thead, #guhbakviyg tbody, #guhbakviyg tfoot, #guhbakviyg tr, #guhbakviyg td, #guhbakviyg th {
   border-style: none;
 }
 
-#alxokhvubj p {
+#guhbakviyg p {
   margin: 0;
   padding: 0;
 }
 
-#alxokhvubj .gt_table {
+#guhbakviyg .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1079,12 +1106,12 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-left-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_caption {
+#guhbakviyg .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#alxokhvubj .gt_title {
+#guhbakviyg .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1096,7 +1123,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-width: 0;
 }
 
-#alxokhvubj .gt_subtitle {
+#guhbakviyg .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1108,7 +1135,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-top-width: 0;
 }
 
-#alxokhvubj .gt_heading {
+#guhbakviyg .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1120,13 +1147,13 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_bottom_border {
+#guhbakviyg .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_col_headings {
+#guhbakviyg .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1141,7 +1168,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_col_heading {
+#guhbakviyg .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1161,7 +1188,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   overflow-x: hidden;
 }
 
-#alxokhvubj .gt_column_spanner_outer {
+#guhbakviyg .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1173,15 +1200,15 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 4px;
 }
 
-#alxokhvubj .gt_column_spanner_outer:first-child {
+#guhbakviyg .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#alxokhvubj .gt_column_spanner_outer:last-child {
+#guhbakviyg .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#alxokhvubj .gt_column_spanner {
+#guhbakviyg .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1193,11 +1220,11 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   width: 100%;
 }
 
-#alxokhvubj .gt_spanner_row {
+#guhbakviyg .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#alxokhvubj .gt_group_heading {
+#guhbakviyg .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1223,7 +1250,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   text-align: left;
 }
 
-#alxokhvubj .gt_empty_group_heading {
+#guhbakviyg .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1238,15 +1265,15 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   vertical-align: middle;
 }
 
-#alxokhvubj .gt_from_md > :first-child {
+#guhbakviyg .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#alxokhvubj .gt_from_md > :last-child {
+#guhbakviyg .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#alxokhvubj .gt_row {
+#guhbakviyg .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1265,7 +1292,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   overflow-x: hidden;
 }
 
-#alxokhvubj .gt_stub {
+#guhbakviyg .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1278,7 +1305,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#alxokhvubj .gt_stub_row_group {
+#guhbakviyg .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1292,15 +1319,15 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   vertical-align: top;
 }
 
-#alxokhvubj .gt_row_group_first td {
+#guhbakviyg .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#alxokhvubj .gt_row_group_first th {
+#guhbakviyg .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#alxokhvubj .gt_summary_row {
+#guhbakviyg .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1310,16 +1337,16 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#alxokhvubj .gt_first_summary_row {
+#guhbakviyg .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_first_summary_row.thick {
+#guhbakviyg .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#alxokhvubj .gt_last_summary_row {
+#guhbakviyg .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1329,7 +1356,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_grand_summary_row {
+#guhbakviyg .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1339,7 +1366,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#alxokhvubj .gt_first_grand_summary_row {
+#guhbakviyg .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1349,7 +1376,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-top-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_last_grand_summary_row_top {
+#guhbakviyg .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1359,11 +1386,11 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_striped {
+#guhbakviyg .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#alxokhvubj .gt_table_body {
+#guhbakviyg .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1372,7 +1399,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-bottom-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_footnotes {
+#guhbakviyg .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1386,7 +1413,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_footnote {
+#guhbakviyg .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1395,7 +1422,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#alxokhvubj .gt_sourcenotes {
+#guhbakviyg .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1409,7 +1436,7 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   border-right-color: #D3D3D3;
 }
 
-#alxokhvubj .gt_sourcenote {
+#guhbakviyg .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1417,72 +1444,72 @@ Tabla&nbsp;3.2: Valores poblacionales de las escuelas
   padding-right: 5px;
 }
 
-#alxokhvubj .gt_left {
+#guhbakviyg .gt_left {
   text-align: left;
 }
 
-#alxokhvubj .gt_center {
+#guhbakviyg .gt_center {
   text-align: center;
 }
 
-#alxokhvubj .gt_right {
+#guhbakviyg .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#alxokhvubj .gt_font_normal {
+#guhbakviyg .gt_font_normal {
   font-weight: normal;
 }
 
-#alxokhvubj .gt_font_bold {
+#guhbakviyg .gt_font_bold {
   font-weight: bold;
 }
 
-#alxokhvubj .gt_font_italic {
+#guhbakviyg .gt_font_italic {
   font-style: italic;
 }
 
-#alxokhvubj .gt_super {
+#guhbakviyg .gt_super {
   font-size: 65%;
 }
 
-#alxokhvubj .gt_footnote_marks {
+#guhbakviyg .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#alxokhvubj .gt_asterisk {
+#guhbakviyg .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#alxokhvubj .gt_indent_1 {
+#guhbakviyg .gt_indent_1 {
   text-indent: 5px;
 }
 
-#alxokhvubj .gt_indent_2 {
+#guhbakviyg .gt_indent_2 {
   text-indent: 10px;
 }
 
-#alxokhvubj .gt_indent_3 {
+#guhbakviyg .gt_indent_3 {
   text-indent: 15px;
 }
 
-#alxokhvubj .gt_indent_4 {
+#guhbakviyg .gt_indent_4 {
   text-indent: 20px;
 }
 
-#alxokhvubj .gt_indent_5 {
+#guhbakviyg .gt_indent_5 {
   text-indent: 25px;
 }
 
-#alxokhvubj .katex-display {
+#guhbakviyg .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#alxokhvubj div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#guhbakviyg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2938,8 +2965,8 @@ Tabla&nbsp;3.4: Estimaciones con azar simple
 </div>
 </section>
 <section id="muestreo-sistemático" class="level2" data-number="3.4">
-<h2 data-number="3.4" class="anchored" data-anchor-id="muestreo-sistemático"><span class="header-section-number">3.4</span> Muestreo sistemático</h2>
-<p>El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de “contactos” a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, <em>in situ</em>, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no tenga un sesgo particular en su orden o, de ser posible, poder reordenarla bajo algún criterio que fuerce el azar.</p>
+<h2 data-number="3.4" class="anchored" data-anchor-id="muestreo-sistemático"><span class="header-section-number">3.4</span> Muestreo Sistemático</h2>
+<p>El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de “contactos” a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, <em>in situ</em>, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no esconda un sesgo particular en su orden o, ante esta presuposición, poder reordenarla bajo algún criterio que fuerce el azar.</p>
 <p>Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una <span class="math inline">\(X\)</span> cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar <span class="math inline">\(K\)</span> estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, <span class="math inline">\(K\)</span> representa el cociente entre el tamaño de la población a seleccionar (<span class="math inline">\(N\)</span> o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra (<span class="math inline">\(n\)</span> o la cantidad de estudiantes que se quiere seleccionar de esa lista).</p>
 <p><span class="math display">\[
 K = \frac{N}{n}
@@ -2968,15 +2995,748 @@ K = \frac{N}{n}
 <span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>muestra_sistematica <span class="ot">=</span> lista_estudiantes[sorteo, ]</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<p>Muestreo Estratificado</p>
-<p>El muestreo estratificado es un tipo de muestreo en donde se intenta construir estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratficado.</p>
+<p>Cambiando lo que haya que cambiar, el código anterior también se podría aplicar si se quiere utilizar para seleccionar los 300 establecimientos, en vez del muestreo por azar simple, el muestreo sistemático.</p>
+</section>
+<section id="muestreo-estratificado" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="muestreo-estratificado"><span class="header-section-number">3.5</span> Muestreo Estratificado</h2>
+<p>El muestreo estratificado es un tipo de muestreo el muestreo se realiza en base a estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratificado. En el extremo, si todos los miembros de cada estrato son iguales entre sí y los tamaños de cada estrato también son iguales entre sí, sólo habría que seleccionar a un caso por estrato y con eso se tendría una muestra representativa. Si los tamaños de los estratos fueran diferentes también se podría seleccionar un caso por estrato pero la condición para que esta muestra sea representativa es que luego se incluyan ponderadores diferentes para cada estraro en la muestra.</p>
+<p>En la realidad los estratos tienen una heterogeneidad interna que se asume que es menor a la heterogeneidad del conjunto de la población pero que usualmente se encuentra lejos del caso extremo anterior. Los estratos son variables discretas que conforman subpoblaciones mutuamente excluyentes y exhaustivas de toda población aunque se pueden construir los mismos en función de datos continuos. En nuestra base de datos puede haber varias variables que pueden ser considerados como estratos. En este caso, a modo de ejemplo, nos quedaremos con “Ambito” que posee 3 categorías que asumimos, como diría Platón en el Fedro, que corta la realidad por sus articulaciones naturales <span class="citation" data-cites="platón2002">(<a href="references.html#ref-platón2002" role="doc-biblioref">Platón 2002 [370AVC]</a>, pag. 55)</span>. Por otro lado, utilizar “Ámbito” como estrato tiene otra virtud pedagógica que deviene de la diferente distribución de cada categoría. Esto lo hace un buen candidato para mostrar la utilidad del muestreo estratificado en su versión optimizada ya que la categoría “Rural Agrupado” posee un menor porcentaje de casos y, a igualdad de otras condiciones, un mayor error en su estimación.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Estratificado Proporcional</th>
+<th>Estratificado optimizado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Estratos Teóricos</strong></td>
+<td>Estrato teórico (p.e. Ámbito) con probabilidades iguales</td>
+<td>Estrato teórico (p.e. Ámbito) con probabilidades diferentes</td>
+</tr>
+<tr class="even">
+<td><strong>Estratos Empíricos</strong></td>
+<td>Estrato estadístico con probabilidades iguales</td>
+<td>Estrato estadístico con probabilidades diferentes</td>
+</tr>
+</tbody>
+</table>
+<section id="estratos-teóricos-con-asignación-proporcional" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="estratos-teóricos-con-asignación-proporcional"><span class="header-section-number">3.5.1</span> Estratos teóricos con asignación proporcional</h3>
+<p>En este subtipo de muestreo estratificado utilizaremos la variable “Ámbito” como estrato y respetaremos en la muestra la distribución que el estrato tiene en la población.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">300</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">nrow</span>(base)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>base_toy <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(ambito) <span class="sc">|&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(base_toy)))</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>size_strata <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(ambito) <span class="sc">|&gt;</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(percent) <span class="sc">|&gt;</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">size_strata =</span> <span class="fu">round</span>(percent <span class="sc">*</span> n)) <span class="sc">|&gt;</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(size_strata) <span class="sc">|&gt;</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="fu">pull</span>()</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>muestra_estratificada_teo_prop <span class="ot">=</span> sampling<span class="sc">::</span><span class="fu">strata</span>(base_toy,</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>                <span class="at">stratanames =</span> <span class="fu">c</span>(<span class="st">"ambito"</span>),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> size_strata,</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">"srswor"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rename</span>(<span class="at">id =</span> ID_unit) <span class="sc">|&gt;</span></span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>                <span class="fu">select</span>(<span class="sc">!</span>ambito) <span class="sc">|&gt;</span></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>                <span class="fu">left_join</span>(base_toy, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">fpc =</span> ((N<span class="sc">-</span>n)<span class="sc">/</span>(N<span class="dv">-1</span>))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Seleccionada la muestra ahora le especifico los detalles del diseño mediante</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>muestra_estratificada_teo_prop_sv <span class="ot">=</span> muestra_estratificada_teo_prop <span class="sc">|&gt;</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">as_survey_design</span>(<span class="at">ids =</span> <span class="dv">1</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                 <span class="at">probs =</span> Prob,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fpc =</span> fpc,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>                 <span class="at">strata =</span> ambito)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>tbl_estratificado_teo_prop <span class="ot">=</span> muestra_estratificada_teo_prop_sv <span class="sc">|&gt;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} {n_unweighted} ({p}%) {p.std.error}"</span>))</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>tbl_estratificado_teo_prop</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="hsjwkqlbsm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#hsjwkqlbsm table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#hsjwkqlbsm thead, #hsjwkqlbsm tbody, #hsjwkqlbsm tfoot, #hsjwkqlbsm tr, #hsjwkqlbsm td, #hsjwkqlbsm th {
+  border-style: none;
+}
+
+#hsjwkqlbsm p {
+  margin: 0;
+  padding: 0;
+}
+
+#hsjwkqlbsm .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#hsjwkqlbsm .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#hsjwkqlbsm .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#hsjwkqlbsm .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#hsjwkqlbsm .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#hsjwkqlbsm .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#hsjwkqlbsm .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#hsjwkqlbsm .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#hsjwkqlbsm .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#hsjwkqlbsm .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#hsjwkqlbsm .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#hsjwkqlbsm .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#hsjwkqlbsm .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#hsjwkqlbsm .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#hsjwkqlbsm .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hsjwkqlbsm .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#hsjwkqlbsm .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#hsjwkqlbsm .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#hsjwkqlbsm .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hsjwkqlbsm .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#hsjwkqlbsm .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hsjwkqlbsm .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#hsjwkqlbsm .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hsjwkqlbsm .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#hsjwkqlbsm .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#hsjwkqlbsm .gt_left {
+  text-align: left;
+}
+
+#hsjwkqlbsm .gt_center {
+  text-align: center;
+}
+
+#hsjwkqlbsm .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#hsjwkqlbsm .gt_font_normal {
+  font-weight: normal;
+}
+
+#hsjwkqlbsm .gt_font_bold {
+  font-weight: bold;
+}
+
+#hsjwkqlbsm .gt_font_italic {
+  font-style: italic;
+}
+
+#hsjwkqlbsm .gt_super {
+  font-size: 65%;
+}
+
+#hsjwkqlbsm .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#hsjwkqlbsm .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#hsjwkqlbsm .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#hsjwkqlbsm .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#hsjwkqlbsm .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#hsjwkqlbsm .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#hsjwkqlbsm .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#hsjwkqlbsm .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#hsjwkqlbsm div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header gt_col_headings">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Característica</strong></th>
+<th id="stat_0" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 4.168</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">matricula</td>
+<td class="gt_row gt_center" headers="stat_0">264 (2)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">secciones</td>
+<td class="gt_row gt_center" headers="stat_0">11 (0)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">sondeo_primero</td>
+<td class="gt_row gt_center" headers="stat_0">57 (0)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0">699</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">sondeo_segundo</td>
+<td class="gt_row gt_center" headers="stat_0">69 (0)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0">559</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">region</td>
+<td class="gt_row gt_center" headers="stat_0"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;01</td>
+<td class="gt_row gt_center" headers="stat_0">70 5 (1,7%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;23</td>
+<td class="gt_row gt_center" headers="stat_0">126 9 (3,0%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;15</td>
+<td class="gt_row gt_center" headers="stat_0">168 12 (4,0%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;05</td>
+<td class="gt_row gt_center" headers="stat_0">250 18 (6,0%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;02</td>
+<td class="gt_row gt_center" headers="stat_0">306 22 (7,3%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;18</td>
+<td class="gt_row gt_center" headers="stat_0">195 14 (4,7%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;25</td>
+<td class="gt_row gt_center" headers="stat_0">126 9 (3,0%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;22</td>
+<td class="gt_row gt_center" headers="stat_0">224 16 (5,4%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;20</td>
+<td class="gt_row gt_center" headers="stat_0">139 10 (3,3%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;12</td>
+<td class="gt_row gt_center" headers="stat_0">167 12 (4,0%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;11</td>
+<td class="gt_row gt_center" headers="stat_0">70 5 (1,7%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;10</td>
+<td class="gt_row gt_center" headers="stat_0">210 15 (5,0%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;16</td>
+<td class="gt_row gt_center" headers="stat_0">167 12 (4,0%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;13</td>
+<td class="gt_row gt_center" headers="stat_0">153 11 (3,7%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;21</td>
+<td class="gt_row gt_center" headers="stat_0">154 11 (3,7%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;14</td>
+<td class="gt_row gt_center" headers="stat_0">154 11 (3,7%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;17</td>
+<td class="gt_row gt_center" headers="stat_0">56 4 (1,3%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;04</td>
+<td class="gt_row gt_center" headers="stat_0">264 19 (6,3%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;19</td>
+<td class="gt_row gt_center" headers="stat_0">84 6 (2,0%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;24</td>
+<td class="gt_row gt_center" headers="stat_0">237 17 (5,7%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;07</td>
+<td class="gt_row gt_center" headers="stat_0">56 4 (1,3%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;06</td>
+<td class="gt_row gt_center" headers="stat_0">153 11 (3,7%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;03</td>
+<td class="gt_row gt_center" headers="stat_0">209 15 (5,0%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;08</td>
+<td class="gt_row gt_center" headers="stat_0">167 12 (4,0%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;09</td>
+<td class="gt_row gt_center" headers="stat_0">264 19 (6,3%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">ambito</td>
+<td class="gt_row gt_center" headers="stat_0"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Urbano</td>
+<td class="gt_row gt_center" headers="stat_0">2.727 196 (65%) 0.0</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Rural Disperso</td>
+<td class="gt_row gt_center" headers="stat_0">1.073 77 (26%) 0.0</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Rural Agrupado</td>
+<td class="gt_row gt_center" headers="stat_0">368 26 (8,8%) 0.0</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="2" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height: 0;"><sup>1</sup></span> Media (SE); n n (unweighted) (%) SE(%)</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="estratos-teóricos-con-asignación-óptimizada-no-proporcional" class="level3" data-number="3.5.2">
+<h3 data-number="3.5.2" class="anchored" data-anchor-id="estratos-teóricos-con-asignación-óptimizada-no-proporcional"><span class="header-section-number">3.5.2</span> Estratos teóricos con asignación óptimizada (no proporcional)</h3>
 <p><a href="https://tidyclust.tidymodels.org/" class="uri">https://tidyclust.tidymodels.org/</a></p>
-<p>Cluster sampling</p>
-<p>Autoponderado</p>
+</section>
+</section>
+<section id="muestreo-por-clusters" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="muestreo-por-clusters"><span class="header-section-number">3.6</span> Muestreo por Clusters</h2>
+</section>
+<section id="muestreo-proporcional-al-tamaño" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="muestreo-proporcional-al-tamaño"><span class="header-section-number">3.7</span> Muestreo Proporcional al tamaño</h2>
+<pre><code>sizes &lt;- c(9,2,5,17,4,21,15,7,4,11,23,23,14) &gt; sampleindices &lt;- ppss(sizes,4)</code></pre>
+<div class="no-first-line-indent-after"></div>
+<p>Autoponderado (PPS)</p>
+<p><a href="https://stats.stackexchange.com/questions/621444/can-i-make-a-proportional-to-size-without-replacement-sample-pps-wor-self-weig" class="uri">https://stats.stackexchange.com/questions/621444/can-i-make-a-proportional-to-size-without-replacement-sample-pps-wor-self-weig</a></p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampling)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>pi <span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(grdKandahar<span class="sc">$</span>agri, n)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">314</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>sampleind <span class="ot">&lt;-</span> <span class="fu">UPrandompivotal</span>(<span class="at">pik =</span> pi)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>mysample <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(grdKandahar[sampleind <span class="sc">==</span> <span class="dv">1</span>, ], <span class="at">pi =</span> pi[sampleind <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mysample)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-platón2002" class="csl-entry" role="listitem">
+Platón. 2002 [370AVC]. <em>Phaedrus</em>. Oxford: Oxford University Press.
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
@@ -3470,302 +4230,387 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Azar simple"</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Porqué usamos el azar para producir muestras (aproximadamente) representativas</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este <span class="co">[</span><span class="ot">link</span><span class="co">](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html)</span>.</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>&lt;iframe width="100%" height="500" src="https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" title="Webpage example"&gt;</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>&lt;/iframe&gt;</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>Con este programa podemos jugar de varias formas. Aquí nos interesa las siguientes.</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>En primer lugar ver que pasa, en los términos de la figura "datos acumulativos de las muestras" cuando realizamos muchas muestras sobre una misma población (p.e. Población = "Opción 3"). Como veremos, estas distribuciones, en especial si la muestra contiene más de 30 casos, converge hacia un patrón de distribución "normal". Lo interesante es que esta distribución emerge con mayor o menor rapidez, de manera independiente de la forma de la población. Esto se puede probar escogiendo diferente poblaciones (p.e. Tamaño de la muestra = 30 y 200).</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Por otro lado se puede probar que sucede si, se hace el ejercicio anterior en diferentes poblaciones (p.e. con Población = "Opción 6"). Como se observará siempre se obtiene una distribución "normal" aunque en mayor tiempo y con una diferente varianza.</span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Población</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>Como se dijo anteriormente, nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, como se observa en @tbl-escuelas, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.</span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setting</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que instalar las siguientes librerias previamente sino las tienen instaladas</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampling)</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a><span class="fu">i_am</span>(<span class="st">"azar.qmd"</span>)</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_gtsummary_language</span>(</span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a><span class="at">language =</span> <span class="st">"es"</span>,</span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a><span class="at">decimal.mark =</span> <span class="st">","</span>,</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a><span class="at">big.mark =</span> <span class="st">"."</span>)</span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-escuelas</span></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Información de las escuelas</span></span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">ambito =</span> <span class="fu">as_factor</span>(ambito),</span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>       <span class="at">region =</span> <span class="fu">as_factor</span>(region))</span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-63"><a href="#cb12-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Le agrego las coordenadas de los colegios</span></span>
-<span id="cb12-64"><a href="#cb12-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a>base <span class="sc">|&gt;</span></span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).<span class="ot">[^azar-1]</span></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a>Dentro de los parámetros poblacionales vamos a calcular los siguientes:</span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Matrícula</span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Secciones</span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo primero</span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo segundo</span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Región</span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ámbito</span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a>Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).</span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a>En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.</span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-parametros_base</span></span>
-<span id="cb12-97"><a href="#cb12-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Valores poblacionales de las escuelas</span></span>
-<span id="cb12-98"><a href="#cb12-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a>base_toy <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
-<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) </span>
-<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a>pob_param <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
-<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">include =</span> <span class="sc">!</span>clave,</span>
-<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>            <span class="at">statistic =</span> <span class="fu">list</span>(</span>
-<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({p25}, {p75})"</span>))</span>
-<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>pob_param</span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar *ex-ante* las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:</span>
-<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría de muestreo derivada de la aleatoriedad muchas veces supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.</span>
-<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Azar simple</span></span>
-<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) de este. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior.</span>
-<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a>Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.<span class="ot">[^azar-2]</span></span>
-<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a>A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. Esto se puede observar en la @tbl-medias_muestrales_azar_simple.</span>
-<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple_rep</span></span>
-<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
-<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-128"><a href="#cb12-128" aria-hidden="true" tabindex="-1"></a>muestras_azar_simple <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
-<span id="cb12-129"><a href="#cb12-129" aria-hidden="true" tabindex="-1"></a><span class="fu">rep_slice_sample</span>(<span class="at">n =</span> <span class="dv">300</span>,</span>
-<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a>                 <span class="at">replace =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a>                 <span class="at">reps =</span> <span class="dv">1000</span>)  </span>
-<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-medias_muestrales_azar_simple</span></span>
-<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Medias de las medias muestrales</span></span>
-<span id="cb12-140"><a href="#cb12-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-141"><a href="#cb12-141" aria-hidden="true" tabindex="-1"></a>tbl_medias_muestrales <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
-<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
-<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">matricula =</span> <span class="fu">mean</span>(matricula, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a>          <span class="at">secciones =</span> <span class="fu">mean</span>(secciones, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a>          <span class="at">sondeo_primero =</span> <span class="fu">mean</span>(sondeo_primero, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>          <span class="at">sondeo_segundo =</span> <span class="fu">mean</span>(sondeo_segundo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">include =</span> <span class="sc">!</span>replicate,</span>
-<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a>            <span class="at">statistic =</span> <span class="fu">list</span>(</span>
-<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({p25}, {p75})"</span>))</span>
-<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>tbl_medias_muestrales</span>
-<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a>Como se puede comparar entre @tbl-parametros_base y @tbl-medias_muestrales_azar_simple los valores entre los parámetros poblacionales y la media de las estimaciones muestrales coincide. No sólo eso. También podemos chequear que la distribución de esas medias sigue una distribución aproximadamente normal. Esto es lo que precisamente hacemos en la @fig-medias_muestrales_azar_simple .</span>
-<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-medias_muestrales_azar_simple</span></span>
-<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Distribución de las medias muestrales</span></span>
-<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_matricula <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
-<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
-<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">matricula =</span> <span class="fu">mean</span>(matricula, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(matricula)) <span class="sc">+</span></span>
-<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Matrícula"</span>) <span class="sc">+</span></span>
-<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
-<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_secciones <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
-<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
-<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">secciones =</span> <span class="fu">mean</span>(secciones, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(secciones)) <span class="sc">+</span></span>
-<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Secciones"</span>) <span class="sc">+</span></span>
-<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
-<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_primero <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
-<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
-<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">sondeo_primero =</span> <span class="fu">mean</span>(sondeo_primero, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(sondeo_primero)) <span class="sc">+</span></span>
-<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Primer Sondeo"</span>) <span class="sc">+</span></span>
-<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
-<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_segundo <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
-<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
-<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">sondeo_segundo =</span> <span class="fu">mean</span>(sondeo_segundo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(sondeo_segundo)) <span class="sc">+</span></span>
-<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
-<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Segundo Sondeo"</span>) <span class="sc">+</span></span>
-<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
-<span id="cb12-193"><a href="#cb12-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-194"><a href="#cb12-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_matricula <span class="sc">+</span></span>
-<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_secciones <span class="sc">+</span></span>
-<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_primero <span class="sc">+</span></span>
-<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_segundo</span>
-<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>En esta figura se observa que la distribución de las 1000 muestras que tomamos si bien se aproximan tampoco son idénticas a una distribución normal. Seguramente, si haríamos más muestras nos acercaríamos aún más a una distribución muestral pero quizá este ejemplo baste para explicitar el siguiente punto. Si haríamos muchas muestras vamos a saber con cierta seguridad que la media de las muestras será aproximadamente similar al parámetro poblacional pero ¿Qué sucede si sólo tomamos una sola muestra? ¿Cómo sabemos si nuestra (única) muestra es de las buenas o de las malas? ¿Cómo sabemos que nuestra muestra no es alguna de las que están más a la izquierda o más a la derecha en la @fig-medias_muestrales_azar_simple ?</span>
-<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>Ahí es donde entra la ayuda de las librerías específicas. En la sección XXX se había comentado sobre la existencia de librerías específicas para el análisis</span>
-<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>Aun cuando sea con azar simple es importante aclarar algunas cuestiones. El tipo de muestras que nos interesan generalmente son "sin reemplazo" en el sentido que no queremos que, por ejemplo, un mismo colegio aparezca dos veces en la muestra...al menos si queremos hacer una muestra de colegios y no de estudiantes.</span>
-<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple</span></span>
-<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
-<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a><span class="co"># fpc = ((N-n)/(N-1))1/2</span></span>
-<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
-<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">300</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb12-220"><a href="#cb12-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-221"><a href="#cb12-221" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(muestra_azar_simple)</span>
-<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">nrow</span>(base)</span>
-<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple <span class="ot">=</span> muestra_azar_simple <span class="sc">|&gt;</span></span>
-<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">pw =</span> N<span class="sc">/</span>n,</span>
-<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a>       <span class="at">fpc =</span> ((N<span class="sc">-</span>n)<span class="sc">/</span>(N<span class="dv">-1</span>))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
-<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_sv <span class="ot">=</span> muestra_azar_simple <span class="sc">|&gt;</span></span>
-<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a><span class="fu">as_survey_design</span>(<span class="at">ids =</span> <span class="dv">1</span>,</span>
-<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a>                 <span class="at">weights =</span> pw,</span>
-<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fpc =</span> fpc )</span>
-<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-azar_simple</span></span>
-<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Estimaciones con azar simple</span></span>
-<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cardx)</span>
-<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple <span class="ot">=</span> muestra_azar_simple_sv <span class="sc">|&gt;</span></span>
-<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
-<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
-<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
-<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} {n_unweighted} ({p}%) {p.std.error}"</span>))</span>
-<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple</span>
-<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a>Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surgen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.</span>
-<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PracTools)</span>
-<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(<span class="fu">nPropMoe</span>(<span class="at">moe.sw =</span> <span class="dv">1</span>, </span>
-<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>                 <span class="at">e =</span> <span class="fu">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.08</span>,<span class="fl">0.01</span>), </span>
-<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.05</span>, </span>
-<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pU =</span> <span class="fl">0.5</span>))</span>
-<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo sistemático</span></span>
-<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a>El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no tenga un sesgo particular en su orden o, de ser posible, poder reordenarla bajo algún criterio que fuerce el azar.</span>
-<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a>Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar ($N$ o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra ($n$ o la cantidad de estudiantes que se quiere seleccionar de esa lista).</span>
-<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>K = \frac{N}{n}</span>
-<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>$$</span>
-<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código</span>
-<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: sistematico</span></span>
-<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
-<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>lista_estudiantes <span class="ot">=</span> <span class="fu">as_data_frame</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>))</span>
-<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">50</span> </span>
-<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">ceiling</span>(N<span class="sc">/</span>n) <span class="co"># K = 10</span></span>
-<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a><span class="co"># Se sortea el primer estudiante</span></span>
-<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a>inicio_sistematico <span class="ot">=</span> <span class="fu">sample</span>(n, <span class="at">size =</span> <span class="dv">1</span>) </span>
-<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a><span class="co"># Luego se continua de manera sistemática</span></span>
-<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a>sorteo <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> inicio_sistematico, </span>
-<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> k , </span>
-<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a>             <span class="at">length.out =</span> n)</span>
-<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a>muestra_sistematica <span class="ot">=</span> lista_estudiantes[sorteo, ]</span>
-<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a>Muestreo Estratificado</span>
-<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a>El muestreo estratificado es un tipo de muestreo en donde se intenta construir estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratficado.</span>
-<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://tidyclust.tidymodels.org/&gt;</span></span>
-<span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a>Cluster sampling</span>
-<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a>Autoponderado</span>
-<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-1]: </span>Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.</span>
-<span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-2]: </span>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición, eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x cantidad de casos ".</span>
+<div class="sourceCode" id="cb17" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Azar simple"</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="fu">## Porqué usamos el azar para producir muestras (aproximadamente) representativas</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este <span class="co">[</span><span class="ot">link</span><span class="co">](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html)</span>.</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>&lt;iframe width="100%" height="500" src="https://diegoteca.com.ar/SimuladorTeoremaLimiteCentral.html" title="Webpage example"&gt;</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>&lt;/iframe&gt;</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>Con este programa podemos jugar de varias formas. Aquí nos interesa las siguientes.</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a><span class="ss">1.  </span>En primer lugar ver que pasa, en los términos de la figura "datos acumulativos de las muestras" cuando realizamos muchas muestras sobre una misma población (p.e. Población = "Opción 3"). Como veremos, estas distribuciones, en especial si la muestra contiene más de 30 casos, converge hacia un patrón de distribución "normal". Lo interesante es que esta distribución emerge con mayor o menor rapidez, de manera independiente de la forma de la población. Esto se puede probar escogiendo diferente poblaciones (p.e. Tamaño de la muestra = 30 y 200).</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a><span class="ss">2.  </span>Por otro lado se puede probar que sucede si, se hace el ejercicio anterior en diferentes poblaciones (p.e. con Población = "Opción 6"). Como se observará siempre se obtiene una distribución "normal" aunque en mayor tiempo y con una diferente varianza.</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="fu">## Población</span></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>Como se dijo anteriormente, nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, como se observa en @tbl-escuelas, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: setting</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que instalar las siguientes librerias previamente sino las tienen instaladas</span></span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampling)</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(infer)</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(srvyr)</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a><span class="fu">i_am</span>(<span class="st">"azar.qmd"</span>)</span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_gtsummary_language</span>(</span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a><span class="at">language =</span> <span class="st">"es"</span>,</span>
+<span id="cb17-48"><a href="#cb17-48" aria-hidden="true" tabindex="-1"></a><span class="at">decimal.mark =</span> <span class="st">","</span>,</span>
+<span id="cb17-49"><a href="#cb17-49" aria-hidden="true" tabindex="-1"></a><span class="at">big.mark =</span> <span class="st">"."</span>)</span>
+<span id="cb17-50"><a href="#cb17-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-51"><a href="#cb17-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-54"><a href="#cb17-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-55"><a href="#cb17-55" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-escuelas</span></span>
+<span id="cb17-56"><a href="#cb17-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Información de las escuelas</span></span>
+<span id="cb17-57"><a href="#cb17-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-58"><a href="#cb17-58" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_xlsx</span>(<span class="fu">here</span>(<span class="st">"Inputs"</span>, <span class="st">"base_escuelas_primaria.xlsx"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-59"><a href="#cb17-59" aria-hidden="true" tabindex="-1"></a><span class="fu">clean_names</span>() <span class="sc">|&gt;</span></span>
+<span id="cb17-60"><a href="#cb17-60" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">ambito =</span> <span class="fu">as_factor</span>(ambito),</span>
+<span id="cb17-61"><a href="#cb17-61" aria-hidden="true" tabindex="-1"></a>       <span class="at">region =</span> <span class="fu">as_factor</span>(region))</span>
+<span id="cb17-62"><a href="#cb17-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-63"><a href="#cb17-63" aria-hidden="true" tabindex="-1"></a><span class="co"># Le agrego las coordenadas de los colegios</span></span>
+<span id="cb17-64"><a href="#cb17-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-65"><a href="#cb17-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-66"><a href="#cb17-66" aria-hidden="true" tabindex="-1"></a>base <span class="sc">|&gt;</span></span>
+<span id="cb17-67"><a href="#cb17-67" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(<span class="at">n =</span> <span class="dv">3</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-68"><a href="#cb17-68" aria-hidden="true" tabindex="-1"></a><span class="fu">gt</span>()</span>
+<span id="cb17-69"><a href="#cb17-69" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-70"><a href="#cb17-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-71"><a href="#cb17-71" aria-hidden="true" tabindex="-1"></a>Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).<span class="ot">[^azar-1]</span></span>
+<span id="cb17-72"><a href="#cb17-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-73"><a href="#cb17-73" aria-hidden="true" tabindex="-1"></a>Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.</span>
+<span id="cb17-74"><a href="#cb17-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-75"><a href="#cb17-75" aria-hidden="true" tabindex="-1"></a>Dentro de los parámetros poblacionales vamos a calcular los siguientes:</span>
+<span id="cb17-76"><a href="#cb17-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-77"><a href="#cb17-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Matrícula</span>
+<span id="cb17-78"><a href="#cb17-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-79"><a href="#cb17-79" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Secciones</span>
+<span id="cb17-80"><a href="#cb17-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-81"><a href="#cb17-81" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo primero</span>
+<span id="cb17-82"><a href="#cb17-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-83"><a href="#cb17-83" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Sondeo segundo</span>
+<span id="cb17-84"><a href="#cb17-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-85"><a href="#cb17-85" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Región</span>
+<span id="cb17-86"><a href="#cb17-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-87"><a href="#cb17-87" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Ámbito</span>
+<span id="cb17-88"><a href="#cb17-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-89"><a href="#cb17-89" aria-hidden="true" tabindex="-1"></a>Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).</span>
+<span id="cb17-90"><a href="#cb17-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-91"><a href="#cb17-91" aria-hidden="true" tabindex="-1"></a>En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.</span>
+<span id="cb17-92"><a href="#cb17-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-95"><a href="#cb17-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-96"><a href="#cb17-96" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-parametros_base</span></span>
+<span id="cb17-97"><a href="#cb17-97" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Valores poblacionales de las escuelas</span></span>
+<span id="cb17-98"><a href="#cb17-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-99"><a href="#cb17-99" aria-hidden="true" tabindex="-1"></a>base_toy <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb17-100"><a href="#cb17-100" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) </span>
+<span id="cb17-101"><a href="#cb17-101" aria-hidden="true" tabindex="-1"></a>pob_param <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb17-102"><a href="#cb17-102" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">include =</span> <span class="sc">!</span>clave,</span>
+<span id="cb17-103"><a href="#cb17-103" aria-hidden="true" tabindex="-1"></a>            <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb17-104"><a href="#cb17-104" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({p25}, {p75})"</span>))</span>
+<span id="cb17-105"><a href="#cb17-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-106"><a href="#cb17-106" aria-hidden="true" tabindex="-1"></a>pob_param</span>
+<span id="cb17-107"><a href="#cb17-107" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-108"><a href="#cb17-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-109"><a href="#cb17-109" aria-hidden="true" tabindex="-1"></a>Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar *ex-ante* las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:</span>
+<span id="cb17-110"><a href="#cb17-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-111"><a href="#cb17-111" aria-hidden="true" tabindex="-1"></a>Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría de muestreo derivada de la aleatoriedad muchas veces supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.</span>
+<span id="cb17-112"><a href="#cb17-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-113"><a href="#cb17-113" aria-hidden="true" tabindex="-1"></a><span class="fu">## Azar simple</span></span>
+<span id="cb17-114"><a href="#cb17-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-115"><a href="#cb17-115" aria-hidden="true" tabindex="-1"></a>Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) de este. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior.</span>
+<span id="cb17-116"><a href="#cb17-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-117"><a href="#cb17-117" aria-hidden="true" tabindex="-1"></a>Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.<span class="ot">[^azar-2]</span></span>
+<span id="cb17-118"><a href="#cb17-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-119"><a href="#cb17-119" aria-hidden="true" tabindex="-1"></a>A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. Esto se puede observar en la @tbl-medias_muestrales_azar_simple.</span>
+<span id="cb17-120"><a href="#cb17-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-123"><a href="#cb17-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-124"><a href="#cb17-124" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple_rep</span></span>
+<span id="cb17-125"><a href="#cb17-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-126"><a href="#cb17-126" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
+<span id="cb17-127"><a href="#cb17-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-128"><a href="#cb17-128" aria-hidden="true" tabindex="-1"></a>muestras_azar_simple <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb17-129"><a href="#cb17-129" aria-hidden="true" tabindex="-1"></a><span class="fu">rep_slice_sample</span>(<span class="at">n =</span> <span class="dv">300</span>,</span>
+<span id="cb17-130"><a href="#cb17-130" aria-hidden="true" tabindex="-1"></a>                 <span class="at">replace =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb17-131"><a href="#cb17-131" aria-hidden="true" tabindex="-1"></a>                 <span class="at">reps =</span> <span class="dv">1000</span>)  </span>
+<span id="cb17-132"><a href="#cb17-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-133"><a href="#cb17-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-134"><a href="#cb17-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-137"><a href="#cb17-137" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-138"><a href="#cb17-138" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-medias_muestrales_azar_simple</span></span>
+<span id="cb17-139"><a href="#cb17-139" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Medias de las medias muestrales</span></span>
+<span id="cb17-140"><a href="#cb17-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-141"><a href="#cb17-141" aria-hidden="true" tabindex="-1"></a>tbl_medias_muestrales <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
+<span id="cb17-142"><a href="#cb17-142" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
+<span id="cb17-143"><a href="#cb17-143" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">matricula =</span> <span class="fu">mean</span>(matricula, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-144"><a href="#cb17-144" aria-hidden="true" tabindex="-1"></a>          <span class="at">secciones =</span> <span class="fu">mean</span>(secciones, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-145"><a href="#cb17-145" aria-hidden="true" tabindex="-1"></a>          <span class="at">sondeo_primero =</span> <span class="fu">mean</span>(sondeo_primero, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb17-146"><a href="#cb17-146" aria-hidden="true" tabindex="-1"></a>          <span class="at">sondeo_segundo =</span> <span class="fu">mean</span>(sondeo_segundo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-147"><a href="#cb17-147" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">include =</span> <span class="sc">!</span>replicate,</span>
+<span id="cb17-148"><a href="#cb17-148" aria-hidden="true" tabindex="-1"></a>            <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb17-149"><a href="#cb17-149" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({p25}, {p75})"</span>))</span>
+<span id="cb17-150"><a href="#cb17-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-151"><a href="#cb17-151" aria-hidden="true" tabindex="-1"></a>tbl_medias_muestrales</span>
+<span id="cb17-152"><a href="#cb17-152" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-153"><a href="#cb17-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-154"><a href="#cb17-154" aria-hidden="true" tabindex="-1"></a>Como se puede comparar entre @tbl-parametros_base y @tbl-medias_muestrales_azar_simple los valores entre los parámetros poblacionales y la media de las estimaciones muestrales coincide. No sólo eso. También podemos chequear que la distribución de esas medias sigue una distribución aproximadamente normal. Esto es lo que precisamente hacemos en la @fig-medias_muestrales_azar_simple .</span>
+<span id="cb17-155"><a href="#cb17-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-158"><a href="#cb17-158" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-159"><a href="#cb17-159" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-medias_muestrales_azar_simple</span></span>
+<span id="cb17-160"><a href="#cb17-160" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Distribución de las medias muestrales</span></span>
+<span id="cb17-161"><a href="#cb17-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-162"><a href="#cb17-162" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_matricula <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
+<span id="cb17-163"><a href="#cb17-163" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
+<span id="cb17-164"><a href="#cb17-164" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">matricula =</span> <span class="fu">mean</span>(matricula, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-165"><a href="#cb17-165" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(matricula)) <span class="sc">+</span></span>
+<span id="cb17-166"><a href="#cb17-166" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb17-167"><a href="#cb17-167" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Matrícula"</span>) <span class="sc">+</span></span>
+<span id="cb17-168"><a href="#cb17-168" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
+<span id="cb17-169"><a href="#cb17-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-170"><a href="#cb17-170" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_secciones <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
+<span id="cb17-171"><a href="#cb17-171" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
+<span id="cb17-172"><a href="#cb17-172" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">secciones =</span> <span class="fu">mean</span>(secciones, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-173"><a href="#cb17-173" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(secciones)) <span class="sc">+</span></span>
+<span id="cb17-174"><a href="#cb17-174" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb17-175"><a href="#cb17-175" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Secciones"</span>) <span class="sc">+</span></span>
+<span id="cb17-176"><a href="#cb17-176" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
+<span id="cb17-177"><a href="#cb17-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-178"><a href="#cb17-178" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_primero <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
+<span id="cb17-179"><a href="#cb17-179" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
+<span id="cb17-180"><a href="#cb17-180" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">sondeo_primero =</span> <span class="fu">mean</span>(sondeo_primero, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-181"><a href="#cb17-181" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(sondeo_primero)) <span class="sc">+</span></span>
+<span id="cb17-182"><a href="#cb17-182" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb17-183"><a href="#cb17-183" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Primer Sondeo"</span>) <span class="sc">+</span></span>
+<span id="cb17-184"><a href="#cb17-184" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
+<span id="cb17-185"><a href="#cb17-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-186"><a href="#cb17-186" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_segundo <span class="ot">=</span> muestras_azar_simple <span class="sc">|&gt;</span></span>
+<span id="cb17-187"><a href="#cb17-187" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
+<span id="cb17-188"><a href="#cb17-188" aria-hidden="true" tabindex="-1"></a><span class="fu">summarise</span>(<span class="at">sondeo_segundo =</span> <span class="fu">mean</span>(sondeo_segundo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb17-189"><a href="#cb17-189" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">aes</span>(sondeo_segundo)) <span class="sc">+</span></span>
+<span id="cb17-190"><a href="#cb17-190" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_histogram</span>() <span class="sc">+</span> </span>
+<span id="cb17-191"><a href="#cb17-191" aria-hidden="true" tabindex="-1"></a><span class="fu">xlab</span>(<span class="st">"Segundo Sondeo"</span>) <span class="sc">+</span></span>
+<span id="cb17-192"><a href="#cb17-192" aria-hidden="true" tabindex="-1"></a><span class="fu">ylab</span>(<span class="st">"Cantidad de muestras"</span>)</span>
+<span id="cb17-193"><a href="#cb17-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-194"><a href="#cb17-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-195"><a href="#cb17-195" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_matricula <span class="sc">+</span></span>
+<span id="cb17-196"><a href="#cb17-196" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_secciones <span class="sc">+</span></span>
+<span id="cb17-197"><a href="#cb17-197" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_primero <span class="sc">+</span></span>
+<span id="cb17-198"><a href="#cb17-198" aria-hidden="true" tabindex="-1"></a>fig_medias_muestrales_sondeo_segundo</span>
+<span id="cb17-199"><a href="#cb17-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-200"><a href="#cb17-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-201"><a href="#cb17-201" aria-hidden="true" tabindex="-1"></a>En esta figura se observa que la distribución de las 1000 muestras que tomamos si bien se aproximan tampoco son idénticas a una distribución normal. Seguramente, si haríamos más muestras nos acercaríamos aún más a una distribución muestral pero quizá este ejemplo baste para explicitar el siguiente punto. Si haríamos muchas muestras vamos a saber con cierta seguridad que la media de las muestras será aproximadamente similar al parámetro poblacional pero ¿Qué sucede si sólo tomamos una sola muestra? ¿Cómo sabemos si nuestra (única) muestra es de las buenas o de las malas? ¿Cómo sabemos que nuestra muestra no es alguna de las que están más a la izquierda o más a la derecha en la @fig-medias_muestrales_azar_simple ?</span>
+<span id="cb17-202"><a href="#cb17-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-203"><a href="#cb17-203" aria-hidden="true" tabindex="-1"></a>Ahí es donde entra la ayuda de las librerías específicas. En la sección XXX se había comentado sobre la existencia de librerías específicas para el análisis</span>
+<span id="cb17-204"><a href="#cb17-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-205"><a href="#cb17-205" aria-hidden="true" tabindex="-1"></a>Aun cuando sea con azar simple es importante aclarar algunas cuestiones. El tipo de muestras que nos interesan generalmente son "sin reemplazo" en el sentido que no queremos que, por ejemplo, un mismo colegio aparezca dos veces en la muestra...al menos si queremos hacer una muestra de colegios y no de estudiantes.</span>
+<span id="cb17-206"><a href="#cb17-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-209"><a href="#cb17-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-210"><a href="#cb17-210" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple</span></span>
+<span id="cb17-211"><a href="#cb17-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-212"><a href="#cb17-212" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
+<span id="cb17-213"><a href="#cb17-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-214"><a href="#cb17-214" aria-hidden="true" tabindex="-1"></a><span class="co"># fpc = ((N-n)/(N-1))1/2</span></span>
+<span id="cb17-215"><a href="#cb17-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-216"><a href="#cb17-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-217"><a href="#cb17-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-218"><a href="#cb17-218" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb17-219"><a href="#cb17-219" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_sample</span>(<span class="at">n =</span> <span class="dv">300</span>, <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb17-220"><a href="#cb17-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-221"><a href="#cb17-221" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">nrow</span>(muestra_azar_simple)</span>
+<span id="cb17-222"><a href="#cb17-222" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">nrow</span>(base)</span>
+<span id="cb17-223"><a href="#cb17-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-224"><a href="#cb17-224" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple <span class="ot">=</span> muestra_azar_simple <span class="sc">|&gt;</span></span>
+<span id="cb17-225"><a href="#cb17-225" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">pw =</span> N<span class="sc">/</span>n,</span>
+<span id="cb17-226"><a href="#cb17-226" aria-hidden="true" tabindex="-1"></a>       <span class="at">fpc =</span> ((N<span class="sc">-</span>n)<span class="sc">/</span>(N<span class="dv">-1</span>))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb17-227"><a href="#cb17-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-228"><a href="#cb17-228" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_sv <span class="ot">=</span> muestra_azar_simple <span class="sc">|&gt;</span></span>
+<span id="cb17-229"><a href="#cb17-229" aria-hidden="true" tabindex="-1"></a><span class="fu">as_survey_design</span>(<span class="at">ids =</span> <span class="dv">1</span>,</span>
+<span id="cb17-230"><a href="#cb17-230" aria-hidden="true" tabindex="-1"></a>                 <span class="at">weights =</span> pw,</span>
+<span id="cb17-231"><a href="#cb17-231" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fpc =</span> fpc )</span>
+<span id="cb17-232"><a href="#cb17-232" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-233"><a href="#cb17-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-236"><a href="#cb17-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-237"><a href="#cb17-237" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-azar_simple</span></span>
+<span id="cb17-238"><a href="#cb17-238" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Estimaciones con azar simple</span></span>
+<span id="cb17-239"><a href="#cb17-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-240"><a href="#cb17-240" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cardx)</span>
+<span id="cb17-241"><a href="#cb17-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-242"><a href="#cb17-242" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple <span class="ot">=</span> muestra_azar_simple_sv <span class="sc">|&gt;</span></span>
+<span id="cb17-243"><a href="#cb17-243" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
+<span id="cb17-244"><a href="#cb17-244" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
+<span id="cb17-245"><a href="#cb17-245" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
+<span id="cb17-246"><a href="#cb17-246" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} {n_unweighted} ({p}%) {p.std.error}"</span>))</span>
+<span id="cb17-247"><a href="#cb17-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-248"><a href="#cb17-248" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple</span>
+<span id="cb17-249"><a href="#cb17-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-250"><a href="#cb17-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-251"><a href="#cb17-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-252"><a href="#cb17-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-253"><a href="#cb17-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-254"><a href="#cb17-254" aria-hidden="true" tabindex="-1"></a>Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surgen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.</span>
+<span id="cb17-255"><a href="#cb17-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-258"><a href="#cb17-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-259"><a href="#cb17-259" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(PracTools)</span>
+<span id="cb17-260"><a href="#cb17-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-261"><a href="#cb17-261" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(<span class="fu">nPropMoe</span>(<span class="at">moe.sw =</span> <span class="dv">1</span>, </span>
+<span id="cb17-262"><a href="#cb17-262" aria-hidden="true" tabindex="-1"></a>                 <span class="at">e =</span> <span class="fu">seq</span>(<span class="fl">0.01</span>,<span class="fl">0.08</span>,<span class="fl">0.01</span>), </span>
+<span id="cb17-263"><a href="#cb17-263" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha =</span> <span class="fl">0.05</span>, </span>
+<span id="cb17-264"><a href="#cb17-264" aria-hidden="true" tabindex="-1"></a>                 <span class="at">pU =</span> <span class="fl">0.5</span>))</span>
+<span id="cb17-265"><a href="#cb17-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-266"><a href="#cb17-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-267"><a href="#cb17-267" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo Sistemático</span></span>
+<span id="cb17-268"><a href="#cb17-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-269"><a href="#cb17-269" aria-hidden="true" tabindex="-1"></a>El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no esconda un sesgo particular en su orden o, ante esta presuposición, poder reordenarla bajo algún criterio que fuerce el azar.</span>
+<span id="cb17-270"><a href="#cb17-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-271"><a href="#cb17-271" aria-hidden="true" tabindex="-1"></a>Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar ($N$ o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra ($n$ o la cantidad de estudiantes que se quiere seleccionar de esa lista).</span>
+<span id="cb17-272"><a href="#cb17-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-273"><a href="#cb17-273" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb17-274"><a href="#cb17-274" aria-hidden="true" tabindex="-1"></a>K = \frac{N}{n}</span>
+<span id="cb17-275"><a href="#cb17-275" aria-hidden="true" tabindex="-1"></a>$$</span>
+<span id="cb17-276"><a href="#cb17-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-277"><a href="#cb17-277" aria-hidden="true" tabindex="-1"></a>Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código</span>
+<span id="cb17-278"><a href="#cb17-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-281"><a href="#cb17-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-282"><a href="#cb17-282" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: sistematico</span></span>
+<span id="cb17-283"><a href="#cb17-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-284"><a href="#cb17-284" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb17-285"><a href="#cb17-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-286"><a href="#cb17-286" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">5</span></span>
+<span id="cb17-287"><a href="#cb17-287" aria-hidden="true" tabindex="-1"></a>lista_estudiantes <span class="ot">=</span> <span class="fu">as_data_frame</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>))</span>
+<span id="cb17-288"><a href="#cb17-288" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="dv">50</span> </span>
+<span id="cb17-289"><a href="#cb17-289" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="fu">ceiling</span>(N<span class="sc">/</span>n) <span class="co"># K = 10</span></span>
+<span id="cb17-290"><a href="#cb17-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-291"><a href="#cb17-291" aria-hidden="true" tabindex="-1"></a><span class="co"># Se sortea el primer estudiante</span></span>
+<span id="cb17-292"><a href="#cb17-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-293"><a href="#cb17-293" aria-hidden="true" tabindex="-1"></a>inicio_sistematico <span class="ot">=</span> <span class="fu">sample</span>(n, <span class="at">size =</span> <span class="dv">1</span>) </span>
+<span id="cb17-294"><a href="#cb17-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-295"><a href="#cb17-295" aria-hidden="true" tabindex="-1"></a><span class="co"># Luego se continua de manera sistemática</span></span>
+<span id="cb17-296"><a href="#cb17-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-297"><a href="#cb17-297" aria-hidden="true" tabindex="-1"></a>sorteo <span class="ot">=</span> <span class="fu">seq</span>(<span class="at">from =</span> inicio_sistematico, </span>
+<span id="cb17-298"><a href="#cb17-298" aria-hidden="true" tabindex="-1"></a>             <span class="at">by =</span> k , </span>
+<span id="cb17-299"><a href="#cb17-299" aria-hidden="true" tabindex="-1"></a>             <span class="at">length.out =</span> n)</span>
+<span id="cb17-300"><a href="#cb17-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-301"><a href="#cb17-301" aria-hidden="true" tabindex="-1"></a>muestra_sistematica <span class="ot">=</span> lista_estudiantes[sorteo, ]</span>
+<span id="cb17-302"><a href="#cb17-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-303"><a href="#cb17-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-304"><a href="#cb17-304" aria-hidden="true" tabindex="-1"></a>Cambiando lo que haya que cambiar, el código anterior también se podría aplicar si se quiere utilizar para seleccionar los 300 establecimientos, en vez del muestreo por azar simple, el muestreo sistemático.</span>
+<span id="cb17-305"><a href="#cb17-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-306"><a href="#cb17-306" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo Estratificado</span></span>
+<span id="cb17-307"><a href="#cb17-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-308"><a href="#cb17-308" aria-hidden="true" tabindex="-1"></a>El muestreo estratificado es un tipo de muestreo el muestreo se realiza en base a estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratificado. En el extremo, si todos los miembros de cada estrato son iguales entre sí y los tamaños de cada estrato también son iguales entre sí, sólo habría que seleccionar a un caso por estrato y con eso se tendría una muestra representativa. Si los tamaños de los estratos fueran diferentes también se podría seleccionar un caso por estrato pero la condición para que esta muestra sea representativa es que luego se incluyan ponderadores diferentes para cada estraro en la muestra.</span>
+<span id="cb17-309"><a href="#cb17-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-310"><a href="#cb17-310" aria-hidden="true" tabindex="-1"></a>En la realidad los estratos tienen una heterogeneidad interna que se asume que es menor a la heterogeneidad del conjunto de la población pero que usualmente se encuentra lejos del caso extremo anterior. Los estratos son variables discretas que conforman subpoblaciones mutuamente excluyentes y exhaustivas de toda población aunque se pueden construir los mismos en función de datos continuos. En nuestra base de datos puede haber varias variables que pueden ser considerados como estratos. En este caso, a modo de ejemplo, nos quedaremos con "Ambito" que posee 3 categorías que asumimos, como diría Platón en el Fedro, que corta la realidad por sus articulaciones naturales <span class="co">[</span><span class="ot">@platón2002, pag. 55</span><span class="co">]</span>. Por otro lado, utilizar "Ámbito" como estrato tiene otra virtud pedagógica que deviene de la diferente distribución de cada categoría. Esto lo hace un buen candidato para mostrar la utilidad del muestreo estratificado en su versión optimizada ya que la categoría "Rural Agrupado" posee un menor porcentaje de casos y, a igualdad de otras condiciones, un mayor error en su estimación.</span>
+<span id="cb17-311"><a href="#cb17-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-312"><a href="#cb17-312" aria-hidden="true" tabindex="-1"></a>|   | Estratificado Proporcional | Estratificado optimizado |</span>
+<span id="cb17-313"><a href="#cb17-313" aria-hidden="true" tabindex="-1"></a>|------------------------|------------------------|------------------------|</span>
+<span id="cb17-314"><a href="#cb17-314" aria-hidden="true" tabindex="-1"></a>| **Estratos Teóricos** | Estrato teórico (p.e. Ámbito) con probabilidades iguales | Estrato teórico (p.e. Ámbito) con probabilidades diferentes |</span>
+<span id="cb17-315"><a href="#cb17-315" aria-hidden="true" tabindex="-1"></a>| **Estratos Empíricos** | Estrato estadístico con probabilidades iguales | Estrato estadístico con probabilidades diferentes |</span>
+<span id="cb17-316"><a href="#cb17-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-317"><a href="#cb17-317" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estratos teóricos con asignación proporcional</span></span>
+<span id="cb17-318"><a href="#cb17-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-319"><a href="#cb17-319" aria-hidden="true" tabindex="-1"></a>En este subtipo de muestreo estratificado utilizaremos la variable "Ámbito" como estrato y respetaremos en la muestra la distribución que el estrato tiene en la población.</span>
+<span id="cb17-320"><a href="#cb17-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-323"><a href="#cb17-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-324"><a href="#cb17-324" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb17-325"><a href="#cb17-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-326"><a href="#cb17-326" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">300</span></span>
+<span id="cb17-327"><a href="#cb17-327" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">nrow</span>(base)</span>
+<span id="cb17-328"><a href="#cb17-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-329"><a href="#cb17-329" aria-hidden="true" tabindex="-1"></a>base_toy <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb17-330"><a href="#cb17-330" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(ambito) <span class="sc">|&gt;</span></span>
+<span id="cb17-331"><a href="#cb17-331" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(base_toy)))</span>
+<span id="cb17-332"><a href="#cb17-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-333"><a href="#cb17-333" aria-hidden="true" tabindex="-1"></a>size_strata <span class="ot">=</span> base_toy <span class="sc">|&gt;</span></span>
+<span id="cb17-334"><a href="#cb17-334" aria-hidden="true" tabindex="-1"></a><span class="fu">tabyl</span>(ambito) <span class="sc">|&gt;</span></span>
+<span id="cb17-335"><a href="#cb17-335" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(percent) <span class="sc">|&gt;</span></span>
+<span id="cb17-336"><a href="#cb17-336" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">size_strata =</span> <span class="fu">round</span>(percent <span class="sc">*</span> n)) <span class="sc">|&gt;</span></span>
+<span id="cb17-337"><a href="#cb17-337" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(size_strata) <span class="sc">|&gt;</span></span>
+<span id="cb17-338"><a href="#cb17-338" aria-hidden="true" tabindex="-1"></a><span class="fu">pull</span>()</span>
+<span id="cb17-339"><a href="#cb17-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-340"><a href="#cb17-340" aria-hidden="true" tabindex="-1"></a>muestra_estratificada_teo_prop <span class="ot">=</span> sampling<span class="sc">::</span><span class="fu">strata</span>(base_toy,</span>
+<span id="cb17-341"><a href="#cb17-341" aria-hidden="true" tabindex="-1"></a>                <span class="at">stratanames =</span> <span class="fu">c</span>(<span class="st">"ambito"</span>),</span>
+<span id="cb17-342"><a href="#cb17-342" aria-hidden="true" tabindex="-1"></a>                 <span class="at">size =</span> size_strata,</span>
+<span id="cb17-343"><a href="#cb17-343" aria-hidden="true" tabindex="-1"></a>                 <span class="at">method =</span> <span class="st">"srswor"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-344"><a href="#cb17-344" aria-hidden="true" tabindex="-1"></a>                <span class="fu">rename</span>(<span class="at">id =</span> ID_unit) <span class="sc">|&gt;</span></span>
+<span id="cb17-345"><a href="#cb17-345" aria-hidden="true" tabindex="-1"></a>                <span class="fu">select</span>(<span class="sc">!</span>ambito) <span class="sc">|&gt;</span></span>
+<span id="cb17-346"><a href="#cb17-346" aria-hidden="true" tabindex="-1"></a>                <span class="fu">left_join</span>(base_toy, <span class="at">by =</span> <span class="st">"id"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb17-347"><a href="#cb17-347" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">fpc =</span> ((N<span class="sc">-</span>n)<span class="sc">/</span>(N<span class="dv">-1</span>))<span class="sc">^</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb17-348"><a href="#cb17-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-349"><a href="#cb17-349" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-350"><a href="#cb17-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-351"><a href="#cb17-351" aria-hidden="true" tabindex="-1"></a>Seleccionada la muestra ahora le especifico los detalles del diseño mediante</span>
+<span id="cb17-352"><a href="#cb17-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-355"><a href="#cb17-355" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-356"><a href="#cb17-356" aria-hidden="true" tabindex="-1"></a>muestra_estratificada_teo_prop_sv <span class="ot">=</span> muestra_estratificada_teo_prop <span class="sc">|&gt;</span></span>
+<span id="cb17-357"><a href="#cb17-357" aria-hidden="true" tabindex="-1"></a><span class="fu">as_survey_design</span>(<span class="at">ids =</span> <span class="dv">1</span>,</span>
+<span id="cb17-358"><a href="#cb17-358" aria-hidden="true" tabindex="-1"></a>                 <span class="at">probs =</span> Prob,</span>
+<span id="cb17-359"><a href="#cb17-359" aria-hidden="true" tabindex="-1"></a>                 <span class="at">fpc =</span> fpc,</span>
+<span id="cb17-360"><a href="#cb17-360" aria-hidden="true" tabindex="-1"></a>                 <span class="at">strata =</span> ambito)</span>
+<span id="cb17-361"><a href="#cb17-361" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-362"><a href="#cb17-362" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-365"><a href="#cb17-365" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-366"><a href="#cb17-366" aria-hidden="true" tabindex="-1"></a>tbl_estratificado_teo_prop <span class="ot">=</span> muestra_estratificada_teo_prop_sv <span class="sc">|&gt;</span></span>
+<span id="cb17-367"><a href="#cb17-367" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
+<span id="cb17-368"><a href="#cb17-368" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
+<span id="cb17-369"><a href="#cb17-369" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
+<span id="cb17-370"><a href="#cb17-370" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{n} {n_unweighted} ({p}%) {p.std.error}"</span>))</span>
+<span id="cb17-371"><a href="#cb17-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-372"><a href="#cb17-372" aria-hidden="true" tabindex="-1"></a>tbl_estratificado_teo_prop</span>
+<span id="cb17-373"><a href="#cb17-373" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-374"><a href="#cb17-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-375"><a href="#cb17-375" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estratos teóricos con asignación óptimizada (no proporcional)</span></span>
+<span id="cb17-376"><a href="#cb17-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-379"><a href="#cb17-379" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-380"><a href="#cb17-380" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-381"><a href="#cb17-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-382"><a href="#cb17-382" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://tidyclust.tidymodels.org/&gt;</span></span>
+<span id="cb17-383"><a href="#cb17-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-384"><a href="#cb17-384" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo por Clusters</span></span>
+<span id="cb17-385"><a href="#cb17-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-386"><a href="#cb17-386" aria-hidden="true" tabindex="-1"></a><span class="fu">## Muestreo Proporcional al tamaño</span></span>
+<span id="cb17-387"><a href="#cb17-387" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-388"><a href="#cb17-388" aria-hidden="true" tabindex="-1"></a><span class="in">```         </span></span>
+<span id="cb17-389"><a href="#cb17-389" aria-hidden="true" tabindex="-1"></a><span class="in">sizes &lt;- c(9,2,5,17,4,21,15,7,4,11,23,23,14) &gt; sampleindices &lt;- ppss(sizes,4)</span></span>
+<span id="cb17-390"><a href="#cb17-390" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-391"><a href="#cb17-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-392"><a href="#cb17-392" aria-hidden="true" tabindex="-1"></a>Autoponderado (PPS)</span>
+<span id="cb17-393"><a href="#cb17-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-394"><a href="#cb17-394" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://stats.stackexchange.com/questions/621444/can-i-make-a-proportional-to-size-without-replacement-sample-pps-wor-self-weig&gt;</span></span>
+<span id="cb17-395"><a href="#cb17-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-398"><a href="#cb17-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb17-399"><a href="#cb17-399" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb17-400"><a href="#cb17-400" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampling)</span>
+<span id="cb17-401"><a href="#cb17-401" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">40</span></span>
+<span id="cb17-402"><a href="#cb17-402" aria-hidden="true" tabindex="-1"></a>pi <span class="ot">&lt;-</span> <span class="fu">inclusionprobabilities</span>(grdKandahar<span class="sc">$</span>agri, n)</span>
+<span id="cb17-403"><a href="#cb17-403" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">314</span>)</span>
+<span id="cb17-404"><a href="#cb17-404" aria-hidden="true" tabindex="-1"></a>sampleind <span class="ot">&lt;-</span> <span class="fu">UPrandompivotal</span>(<span class="at">pik =</span> pi)</span>
+<span id="cb17-405"><a href="#cb17-405" aria-hidden="true" tabindex="-1"></a>mysample <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(grdKandahar[sampleind <span class="sc">==</span> <span class="dv">1</span>, ], <span class="at">pi =</span> pi[sampleind <span class="sc">==</span> <span class="dv">1</span>])</span>
+<span id="cb17-406"><a href="#cb17-406" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(mysample)</span>
+<span id="cb17-407"><a href="#cb17-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb17-408"><a href="#cb17-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-409"><a href="#cb17-409" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-1]: </span>Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.</span>
+<span id="cb17-410"><a href="#cb17-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-411"><a href="#cb17-411" aria-hidden="true" tabindex="-1"></a><span class="ot">[^azar-2]: </span>Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición, eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x cantidad de casos ".</span>
 </code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

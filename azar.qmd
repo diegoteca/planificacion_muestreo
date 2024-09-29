@@ -246,9 +246,9 @@ ceiling(nPropMoe(moe.sw = 1,
                  pU = 0.5))
 ```
 
-## Muestreo sistemático
+## Muestreo Sistemático
 
-El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no tenga un sesgo particular en su orden o, de ser posible, poder reordenarla bajo algún criterio que fuerce el azar.
+El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no esconda un sesgo particular en su orden o, ante esta presuposición, poder reordenarla bajo algún criterio que fuerce el azar.
 
 Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar ($N$ o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra ($n$ o la cantidad de estudiantes que se quiere seleccionar de esa lista).
 
@@ -281,15 +281,103 @@ sorteo = seq(from = inicio_sistematico,
 muestra_sistematica = lista_estudiantes[sorteo, ]
 ```
 
-Muestreo Estratificado
+Cambiando lo que haya que cambiar, el código anterior también se podría aplicar si se quiere utilizar para seleccionar los 300 establecimientos, en vez del muestreo por azar simple, el muestreo sistemático.
 
-El muestreo estratificado es un tipo de muestreo en donde se intenta construir estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratficado.
+## Muestreo Estratificado
+
+El muestreo estratificado es un tipo de muestreo el muestreo se realiza en base a estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratificado. En el extremo, si todos los miembros de cada estrato son iguales entre sí y los tamaños de cada estrato también son iguales entre sí, sólo habría que seleccionar a un caso por estrato y con eso se tendría una muestra representativa. Si los tamaños de los estratos fueran diferentes también se podría seleccionar un caso por estrato pero la condición para que esta muestra sea representativa es que luego se incluyan ponderadores diferentes para cada estraro en la muestra.
+
+En la realidad los estratos tienen una heterogeneidad interna que se asume que es menor a la heterogeneidad del conjunto de la población pero que usualmente se encuentra lejos del caso extremo anterior. Los estratos son variables discretas que conforman subpoblaciones mutuamente excluyentes y exhaustivas de toda población aunque se pueden construir los mismos en función de datos continuos. En nuestra base de datos puede haber varias variables que pueden ser considerados como estratos. En este caso, a modo de ejemplo, nos quedaremos con "Ambito" que posee 3 categorías que asumimos, como diría Platón en el Fedro, que corta la realidad por sus articulaciones naturales [@platón2002, pag. 55]. Por otro lado, utilizar "Ámbito" como estrato tiene otra virtud pedagógica que deviene de la diferente distribución de cada categoría. Esto lo hace un buen candidato para mostrar la utilidad del muestreo estratificado en su versión optimizada ya que la categoría "Rural Agrupado" posee un menor porcentaje de casos y, a igualdad de otras condiciones, un mayor error en su estimación.
+
+|   | Estratificado Proporcional | Estratificado optimizado |
+|------------------------|------------------------|------------------------|
+| **Estratos Teóricos** | Estrato teórico (p.e. Ámbito) con probabilidades iguales | Estrato teórico (p.e. Ámbito) con probabilidades diferentes |
+| **Estratos Empíricos** | Estrato estadístico con probabilidades iguales | Estrato estadístico con probabilidades diferentes |
+
+### Estratos teóricos con asignación proporcional
+
+En este subtipo de muestreo estratificado utilizaremos la variable "Ámbito" como estrato y respetaremos en la muestra la distribución que el estrato tiene en la población.
+
+```{r}
+
+set.seed(123)
+
+n = 300
+N = nrow(base)
+
+base_toy = base_toy |>
+arrange(ambito) |>
+mutate(id = c(1:nrow(base_toy)))
+
+size_strata = base_toy |>
+tabyl(ambito) |>
+select(percent) |>
+mutate(size_strata = round(percent * n)) |>
+select(size_strata) |>
+pull()
+
+muestra_estratificada_teo_prop = sampling::strata(base_toy,
+                stratanames = c("ambito"),
+                 size = size_strata,
+                 method = "srswor") |>
+                rename(id = ID_unit) |>
+                select(!ambito) |>
+                left_join(base_toy, by = "id") |>
+mutate(fpc = ((N-n)/(N-1))^(1/2))
+
+```
+
+Seleccionada la muestra ahora le especifico los detalles del diseño mediante
+
+```{r}
+
+muestra_estratificada_teo_prop_sv = muestra_estratificada_teo_prop |>
+as_survey_design(ids = 1,
+                 probs = Prob,
+                 fpc = fpc,
+                 strata = ambito)
+```
+
+```{r}
+tbl_estratificado_teo_prop = muestra_estratificada_teo_prop_sv |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{n} {n_unweighted} ({p}%) {p.std.error}"))
+
+tbl_estratificado_teo_prop
+```
+
+### Estratos teóricos con asignación óptimizada (no proporcional)
+
+```{r}
+
+```
 
 <https://tidyclust.tidymodels.org/>
 
-Cluster sampling
+## Muestreo por Clusters
 
-Autoponderado
+## Muestreo Proporcional al tamaño
+
+```         
+sizes <- c(9,2,5,17,4,21,15,7,4,11,23,23,14) > sampleindices <- ppss(sizes,4)
+```
+
+Autoponderado (PPS)
+
+<https://stats.stackexchange.com/questions/621444/can-i-make-a-proportional-to-size-without-replacement-sample-pps-wor-self-weig>
+
+```{r}
+#| eval: false
+library(sampling)
+n <- 40
+pi <- inclusionprobabilities(grdKandahar$agri, n)
+set.seed(314)
+sampleind <- UPrandompivotal(pik = pi)
+mysample <- data.frame(grdKandahar[sampleind == 1, ], pi = pi[sampleind == 1])
+nrow(mysample)
+```
 
 [^azar-1]: Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.
 
