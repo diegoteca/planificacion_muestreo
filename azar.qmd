@@ -1,8 +1,4 @@
----
-title: "Azar simple"
----
-
-## Porqué usamos el azar para producir muestras (aproximadamente) representativas
+## Azar y muestras (aproximadamente) representativas
 
 Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
 
@@ -14,18 +10,16 @@ Para tener una mejor experiencia de este simulador es aconsejable su ejecución 
 
 Con este programa podemos jugar de varias formas. Aquí nos interesa las siguientes.
 
-1.  En primer lugar ver que pasa, en los términos de la figura "datos acumulativos de las muestras" cuando realizamos muchas muestras sobre una misma población (p.e. Población = "Opción 3"). Como veremos, estas distribuciones, en especial si la muestra contiene más de 30 casos, converge hacia un patrón de distribución "normal". Lo interesante es que esta distribución emerge con mayor o menor rapidez, de manera independiente de la forma de la población. Esto se puede probar escogiendo diferente poblaciones (p.e. Tamaño de la muestra = 30 y 200).
+1.  En primer lugar ver que pasa, en los términos de la figura "datos acumulativos de las muestras" cuando realizamos muchas muestras sobre una misma población (p.e. Población = "Opción 3"). Como veremos, estas distribuciones, en especial si la muestra contiene más de 30 casos, converge hacia un patrón de distribución "normal". Lo interesante es que esta distribución emerge, con mayor o menor rapidez, de manera independiente de la forma de la población (Ver punto 2). También se puede probar escogiendo diferentes tamaños de las muestras (p.e. Tamaño de la muestra = 30 y 200).
 
-2.  Por otro lado se puede probar que sucede si, se hace el ejercicio anterior en diferentes poblaciones (p.e. con Población = "Opción 6"). Como se observará siempre se obtiene una distribución "normal" aunque en mayor tiempo y con una diferente varianza.
+2.  Por otro lado se puede probar que sucede si, se hace el ejercicio anterior en diferentes poblaciones (p.e. con Población = "Opción 6"). Como se observará siempre se obtiene una distribución "normal" aunque en mayor tiempo y con una mayor varianza.
 
 ## Población
 
-Como se dijo anteriormente, nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, como se observa en @tbl-escuelas, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales.
+Como se anticipó en la introducción, nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, como se observa en @tbl-escuelas, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales. Algunos de esos diseños servirán cuando el objetivo sea tener una muestra de escuelas (muestreos de una sola etapa) y otros, generalmente más complejos, podrán servir como un primer paso para luego realizar una muestra a estudiantes, directivos, etc. (muestreo polietápicos).
 
 ```{r}
 #| label: setting
-
-# Hay que instalar las siguientes librerias previamente sino las tienen instaladas
 
 library(here)
 library(readxl)
@@ -38,6 +32,7 @@ library(infer)
 library(patchwork)
 library(srvyr)
 library(survey)
+library(cardx)
 
 i_am("azar.qmd")
 
@@ -49,24 +44,27 @@ big.mark = ".")
 
 ```{r}
 #| label: tbl-escuelas
-#| tbl-cap: Información de las escuelas
+#| tbl-cap: Información de la base de escuelas
+
+levels_region = c("01", "02", "03", "04", "05", "06", "07",
+                  "08", "09", "10", "11", "12", "13", "14",
+                  "15", "16", "17", "18", "19", "20", "21",
+                  "22", "23", "24", "25")
 
 base = read_xlsx(here("Inputs", "base_escuelas_primaria.xlsx")) |>
 clean_names() |>
 mutate(ambito = as_factor(ambito),
-       region = as_factor(region))
-
-# Le agrego las coordenadas de los colegios
-
+       region = as_factor(region),
+       region = fct_relevel(region, levels_region))
 
 base |>
 slice_head(n = 3) |>
 gt()
 ```
 
-Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (prueba_x) o de los directivos de los mismos (direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).[^azar-1]
+Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (p.e. prueba_x) o de los directivos de los mismos (p.e. direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).[^azar-1]
 
-Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrá considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
+Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrán considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
 
 Dentro de los parámetros poblacionales vamos a calcular los siguientes:
 
@@ -92,25 +90,27 @@ En la @tbl-parametros_base puede observarse algunos de los valores de estos par�
 
 base_toy = base |>
 select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) 
-pob_param = base_toy |>
+
+tbl_pob_param = base_toy |>
 tbl_summary(include = !clave,
             statistic = list(
-      all_continuous() ~ "{mean} ({p25}, {p75})"))
+      all_continuous() ~ "{mean} ({p25}, {p75})",
+      all_categorical() ~ "{p}% ({n})"))
 
-pob_param
+tbl_pob_param
 ```
 
-Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar *ex-ante* las distintas estimaciones de los diferentes diseños muestrales que vamos a usar y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:
+Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar, *ex-ante,* la media de las medias muestrales realizadas con azar simple y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:
 
-Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. Esto quiere decir que, si bien la teoría de muestreo derivada de la aleatoriedad muchas veces supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población) en la realidad el investigador que sale a campo muchas veces dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata del segundo caso, como mejorarlas.
+Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. En cambio, una buena parte de la teoría del muestreo supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población). La mayoría de la veces el investigador que sale a campo dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata de este último caso, como mejorarlas.
 
-## Azar simple
+## Muestreo por azar simple
 
 Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) de este. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior.
 
-Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.[^azar-2]
+Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.
 
-A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre un total de 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. Esto se puede observar en la @tbl-medias_muestrales_azar_simple.
+A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre el total de las 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. El resultado de estas simulaciones sto se puede observar en la @tbl-medias_muestrales_azar_simple.
 
 ```{r}
 #| label: azar_simple_rep
@@ -186,11 +186,9 @@ fig_medias_muestrales_sondeo_primero +
 fig_medias_muestrales_sondeo_segundo
 ```
 
-En esta figura se observa que la distribución de las 1000 muestras que tomamos si bien se aproximan tampoco son idénticas a una distribución normal. Seguramente, si haríamos más muestras nos acercaríamos aún más a una distribución muestral pero quizá este ejemplo baste para explicitar el siguiente punto. Si haríamos muchas muestras vamos a saber con cierta seguridad que la media de las muestras será aproximadamente similar al parámetro poblacional pero ¿Qué sucede si sólo tomamos una sola muestra? ¿Cómo sabemos si nuestra (única) muestra es de las buenas o de las malas? ¿Cómo sabemos que nuestra muestra no es alguna de las que están más a la izquierda o más a la derecha en la @fig-medias_muestrales_azar_simple ?
+En la figura anterior se observa que la distribución de las 1000 muestras que tomamos, si bien se aproximan, no son idénticas a una distribución normal. Seguramente, si haríamos más muestras nos acercaríamos aún más a una distribución muestral pero quizá este ejemplo baste para explicitar el siguiente punto. Si haríamos muchas muestras vamos a saber con cierta seguridad que la media de las muestras será aproximadamente similar al parámetro poblacional pero ¿Qué sucede si sólo tomamos una sola muestra? Nuevamente ¿Cómo sabemos si nuestra (única) muestra es de las buenas o de las malas? ¿Cómo sabemos que nuestra muestra no es alguna de las que están en el extremo izquierdo o derecho de la @fig-medias_muestrales_azar_simple ?
 
-Ahí es donde entra la ayuda de las librerías específicas. En la sección XXX se había comentado sobre la existencia de librerías específicas para el análisis
-
-Aun cuando sea con azar simple es importante aclarar algunas cuestiones. El tipo de muestras que nos interesan generalmente son "sin reemplazo" en el sentido que no queremos que, por ejemplo, un mismo colegio aparezca dos veces en la muestra...al menos si queremos hacer una muestra de colegios y no de estudiantes.
+Ahí es donde entra la ayuda de las librerías específicas. En la introducción se había comentado sobre la existencia de librerías específicas para el análisis de datos muestrales. Estas librerías le van a prestar atención a varios detalles del proceso de selección y nos van a pedir que los explicitemos. Por ejemplo, El tipo de muestras que nos van a interesar generalmente son "sin reemplazo" en el sentido que no queremos que, por ejemplo, un mismo colegio aparezca dos veces seleccionado en una muestra de colegios. También, casi todas las librerías de este estilo, nos van a pedir información de algunos totales de la población para construir ponderadores y otras librerías nos a pedir esos ponderadores utilizarlos en el análisis de los datos. En el caso de una muestra aleatoria simple ese ponderador, al menos en la fase de diseño, suele ser la probabilidad inversa de haber ingresado en la muestra ($N/n$, donde $N$ es el tamaño de la población y $n$ el tamaño de la muestra). En este tipo de diseño el valor del ponderador es el mismo para todas las unidades seleccionadas.
 
 ```{r}
 #| label: azar_simple
@@ -199,58 +197,54 @@ set.seed(123)
 
 # fpc = ((N-n)/(N-1))1/2
 
-
-
 muestra_azar_simple = base |>
-slice_sample(n = 300, replace = FALSE)
+slice_sample(n = 300, replace = FALSE) |>
+mutate(id = row_number())
 
 n = nrow(muestra_azar_simple)
 N = nrow(base)
 
 muestra_azar_simple = muestra_azar_simple |>
 mutate(pw = N/n,
-       fpc = ((N-n)/(N-1))^(1/2))
+       fpc = sqrt((N-n)/(N-1)))
 
 muestra_azar_simple_sv = muestra_azar_simple |>
-as_survey_design(ids = 1,
+as_survey_design(ids = id,
                  weights = pw,
-                 fpc = fpc )
+                 fpc = fpc)
 ```
 
 ```{r}
 #| label: tbl-azar_simple
 #| tbl-cap: Estimaciones con azar simple
 
-library(cardx)
 
 tbl_azar_simple = muestra_azar_simple_sv |>
 tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
-                all_categorical() ~ "{n} {n_unweighted} ({p}%) {p.std.error}"))
+digits = list(deff = label_style_number(digits = 2),
+              sd = label_style_number(digits = 3)),
+statistic = list(all_continuous() ~ "{mean} ({sd})",
+                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+add_ci()
 
 tbl_azar_simple
 
+tbl_merge(
+  tbls = list(tbl_pob_param, tbl_azar_simple),
+  tab_spanner = c("**Parámetro Pob.**", "**Azar simple**")
+)
 
 
 ```
 
-Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surgen de la muestra. Esto es especialmente notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.
-
-```{r}
-library(PracTools)
-
-ceiling(nPropMoe(moe.sw = 1, 
-                 e = seq(0.01,0.08,0.01), 
-                 alpha = 0.05, 
-                 pU = 0.5))
-```
+Ahora que estamos analizando sólo una muestra podemos empezar a ver algunas distancias entre los parámetros poblaciones y las estimaciones que surgen de la muestra. Esto es especialmente más notorio en los casos de las categorías menos difundidas de las variables categóricas como puede ser algunas de las regiones.
 
 ## Muestreo Sistemático
 
-El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, se aplique en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no esconda un sesgo particular en su orden o, ante esta presuposición, poder reordenarla bajo algún criterio que fuerce el azar.
+El muestro sistemático no ofrece muchas diferencias apreciables de cálculo con el azar simple aunque tiene un diferencia logística importante. No es necesario tener en el momento del diseño una lista centralizada de "contactos" a quien seleccionar. Esto hace que el muestreo sistemático, especialmente en muestras polietápicas, sea un buen candidato a aplicar en las últimas instancias de selección en donde cada encuestador, de manera descentralizada, sí tiene acceso, *in situ*, a esa información. Es importante, de todos modos, suponer que la lista en cuestión no esconda un sesgo particular en su orden o, ante esta presuposición, poder reordenarla bajo algún criterio que fuerce el azar.
 
-Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar ($N$ o el tamaño de la lista de estudiantes del colegio seleccionado) y el tamaño de la muestra ($n$ o la cantidad de estudiantes que se quiere seleccionar de esa lista).
+Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes pero a) no se cuenta con información nominal en el momento del diseño de la muestra pero b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes. En este contexto, se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiantes, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar $N$ como el tamaño de la lista de estudiantes del colegio seleccionado y el tamaño de la muestra $n$ como la cantidad de estudiantes que se quiere seleccionar de esa lista.
 
 $$
 K = \frac{N}{n}
@@ -272,7 +266,7 @@ k = ceiling(N/n) # K = 10
 
 inicio_sistematico = sample(n, size = 1) 
 
-# Luego se continua de manera sistemática
+# Y luego se continua de manera sistemática
 
 sorteo = seq(from = inicio_sistematico, 
              by = k , 
@@ -281,22 +275,22 @@ sorteo = seq(from = inicio_sistematico,
 muestra_sistematica = lista_estudiantes[sorteo, ]
 ```
 
-Cambiando lo que haya que cambiar, el código anterior también se podría aplicar si se quiere utilizar para seleccionar los 300 establecimientos, en vez del muestreo por azar simple, el muestreo sistemático.
+Cambiando lo que haya que cambiar, el código anterior también se podría aplicar si se quiere utilizar para seleccionar los 300 establecimientos que antes se habían seleccionado con el diseño del azar simple.
 
 ## Muestreo Estratificado
 
-El muestreo estratificado es un tipo de muestreo el muestreo se realiza en base a estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratificado. En el extremo, si todos los miembros de cada estrato son iguales entre sí y los tamaños de cada estrato también son iguales entre sí, sólo habría que seleccionar a un caso por estrato y con eso se tendría una muestra representativa. Si los tamaños de los estratos fueran diferentes también se podría seleccionar un caso por estrato pero la condición para que esta muestra sea representativa es que luego se incluyan ponderadores diferentes para cada estraro en la muestra.
+El muestreo estratificado es un tipo de muestreo que se realiza en base a estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratificado. En el extremo, si todos los miembros de cada estrato son iguales entre sí y los tamaños de cada estrato también son iguales entre sí, sólo habría que seleccionar a un caso por estrato y con eso se tendría una muestra representativa. Si los tamaños de los estratos fueran diferentes también se podría seleccionar un caso por estrato pero la condición para que esta muestra sea representativa es que luego se incluyan ponderadores diferentes para cada estrato de la muestra.
 
-En la realidad los estratos tienen una heterogeneidad interna que se asume que es menor a la heterogeneidad del conjunto de la población pero que usualmente se encuentra lejos del caso extremo anterior. Los estratos son variables discretas que conforman subpoblaciones mutuamente excluyentes y exhaustivas de toda población aunque se pueden construir los mismos en función de datos continuos. En nuestra base de datos puede haber varias variables que pueden ser considerados como estratos. En este caso, a modo de ejemplo, nos quedaremos con "Ambito" que posee 3 categorías que asumimos, como diría Platón en el Fedro, que corta la realidad por sus articulaciones naturales [@platón2002, pag. 55]. Por otro lado, utilizar "Ámbito" como estrato tiene otra virtud pedagógica que deviene de la diferente distribución de cada categoría. Esto lo hace un buen candidato para mostrar la utilidad del muestreo estratificado en su versión optimizada ya que la categoría "Rural Agrupado" posee un menor porcentaje de casos y, a igualdad de otras condiciones, un mayor error en su estimación.
+Para que el muestreo estratificado sea efectivo, los estratos deben tener una heterogeneidad interna que se asume que es menor a la heterogeneidad del conjunto de la población pero que usualmente se encuentra lejos del ejemplo extremo del párrafo anterior. Los estratos son variables discretas que conforman subpoblaciones mutuamente excluyentes y exhaustivas de toda población aunque se pueden construir los mismos en función de datos categóricos, continuos o espaciales. En nuestra base de datos puede haber muchas variables que pueden ser considerados como estratos. En este caso, a modo de ejemplo, nos quedaremos con "Ambito" que posee 3 categorías que asumimos, como diría Platón en el Fedro, que cortan la realidad por sus articulaciones naturales [@platón2002, pag. 55]. Por otro lado, utilizar "Ámbito" como estrato tiene otra virtud pedagógica que deviene de la diferente distribución de cada categoría. Esto lo hace un buen candidato para mostrar la utilidad del muestreo estratificado en su versión proporcional y no proporcional ya que la categoría "Rural Agrupado" posee un menor porcentaje de casos y, a igualdad de otras condiciones, eso dificulta su posterior análisis.
 
-|   | Estratificado Proporcional | Estratificado optimizado |
+|   | Estratificado Proporcional | Estratificado no Proporcional |
 |------------------------|------------------------|------------------------|
-| **Estratos Teóricos** | Estrato teórico (p.e. Ámbito) con probabilidades iguales | Estrato teórico (p.e. Ámbito) con probabilidades diferentes |
-| **Estratos Empíricos** | Estrato estadístico con probabilidades iguales | Estrato estadístico con probabilidades diferentes |
+| **Estratos Teóricos** | Estrato teórico (p.e. Ámbito) con probabilidad proporcional | Estrato teórico (p.e. Ámbito) con probabilidad no proporcional |
+| **Estratos multivariado** | Estrato estadístico con probabilidad proporcional | Estrato estadístico con probabilidad no proporcional |
 
 ### Estratos teóricos con asignación proporcional
 
-En este subtipo de muestreo estratificado utilizaremos la variable "Ámbito" como estrato y respetaremos en la muestra la distribución que el estrato tiene en la población.
+En este subtipo de muestreo estratificado utilizaremos la variable "Ámbito" como estrato y respetaremos, aproximadamente, la distribución que ese estrato posee en la población. Decimos aproximadamente porque aquí siempre existe un factor de redondeo que deviene de la necesidad de realizar la muestra sobre una cantidad de casos discretos. Esta última necesidad hace que, al igual que cuando se intenta respetar las proporciones de los votos de una elección para la renovación de bancas de la Cámara de Diputados, casi siempre existan pequeñas diferencias entre las proporciones poblacionales y las muestrales.
 
 ```{r}
 
@@ -307,78 +301,209 @@ N = nrow(base)
 
 base_toy = base_toy |>
 arrange(ambito) |>
-mutate(id = c(1:nrow(base_toy)))
+mutate(id = row_number())
 
-size_strata = base_toy |>
-tabyl(ambito) |>
+datos_estratos = base_toy |>
+tabyl(ambito) 
+
+size_strata = datos_estratos |>
 select(percent) |>
 mutate(size_strata = round(percent * n)) |>
 select(size_strata) |>
 pull()
 
-muestra_estratificada_teo_prop = sampling::strata(base_toy,
-                stratanames = c("ambito"),
-                 size = size_strata,
-                 method = "srswor") |>
-                rename(id = ID_unit) |>
-                select(!ambito) |>
-                left_join(base_toy, by = "id") |>
-mutate(fpc = ((N-n)/(N-1))^(1/2))
+# Chequeo la suma de los estratos por el redondeo
+test_sum = sum(size_strata)
+
+# Como da 299 le sumo 1 caso al primer estrato
+
+size_strata[1] = size_strata[1] + 1
+
+muestra_estrat_teo_prop = sampling::strata(base_toy,
+stratanames = c("ambito"),
+size = size_strata,
+method = "srswor") |>
+rename(id = ID_unit) |>
+select(!ambito) |>
+left_join(base_toy, by = "id") |>
+left_join(datos_estratos, by = "ambito") |>
+group_by(Stratum) |>
+mutate(estrato_n = n(),
+       fpc = sqrt((n-estrato_n)/(n-1))) |>
+ungroup() |>
+mutate(weight = n / estrato_n)
+ 
 
 ```
 
-Seleccionada la muestra ahora le especifico los detalles del diseño mediante
+Seleccionada la muestra ahora le especifico los detalles del diseño mediante la librería survey o srvyr.
 
 ```{r}
 
-muestra_estratificada_teo_prop_sv = muestra_estratificada_teo_prop |>
-as_survey_design(ids = 1,
-                 probs = Prob,
-                 fpc = fpc,
-                 strata = ambito)
+muestra_estrat_teo_prop_sv = muestra_estrat_teo_prop |>
+as_survey_design(id = 1,
+                 weights = weight,
+                 strata = ambito,
+                 fpc = fpc)
+
+
 ```
 
+Y luego realizo la @tbl-estratificado_teo_prop con la información de algunas variables y esa misma tabla lo comparo con los valores de la @tbl-azar_simple que refería al diseño con azar simple.
+
 ```{r}
-tbl_estratificado_teo_prop = muestra_estratificada_teo_prop_sv |>
+#| label: tbl-estratificado_teo_prop
+#| tbl-cap: Tablas comparativas entre resultados azar simple y estratificado
+
+tbl_estrat_teo_prop = muestra_estrat_teo_prop_sv |>
 tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
-                all_categorical() ~ "{n} {n_unweighted} ({p}%) {p.std.error}"))
+digits = list(deff = label_style_number(digits = 2),
+              sd = label_style_number(digits = 3)),
+statistic = list(all_continuous() ~ "{mean} ({sd})",
+                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+add_ci() 
 
-tbl_estratificado_teo_prop
+tbl_estrat_teo_prop
+
+tbl_merge(
+  tbls = list(tbl_azar_simple, tbl_estrat_teo_prop),
+  tab_spanner = c("**Azar simple**", "**Estratificado P.**")
+)
 ```
 
-### Estratos teóricos con asignación óptimizada (no proporcional)
+### Estratos teóricos con asignación no proporcional
+
+En el tipo de diseño anterior hubo una variable (Ámbito) que se usó para estratificar la muestra. En ese caso, salvo variaciones menores debido a los factores de redondeo antes comentados, las proporciones de la muestra respetan las proporciones poblacionales. Eso es lo que precisamente se intenta modificar con el muestreo teórico con una asignación no proporcional. Usualmente, la idea que está detrás de esta estrategia es poder incrementar la cantidad de casos en aquellas categorías de los estratos que tienen una escasa de cantidad de casos para luego usarlos como dominios de estimación[^azar-2]. Si se respeta la proporción y existen categorías que poseen una distribución muy baja, nos vamos a quedar con pocos casos y con un alto error estándar en esos análisis. Aquí, para extremar esta lógica, vamos a realizar una muestra como si las distribución de la variable Ámbito fuera iguales para las sus 3 categorías.
+
+```{r}
+n = 300
+N = nrow(base)
+
+base_toy = base_toy |>
+arrange(ambito) |>
+mutate(id = row_number())
+
+datos_estratos = base_toy |>
+tabyl(ambito) 
+
+# Acá cambio el código para asignar una misma proporción a todos los estratos
+
+size_strata = datos_estratos |>
+select(percent) |>
+mutate(size_strata = n / length(levels(base_toy$ambito))) |>
+select(size_strata) |>
+pull()
+
+# Chequeo la suma de los estratos por el redondeo
+test_sum = sum(size_strata)
+
+#size_strata[1] = size_strata[1] + 1
+
+muestra_estrat_teo_no_prop = sampling::strata(base_toy,
+stratanames = c("ambito"),
+size = size_strata,
+method = "srswor") |>
+rename(id = ID_unit) |>
+select(!ambito) |>
+left_join(base_toy, by = "id") |>
+left_join(datos_estratos, by = "ambito") |>
+group_by(Stratum) |>
+mutate(estrato_n = n(),
+       fpc = sqrt((n-estrato_n)/(n-1))) |>
+ungroup() |>
+mutate(weight = n / estrato_n)
+```
 
 ```{r}
 
+muestra_estrat_teo_no_prop_sv = muestra_estrat_teo_no_prop |>
+as_survey_design(id = 1,
+                 weights = weight,
+                 strata = ambito,
+                 fpc = fpc)
+
 ```
-
-<https://tidyclust.tidymodels.org/>
-
-## Muestreo por Clusters
-
-## Muestreo Proporcional al tamaño
-
-```         
-sizes <- c(9,2,5,17,4,21,15,7,4,11,23,23,14) > sampleindices <- ppss(sizes,4)
-```
-
-Autoponderado (PPS)
-
-<https://stats.stackexchange.com/questions/621444/can-i-make-a-proportional-to-size-without-replacement-sample-pps-wor-self-weig>
 
 ```{r}
-#| eval: false
-library(sampling)
-n <- 40
-pi <- inclusionprobabilities(grdKandahar$agri, n)
-set.seed(314)
-sampleind <- UPrandompivotal(pik = pi)
-mysample <- data.frame(grdKandahar[sampleind == 1, ], pi = pi[sampleind == 1])
-nrow(mysample)
+#| label: tbl-estratificado_teo_no_prop
+#| tbl-cap: Tablas comparativas entre resultados azar simple y estratificado no propocional
+
+tbl_estrat_teo_no_prop = muestra_estrat_teo_no_prop_sv |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+digits = list(deff = label_style_number(digits = 2),
+              sd = label_style_number(digits = 3)),
+statistic = list(all_continuous() ~ "{mean} ({sd})",
+                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+add_ci() 
+
+tbl_estrat_teo_no_prop
+
+tbl_merge(
+  tbls = list(tbl_estrat_teo_prop, tbl_estrat_teo_no_prop),
+  tab_spanner = c("**Estratificado P**", "**Estratificado no P**")
+)
+```
+
+## Muestreo Proporcional al tamaño (PPS)
+
+Muchas veces, especialmente en diseños polietápicos, se desea que en la primera etapa las unidades de selección de esa etapa sean seleccionadas en función de alguna variable con sirva como indicador de su tamaño. En el caso de una muestra de colegios, variables como el tamaño de la matrícula pueden ser buenas candidatas. Sin embargo, esto, por definición, va a otorgar una mayor probabilidad de salir en la muestra a los colegios con mayor matrícula y estos pueden poseer características particulares como, por ejemplo, ubicarse en su mayoría en ámbitos urbanos. Por otro lado, esto justamente puede ser algo buscado explícitamente si se utiliza la selección de los colegios como unidades de selección primarias y luego a los estudiantes como unidades de selección final.
+
+Una virtud de estos diseños es que otorgan un mismo ponderador a cada caso seleccionado lo que facilita algunos análisis posteriores
+
+```{r}
+set.seed(123)
+
+# Saco los NA de las escuelas sin matrícula
+
+base_toy_pps = base_toy |>
+filter(!is.na(matricula))
+
+n = 300
+pi = inclusionprobabilities(base_toy_pps$matricula, n)
+
+muestra_pps = UPrandompivotal(pik = pi) |>
+              as_tibble() |>
+rename(muestra_pps = value) |>
+bind_cols(base_toy_pps) |>
+filter(muestra_pps > 0) |>
+mutate(fpc = sqrt((N-n)/(N-1)),
+       weight = N / n)
+
+```
+
+```{r}
+
+muestra_pps_sv = muestra_pps |>
+as_survey_design(id = 1,
+                 weights = weight,
+                # strata = ambito,
+                # fpc = fpc,
+                 pps = "brewer")
+```
+
+```{r}
+#| label: tbl-pps
+#| tbl-cap: Tablas comparativas entre resultados azar simple y estratificado no propocional
+
+tbl_pps = muestra_pps_sv |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+digits = list(deff = label_style_number(digits = 2),
+              sd = label_style_number(digits = 3)),
+statistic = list(all_continuous() ~ "{mean} ({sd})",
+                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+add_ci() 
+
+tbl_pps
+
+tbl_merge(
+  tbls = list(tbl_estrat_teo_prop, tbl_pps),
+  tab_spanner = c("**Estratificado P**", "**PPS**")
+)
 ```
 
 [^azar-1]: Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.
 
-[^azar-2]: Más adelante veremos que el muestreo sistemático puede realizarse aún sin la presencia de una "lista" previa a la cual tengan acceso los diseñadores de la muestra aunque sí los que finalmente la ejecuten. En efecto, es compatible con reglas del tipo "Una vez con los potenciales casos a disposición, eliga al primer caso, deje pasar 5 casos y seleccione al siguiente, vuelva a dejar 5 casos y elija al siguiente hasta llegar a seleccionar x cantidad de casos ".
+[^azar-2]: Un dominio o subclase de estimación es una partición de la población o de la muestra sobre la cual se espera realizar inferencias. A veces se usa la denominación que los dominios denotan subpoblaciones (de la población) y las subclases reflejan esas divisiones en la muestra [@kish1980, p. 209]. En cualquier caso es conveniente introducir estos dominios en el diseño de la muestra para poder controlar su tamaño poblacional [@brus2022, cap. 14].

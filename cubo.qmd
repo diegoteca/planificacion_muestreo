@@ -8,10 +8,16 @@ Muestreo del CUBO
 
 Muestreo del CUBO SPACIAL
 
-AGREGAR EL SURVEY o el SVRY para ver margen de error
-
 Construcción de ponderadores
 
 replicación de ponderadores
 
-Muetsras autoponderadas
+Muetsras Complejas
+
+Calibración
+
+<https://tidyclust.tidymodels.org/>
+
+## Muestreo por Clusters
+
+El muestreo por cluster es otra manera de aplicar el azar para diseñar muestras. A diferencia del muestreo estratificado en el muestreo por cluster el investigador considera a los cluster como "racimos" de casos que, de alguna manera, se encuentran cercanos geográficamente pero no necesariamente socialmente. En efecto, la ventaja de este tipo de muestreo es que abarata costos en la ejecución de muestras espacialmente extensas. Usualmente esto lo logra a expensas de un aumento en el error standard que muchas veces o bien es suplantado con una mayor cantidad de casos o bien es mitigado en una etapa posterior del muestreo.
