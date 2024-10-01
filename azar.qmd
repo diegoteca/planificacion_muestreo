@@ -33,6 +33,7 @@ library(patchwork)
 library(srvyr)
 library(survey)
 library(cardx)
+library(downloadthis)
 
 i_am("azar.qmd")
 
@@ -60,6 +61,15 @@ mutate(ambito = as_factor(ambito),
 base |>
 slice_head(n = 3) |>
 gt()
+
+download_this(base,
+              output_name = "base_escuelas_primarias",
+              output_extension = ".xlsx",
+              button_label = "Descargar Base")
+```
+
+```{r}
+
 ```
 
 Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (p.e. prueba_x) o de los directivos de los mismos (p.e. direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).[^azar-1]
@@ -228,8 +238,6 @@ statistic = list(all_continuous() ~ "{mean} ({sd})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci()
 
-tbl_azar_simple
-
 tbl_merge(
   tbls = list(tbl_pob_param, tbl_azar_simple),
   tab_spanner = c("**Parámetro Pob.**", "**Azar simple**")
@@ -364,8 +372,6 @@ statistic = list(all_continuous() ~ "{mean} ({sd})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci() 
 
-tbl_estrat_teo_prop
-
 tbl_merge(
   tbls = list(tbl_azar_simple, tbl_estrat_teo_prop),
   tab_spanner = c("**Azar simple**", "**Estratificado P.**")
@@ -438,8 +444,6 @@ statistic = list(all_continuous() ~ "{mean} ({sd})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci() 
 
-tbl_estrat_teo_no_prop
-
 tbl_merge(
   tbls = list(tbl_estrat_teo_prop, tbl_estrat_teo_no_prop),
   tab_spanner = c("**Estratificado P**", "**Estratificado no P**")
@@ -495,8 +499,6 @@ digits = list(deff = label_style_number(digits = 2),
 statistic = list(all_continuous() ~ "{mean} ({sd})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci() 
-
-tbl_pps
 
 tbl_merge(
   tbls = list(tbl_estrat_teo_prop, tbl_pps),
