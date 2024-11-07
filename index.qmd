@@ -36,7 +36,8 @@ pacman::p_load(survey,
                gt,
                gtsummary,
                cardx,
-               patchwork)
+               patchwort,
+               gstat)
 ```
 
 [^index-1]: Existen más librerías que extienden a survey. [robsurvey](https://cran.r-project.org/web/packages/robsurvey/index.html), para la realización de estimaciones robustas, es otro ejemplo.

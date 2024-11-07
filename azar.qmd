@@ -68,11 +68,7 @@ download_this(base,
               button_label = "Descargar Base")
 ```
 
-```{r}
-
-```
-
-Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (p.e. prueba_x) o de los directivos de los mismos (p.e. direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado).[^azar-1]
+Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (p.e. prueba_x) o de los directivos de los mismos (p.e. direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado) o, de forma más explícita, hacer una muestra proporcional al tamaño de la matrícula de cada establecimiento.[^azar-1]
 
 Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestras de establecimientos educativos. Un plus pedagógico de esta estrategia es que vamos a tener a mano los valores de las estimaciones de las diferentes muestras que se vayan realizando y los respectivos valores de los parámetros poblaciones para comparar resultados. Algunos de esos valores poblacionales se podrán considerar como información secundaria en el sentido que el interés de la muestra no es estimar esos parámetros. Otros de esos valores se los podrá considerar como los parámetros a estimar en la muestra. Esta última situación no es la usual porque si ya se tiene el parámetro poblacional no es necesario la realización de una muestra para su estimación.
 
@@ -92,7 +88,7 @@ Dentro de los parámetros poblacionales vamos a calcular los siguientes:
 
 Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).
 
-En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones.
+En la @tbl-parametros_base puede observarse algunos de los valores de estos parámetros. Para el caso de las variables continuas (Matrícula, Secciones, sondeo primero, sondeo segundo) se ha calculado la media junto con los valores del primer y tercer cuartil. En el caso de las variables categóricas (región, ámbito) se han calculado los respectivos porcentajes de cada categoría. Esta distinción es importante porque mientras algunas muestras se esfuerzan por estimar medidas de tendencia central, otras se esfuerzan por estimar medidas de dispersión central y otras intentan hacer ambos tipos de estimaciones. Otra distinción importante es la anteriormente mencionada sobre la población que se quiera muestrar. Por ejemplo, el valor de la media del primer sondeo puede ser útil para estimar si la media de la **población de colegios** arroja un valor similar que la media de la/s muestra/s realizada/s de esos colegios pero no hay que olvidar que esos datos, si que quiere referir a la **población de estudiantes**, habría que ponderarlos por la matrícula de cada colegio, esto es, habría que calcular su media ponderada.
 
 ```{r}
 #| label: tbl-parametros_base
@@ -104,10 +100,13 @@ select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambi
 tbl_pob_param = base_toy |>
 tbl_summary(include = !clave,
             statistic = list(
-      all_continuous() ~ "{mean} ({p25}, {p75})",
+      all_continuous() ~ "{mean} ({sd})",
       all_categorical() ~ "{p}% ({n})"))
 
 tbl_pob_param
+
+write_rds(tbl_pob_param,
+          here("Outputs", "tbl_pob_param.rds"))
 ```
 
 Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lado nos van a servir para cotejar, *ex-ante,* la media de las medias muestrales realizadas con azar simple y, por otro lado, nos pueden servir, *ex-post*, para mejorar las muestras concretas efectivamente obtenidas. Esto último, más allá de las técnicas específicas que se utilicen, es importante por lo siguiente:
@@ -120,12 +119,12 @@ Dentro de los métodos aleatorios el método del azar simple (*random sampling*)
 
 Desde una perspectiva amplia, en la actualidad se podría afirmar que este método de muestreo se encuentra en el medio de un continuo de situaciones en cuando al grado de información exigida para su realización. Lo "único" que pide es una lista de "contactos" de la población que se quiere analizar. La razón por la que "único" se encuentra entre comillas es la siguiente: La necesidad de la una lista puede ser algo exigente en algunas investigaciones (p.e. poblaciones invisibles) aunque algo insuficiente para otras (p.e. diseños con muestras estratificadas). La idea de "contacto" es algo polisémica pero aquí apunta a que el caso seleccionado se pueda contactar de alguna forma (p.e. dirección de domicilio, mail, celular, etc.) para realizarle las observaciones/mediciones correspondientes.
 
-A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre el total de las 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. El resultado de estas simulaciones sto se puede observar en la @tbl-medias_muestrales_azar_simple.
+A continuación vamos a realizar unas 1000 muestras de 300 casos cada una sobre el total de las 4168 escuelas. Esto es una relación entre el tamaño de la población y la muestra de casi el 14%. Hacemos esta cantidad de muestras para observar la distribución de los valores de las medias de cada muestras y ver si sucede algo similar a lo encontrado en el simulador anterior. Para facilitar la comparación lo haremos sólo con las variables numéricas y dejaremos de lado las categóricas como Ámbito y Región. El resultado de estas simulaciones se puede observar en la @tbl-medias_muestrales_azar_simple.
 
 ```{r}
 #| label: azar_simple_rep
 
-set.seed(123) 
+set.seed(314) 
 
 muestras_azar_simple = base_toy |>
 rep_slice_sample(n = 300,
@@ -146,7 +145,7 @@ summarise(matricula = mean(matricula, na.rm = TRUE),
           sondeo_segundo = mean(sondeo_segundo, na.rm = TRUE)) |>
 tbl_summary(include = !replicate,
             statistic = list(
-      all_continuous() ~ "{mean} ({p25}, {p75})"))
+      all_continuous() ~ "{mean} ({sd})"))
 
 tbl_medias_muestrales
 ```
@@ -203,7 +202,7 @@ Ahí es donde entra la ayuda de las librerías específicas. En la introducción
 ```{r}
 #| label: azar_simple
 
-set.seed(123) 
+set.seed(314) 
 
 # fpc = ((N-n)/(N-1))1/2
 
@@ -238,6 +237,9 @@ statistic = list(all_continuous() ~ "{mean} ({sd})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci()
 
+write_rds(tbl_azar_simple,
+          here("Outputs", "tbl_azar_simple.rds"))
+
 tbl_merge(
   tbls = list(tbl_pob_param, tbl_azar_simple),
   tab_spanner = c("**Parámetro Pob.**", "**Azar simple**")
@@ -258,15 +260,15 @@ $$
 K = \frac{N}{n}
 $$
 
-Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código
+Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código:
 
 ```{r}
 #| label: sistematico
 
-set.seed(123)
+set.seed(314)
 
 n = 5
-lista_estudiantes = as_data_frame(c(1:50))
+lista_estudiantes = as_tibble(c(1:50))
 N = 50 
 k = ceiling(N/n) # K = 10
 
@@ -302,7 +304,7 @@ En este subtipo de muestreo estratificado utilizaremos la variable "Ámbito" com
 
 ```{r}
 
-set.seed(123)
+set.seed(314)
 
 n = 300
 N = nrow(base)
@@ -375,7 +377,8 @@ add_ci()
 tbl_merge(
   tbls = list(tbl_azar_simple, tbl_estrat_teo_prop),
   tab_spanner = c("**Azar simple**", "**Estratificado P.**")
-)
+) |>
+modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 ```
 
 ### Estratos teóricos con asignación no proporcional
@@ -406,6 +409,8 @@ test_sum = sum(size_strata)
 
 #size_strata[1] = size_strata[1] + 1
 
+set.seed(314)
+
 muestra_estrat_teo_no_prop = sampling::strata(base_toy,
 stratanames = c("ambito"),
 size = size_strata,
@@ -433,7 +438,7 @@ as_survey_design(id = 1,
 
 ```{r}
 #| label: tbl-estratificado_teo_no_prop
-#| tbl-cap: Tablas comparativas entre resultados azar simple y estratificado no propocional
+#| tbl-cap: Tablas comparativas entre muestra estraificada proporcional y no propocional
 
 tbl_estrat_teo_no_prop = muestra_estrat_teo_no_prop_sv |>
 tbl_svysummary(
@@ -447,49 +452,59 @@ add_ci()
 tbl_merge(
   tbls = list(tbl_estrat_teo_prop, tbl_estrat_teo_no_prop),
   tab_spanner = c("**Estratificado P**", "**Estratificado no P**")
-)
+) |>
+modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 ```
 
-## Muestreo Proporcional al tamaño (PPS)
+## Muestreo Proporcional al tamaño (PPS) {#sec-pps}
 
-Muchas veces, especialmente en diseños polietápicos, se desea que en la primera etapa las unidades de selección de esa etapa sean seleccionadas en función de alguna variable con sirva como indicador de su tamaño. En el caso de una muestra de colegios, variables como el tamaño de la matrícula pueden ser buenas candidatas. Sin embargo, esto, por definición, va a otorgar una mayor probabilidad de salir en la muestra a los colegios con mayor matrícula y estos pueden poseer características particulares como, por ejemplo, ubicarse en su mayoría en ámbitos urbanos. Por otro lado, esto justamente puede ser algo buscado explícitamente si se utiliza la selección de los colegios como unidades de selección primarias y luego a los estudiantes como unidades de selección final.
+Muchas veces, especialmente en diseños polietápicos, se desea que en la primera etapa las unidades de selección sean escogidas en función de alguna variable que sirva como indicador de su tamaño. En el caso de unidades geográficas esa variable podrá ser el tamaño espacial o área (p.e. km^2^) y en variables no espaciales podrá ser la cantidad de personas, organizaciones, etc. En el caso de una muestra de colegios, variables como el tamaño de la matrícula pueden ser buenas candidatas a utilizar en este tipo de muestras. Sin embargo, esto, por definición, va a otorgar una mayor probabilidad de salir en la muestra a los colegios con mayor matrícula y estos pueden poseer características particulares como, por ejemplo, estos encontrarse abrumadoramente en ámbitos urbanos. De este modo ya podemos intuir que, con respecto a la población de establecimientos, una muestra PPS[^azar-3] obtendrá como resultado un valor de la matrícula mayor y una sobrerepresentación del ámbito urbano.
 
-Una virtud de estos diseños es que otorgan un mismo ponderador a cada caso seleccionado lo que facilita algunos análisis posteriores
+Por otro lado, esto justamente puede ser algo buscado explícitamente si se utiliza la selección de los colegios como unidades de selección primarias y luego a los estudiantes como unidades de selección final. En otras palabras, se trata de un efecto buscado por diseño, justamente porque ahora el objetivo está puesto en lograr un muestra de la población de estudiantes a través de una población de establecimientos que contiene variables agregadas de los estudiantes.
+
+Una virtud práctica de estos diseños es que otorgan un mismo ponderador a cada caso seleccionado lo que facilita algunos análisis posteriores. A pesar de cierta idea intuitiva acerca del objetivo del muestro PPS su efectiva aplicación, especialmente en muestreos sin reemplazo, tiene sus complejidades a nivel de los algoritmos a utilizar. Esto suele ser algo compartido por todos los muestreos sin reemplazo (versus los con reemplazos) pero aquí está presente la dificultad extra de que las probabilidades de inclusion son diferentes. En efecto, el muesteo PPS puede ser considerado como un tipo de muestreo con probabilidades diferentes (*inequal probabilities*) pero con la particularidad que esas probabilidades diferentes se calculan en función del tamaño de las unidades a seleccionar. A continuación vamos a utilizar un algoritmo que tiene que ver con la idea de "*local pivotal*" que vamos a ver con mayor profundidad cuando veamos la @sec-well_pread.
 
 ```{r}
-set.seed(123)
+set.seed(314)
 
 # Saco los NA de las escuelas sin matrícula
+# No se construye la variable "weight" porque el diseño no lo necesita.
 
 base_toy_pps = base_toy |>
-filter(!is.na(matricula))
+filter(!is.na(matricula)) |>
+arrange(desc(matricula))
 
+N = nrow(base_toy_pps)
 n = 300
 pi = inclusionprobabilities(base_toy_pps$matricula, n)
+
+set.seed(314)
 
 muestra_pps = UPrandompivotal(pik = pi) |>
               as_tibble() |>
 rename(muestra_pps = value) |>
 bind_cols(base_toy_pps) |>
+bind_cols(as.data.frame(pi)) |>
 filter(muestra_pps > 0) |>
-mutate(fpc = sqrt((N-n)/(N-1)),
-       weight = N / n)
+mutate(fpc = sqrt((N-n)/(N-1)))
 
 ```
 
 ```{r}
+# En este caso puntual no hay que setear el "weight" y en el fpc (Factor de correción para muestras finitas) debe ir las probabilidades 
 
 muestra_pps_sv = muestra_pps |>
 as_survey_design(id = 1,
-                 weights = weight,
+                #probs = pi,
+                # weights = weight,
                 # strata = ambito,
-                # fpc = fpc,
+                 fpc = pi,
                  pps = "brewer")
 ```
 
 ```{r}
 #| label: tbl-pps
-#| tbl-cap: Tablas comparativas entre resultados azar simple y estratificado no propocional
+#| tbl-cap: Tablas comparativas entre PPS y estratificado propocional
 
 tbl_pps = muestra_pps_sv |>
 tbl_svysummary(
@@ -500,12 +515,20 @@ statistic = list(all_continuous() ~ "{mean} ({sd})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci() 
 
+write_rds(tbl_pps,
+  here("Outputs", "tbl_pps.rds"))
+
 tbl_merge(
   tbls = list(tbl_estrat_teo_prop, tbl_pps),
   tab_spanner = c("**Estratificado P**", "**PPS**")
-)
+) |>
+modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 ```
 
-[^azar-1]: Si el conjunto de los estudiantes de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia, realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes no sería un mayor problema.
+De manera algo paradójica, este **muestreo** estima mejor, por ejemplo, variables agregadas como el valor del primer y segundo sondeo que un análisis **censal** de toda la población de colegios (como se hizo en @tbl-parametros_base). Lo paradógico de esto es que una muestra, esto es, una parte de un todo, logre una mejor acercamiento a un respectivo parámetro poblacional que un censo, esto es, un registro de cada una de la partes del todo. Una posible solución a esta paradoja es entender que la @tbl-parametros_base hace referencia a la población de colegios y, en ese sentido, sus valores son correctos. Ahora bien, si con esos datos (censales pero de la población de establecimientos) se quería hacer afirmaciones sobre la población de estudiantes la información de la @tbl-parametros_base no es la más idónea. En las variables que se pueden considerar como variables agregadas de estudiantes (p.e. sondeo_primero, sondeo_segundo) más que calcular la media habría que haber calculado la media ponderada por matrícula. En ese caso, el resultado de ese cálculo sí se podría considerar como un parámetro de la población de estudiantes y contra esos valores se debería comparar las estimaciones del diseño PPS.
+
+[^azar-1]: Si el conjunto de los estudiantes (así como los maestros y los directivos) de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia y si todos los colegios tendrían la misma matrícula (así como maestros y directivos), realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes (o de maestros y directivos) no sería un mayor problema. El primer criterio tiene que ver con las diferencias de cada colegio y el segundo con el modo de agregar esas diferencias en una muestra cuyo primer paso es la selección de unidades agregadas (colegios) para estimar valores de unidades de selección menores (estudiantes, maestras y directivos).
 
 [^azar-2]: Un dominio o subclase de estimación es una partición de la población o de la muestra sobre la cual se espera realizar inferencias. A veces se usa la denominación que los dominios denotan subpoblaciones (de la población) y las subclases reflejan esas divisiones en la muestra [@kish1980, p. 209]. En cualquier caso es conveniente introducir estos dominios en el diseño de la muestra para poder controlar su tamaño poblacional [@brus2022, cap. 14].
+
+[^azar-3]: PPS = **P**robability **P**roportional to **S**ize.

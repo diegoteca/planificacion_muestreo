@@ -1,0 +1,5 @@
+Stratification is a particular case of balancing, while poststratification is a particular case of calibration [@tillé2011, pag. 223]
+
+Generally, it is recommended to re-calibrate on the balancing variables at the estimation stage even if more calibration variables are available.
+
+Siempre que haya disponibilidad de tiempo, técnica, etc. es aconsejable realizar una calibración. Esto es cierto al menos porque el balanceamiento tiene el problema del redondiamiento (las muestras son muestras de números "enteros") y la calibración no.

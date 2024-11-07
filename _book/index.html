@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.13">
+<meta name="generator" content="quarto-1.6.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -70,10 +70,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-018089954d508eae8a473f0b7f0491f0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-0c8af03b2fbd4cf44d6703e337af0e8d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-94731ccc7e81f7a77cbd1fcc75b2dec8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0907b20a9700af8a13c62216b970de3d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>
 /* first-line indent styles */
   p {
@@ -186,8 +186,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="./cubo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Muestreos Especiales</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="./references.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Referencias Bibliográficas</span></span></a>
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Referencias Bibliográficas</span></span></a>
   </div>
 </li>
     </ul>
@@ -260,7 +266,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>               gt,</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>               gtsummary,</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>               cardx,</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>               patchwork)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>               patchwort,</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>               gstat)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 
@@ -795,14 +802,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>               gt,</span>
 <span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>               gtsummary,</span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>               cardx,</span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>               patchwork)</span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-1]: </span>Existen más librerías que extienden a survey. <span class="co">[</span><span class="ot">robsurvey</span><span class="co">](https://cran.r-project.org/web/packages/robsurvey/index.html)</span>, para la realización de estimaciones robustas, es otro ejemplo.</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-2]: </span>Para aquel que le interesa agregar explícitamente la dimensión espacial en los diseños muestrales puede consultar la obra de Dick Brus "<span class="co">[</span><span class="ot">Spatial sampling with R</span><span class="co">](https://dickbrus.github.io/SpatialSamplingwithR/)</span>"</span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-3]: </span>Otras librerías que existen dentro del ecosistema de R pero que no veremos aquí son <span class="co">[</span><span class="ot">SamplingStrata</span><span class="co">](https://barcaroli.github.io/SamplingStrata/)</span> y <span class="co">[</span><span class="ot">surveyplanning</span><span class="co">](https://csblatvia.github.io/surveyplanning/)</span>.</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>               patchwort,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>               gstat)</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-1]: </span>Existen más librerías que extienden a survey. <span class="co">[</span><span class="ot">robsurvey</span><span class="co">](https://cran.r-project.org/web/packages/robsurvey/index.html)</span>, para la realización de estimaciones robustas, es otro ejemplo.</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-2]: </span>Para aquel que le interesa agregar explícitamente la dimensión espacial en los diseños muestrales puede consultar la obra de Dick Brus "<span class="co">[</span><span class="ot">Spatial sampling with R</span><span class="co">](https://dickbrus.github.io/SpatialSamplingwithR/)</span>"</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-3]: </span>Otras librerías que existen dentro del ecosistema de R pero que no veremos aquí son <span class="co">[</span><span class="ot">SamplingStrata</span><span class="co">](https://barcaroli.github.io/SamplingStrata/)</span> y <span class="co">[</span><span class="ot">surveyplanning</span><span class="co">](https://csblatvia.github.io/surveyplanning/)</span>.</span>
 </code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
