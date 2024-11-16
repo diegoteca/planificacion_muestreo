@@ -1,0 +1,3430 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Calibración – Taller Muestreo</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./cubo.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f90a1b115807ea56b20e50efb3bb25e2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<style>
+/* first-line indent styles */
+  p {
+    text-indent: 0.5em;
+    margin: 0;
+  }
+  header p {
+    text-indent: 0;
+    margin: 1em 0;
+  }
+  :is(h1, h2, h3, h4, h5, h6) + p {
+    text-indent: 0;
+  }
+  li > p, li > div p {
+    text-indent: 0;
+    margin-bottom: 1rem;
+  }
+  div.no-first-line-indent-after + p {
+    text-indent: 0;
+  }
+  div.first-line-indent-after + p {
+    text-indent: 0.5em;
+  }
+/* end of first-line indent styles */
+</style>
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Sin resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "Buscar",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+
+
+
+<link rel="stylesheet" href="css_book.css">
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./calibracion.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Calibración</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Buscar" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Taller Muestreo</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Buscar"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./muestras.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Cuando y porqué hacer muestras</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./azar.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Azar y muestras (aproximadamente) representativas</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./cubo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Muestreos Especiales</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./calibracion.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Calibración</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Referencias Bibliográficas</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-other-links"><h2>Otros Enlaces</h2><ul><li><a href="https://github.com/diegoteca/planificacion_muestreo"><i class="bi bi-github"></i>Repositorio del taller</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Calibración</span></h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Código</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Mostrar todo el código</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Ocultar todo el código</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">Ver el código fuente</a></li></ul></div></div>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="no-first-line-indent-after"></div>
+<p>La estrategia de la calibración esta compuesta por un conjunto de prácticas que aspiran a lograr objetivos similares al proceso del balanceo del cubo pero con métodos diferentes. La principal diferencia es que la calibración se realiza <em>ex-post</em> la ejecución de la muestra (o sea, en el momento de la estimación) y no <em>ex-ante</em> (o sea, en el momento del diseño). Esto es una diferencia fundamental que emparenta a la calibración con el enfoque del “Model Assisted”. Otra diferencia es que para realizar la calibración usualmente (aunque esto depende de la técnica específica seleccionada) sólo es necesario los totales de la población y no, como en el balanceo, los valores de cada unidad que compone esa población. Esto también es lo que habilita a afirmar que la estratificación es un caso particular del balanceo así como la post-estratificación es un caso particular de la calibración <span class="citation" data-cites="tillé2011">(<a href="references.html#ref-tillé2011" role="doc-biblioref">Tillé 2011</a>, pag. 223)</span>.</p>
+<p>Las características anteriores hacen que el proceso de calibración sea muy útil en momentos en donde existe conocimientos sobre algunos totales de la población y no se haya podido controlar mucho el proceso de diseño de la muestra (p.e. diseños no probabilistas). Estas características hacen al proceso de calibración algo muy deseado para muchas investigaciones contemporáneas en donde pueda admitirse que se conocen algunos parámetros poblacionales y, por ejemplo, se ha realizado una muestra que se difundió de manera virtual a través de un link que circuló por diferentes redes sociales. Esto deja en pie la discusión sobre que “tan buenos” podrán ser los resultados de esa investigación pero no parece haber muchas dudas que una investigación de ese estilo será mejor si se le realiza un proceso de calibración mientras que será peor si no se realiza ese proceso.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<p>Detalladas algunas diferencias entre la calibración y el balanceo ahora se pasa a diferenciar la calibración (de una muestra) de la imputación (de variables específicas).</p>
+<ul>
+<li><p>En cuanto a su producto, la calibración produce como resultado un calibrador (o un nuevo ponderador en la situación que el diseño de la muestra ya cuente con un ponderador) que es único para cada caso seleccionado en la muestra. En cambio la imputación, al menos como acá se la está entendiendo, es un proceso que imputa uno o más valores faltantes a los casos que respondieron de forma incompleta la muestra. En este sentido, un caso efectivamente seleccionado puede tener más un valor imputado (p.e. para la variable ingresos y para la variable autopercepción de género). En otros contextos se suele diferenciar a ambos procesos afirmando que la calibración ayuda a mitigar el problema del <em>unit-not-response</em> y la imputación ayuda a mitigar el problema del <em>ítem-not-response</em> <span class="citation" data-cites="lumley2010">(<a href="references.html#ref-lumley2010" role="doc-biblioref">Lumley 2010</a>, pag. 136)</span>.</p></li>
+<li><p>En cuanto a los insumos, la calibración necesita los totales poblacionales y, en cambio, la inputación necesita los valores de las covariables del caso a imputar así como los valores de las covariables y la variable a imputar de los otros casos.</p></li>
+<li><p>En cuanto al momento de la investigación, siempre que se usen ambos procesos, usualmente primero se imputa los casos particulares de la variables que se considera pertinente y luego se calibra la muestra incluyendo los valores de los casos imputados. Este orden es particularmente importante si se confía en el proceso de la imputación y la/s variable/s en cuestión son parte del proceso de calibración como covariables.</p></li>
+</ul>
+<div class="no-first-line-indent-after"></div>
+<p>Por último, a veces se suele asimilar como sinónimos en término calibración con el término post-estratificación. Estrictamente el segundo puede considerarse como un caso particular del primero en donde sólo se utilizan variables categóricas (estratos) para el proceso de la calibración. Lo mismo puede afirmarse del método menos difundido del “raking” que permite la calibración de múltiples variables categóricas sin la necesidad de realizar cruces entre ellas con el riesgo de no tener casos en la muestra de algunas de las celdas de los múltiples cruces <span class="citation" data-cites="lumley2010">(<a href="references.html#ref-lumley2010" role="doc-biblioref">Lumley 2010</a>, pag. 139)</span>. Por esta razón, aquí usaremos directamente ….</p>
+<p>En cuanto a su pertinencia, siempre que haya disponibilidad de tiempo (y el saber necesario para realizarlo) es aconsejable realizar una calibración. Esto es cierto al menos porque el balanceo tiene el problema del redondeo (las muestras son muestras de números enteros) y la calibración no, ya que puede construirse calibradores con números racionales. Por esta misma razón, aún cuando se haya realizado una muestra con un diseño por balanceo, es recomendable calibrar con los totales de las variables que se usaron en el proceso de balanceo.</p>
+<p>Ejemplos</p>
+<p>A continuación vamos a trabajar con 2 ejemplos alternativos. Uno, en donde la calibración se realiza sobre la muestra aleatoria simple y otra que se realiza sobre la muestra balanceada y bien distribuida. En función de lo visto anteriormente (Seciio XXX) ya sabemos que ambas calibraciones van a partir desde un punto de inicio diferente. Veremos que tanta distancia entre sí y con respecto a los parámetros poblaciones van a tener los respectivos puntos de llegada de ambas muestras luego de realizar la calibración. En otras palabras, la muestra balanceada y bien distribuida ya se encontraba (en general) bastante cerca de los parámetros poblacionales por lo que, a priori, cuenta con alguna ventaja desde su puesto de largada.</p>
+<p>Comenzaremos haciendo la calibración sobre nuestra muestra realizada por azar simple y su resultado lo comparemos con la respectiva muestra de azar simple y con los parámetros poblacionales.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampling)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>muestra_well_spread_sv <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_well_spread_sv.rds"</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_sv <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_azar_simple_sv.rds"</span>))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"base.rds"</span>))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"tbl_azar_simple.rds"</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>tbl_well_spread <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"tbl_well_spread.rds"</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>tbl_pob_param <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"tbl_pob_param.rds"</span>))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_sv <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_azar_simple_sv.rds"</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">nrow</span>(base)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#the population totals are specified as the column sums of the population regression design matrix (predictor matrix) corresponding to the model formula.</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#Las totales de las variables numerícas es más fácil porque es una media.</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Los totales de las variables categóricas es algo más difícil porque hay que hacer los totales para cada categoría. En este sentido, no es lo mismo hacer una calibración para 3 categorías como "Ambito" que para más de 20 como "Región"2.0</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">=</span> <span class="fu">unlist</span>(<span class="fu">c</span>(<span class="fu">nrow</span>(base),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>           <span class="fu">sum</span>(base<span class="sc">$</span>matricula, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>ambito <span class="sc">==</span> <span class="st">"Rural Disperso"</span>, ]),</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>ambito <span class="sc">==</span> <span class="st">"Rural Agrupado"</span>, ]),</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"02"</span>, ]),</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"03"</span>, ]),</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"04"</span>, ]),</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"05"</span>, ]),</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"06"</span>, ]),</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"07"</span>, ]),</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"08"</span>, ]),</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"09"</span>, ]),</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"10"</span>, ]),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"11"</span>, ]),</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"12"</span>, ]),</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"13"</span>, ]),</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"14"</span>, ]),</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"15"</span>, ]),</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"16"</span>, ]),</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"17"</span>, ]),</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"18"</span>, ]),</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"19"</span>, ]),</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"20"</span>, ]),</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"21"</span>, ]),</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"22"</span>, ]),</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"23"</span>, ]),</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"24"</span>, ]),</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"25"</span>, ])))</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_cal <span class="ot">=</span> <span class="fu">calibrate</span>(muestra_azar_simple_sv,</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">formula =</span> <span class="sc">~</span> matricula <span class="sc">+</span> ambito <span class="sc">+</span> region,</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">population =</span> totals,</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">calfun =</span> <span class="st">"linear"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample:  [1] "(Intercept)"          "matricula"            "ambitoRural Disperso"
+ [4] "ambitoRural Agrupado" "region02"             "region03"            
+ [7] "region04"             "region05"             "region06"            
+[10] "region07"             "region08"             "region09"            
+[13] "region10"             "region11"             "region12"            
+[16] "region13"             "region14"             "region15"            
+[19] "region16"             "region17"             "region18"            
+[22] "region19"             "region20"             "region21"            
+[25] "region22"             "region23"             "region24"            
+[28] "region25"            
+Popltn:  [1] ""  ""  "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n"
+[20] "n" "n" "n" "n" "n" "n" "n" "n" "n"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple_cal <span class="ot">=</span> muestra_azar_simple_cal <span class="sc">|&gt;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="at">digits =</span> <span class="fu">list</span>(<span class="at">deff =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>),</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>)),</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{p}% (n={n_unweighted})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="fu">add_ci</span>() </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>tbl_comp_azar_simple_cal <span class="ot">=</span> <span class="fu">tbl_merge</span>(<span class="at">tbls =</span> <span class="fu">list</span>(tbl_azar_simple_cal, tbl_azar_simple, tbl_pob_param), </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>              <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"AS Calibrado"</span>,<span class="st">"AS sin calibrar"</span>,<span class="st">"Poblacion"</span>))</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>tbl_comp_azar_simple_cal</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="vyzwejmafg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vyzwejmafg table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#vyzwejmafg thead, #vyzwejmafg tbody, #vyzwejmafg tfoot, #vyzwejmafg tr, #vyzwejmafg td, #vyzwejmafg th {
+  border-style: none;
+}
+
+#vyzwejmafg p {
+  margin: 0;
+  padding: 0;
+}
+
+#vyzwejmafg .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#vyzwejmafg .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#vyzwejmafg .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#vyzwejmafg .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#vyzwejmafg .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#vyzwejmafg .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#vyzwejmafg .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#vyzwejmafg .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#vyzwejmafg .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#vyzwejmafg .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#vyzwejmafg .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#vyzwejmafg .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#vyzwejmafg .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#vyzwejmafg .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#vyzwejmafg .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyzwejmafg .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#vyzwejmafg .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#vyzwejmafg .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#vyzwejmafg .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyzwejmafg .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#vyzwejmafg .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyzwejmafg .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#vyzwejmafg .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyzwejmafg .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#vyzwejmafg .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#vyzwejmafg .gt_left {
+  text-align: left;
+}
+
+#vyzwejmafg .gt_center {
+  text-align: center;
+}
+
+#vyzwejmafg .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#vyzwejmafg .gt_font_normal {
+  font-weight: normal;
+}
+
+#vyzwejmafg .gt_font_bold {
+  font-weight: bold;
+}
+
+#vyzwejmafg .gt_font_italic {
+  font-style: italic;
+}
+
+#vyzwejmafg .gt_super {
+  font-size: 65%;
+}
+
+#vyzwejmafg .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#vyzwejmafg .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#vyzwejmafg .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#vyzwejmafg .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#vyzwejmafg .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#vyzwejmafg .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#vyzwejmafg .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#vyzwejmafg .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#vyzwejmafg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th colspan="2" id="AS Calibrado" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+AS Calibrado
+</div></th>
+<th colspan="2" id="AS sin calibrar" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+AS sin calibrar
+</div></th>
+<th id="Poblacion" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Poblacion
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="stat_0_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 4,168</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="ci_stat_0_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
+<th id="stat_0_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 4.168</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span></th>
+<th id="ci_stat_0_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
+<th id="stat_0_3" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 4.168</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">matricula</td>
+<td class="gt_row gt_center" headers="stat_0_1">267 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">267, 267</td>
+<td class="gt_row gt_center" headers="stat_0_2">277 (264)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">271, 282</td>
+<td class="gt_row gt_center" headers="stat_0_3">268 (262)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">secciones</td>
+<td class="gt_row gt_center" headers="stat_0_1">11 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">11, 11</td>
+<td class="gt_row gt_center" headers="stat_0_2">12 (9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">11, 12</td>
+<td class="gt_row gt_center" headers="stat_0_3">11 (9)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">sondeo_primero</td>
+<td class="gt_row gt_center" headers="stat_0_1">57 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">56, 57</td>
+<td class="gt_row gt_center" headers="stat_0_2">56 (15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">56, 57</td>
+<td class="gt_row gt_center" headers="stat_0_3">57 (16)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Unknown</td>
+<td class="gt_row gt_center" headers="stat_0_1">568</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2">472</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">560</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">sondeo_segundo</td>
+<td class="gt_row gt_center" headers="stat_0_1">70 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">69, 70</td>
+<td class="gt_row gt_center" headers="stat_0_2">70 (15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">69, 70</td>
+<td class="gt_row gt_center" headers="stat_0_3">70 (15)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Unknown</td>
+<td class="gt_row gt_center" headers="stat_0_1">647</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2">556</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">570</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">region</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;01</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.5% (n=7)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.5%, 4.5%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,3% (n=7)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,0%, 2,7%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,5% (189)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;02</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.4% (n=19)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.4%, 5.4%</td>
+<td class="gt_row gt_center" headers="stat_0_2">6,3% (n=19)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">5,8%, 6,9%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,4% (223)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;03</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.0% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.0%, 5.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,3% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,9%, 5,8%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,0% (210)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;04</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.1% (n=21)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.1%, 5.1%</td>
+<td class="gt_row gt_center" headers="stat_0_2">7,0% (n=21)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">6,5%, 7,6%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,1% (213)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;05</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.7%, 4.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,3%, 3,0%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,7% (194)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;06</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.6% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.6%, 3.6%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,6% (148)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;07</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.3% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.3%, 3.3%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,3% (138)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;08</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.6% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.6%, 3.6%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,3% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,9%, 5,8%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,6% (149)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;09</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.9% (n=20)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.9%, 4.9%</td>
+<td class="gt_row gt_center" headers="stat_0_2">6,7% (n=20)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">6,1%, 7,2%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,9% (205)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;10</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.4% (n=20)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.4%, 5.4%</td>
+<td class="gt_row gt_center" headers="stat_0_2">6,7% (n=20)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">6,1%, 7,2%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,4% (224)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;11</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.0% (n=13)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.0%, 4.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,3% (n=13)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,9%, 4,8%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,0% (166)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;12</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.7% (n=7)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.7%, 3.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,3% (n=7)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,0%, 2,7%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,7% (155)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;13</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.1% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.1%, 3.1%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,3%, 3,0%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,1% (131)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;14</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.1% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.1%, 4.1%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,0% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,6%, 4,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,1% (169)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;15</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.2% (n=10)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.2%, 4.2%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,3% (n=10)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,0%, 3,7%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,2% (174)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;16</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.0% (n=6)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.0%, 3.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,0% (n=6)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">1,7%, 2,3%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,0% (125)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;17</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.2% (n=10)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.2%, 3.2%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,3% (n=10)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,0%, 3,7%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,2% (133)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;18</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.8% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.8%, 3.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,0% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,7%, 3,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,8% (160)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;19</td>
+<td class="gt_row gt_center" headers="stat_0_1">2.8% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">2.8%, 2.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,3%, 3,0%</td>
+<td class="gt_row gt_center" headers="stat_0_3">2,8% (118)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;20</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.8% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.8%, 3.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,8% (159)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;21</td>
+<td class="gt_row gt_center" headers="stat_0_1">2.8% (n=6)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">2.8%, 2.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,0% (n=6)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">1,7%, 2,3%</td>
+<td class="gt_row gt_center" headers="stat_0_3">2,8% (117)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;22</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.7% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.7%, 3.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,0% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,6%, 4,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,7% (153)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;23</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.7% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.7%, 3.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,7% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,2%, 5,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,7% (153)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;24</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.7% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.7%, 4.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,0% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,7%, 3,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,7% (196)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;25</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.0% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.0%, 4.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,3% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,9%, 5,8%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,0% (166)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">ambito</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Urbano</td>
+<td class="gt_row gt_center" headers="stat_0_1">65% (n=201)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">65%, 65%</td>
+<td class="gt_row gt_center" headers="stat_0_2">67% (n=201)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">66%, 68%</td>
+<td class="gt_row gt_center" headers="stat_0_3">65% (2.727)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Rural Disperso</td>
+<td class="gt_row gt_center" headers="stat_0_1">26% (n=61)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">26%, 26%</td>
+<td class="gt_row gt_center" headers="stat_0_2">20% (n=61)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">19%, 21%</td>
+<td class="gt_row gt_center" headers="stat_0_3">26% (1.073)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Rural Agrupado</td>
+<td class="gt_row gt_center" headers="stat_0_1">8.8% (n=38)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">8.8%, 8.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">13% (n=38)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">12%, 13%</td>
+<td class="gt_row gt_center" headers="stat_0_3">8,8% (368)</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Mean (SE); % (n=n (unweighted))</td>
+</tr>
+<tr class="even">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> CI = Confidence Interval, CI = Intervalo de confianza</td>
+</tr>
+<tr class="odd">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> Media (DE); % (n=n (unweighted))</td>
+</tr>
+<tr class="even">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span> Media (DE); % (n)</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>muestra_well_spread_cal <span class="ot">=</span> <span class="fu">calibrate</span>(muestra_well_spread_sv,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">formula =</span> <span class="sc">~</span> matricula <span class="sc">+</span> ambito <span class="sc">+</span> region,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">population =</span> totals,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">calfun =</span> <span class="st">"linear"</span>)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample:  [1] "(Intercept)"          "matricula"            "ambitoRural Disperso"
+ [4] "ambitoRural Agrupado" "region02"             "region03"            
+ [7] "region04"             "region05"             "region06"            
+[10] "region07"             "region08"             "region09"            
+[13] "region10"             "region11"             "region12"            
+[16] "region13"             "region14"             "region15"            
+[19] "region16"             "region17"             "region18"            
+[22] "region19"             "region20"             "region21"            
+[25] "region22"             "region23"             "region24"            
+[28] "region25"            
+Popltn:  [1] ""  ""  "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n" "n"
+[20] "n" "n" "n" "n" "n" "n" "n" "n" "n"</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>tbl_well_spread_cal <span class="ot">=</span> muestra_well_spread_cal <span class="sc">|&gt;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="at">digits =</span> <span class="fu">list</span>(<span class="at">deff =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>),</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>)),</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{p}% (n={n_unweighted})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">add_ci</span>() </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>tbl_comp_well_spread_cal <span class="ot">=</span> <span class="fu">tbl_merge</span>(<span class="at">tbls =</span> </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(tbl_well_spread_cal, tbl_well_spread, tbl_pob_param), </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>              <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"WP calibrado"</span>,<span class="st">"WP sin calibrar"</span>,<span class="st">"Poblacion"</span>))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>tbl_comp_well_spread_cal</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="nqrhkhwsbs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nqrhkhwsbs table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#nqrhkhwsbs thead, #nqrhkhwsbs tbody, #nqrhkhwsbs tfoot, #nqrhkhwsbs tr, #nqrhkhwsbs td, #nqrhkhwsbs th {
+  border-style: none;
+}
+
+#nqrhkhwsbs p {
+  margin: 0;
+  padding: 0;
+}
+
+#nqrhkhwsbs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#nqrhkhwsbs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nqrhkhwsbs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nqrhkhwsbs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nqrhkhwsbs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nqrhkhwsbs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nqrhkhwsbs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nqrhkhwsbs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nqrhkhwsbs .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#nqrhkhwsbs .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#nqrhkhwsbs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nqrhkhwsbs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nqrhkhwsbs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nqrhkhwsbs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nqrhkhwsbs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nqrhkhwsbs .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#nqrhkhwsbs .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#nqrhkhwsbs .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#nqrhkhwsbs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nqrhkhwsbs .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#nqrhkhwsbs .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nqrhkhwsbs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nqrhkhwsbs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nqrhkhwsbs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nqrhkhwsbs .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nqrhkhwsbs .gt_left {
+  text-align: left;
+}
+
+#nqrhkhwsbs .gt_center {
+  text-align: center;
+}
+
+#nqrhkhwsbs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nqrhkhwsbs .gt_font_normal {
+  font-weight: normal;
+}
+
+#nqrhkhwsbs .gt_font_bold {
+  font-weight: bold;
+}
+
+#nqrhkhwsbs .gt_font_italic {
+  font-style: italic;
+}
+
+#nqrhkhwsbs .gt_super {
+  font-size: 65%;
+}
+
+#nqrhkhwsbs .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#nqrhkhwsbs .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#nqrhkhwsbs .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#nqrhkhwsbs .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#nqrhkhwsbs .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#nqrhkhwsbs .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#nqrhkhwsbs .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#nqrhkhwsbs .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#nqrhkhwsbs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th colspan="2" id="WP calibrado" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+WP calibrado
+</div></th>
+<th colspan="2" id="WP sin calibrar" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+WP sin calibrar
+</div></th>
+<th id="Poblacion" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Poblacion
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="stat_0_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 4,168</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="ci_stat_0_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
+<th id="stat_0_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 4.156</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span></th>
+<th id="ci_stat_0_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
+<th id="stat_0_3" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 4.168</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">matricula</td>
+<td class="gt_row gt_center" headers="stat_0_1">267 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">267, 267</td>
+<td class="gt_row gt_center" headers="stat_0_2">252 (3)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">246, 257</td>
+<td class="gt_row gt_center" headers="stat_0_3">268 (262)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">secciones</td>
+<td class="gt_row gt_center" headers="stat_0_1">11 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">11, 11</td>
+<td class="gt_row gt_center" headers="stat_0_2">10 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">10, 11</td>
+<td class="gt_row gt_center" headers="stat_0_3">11 (9)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">9</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">sondeo_primero</td>
+<td class="gt_row gt_center" headers="stat_0_1">58 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">57, 58</td>
+<td class="gt_row gt_center" headers="stat_0_2">58 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">57, 58</td>
+<td class="gt_row gt_center" headers="stat_0_3">57 (16)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Unknown</td>
+<td class="gt_row gt_center" headers="stat_0_1">616</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2">596</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">560</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">sondeo_segundo</td>
+<td class="gt_row gt_center" headers="stat_0_1">68 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">68, 68</td>
+<td class="gt_row gt_center" headers="stat_0_2">68 (0)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">68, 68</td>
+<td class="gt_row gt_center" headers="stat_0_3">70 (15)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Unknown</td>
+<td class="gt_row gt_center" headers="stat_0_1">585</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Desconocido</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2">568</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3">570</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">region</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;01</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.5% (n=13)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.5%, 4.5%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,3% (n=13)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,9%, 4,8%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,5% (189)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;02</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.4% (n=17)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.4%, 5.4%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,7% (n=17)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">5,2%, 6,2%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,4% (223)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;03</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.0% (n=15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.0%, 5.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,0% (n=15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,5%, 5,5%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,0% (210)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;04</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.1% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.1%, 5.1%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,3% (n=16)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,9%, 5,8%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,1% (213)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;05</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.7% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.7%, 4.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,7% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,2%, 5,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,7% (194)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;06</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.6% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.6%, 3.6%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,6% (148)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;07</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.3% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.3%, 3.3%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,3%, 3,0%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,3% (138)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;08</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.6% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.6%, 3.6%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,7% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,2%, 5,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,6% (149)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;09</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.9% (n=15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.9%, 4.9%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,0% (n=15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,5%, 5,5%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,9% (205)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;10</td>
+<td class="gt_row gt_center" headers="stat_0_1">5.4% (n=13)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">5.4%, 5.4%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,3% (n=13)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,9%, 4,8%</td>
+<td class="gt_row gt_center" headers="stat_0_3">5,4% (224)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;11</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.0% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.0%, 4.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,7% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,2%, 5,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,0% (166)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;12</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.7%, 3.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,7% (155)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;13</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.1% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.1%, 3.1%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,0% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,6%, 3,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,1% (131)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;14</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.1% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.1%, 4.1%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,1% (169)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;15</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.2% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.2%, 4.2%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,2% (174)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;16</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.0% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.0%, 3.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,3%, 3,0%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,0% (125)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;17</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.2% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.2%, 3.2%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,0% (n=9)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,6%, 3,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,2% (133)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;18</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.8% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.8%, 3.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,8% (160)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;19</td>
+<td class="gt_row gt_center" headers="stat_0_1">2.8% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">2.8%, 2.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,3%, 3,0%</td>
+<td class="gt_row gt_center" headers="stat_0_3">2,8% (118)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;20</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.8% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.8%, 3.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,0% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,6%, 4,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,8% (159)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;21</td>
+<td class="gt_row gt_center" headers="stat_0_1">2.8% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">2.8%, 2.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">2,7% (n=8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">2,3%, 3,0%</td>
+<td class="gt_row gt_center" headers="stat_0_3">2,8% (117)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;22</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.7% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.7%, 3.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,0% (n=12)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,6%, 4,4%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,7% (153)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;23</td>
+<td class="gt_row gt_center" headers="stat_0_1">3.7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">3.7%, 3.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">3,7% (n=11)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">3,3%, 4,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">3,7% (153)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;24</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.7% (n=15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.7%, 4.7%</td>
+<td class="gt_row gt_center" headers="stat_0_2">5,0% (n=15)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,5%, 5,5%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,7% (196)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;25</td>
+<td class="gt_row gt_center" headers="stat_0_1">4.0% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">4.0%, 4.0%</td>
+<td class="gt_row gt_center" headers="stat_0_2">4,7% (n=14)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">4,2%, 5,1%</td>
+<td class="gt_row gt_center" headers="stat_0_3">4,0% (166)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">ambito</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Urbano</td>
+<td class="gt_row gt_center" headers="stat_0_1">65% (n=202)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">65%, 65%</td>
+<td class="gt_row gt_center" headers="stat_0_2">67% (n=202)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">66%, 68%</td>
+<td class="gt_row gt_center" headers="stat_0_3">65% (2.727)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Rural Disperso</td>
+<td class="gt_row gt_center" headers="stat_0_1">26% (n=72)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">26%, 26%</td>
+<td class="gt_row gt_center" headers="stat_0_2">24% (n=72)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">23%, 25%</td>
+<td class="gt_row gt_center" headers="stat_0_3">26% (1.073)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Rural Agrupado</td>
+<td class="gt_row gt_center" headers="stat_0_1">8.8% (n=26)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">8.8%, 8.8%</td>
+<td class="gt_row gt_center" headers="stat_0_2">8,7% (n=26)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">8,1%, 9,3%</td>
+<td class="gt_row gt_center" headers="stat_0_3">8,8% (368)</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Mean (SE); % (n=n (unweighted))</td>
+</tr>
+<tr class="even">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> CI = Confidence Interval, CI = Intervalo de confianza</td>
+</tr>
+<tr class="odd">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> Media (DE); % (n sin ponderar)</td>
+</tr>
+<tr class="even">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span> Media (DE); % (n)</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">321</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>grdAmazonia <span class="ot">=</span> sswr<span class="sc">::</span>grdAmazonia <span class="sc">|&gt;</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lnSWIR2 =</span> <span class="fu">log</span>(SWIR2))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(grdAmazonia)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>base_grdAmazonia <span class="ot">=</span> grdAmazonia <span class="sc">|&gt;</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(AGB,lnSWIR2)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>mysample <span class="ot">&lt;-</span> grdAmazonia <span class="sc">%&gt;%</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(AGB,lnSWIR2) <span class="sc">%&gt;%</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">slice_sample</span>(<span class="at">n =</span> n)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>mysample<span class="sc">$</span>fpc <span class="ot">&lt;-</span> N</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>design_si <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> mysample,  <span class="at">fpc =</span> <span class="sc">~</span> fpc)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>populationtotals <span class="ot">&lt;-</span> <span class="fu">c</span>(N, <span class="fu">sum</span>(grdAmazonia<span class="sc">$</span>lnSWIR2))</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>mysample_cal <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(design_si, </span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>                          <span class="at">formula =</span> <span class="sc">~</span> lnSWIR2,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>                       <span class="at">population =</span> populationtotals, </span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>                       <span class="at">calfun =</span> <span class="st">"linear"</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">weights</span>(mysample_cal)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">sum</span>(g), N)</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Con esto chequeo que el valor total de la variable auxiliar en la muestra (multiplicado por el calibrador) sea igual al valor de la variable auxiliar en la población</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">sum</span>(g <span class="sc">*</span> mysample<span class="sc">$</span>lnSWIR2), <span class="fu">sum</span>(grdAmazonia<span class="sc">$</span>lnSWIR2))</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] TRUE</code></pre>
+</div>
+<details class="code-fold">
+<summary>Código</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Construyo tablas de la pablación, la muestra simple y la muestra simple calibrada</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>tbl_amazonia <span class="ot">=</span> <span class="fu">tbl_summary</span>(base_grdAmazonia,</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>                           <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean}"</span>)) </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>tbl_amazonia_simple <span class="ot">=</span> <span class="fu">tbl_svysummary</span>(design_si,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">add_ci</span>()</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>tbl_cal <span class="ot">=</span> <span class="fu">tbl_svysummary</span>(mysample_cal,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a> <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean}({mean.std.error})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">add_ci</span>()</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>tbl_amazonia_test <span class="ot">=</span> <span class="fu">tbl_merge</span>(<span class="at">tbls =</span> <span class="fu">list</span>(tbl_cal, tbl_amazonia_simple, tbl_amazonia), </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"AS Calibrado"</span>,<span class="st">"Azar Simple"</span>,<span class="st">"Poblacion"</span>))</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>tbl_amazonia_test</span></code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="ykkggusarg" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ykkggusarg table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#ykkggusarg thead, #ykkggusarg tbody, #ykkggusarg tfoot, #ykkggusarg tr, #ykkggusarg td, #ykkggusarg th {
+  border-style: none;
+}
+
+#ykkggusarg p {
+  margin: 0;
+  padding: 0;
+}
+
+#ykkggusarg .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#ykkggusarg .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ykkggusarg .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ykkggusarg .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ykkggusarg .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ykkggusarg .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ykkggusarg .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ykkggusarg .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ykkggusarg .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#ykkggusarg .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#ykkggusarg .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ykkggusarg .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ykkggusarg .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ykkggusarg .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ykkggusarg .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykkggusarg .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#ykkggusarg .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#ykkggusarg .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#ykkggusarg .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykkggusarg .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#ykkggusarg .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykkggusarg .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ykkggusarg .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykkggusarg .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ykkggusarg .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ykkggusarg .gt_left {
+  text-align: left;
+}
+
+#ykkggusarg .gt_center {
+  text-align: center;
+}
+
+#ykkggusarg .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ykkggusarg .gt_font_normal {
+  font-weight: normal;
+}
+
+#ykkggusarg .gt_font_bold {
+  font-weight: bold;
+}
+
+#ykkggusarg .gt_font_italic {
+  font-style: italic;
+}
+
+#ykkggusarg .gt_super {
+  font-size: 65%;
+}
+
+#ykkggusarg .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#ykkggusarg .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#ykkggusarg .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#ykkggusarg .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#ykkggusarg .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#ykkggusarg .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#ykkggusarg .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#ykkggusarg .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#ykkggusarg div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings gt_spanner_row header">
+<th rowspan="2" id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th colspan="2" id="AS Calibrado" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+AS Calibrado
+</div></th>
+<th colspan="2" id="Azar Simple" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><div class="gt_column_spanner">
+Azar Simple
+</div></th>
+<th id="Poblacion" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="col"><div class="gt_column_spanner">
+Poblacion
+</div></th>
+</tr>
+<tr class="gt_col_headings even">
+<th id="stat_0_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 1,306,296</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+<th id="ci_stat_0_1" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
+<th id="stat_0_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 1,306,296</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span></th>
+<th id="ci_stat_0_2" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>95% CI</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span></th>
+<th id="stat_0_3" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 1,306,296</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">AGB</td>
+<td class="gt_row gt_center" headers="stat_0_1">230(5)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">221, 239</td>
+<td class="gt_row gt_center" headers="stat_0_2">247 (8)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">230, 263</td>
+<td class="gt_row gt_center" headers="stat_0_3">225</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">lnSWIR2</td>
+<td class="gt_row gt_center" headers="stat_0_1">6.41(0.00)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">6.4, 6.4</td>
+<td class="gt_row gt_center" headers="stat_0_2">6.35 (0.03)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">6.3, 6.4</td>
+<td class="gt_row gt_center" headers="stat_0_3">6.41</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">fpc</td>
+<td class="gt_row gt_center" headers="stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2"><br>
+</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;1306296</td>
+<td class="gt_row gt_center" headers="stat_0_1">1,306,296 (100%)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_1">100%, 100%</td>
+<td class="gt_row gt_center" headers="stat_0_2">1,306,296 (100%)</td>
+<td class="gt_row gt_center" headers="ci_stat_0_2">100%, 100%</td>
+<td class="gt_row gt_center" headers="stat_0_3"><br>
+</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Mean(SE); n (%)</td>
+</tr>
+<tr class="even">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>2</sup></span> CI = Confidence Interval</td>
+</tr>
+<tr class="odd">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>3</sup></span> Mean (SE); n (%)</td>
+</tr>
+<tr class="even">
+<td colspan="6" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>4</sup></span> Mean</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+
+
+<!-- -->
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-elliott2017" class="csl-entry" role="listitem">
+Elliott, Michael, y Richard Valliant. 2017. <span>«Inference for nonprobability samples»</span>. <em>Statistical Science</em> 32 (2): 249-64.
+</div>
+<div id="ref-lumley2010" class="csl-entry" role="listitem">
+Lumley, Thomas. 2010. <em>Complex surveys. A guide to analysis using R</em>. New Jersey: John Wiley &amp; Sons.
+</div>
+<div id="ref-tillé2011" class="csl-entry" role="listitem">
+Tillé, Yves. 2011. <span>«Ten years of balanced sampling with the cube method: An appraisal»</span>. <em>Survey Methodology</em> 37 (2): 215-26.
+</div>
+</div>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Este tipo de discusiones ha enfrentado (y por ahora continua enfrentando) a los representantes de los enfoques de la “design sample” y del “model assisted”. Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos <span class="citation" data-cites="elliott2017">(<a href="references.html#ref-elliott2017" role="doc-biblioref">Elliott y Valliant 2017</a>)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copiado");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copiado");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./cubo.html" class="pagination-link" aria-label="Muestreos Especiales">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Muestreos Especiales</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="Referencias Bibliográficas">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Referencias Bibliográficas</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Ejecutar el código</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="sourceCode" id="cb14" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">## Calibración</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>La estrategia de la calibración esta compuesta por un conjunto de prácticas que aspiran a lograr objetivos similares al proceso del balanceo del cubo pero con métodos diferentes. La principal diferencia es que la calibración se realiza *ex-post* la ejecución de la muestra (o sea, en el momento de la estimación) y no *ex-ante* (o sea, en el momento del diseño). Esto es una diferencia fundamental que emparenta a la calibración con el enfoque del "Model Assisted". Otra diferencia es que para realizar la calibración usualmente (aunque esto depende de la técnica específica seleccionada) sólo es necesario los totales de la población y no, como en el balanceo, los valores de cada unidad que compone esa población. Esto también es lo que habilita a afirmar que la estratificación es un caso particular del balanceo así como la post-estratificación es un caso particular de la calibración <span class="co">[</span><span class="ot">@tillé2011, pag. 223</span><span class="co">]</span>.</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>Las características anteriores hacen que el proceso de calibración sea muy útil en momentos en donde existe conocimientos sobre algunos totales de la población y no se haya podido controlar mucho el proceso de diseño de la muestra (p.e. diseños no probabilistas). Estas características hacen al proceso de calibración algo muy deseado para muchas investigaciones contemporáneas en donde pueda admitirse que se conocen algunos parámetros poblacionales y, por ejemplo, se ha realizado una muestra que se difundió de manera virtual a través de un link que circuló por diferentes redes sociales. Esto deja en pie la discusión sobre que "tan buenos" podrán ser los resultados de esa investigación pero no parece haber muchas dudas que una investigación de ese estilo será mejor si se le realiza un proceso de calibración mientras que será peor si no se realiza ese proceso.<span class="ot">[^calibracion-1]</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>Detalladas algunas diferencias entre la calibración y el balanceo ahora se pasa a diferenciar la calibración (de una muestra) de la imputación (de variables específicas).</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>En cuanto a su producto, la calibración produce como resultado un calibrador (o un nuevo ponderador en la situación que el diseño de la muestra ya cuente con un ponderador) que es único para cada caso seleccionado en la muestra. En cambio la imputación, al menos como acá se la está entendiendo, es un proceso que imputa uno o más valores faltantes a los casos que respondieron de forma incompleta la muestra. En este sentido, un caso efectivamente seleccionado puede tener más un valor imputado (p.e. para la variable ingresos y para la variable autopercepción de género). En otros contextos se suele diferenciar a ambos procesos afirmando que la calibración ayuda a mitigar el problema del *unit-not-response* y la imputación ayuda a mitigar el problema del *ítem-not-response* <span class="co">[</span><span class="ot">@lumley2010, pag. 136</span><span class="co">]</span>.</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>En cuanto a los insumos, la calibración necesita los totales poblacionales y, en cambio, la inputación necesita los valores de las covariables del caso a imputar así como los valores de las covariables y la variable a imputar de los otros casos.</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>En cuanto al momento de la investigación, siempre que se usen ambos procesos, usualmente primero se imputa los casos particulares de la variables que se considera pertinente y luego se calibra la muestra incluyendo los valores de los casos imputados. Este orden es particularmente importante si se confía en el proceso de la imputación y la/s variable/s en cuestión son parte del proceso de calibración como covariables.</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>Por último, a veces se suele asimilar como sinónimos en término calibración con el término post-estratificación. Estrictamente el segundo puede considerarse como un caso particular del primero en donde sólo se utilizan variables categóricas (estratos) para el proceso de la calibración. Lo mismo puede afirmarse del método menos difundido del "raking" que permite la calibración de múltiples variables categóricas sin la necesidad de realizar cruces entre ellas con el riesgo de no tener casos en la muestra de algunas de las celdas de los múltiples cruces <span class="co">[</span><span class="ot">@lumley2010, pag. 139</span><span class="co">]</span>. Por esta razón, aquí usaremos directamente ....</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>En cuanto a su pertinencia, siempre que haya disponibilidad de tiempo (y el saber necesario para realizarlo) es aconsejable realizar una calibración. Esto es cierto al menos porque el balanceo tiene el problema del redondeo (las muestras son muestras de números enteros) y la calibración no, ya que puede construirse calibradores con números racionales. Por esta misma razón, aún cuando se haya realizado una muestra con un diseño por balanceo, es recomendable calibrar con los totales de las variables que se usaron en el proceso de balanceo.</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>Ejemplos</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>A continuación vamos a trabajar con 2 ejemplos alternativos. Uno, en donde la calibración se realiza sobre la muestra aleatoria simple y otra que se realiza sobre la muestra balanceada y bien distribuida. En función de lo visto anteriormente (Seciio XXX) ya sabemos que ambas calibraciones van a partir desde un punto de inicio diferente. Veremos que tanta distancia entre sí y con respecto a los parámetros poblaciones van a tener los respectivos puntos de llegada de ambas muestras luego de realizar la calibración. En otras palabras, la muestra balanceada y bien distribuida ya se encontraba (en general) bastante cerca de los parámetros poblacionales por lo que, a priori, cuenta con alguna ventaja desde su puesto de largada.</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>Comenzaremos haciendo la calibración sobre nuestra muestra realizada por azar simple y su resultado lo comparemos con la respectiva muestra de azar simple y con los parámetros poblacionales.</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: librerias_calibracion</span></span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sampling)</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(survey)</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: insumos_calibracion</span></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>muestra_well_spread_sv <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_well_spread_sv.rds"</span>))</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_sv <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_azar_simple_sv.rds"</span>))</span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"base.rds"</span>))</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"tbl_azar_simple.rds"</span>))</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>tbl_well_spread <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"tbl_well_spread.rds"</span>))</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>tbl_pob_param <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"tbl_pob_param.rds"</span>))</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: azar_simple_calibrado</span></span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_sv <span class="ot">=</span> <span class="fu">read_rds</span>(<span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_azar_simple_sv.rds"</span>))</span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>base <span class="ot">=</span> base <span class="sc">|&gt;</span></span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) </span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>N <span class="ot">=</span> <span class="fu">nrow</span>(base)</span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a><span class="co">#the population totals are specified as the column sums of the population regression design matrix (predictor matrix) corresponding to the model formula.</span></span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a><span class="co">#Las totales de las variables numerícas es más fácil porque es una media.</span></span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a><span class="co"># Los totales de las variables categóricas es algo más difícil porque hay que hacer los totales para cada categoría. En este sentido, no es lo mismo hacer una calibración para 3 categorías como "Ambito" que para más de 20 como "Región"2.0</span></span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>totals <span class="ot">=</span> <span class="fu">unlist</span>(<span class="fu">c</span>(<span class="fu">nrow</span>(base),</span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>           <span class="fu">sum</span>(base<span class="sc">$</span>matricula, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>ambito <span class="sc">==</span> <span class="st">"Rural Disperso"</span>, ]),</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>ambito <span class="sc">==</span> <span class="st">"Rural Agrupado"</span>, ]),</span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"02"</span>, ]),</span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"03"</span>, ]),</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"04"</span>, ]),</span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"05"</span>, ]),</span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"06"</span>, ]),</span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"07"</span>, ]),</span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"08"</span>, ]),</span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"09"</span>, ]),</span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"10"</span>, ]),</span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"11"</span>, ]),</span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"12"</span>, ]),</span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"13"</span>, ]),</span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"14"</span>, ]),</span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"15"</span>, ]),</span>
+<span id="cb14-88"><a href="#cb14-88" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"16"</span>, ]),</span>
+<span id="cb14-89"><a href="#cb14-89" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"17"</span>, ]),</span>
+<span id="cb14-90"><a href="#cb14-90" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"18"</span>, ]),</span>
+<span id="cb14-91"><a href="#cb14-91" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"19"</span>, ]),</span>
+<span id="cb14-92"><a href="#cb14-92" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"20"</span>, ]),</span>
+<span id="cb14-93"><a href="#cb14-93" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"21"</span>, ]),</span>
+<span id="cb14-94"><a href="#cb14-94" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"22"</span>, ]),</span>
+<span id="cb14-95"><a href="#cb14-95" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"23"</span>, ]),</span>
+<span id="cb14-96"><a href="#cb14-96" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"24"</span>, ]),</span>
+<span id="cb14-97"><a href="#cb14-97" aria-hidden="true" tabindex="-1"></a>           <span class="fu">count</span>(base[base<span class="sc">$</span>region <span class="sc">==</span> <span class="st">"25"</span>, ])))</span>
+<span id="cb14-98"><a href="#cb14-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-99"><a href="#cb14-99" aria-hidden="true" tabindex="-1"></a>muestra_azar_simple_cal <span class="ot">=</span> <span class="fu">calibrate</span>(muestra_azar_simple_sv,</span>
+<span id="cb14-100"><a href="#cb14-100" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">formula =</span> <span class="sc">~</span> matricula <span class="sc">+</span> ambito <span class="sc">+</span> region,</span>
+<span id="cb14-101"><a href="#cb14-101" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">population =</span> totals,</span>
+<span id="cb14-102"><a href="#cb14-102" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">calfun =</span> <span class="st">"linear"</span>)</span>
+<span id="cb14-103"><a href="#cb14-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-104"><a href="#cb14-104" aria-hidden="true" tabindex="-1"></a>tbl_azar_simple_cal <span class="ot">=</span> muestra_azar_simple_cal <span class="sc">|&gt;</span></span>
+<span id="cb14-105"><a href="#cb14-105" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
+<span id="cb14-106"><a href="#cb14-106" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
+<span id="cb14-107"><a href="#cb14-107" aria-hidden="true" tabindex="-1"></a><span class="at">digits =</span> <span class="fu">list</span>(<span class="at">deff =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>),</span>
+<span id="cb14-108"><a href="#cb14-108" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>)),</span>
+<span id="cb14-109"><a href="#cb14-109" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
+<span id="cb14-110"><a href="#cb14-110" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{p}% (n={n_unweighted})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-111"><a href="#cb14-111" aria-hidden="true" tabindex="-1"></a><span class="fu">add_ci</span>() </span>
+<span id="cb14-112"><a href="#cb14-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-113"><a href="#cb14-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-114"><a href="#cb14-114" aria-hidden="true" tabindex="-1"></a>tbl_comp_azar_simple_cal <span class="ot">=</span> <span class="fu">tbl_merge</span>(<span class="at">tbls =</span> <span class="fu">list</span>(tbl_azar_simple_cal, tbl_azar_simple, tbl_pob_param), </span>
+<span id="cb14-115"><a href="#cb14-115" aria-hidden="true" tabindex="-1"></a>              <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"AS Calibrado"</span>,<span class="st">"AS sin calibrar"</span>,<span class="st">"Poblacion"</span>))</span>
+<span id="cb14-116"><a href="#cb14-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-117"><a href="#cb14-117" aria-hidden="true" tabindex="-1"></a>tbl_comp_azar_simple_cal</span>
+<span id="cb14-118"><a href="#cb14-118" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-119"><a href="#cb14-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-122"><a href="#cb14-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-123"><a href="#cb14-123" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: well_spread_calibrada</span></span>
+<span id="cb14-124"><a href="#cb14-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-125"><a href="#cb14-125" aria-hidden="true" tabindex="-1"></a>muestra_well_spread_cal <span class="ot">=</span> <span class="fu">calibrate</span>(muestra_well_spread_sv,</span>
+<span id="cb14-126"><a href="#cb14-126" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">formula =</span> <span class="sc">~</span> matricula <span class="sc">+</span> ambito <span class="sc">+</span> region,</span>
+<span id="cb14-127"><a href="#cb14-127" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">population =</span> totals,</span>
+<span id="cb14-128"><a href="#cb14-128" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">calfun =</span> <span class="st">"linear"</span>)</span>
+<span id="cb14-129"><a href="#cb14-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-130"><a href="#cb14-130" aria-hidden="true" tabindex="-1"></a>tbl_well_spread_cal <span class="ot">=</span> muestra_well_spread_cal <span class="sc">|&gt;</span></span>
+<span id="cb14-131"><a href="#cb14-131" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_svysummary</span>(</span>
+<span id="cb14-132"><a href="#cb14-132" aria-hidden="true" tabindex="-1"></a><span class="at">include =</span> <span class="fu">c</span>(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),</span>
+<span id="cb14-133"><a href="#cb14-133" aria-hidden="true" tabindex="-1"></a><span class="at">digits =</span> <span class="fu">list</span>(<span class="at">deff =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>),</span>
+<span id="cb14-134"><a href="#cb14-134" aria-hidden="true" tabindex="-1"></a>              <span class="at">sd =</span> <span class="fu">label_style_number</span>(<span class="at">digits =</span> <span class="dv">3</span>)),</span>
+<span id="cb14-135"><a href="#cb14-135" aria-hidden="true" tabindex="-1"></a><span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>,</span>
+<span id="cb14-136"><a href="#cb14-136" aria-hidden="true" tabindex="-1"></a>                <span class="fu">all_categorical</span>() <span class="sc">~</span> <span class="st">"{p}% (n={n_unweighted})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-137"><a href="#cb14-137" aria-hidden="true" tabindex="-1"></a><span class="fu">add_ci</span>() </span>
+<span id="cb14-138"><a href="#cb14-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-139"><a href="#cb14-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-140"><a href="#cb14-140" aria-hidden="true" tabindex="-1"></a>tbl_comp_well_spread_cal <span class="ot">=</span> <span class="fu">tbl_merge</span>(<span class="at">tbls =</span> </span>
+<span id="cb14-141"><a href="#cb14-141" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(tbl_well_spread_cal, tbl_well_spread, tbl_pob_param), </span>
+<span id="cb14-142"><a href="#cb14-142" aria-hidden="true" tabindex="-1"></a>              <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"WP calibrado"</span>,<span class="st">"WP sin calibrar"</span>,<span class="st">"Poblacion"</span>))</span>
+<span id="cb14-143"><a href="#cb14-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-144"><a href="#cb14-144" aria-hidden="true" tabindex="-1"></a>tbl_comp_well_spread_cal</span>
+<span id="cb14-145"><a href="#cb14-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-146"><a href="#cb14-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-149"><a href="#cb14-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb14-150"><a href="#cb14-150" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">321</span>)</span>
+<span id="cb14-151"><a href="#cb14-151" aria-hidden="true" tabindex="-1"></a>grdAmazonia <span class="ot">=</span> sswr<span class="sc">::</span>grdAmazonia <span class="sc">|&gt;</span></span>
+<span id="cb14-152"><a href="#cb14-152" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">lnSWIR2 =</span> <span class="fu">log</span>(SWIR2))</span>
+<span id="cb14-153"><a href="#cb14-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-154"><a href="#cb14-154" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="fu">nrow</span>(grdAmazonia)</span>
+<span id="cb14-155"><a href="#cb14-155" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb14-156"><a href="#cb14-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-157"><a href="#cb14-157" aria-hidden="true" tabindex="-1"></a>base_grdAmazonia <span class="ot">=</span> grdAmazonia <span class="sc">|&gt;</span></span>
+<span id="cb14-158"><a href="#cb14-158" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(AGB,lnSWIR2)</span>
+<span id="cb14-159"><a href="#cb14-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-160"><a href="#cb14-160" aria-hidden="true" tabindex="-1"></a>mysample <span class="ot">&lt;-</span> grdAmazonia <span class="sc">%&gt;%</span></span>
+<span id="cb14-161"><a href="#cb14-161" aria-hidden="true" tabindex="-1"></a>   dplyr<span class="sc">::</span><span class="fu">select</span>(AGB,lnSWIR2) <span class="sc">%&gt;%</span></span>
+<span id="cb14-162"><a href="#cb14-162" aria-hidden="true" tabindex="-1"></a>   <span class="fu">slice_sample</span>(<span class="at">n =</span> n)</span>
+<span id="cb14-163"><a href="#cb14-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-164"><a href="#cb14-164" aria-hidden="true" tabindex="-1"></a>mysample<span class="sc">$</span>fpc <span class="ot">&lt;-</span> N</span>
+<span id="cb14-165"><a href="#cb14-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-166"><a href="#cb14-166" aria-hidden="true" tabindex="-1"></a>design_si <span class="ot">&lt;-</span> <span class="fu">svydesign</span>(<span class="at">id =</span> <span class="sc">~</span> <span class="dv">1</span>, <span class="at">data =</span> mysample,  <span class="at">fpc =</span> <span class="sc">~</span> fpc)</span>
+<span id="cb14-167"><a href="#cb14-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-168"><a href="#cb14-168" aria-hidden="true" tabindex="-1"></a>populationtotals <span class="ot">&lt;-</span> <span class="fu">c</span>(N, <span class="fu">sum</span>(grdAmazonia<span class="sc">$</span>lnSWIR2))</span>
+<span id="cb14-169"><a href="#cb14-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-170"><a href="#cb14-170" aria-hidden="true" tabindex="-1"></a>mysample_cal <span class="ot">&lt;-</span> <span class="fu">calibrate</span>(design_si, </span>
+<span id="cb14-171"><a href="#cb14-171" aria-hidden="true" tabindex="-1"></a>                          <span class="at">formula =</span> <span class="sc">~</span> lnSWIR2,</span>
+<span id="cb14-172"><a href="#cb14-172" aria-hidden="true" tabindex="-1"></a>                       <span class="at">population =</span> populationtotals, </span>
+<span id="cb14-173"><a href="#cb14-173" aria-hidden="true" tabindex="-1"></a>                       <span class="at">calfun =</span> <span class="st">"linear"</span>)</span>
+<span id="cb14-174"><a href="#cb14-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-175"><a href="#cb14-175" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">weights</span>(mysample_cal)</span>
+<span id="cb14-176"><a href="#cb14-176" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">sum</span>(g), N)</span>
+<span id="cb14-177"><a href="#cb14-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-178"><a href="#cb14-178" aria-hidden="true" tabindex="-1"></a><span class="co"># Con esto chequeo que el valor total de la variable auxiliar en la muestra (multiplicado por el calibrador) sea igual al valor de la variable auxiliar en la población</span></span>
+<span id="cb14-179"><a href="#cb14-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-180"><a href="#cb14-180" aria-hidden="true" tabindex="-1"></a><span class="fu">all.equal</span>(<span class="fu">sum</span>(g <span class="sc">*</span> mysample<span class="sc">$</span>lnSWIR2), <span class="fu">sum</span>(grdAmazonia<span class="sc">$</span>lnSWIR2))</span>
+<span id="cb14-181"><a href="#cb14-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-182"><a href="#cb14-182" aria-hidden="true" tabindex="-1"></a><span class="co"># Construyo tablas de la pablación, la muestra simple y la muestra simple calibrada</span></span>
+<span id="cb14-183"><a href="#cb14-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-184"><a href="#cb14-184" aria-hidden="true" tabindex="-1"></a>tbl_amazonia <span class="ot">=</span> <span class="fu">tbl_summary</span>(base_grdAmazonia,</span>
+<span id="cb14-185"><a href="#cb14-185" aria-hidden="true" tabindex="-1"></a>                           <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean}"</span>)) </span>
+<span id="cb14-186"><a href="#cb14-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-187"><a href="#cb14-187" aria-hidden="true" tabindex="-1"></a>tbl_amazonia_simple <span class="ot">=</span> <span class="fu">tbl_svysummary</span>(design_si,</span>
+<span id="cb14-188"><a href="#cb14-188" aria-hidden="true" tabindex="-1"></a>  <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({mean.std.error})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-189"><a href="#cb14-189" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">add_ci</span>()</span>
+<span id="cb14-190"><a href="#cb14-190" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb14-191"><a href="#cb14-191" aria-hidden="true" tabindex="-1"></a>tbl_cal <span class="ot">=</span> <span class="fu">tbl_svysummary</span>(mysample_cal,</span>
+<span id="cb14-192"><a href="#cb14-192" aria-hidden="true" tabindex="-1"></a> <span class="at">statistic =</span> <span class="fu">list</span>(<span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean}({mean.std.error})"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb14-193"><a href="#cb14-193" aria-hidden="true" tabindex="-1"></a>                              <span class="fu">add_ci</span>()</span>
+<span id="cb14-194"><a href="#cb14-194" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-195"><a href="#cb14-195" aria-hidden="true" tabindex="-1"></a>tbl_amazonia_test <span class="ot">=</span> <span class="fu">tbl_merge</span>(<span class="at">tbls =</span> <span class="fu">list</span>(tbl_cal, tbl_amazonia_simple, tbl_amazonia), </span>
+<span id="cb14-196"><a href="#cb14-196" aria-hidden="true" tabindex="-1"></a>                    <span class="at">tab_spanner =</span> <span class="fu">c</span>(<span class="st">"AS Calibrado"</span>,<span class="st">"Azar Simple"</span>,<span class="st">"Poblacion"</span>))</span>
+<span id="cb14-197"><a href="#cb14-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-198"><a href="#cb14-198" aria-hidden="true" tabindex="-1"></a>tbl_amazonia_test</span>
+<span id="cb14-199"><a href="#cb14-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb14-200"><a href="#cb14-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-201"><a href="#cb14-201" aria-hidden="true" tabindex="-1"></a><span class="ot">[^calibracion-1]: </span>Este tipo de discusiones ha enfrentado (y por ahora continua enfrentando) a los representantes de los enfoques de la "design sample" y del "model assisted". Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos <span class="co">[</span><span class="ot">@elliott2017</span><span class="co">]</span>.</span>
+</code><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></pre></div>
+</div></div></div></div></div>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

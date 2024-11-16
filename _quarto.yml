@@ -15,6 +15,7 @@ book:
     - muestras.qmd
     - azar.qmd
     - cubo.qmd
+    - calibracion.qmd
     - references.qmd
     
 page-navigation: true
@@ -54,7 +55,7 @@ language:
 execute: 
   warning: false
   message: false
-
+  freeze: auto
 # Extensiones
 
 filters:

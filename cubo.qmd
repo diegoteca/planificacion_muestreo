@@ -429,11 +429,11 @@ tbl_pps = read_rds(here("Outputs", "tbl_pps.rds"))
 
 ## Muestreos bien distribuidos {#sec-well_pread}
 
-Como se dijo en la @sec-cubo en los muestreos balanceados por el método del cubo el esfuerzo está en que los valores de la tendencia central de los estimadores de determinadas variables de la muestra se acerquen a los valores de las covariables de la información secundaria, esto es, a los parámetros conocidos de la población. En el muestreo bien extendido (*well spread*) es objetivo es similar pero con una restricción adicional que implica que la distribución de la covariable de la muestra se acerque a la distribución de la covariable en la población. El precio de esta mejora es que se debe conocer la distribución de la variable en la población algo que nunca habían requerido los diseños anteriores.
+Como se dijo en la @sec-cubo en los muestreos balanceados por el método del cubo el esfuerzo está en que los valores de la tendencia central de los estimadores de determinadas variables de la muestra se acerquen a los valores de las covariables existentes como información secundaria, esto es, a los parámetros conocidos de la población. En el muestreo bien extendido (*well spread*) es objetivo es similar pero con una restricción adicional que implica que la distribución de la/s covariable/s de la muestra se acerque a la distribución de la/s covariable/s en la población. El precio de esta mejora es que se debe conocer la distribución de esas variables en la población algo que nunca habían requerido los diseños anteriores. En el caso particular de la distribución espacial el diseño exige la introducción de las coordenadas de cada miembro de la población y no solo el promedio poblacional de ellas.
 
-En este contexto cobra importancia el ejemplo inicial de la @sec-cubo en donde se usaron covariables espaciales. Allí, de manera intuitiva, se asoció que una muestra bien distribuida es una muestra balanceada. Esta afirmación es verdadera pero su inversa no. En otras palabras, toda muestra balanceada no es bien distribuida, pero toda muestra bien distribuida sí es una muestra balanceada.
+En este contexto cobra importancia el ejemplo inicial de la @sec-cubo en donde se usaron covariables espaciales. Allí, de manera intuitiva, se asoció que una muestra bien distribuida es una muestra balanceada. Esta afirmación, útil como un primera aproximación, es verdadera pero su inversa no. En otras palabras, toda muestra balanceada no es bien distribuida, pero toda muestra bien distribuida sí es una muestra balanceada.
 
-A continuación trabajaremos con los misma muestra balanceada de colegios de la sección anterior pero le agregaremos la condición de que esa muestra *también* sea bien distribuida en los valores de las coordenadas geográficas. Para eso primero agregaremos las coordenadasa la base de los establecimientos.
+A continuación trabajaremos con los misma muestra balanceada de colegios de la sección anterior pero le agregaremos la condición de que esa muestra *también* sea bien distribuida en los valores de las coordenadas geográficas. Para eso primero agregaremos las coordenadas a la base de los establecimientos.
 
 ```{r}
 #| label: coordenadas
@@ -452,9 +452,9 @@ filter(!is.na(longitud))
 
 ```
 
-Agregadas las coordenadas ahora se puede aplicar la técnica del cubo con el adicional que el balanceo no sólo se realice por los valores de tendencia central de la sección anterior, sino tambien con los valores de dispersión de las coordenadas de los establecimientos.
+Agregadas las coordenadas ahora se puede aplicar la técnica del cubo con el adicional que el balanceo no sólo se realice por los valores de tendencia central de la sección anterior, sino también con los valores de dispersión de las coordenadas de los establecimientos.
 
-En cierto sentido, la inclusión de las variables "Ámbito" y "Región" en el diseño balanceado ya mejoraban la distribución geográfica o espacial de la muestra (con respecto a una muestra de azar simple) pero lo hacían focalizándonse en sus valores de tendencia central. Los valores de las coordenadas permiten una información de un grano más fino sobre la distribución espacial de la muestra. En efecto, se aprecia una mejora en los valores de las variables .......
+En cierto sentido, la inclusión de las variables "Ámbito" y "Región" en el diseño balanceado (@sec-cubo_colegios) ya mejoraban la distribución geográfica o espacial de la muestra (con respecto a una muestra de azar simple) pero lo hacían focalizándonse en sus valores de tendencia central. Los valores de las coordenadas permiten una información de un grano más fino sobre la distribución espacial de la muestra. En efecto, al usarse esta última información en un diseño bien distribuido se aprecia una leve mejora en los valores que tienen una fuerte influencia espacial (p.e "Ambito" y "Región").
 
 ```{r}
 #| label: muestreo_well_spread
@@ -487,9 +487,10 @@ muestra_well_spread_sv = muestra_well_spread |>
 as_survey_design(id = 1,
                  weights = pw,
                  fpc = fpc)
-```
 
-En la
+write_rds(muestra_well_spread_sv,
+          here("Outputs", "muestra_well_spread_sv.rds"))
+```
 
 ```{r}
 #| label: tbl-well_spread
@@ -500,10 +501,13 @@ tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
 digits = list(deff = label_style_number(digits = 3),
               sd = label_style_number(digits = 3)),
-statistic = list(all_continuous() ~ "{mean} ({sd})",
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci()  |>
 modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
+
+write_rds(tbl_well_spread,
+          here("Outputs", "tbl_well_spread.rds"))
 
 tbl_merge(
    tbls = list(tbl_well_spread, tbl_cubo_colegios, tbl_pob_param),
@@ -513,7 +517,9 @@ tbl_merge(
 
 ```
 
-A conitnuación se observa .......
+En ciencias sociales, la mejora de la distribución espacial de una muestra no es un mejora cualquiera. Es una mejora muy interesante porque también ayuda a controlar, una serie de otras variables que se pueden presumir asociadas al espacio pero no fácilmente accesibles de forma empírica o, por lo menos, no accesible en términos de parámetros poblacionales para el momento del diseño de una muestra. Expresado en jerga metodológica, este tipo de mejoras ayudan a controlar una serie de variables extrañas haciendo que dejen de ser variables perturbadoras [@kish1987].
+
+De todos modos, en este caso particular es razonable suponer que la ubicación de los establecimientos guarda relación con la ubicación de los estudiantes y, más en general, con la distribución de las personas.
 
 ```{r}
 #| label: fig-mapa_well_spread
@@ -546,12 +552,6 @@ tm_dots(fill_alpha = 0.9,
 fig_well_spread 
 
 ```
-
-Un comentario final. La mejora de la distribución espacial de una muestra no es un mejora cualquiera. Es una mejora que se supone que podetras
-
-AZAR-EXPERIMENTOS
-
-De todos modos, en este caso particular es razonable suponer que la ubicación de los establecimientos guarda relación con la ubicación de los estudiates y, más en general, con la distribución de las perosnas.
 
 [^cubo-1]: El mismo fue adaptado del libro "Spatial sampling with R" [@brus2022].
 

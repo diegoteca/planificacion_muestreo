@@ -66,6 +66,9 @@ download_this(base,
               output_name = "base_escuelas_primarias",
               output_extension = ".xlsx",
               button_label = "Descargar Base")
+
+write_rds(base,
+          here("Outputs", "base.rds"))
 ```
 
 Como puede observarse se trata de una base de escuelas en el sentido que en cada fila hay un establecimiento diferente que contiene una serie de propiedades de los mismos en cada una de las columnas. Algunas de esas propiedades se podrían considerar como intrínsecas de cada escuela (clave, región, ámbito, etc.), otras pueden considerarse como propiedades agregadas de los establecimientos en el sentido que devienen de agregaciones de los estudiantes que son parte de cada escuela (p.e. prueba_x) o de los directivos de los mismos (p.e. direct_x). Esta distinciones son importantes cuando se quiere realizar una muestra porque esto indica límites y posibilidades sobre a qué población se puede realizar una "buena" muestra desde este archivo. En este contexto, la información de este archivo es particularmente buena para realizar una muestra de colegios pero quizá no tan apropiada para realizar una muestra de estudiantes o directivos...al menos si se lo compara, respectivamente, con tener acceso a lista de estudiantes o directivos con el agregado del dato de la escuela. Como veremos más adelante, si se tiene en mente este último punto es posible minimizar algunos de esos problemas aplicando algunas estrategias (p.e. seleccionar pocos estudiantes de cada colegio seleccionado) o, de forma más explícita, hacer una muestra proporcional al tamaño de la matrícula de cada establecimiento.[^azar-1]
@@ -221,6 +224,9 @@ muestra_azar_simple_sv = muestra_azar_simple |>
 as_survey_design(ids = id,
                  weights = pw,
                  fpc = fpc)
+
+write_rds(muestra_azar_simple_sv,
+          here("Outputs", "muestra_azar_simple_sv.rds"))
 ```
 
 ```{r}
@@ -289,14 +295,18 @@ Cambiando lo que haya que cambiar, el código anterior también se podría aplic
 
 ## Muestreo Estratificado
 
-El muestreo estratificado es un tipo de muestreo que se realiza en base a estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratificado. En el extremo, si todos los miembros de cada estrato son iguales entre sí y los tamaños de cada estrato también son iguales entre sí, sólo habría que seleccionar a un caso por estrato y con eso se tendría una muestra representativa. Si los tamaños de los estratos fueran diferentes también se podría seleccionar un caso por estrato pero la condición para que esta muestra sea representativa es que luego se incluyan ponderadores diferentes para cada estrato de la muestra.
+El muestreo estratificado es un tipo de muestreo que se realiza en base a estratos que, en principio, sean parecidos en su interior y diferentes entre ellos. Una característica distintivas de los estratos es que son discretos, esto es, pueden tener a lo sumo un orden entre los diferentes estratos, pero sus límites son puntuales más que continuos.
 
-Para que el muestreo estratificado sea efectivo, los estratos deben tener una heterogeneidad interna que se asume que es menor a la heterogeneidad del conjunto de la población pero que usualmente se encuentra lejos del ejemplo extremo del párrafo anterior. Los estratos son variables discretas que conforman subpoblaciones mutuamente excluyentes y exhaustivas de toda población aunque se pueden construir los mismos en función de datos categóricos, continuos o espaciales. En nuestra base de datos puede haber muchas variables que pueden ser considerados como estratos. En este caso, a modo de ejemplo, nos quedaremos con "Ambito" que posee 3 categorías que asumimos, como diría Platón en el Fedro, que cortan la realidad por sus articulaciones naturales [@platón2002, pag. 55]. Por otro lado, utilizar "Ámbito" como estrato tiene otra virtud pedagógica que deviene de la diferente distribución de cada categoría. Esto lo hace un buen candidato para mostrar la utilidad del muestreo estratificado en su versión proporcional y no proporcional ya que la categoría "Rural Agrupado" posee un menor porcentaje de casos y, a igualdad de otras condiciones, eso dificulta su posterior análisis.
+Si se recuerda los comentarios realizados en la introducción, cuanto menos heterogeneidad exista entre los unidades a seleccionar menor es el problema de la representatividad. Esto es precisamente lo que intenta aprovechar la idea del muestreo estratificado. En el extremo, si todos los miembros de cada estrato son iguales entre sí y los tamaños de cada estrato también son iguales entre sí, sólo habría que seleccionar a un caso por estrato y sólo con eso se tendría una muestra representativa de la población. Si los tamaños de los estratos fueran diferentes también se podría seleccionar un caso por estrato pero la condición para que esta muestra sea representativa es que luego se incluyan ponderadores diferentes para cada estrato de la muestra en función de la inversa de la probabilidad de entrar en la muestra.
+
+Para que el muestreo estratificado produzca ventajas (en comparación con el azar simple) los estratos deben tener una heterogeneidad interna menor a la heterogeneidad del conjunto de la población aunque aquella se encuentre lejos del ejemplo extremo del párrafo anterior. Los estratos son variables discretas que conforman subpoblaciones mutuamente excluyentes y exhaustivas de toda población aunque se pueden construir los mismos en función de datos categóricos, continuos (p.e. agrupaciones de años de antigüedad) o espaciales (p.e. Regiones). En una base de datos educativa puede haber muchas variables que pueden ser considerados como estratos. En este caso, a modo de ejemplo, nos quedaremos con "Ámbito" que posee 3 categorías que asumimos, como diría Platón en el Fedro, que cortan la realidad por sus articulaciones naturales [@platón2002, pag. 55]. Por otro lado, utilizar "Ámbito" como estrato tiene otra virtud pedagógica que deviene de la diferente distribución de cada categoría. Esto lo hace un buen candidato para mostrar la utilidad del muestreo estratificado en su versión proporcional y no proporcional ya que la categoría "Rural Agrupado" posee un menor porcentaje de casos y, a igualdad de otras condiciones, eso dificulta su posterior análisis.
+
+Usualmente los estratos se construyen en base a antecedentes teóricos pero nada impide que los estratos sean constructos estadísticos con una significado no muy claro como los que se pueden producir luego de un análisis de clusters. Tampoco la técnica tiene una limitación en cuanto a la cantidad de categorías.
 
 |   | Estratificado Proporcional | Estratificado no Proporcional |
-|------------------------|------------------------|------------------------|
+|----|----|----|
 | **Estratos Teóricos** | Estrato teórico (p.e. Ámbito) con probabilidad proporcional | Estrato teórico (p.e. Ámbito) con probabilidad no proporcional |
-| **Estratos multivariado** | Estrato estadístico con probabilidad proporcional | Estrato estadístico con probabilidad no proporcional |
+| **Estratos Empíricos** | Estrato estadístico con probabilidad proporcional | Estrato estadístico con probabilidad no proporcional |
 
 ### Estratos teóricos con asignación proporcional
 

@@ -1,5 +1,191 @@
-Stratification is a particular case of balancing, while poststratification is a particular case of calibration [@tillé2011, pag. 223]
+## Calibración
 
-Generally, it is recommended to re-calibrate on the balancing variables at the estimation stage even if more calibration variables are available.
+La estrategia de la calibración esta compuesta por un conjunto de prácticas que aspiran a lograr objetivos similares al proceso del balanceo del cubo pero con métodos diferentes. La principal diferencia es que la calibración se realiza *ex-post* la ejecución de la muestra (o sea, en el momento de la estimación) y no *ex-ante* (o sea, en el momento del diseño). Esto es una diferencia fundamental que emparenta a la calibración con el enfoque del "Model Assisted". Otra diferencia es que para realizar la calibración usualmente (aunque esto depende de la técnica específica seleccionada) sólo es necesario los totales de la población y no, como en el balanceo, los valores de cada unidad que compone esa población. Esto también es lo que habilita a afirmar que la estratificación es un caso particular del balanceo así como la post-estratificación es un caso particular de la calibración [@tillé2011, pag. 223].
 
-Siempre que haya disponibilidad de tiempo, técnica, etc. es aconsejable realizar una calibración. Esto es cierto al menos porque el balanceamiento tiene el problema del redondiamiento (las muestras son muestras de números "enteros") y la calibración no.
+Las características anteriores hacen que el proceso de calibración sea muy útil en momentos en donde existe conocimientos sobre algunos totales de la población y no se haya podido controlar mucho el proceso de diseño de la muestra (p.e. diseños no probabilistas). Estas características hacen al proceso de calibración algo muy deseado para muchas investigaciones contemporáneas en donde pueda admitirse que se conocen algunos parámetros poblacionales y, por ejemplo, se ha realizado una muestra que se difundió de manera virtual a través de un link que circuló por diferentes redes sociales. Esto deja en pie la discusión sobre que "tan buenos" podrán ser los resultados de esa investigación pero no parece haber muchas dudas que una investigación de ese estilo será mejor si se le realiza un proceso de calibración mientras que será peor si no se realiza ese proceso.[^calibracion-1]
+
+Detalladas algunas diferencias entre la calibración y el balanceo ahora se pasa a diferenciar la calibración (de una muestra) de la imputación (de variables específicas).
+
+-   En cuanto a su producto, la calibración produce como resultado un calibrador (o un nuevo ponderador en la situación que el diseño de la muestra ya cuente con un ponderador) que es único para cada caso seleccionado en la muestra. En cambio la imputación, al menos como acá se la está entendiendo, es un proceso que imputa uno o más valores faltantes a los casos que respondieron de forma incompleta la muestra. En este sentido, un caso efectivamente seleccionado puede tener más un valor imputado (p.e. para la variable ingresos y para la variable autopercepción de género). En otros contextos se suele diferenciar a ambos procesos afirmando que la calibración ayuda a mitigar el problema del *unit-not-response* y la imputación ayuda a mitigar el problema del *ítem-not-response* [@lumley2010, pag. 136].
+
+-   En cuanto a los insumos, la calibración necesita los totales poblacionales y, en cambio, la inputación necesita los valores de las covariables del caso a imputar así como los valores de las covariables y la variable a imputar de los otros casos.
+
+-   En cuanto al momento de la investigación, siempre que se usen ambos procesos, usualmente primero se imputa los casos particulares de la variables que se considera pertinente y luego se calibra la muestra incluyendo los valores de los casos imputados. Este orden es particularmente importante si se confía en el proceso de la imputación y la/s variable/s en cuestión son parte del proceso de calibración como covariables.
+
+Por último, a veces se suele asimilar como sinónimos en término calibración con el término post-estratificación. Estrictamente el segundo puede considerarse como un caso particular del primero en donde sólo se utilizan variables categóricas (estratos) para el proceso de la calibración. Lo mismo puede afirmarse del método menos difundido del "raking" que permite la calibración de múltiples variables categóricas sin la necesidad de realizar cruces entre ellas con el riesgo de no tener casos en la muestra de algunas de las celdas de los múltiples cruces [@lumley2010, pag. 139]. Por esta razón, aquí usaremos directamente ....
+
+En cuanto a su pertinencia, siempre que haya disponibilidad de tiempo (y el saber necesario para realizarlo) es aconsejable realizar una calibración. Esto es cierto al menos porque el balanceo tiene el problema del redondeo (las muestras son muestras de números enteros) y la calibración no, ya que puede construirse calibradores con números racionales. Por esta misma razón, aún cuando se haya realizado una muestra con un diseño por balanceo, es recomendable calibrar con los totales de las variables que se usaron en el proceso de balanceo.
+
+Ejemplos
+
+A continuación vamos a trabajar con 2 ejemplos alternativos. Uno, en donde la calibración se realiza sobre la muestra aleatoria simple y otra que se realiza sobre la muestra balanceada y bien distribuida. En función de lo visto anteriormente (Seciio XXX) ya sabemos que ambas calibraciones van a partir desde un punto de inicio diferente. Veremos que tanta distancia entre sí y con respecto a los parámetros poblaciones van a tener los respectivos puntos de llegada de ambas muestras luego de realizar la calibración. En otras palabras, la muestra balanceada y bien distribuida ya se encontraba (en general) bastante cerca de los parámetros poblacionales por lo que, a priori, cuenta con alguna ventaja desde su puesto de largada.
+
+Comenzaremos haciendo la calibración sobre nuestra muestra realizada por azar simple y su resultado lo comparemos con la respectiva muestra de azar simple y con los parámetros poblacionales.
+
+```{r}
+#| label: librerias_calibracion
+
+library(sampling)
+library(survey)
+library(tidyverse)
+library(readxl)
+library(here)
+library(gtsummary)
+library(janitor)
+```
+
+```{r}
+#| label: insumos_calibracion
+
+muestra_well_spread_sv = read_rds(here("Outputs", "muestra_well_spread_sv.rds"))
+muestra_azar_simple_sv = read_rds(here("Outputs", "muestra_azar_simple_sv.rds"))
+base = read_rds(here("Outputs", "base.rds"))
+
+tbl_azar_simple = read_rds(here("Outputs", "tbl_azar_simple.rds"))
+tbl_well_spread = read_rds(here("Outputs", "tbl_well_spread.rds"))
+tbl_pob_param = read_rds(here("Outputs", "tbl_pob_param.rds"))
+```
+
+```{r}
+#| label: azar_simple_calibrado
+
+muestra_azar_simple_sv = read_rds(here("Outputs", "muestra_azar_simple_sv.rds"))
+
+base = base |>
+select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) 
+
+N = nrow(base)
+
+#the population totals are specified as the column sums of the population regression design matrix (predictor matrix) corresponding to the model formula.
+
+#Las totales de las variables numerícas es más fácil porque es una media.
+# Los totales de las variables categóricas es algo más difícil porque hay que hacer los totales para cada categoría. En este sentido, no es lo mismo hacer una calibración para 3 categorías como "Ambito" que para más de 20 como "Región"2.0
+
+totals = unlist(c(nrow(base),
+           sum(base$matricula, na.rm = TRUE),
+           count(base[base$ambito == "Rural Disperso", ]),
+           count(base[base$ambito == "Rural Agrupado", ]),
+           count(base[base$region == "02", ]),
+           count(base[base$region == "03", ]),
+           count(base[base$region == "04", ]),
+           count(base[base$region == "05", ]),
+           count(base[base$region == "06", ]),
+           count(base[base$region == "07", ]),
+           count(base[base$region == "08", ]),
+           count(base[base$region == "09", ]),
+           count(base[base$region == "10", ]),
+           count(base[base$region == "11", ]),
+           count(base[base$region == "12", ]),
+           count(base[base$region == "13", ]),
+           count(base[base$region == "14", ]),
+           count(base[base$region == "15", ]),
+           count(base[base$region == "16", ]),
+           count(base[base$region == "17", ]),
+           count(base[base$region == "18", ]),
+           count(base[base$region == "19", ]),
+           count(base[base$region == "20", ]),
+           count(base[base$region == "21", ]),
+           count(base[base$region == "22", ]),
+           count(base[base$region == "23", ]),
+           count(base[base$region == "24", ]),
+           count(base[base$region == "25", ])))
+
+muestra_azar_simple_cal = calibrate(muestra_azar_simple_sv,
+                                    formula = ~ matricula + ambito + region,
+                                    population = totals,
+                                    calfun = "linear")
+
+tbl_azar_simple_cal = muestra_azar_simple_cal |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+digits = list(deff = label_style_number(digits = 3),
+              sd = label_style_number(digits = 3)),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+add_ci() 
+
+
+tbl_comp_azar_simple_cal = tbl_merge(tbls = list(tbl_azar_simple_cal, tbl_azar_simple, tbl_pob_param), 
+              tab_spanner = c("AS Calibrado","AS sin calibrar","Poblacion"))
+
+tbl_comp_azar_simple_cal
+```
+
+```{r}
+#| label: well_spread_calibrada
+
+muestra_well_spread_cal = calibrate(muestra_well_spread_sv,
+                                    formula = ~ matricula + ambito + region,
+                                    population = totals,
+                                    calfun = "linear")
+
+tbl_well_spread_cal = muestra_well_spread_cal |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+digits = list(deff = label_style_number(digits = 3),
+              sd = label_style_number(digits = 3)),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+add_ci() 
+
+
+tbl_comp_well_spread_cal = tbl_merge(tbls = 
+      list(tbl_well_spread_cal, tbl_well_spread, tbl_pob_param), 
+              tab_spanner = c("WP calibrado","WP sin calibrar","Poblacion"))
+
+tbl_comp_well_spread_cal
+```
+
+```{r}
+set.seed(321)
+grdAmazonia = sswr::grdAmazonia |>
+    mutate(lnSWIR2 = log(SWIR2))
+
+N <- nrow(grdAmazonia)
+n = 100
+
+base_grdAmazonia = grdAmazonia |>
+select(AGB,lnSWIR2)
+
+mysample <- grdAmazonia %>%
+   dplyr::select(AGB,lnSWIR2) %>%
+   slice_sample(n = n)
+
+mysample$fpc <- N
+
+design_si <- svydesign(id = ~ 1, data = mysample,  fpc = ~ fpc)
+
+populationtotals <- c(N, sum(grdAmazonia$lnSWIR2))
+
+mysample_cal <- calibrate(design_si, 
+                          formula = ~ lnSWIR2,
+                       population = populationtotals, 
+                       calfun = "linear")
+
+g <- weights(mysample_cal)
+all.equal(sum(g), N)
+
+# Con esto chequeo que el valor total de la variable auxiliar en la muestra (multiplicado por el calibrador) sea igual al valor de la variable auxiliar en la población
+
+all.equal(sum(g * mysample$lnSWIR2), sum(grdAmazonia$lnSWIR2))
+
+# Construyo tablas de la pablación, la muestra simple y la muestra simple calibrada
+
+tbl_amazonia = tbl_summary(base_grdAmazonia,
+                           statistic = list(all_continuous() ~ "{mean}")) 
+
+tbl_amazonia_simple = tbl_svysummary(design_si,
+  statistic = list(all_continuous() ~ "{mean} ({mean.std.error})")) |>
+                              add_ci()
+  
+tbl_cal = tbl_svysummary(mysample_cal,
+ statistic = list(all_continuous() ~ "{mean}({mean.std.error})")) |>
+                              add_ci()
+
+tbl_amazonia_test = tbl_merge(tbls = list(tbl_cal, tbl_amazonia_simple, tbl_amazonia), 
+                    tab_spanner = c("AS Calibrado","Azar Simple","Poblacion"))
+
+tbl_amazonia_test
+```
+
+[^calibracion-1]: Este tipo de discusiones ha enfrentado (y por ahora continua enfrentando) a los representantes de los enfoques de la "design sample" y del "model assisted". Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos [@elliott2017].
