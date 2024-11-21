@@ -1,6 +1,6 @@
-## Azar y muestras (aproximadamente) representativas
+## El domesticación del azar como medio para lograr muestras (aproximadamente) representativas
 
-Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria. Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
+Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Este enfoque tiene mucho que ver con lo que se suele denominar *design based sample* en la literatura sobre muestreo*.* Básicamente, en línea con la clasificación de Neyman anteriormente utilizada, son muestras que ponen énfasis en el proceso aleatorio de la selección de los casos. Es una escuela clásica dentro del muestro y tiene muchas subvariantes. Algunas de ellas las veremos más adelante pero ahora nos concentraremos en la parte que tienen en común toda ellas. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria no muy grande (\<2000). Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
 
 Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este [link](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html).
 
@@ -19,7 +19,7 @@ Con este programa podemos jugar de varias formas. Aquí nos interesa las siguien
 Como se anticipó en la introducción, nuestra **población** será una población de establecimientos educativos de gestión estatal de nivel primario. Cada uno de los integrantes de esta población se pueden considerar como **unidades de selección**, el subconjunto finalmente seleccionado será la **muestra** y la cantidad de los miembros seleccionados será el **tamaño de la muestra**. En este caso, como se observa en @tbl-escuelas, se tiene información variada sobre cada una de las escuelas. Como veremos más adelante, tener más información sobre las unidades de selección puede ayudar para la efectiva realización de diferentes diseños muestrales. Algunos de esos diseños servirán cuando el objetivo sea tener una muestra de escuelas (muestreos de una sola etapa) y otros, generalmente más complejos, podrán servir como un primer paso para luego realizar una muestra a estudiantes, directivos, etc. (muestreo polietápicos).
 
 ```{r}
-#| label: setting
+#| label: librerias_azar
 
 library(here)
 library(readxl)
@@ -102,9 +102,10 @@ select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambi
 
 tbl_pob_param = base_toy |>
 tbl_summary(include = !clave,
-            statistic = list(
-      all_continuous() ~ "{mean} ({sd})",
-      all_categorical() ~ "{p}% ({n})"))
+      statistic = list(
+      all_continuous() ~ "{mean}",
+      all_categorical() ~ "{p}% ({n})"),
+digits = list(everything() ~ c(1,0)))
 
 tbl_pob_param
 
@@ -116,7 +117,7 @@ Estos parámetros "conocidos" van a tener 2 funciones en este taller. Por un lad
 
 Las muestras que se hacen en la realidad son "únicas" o "individuales" en el sentido que no se repiten. En cambio, una buena parte de la teoría del muestreo supone una distribución de muestras (como las simulaciones anteriores en donde se realizaban varias muestras de una misma población). La mayoría de la veces el investigador que sale a campo dispone de sólo una muestra y el objetivo es que "esa" muestra (y no cualquier otra posible) sea de las mejores y no de las peores. En este sentido, es útil tener herramientas que permitan saber si la muestra es de las buenas o de las malas y, si se trata de este último caso, como mejorarlas.
 
-## Muestreo por azar simple
+## Muestreo por azar simple {#sec-azar_simple}
 
 Dentro de los métodos aleatorios el método del azar simple (*random sampling*) es un método tradicional y particularmente útil desde un punto de vista pedagógico para comenzar ya que muchos otros métodos son variaciones (usualmente más complejas) de este. El método del azar simple es el que intuitivamente se ha utilizado en la simulación anterior.
 
@@ -237,18 +238,18 @@ write_rds(muestra_azar_simple_sv,
 tbl_azar_simple = muestra_azar_simple_sv |>
 tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-digits = list(deff = label_style_number(digits = 2),
-              sd = label_style_number(digits = 3)),
-statistic = list(all_continuous() ~ "{mean} ({sd})",
-                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{p}% (n={n_unweighted})"),
+digits = list(all_continuous() ~ c(1),
+              all_categorical() ~ c(1,0))) |>
 add_ci()
 
 write_rds(tbl_azar_simple,
           here("Outputs", "tbl_azar_simple.rds"))
 
 tbl_merge(
-  tbls = list(tbl_pob_param, tbl_azar_simple),
-  tab_spanner = c("**Parámetro Pob.**", "**Azar simple**")
+  tbls = list(tbl_azar_simple, tbl_pob_param),
+  tab_spanner = c("**Azar simple**", "**Parámetro Pob.**")
 )
 
 
@@ -304,7 +305,7 @@ Para que el muestreo estratificado produzca ventajas (en comparación con el aza
 Usualmente los estratos se construyen en base a antecedentes teóricos pero nada impide que los estratos sean constructos estadísticos con una significado no muy claro como los que se pueden producir luego de un análisis de clusters. Tampoco la técnica tiene una limitación en cuanto a la cantidad de categorías.
 
 |   | Estratificado Proporcional | Estratificado no Proporcional |
-|----|----|----|
+|------------------------|------------------------|------------------------|
 | **Estratos Teóricos** | Estrato teórico (p.e. Ámbito) con probabilidad proporcional | Estrato teórico (p.e. Ámbito) con probabilidad no proporcional |
 | **Estratos Empíricos** | Estrato estadístico con probabilidad proporcional | Estrato estadístico con probabilidad no proporcional |
 
@@ -313,6 +314,7 @@ Usualmente los estratos se construyen en base a antecedentes teóricos pero nada
 En este subtipo de muestreo estratificado utilizaremos la variable "Ámbito" como estrato y respetaremos, aproximadamente, la distribución que ese estrato posee en la población. Decimos aproximadamente porque aquí siempre existe un factor de redondeo que deviene de la necesidad de realizar la muestra sobre una cantidad de casos discretos. Esta última necesidad hace que, al igual que cuando se intenta respetar las proporciones de los votos de una elección para la renovación de bancas de la Cámara de Diputados, casi siempre existan pequeñas diferencias entre las proporciones poblacionales y las muestrales.
 
 ```{r}
+#| label: estratificado_proporcional
 
 set.seed(314)
 
@@ -359,13 +361,13 @@ mutate(weight = n / estrato_n)
 Seleccionada la muestra ahora le especifico los detalles del diseño mediante la librería survey o srvyr.
 
 ```{r}
+#| label: estratificado_propocional_sv
 
 muestra_estrat_teo_prop_sv = muestra_estrat_teo_prop |>
 as_survey_design(id = 1,
                  weights = weight,
                  strata = ambito,
                  fpc = fpc)
-
 
 ```
 
@@ -378,15 +380,15 @@ Y luego realizo la @tbl-estratificado_teo_prop con la información de algunas va
 tbl_estrat_teo_prop = muestra_estrat_teo_prop_sv |>
 tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-digits = list(deff = label_style_number(digits = 2),
-              sd = label_style_number(digits = 3)),
-statistic = list(all_continuous() ~ "{mean} ({sd})",
-                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{p}% (n={n_unweighted})"),
+digits = list(all_continuous() ~ c(1),
+              all_categorical() ~ c(1,0))) |>
 add_ci() 
 
 tbl_merge(
-  tbls = list(tbl_azar_simple, tbl_estrat_teo_prop),
-  tab_spanner = c("**Azar simple**", "**Estratificado P.**")
+  tbls = list(tbl_estrat_teo_prop, tbl_azar_simple),
+  tab_spanner = c("**Estratificado P.**","**Azar simple**")
 ) |>
 modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 ```
@@ -455,7 +457,7 @@ tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
 digits = list(deff = label_style_number(digits = 2),
               sd = label_style_number(digits = 3)),
-statistic = list(all_continuous() ~ "{mean} ({sd})",
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci() 
 
@@ -466,19 +468,24 @@ tbl_merge(
 modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 ```
 
+## Muestreo por Clusters {#sec-clusters}
+
+El muestreo por cluster es otra manera de aplicar el azar para diseñar muestras. A diferencia del muestreo estratificado en el muestreo por cluster el investigador considera a los cluster como "racimos" de casos que, usualmente, se encuentran cercanos geográficamente pero no necesariamente socialmente o, más en general, no son homogéneos en las variables de estudio. En efecto, la ventaja de este tipo de muestreo es que abarata costos en la ejecución de muestras espacialmente extensas y especialmente si en ese espacio extenso hay numerosos racimos de casos como, por ejemplo, una multitud de pequeños poblados urbanos de 50.000 personas. El precio que usualmente se paga es (a igual cantidad de casos) un aumentoen el error estandard pero, justamente, el quid de la cuestión es que dado la baja del costo unitario de cada caso ahora es posible, con igual presupuesto, agregar más casos a la muestra para bajar la precisión hasta el valor deseado.
+
 ## Muestreo Proporcional al tamaño (PPS) {#sec-pps}
 
-Muchas veces, especialmente en diseños polietápicos, se desea que en la primera etapa las unidades de selección sean escogidas en función de alguna variable que sirva como indicador de su tamaño. En el caso de unidades geográficas esa variable podrá ser el tamaño espacial o área (p.e. km^2^) y en variables no espaciales podrá ser la cantidad de personas, organizaciones, etc. En el caso de una muestra de colegios, variables como el tamaño de la matrícula pueden ser buenas candidatas a utilizar en este tipo de muestras. Sin embargo, esto, por definición, va a otorgar una mayor probabilidad de salir en la muestra a los colegios con mayor matrícula y estos pueden poseer características particulares como, por ejemplo, estos encontrarse abrumadoramente en ámbitos urbanos. De este modo ya podemos intuir que, con respecto a la población de establecimientos, una muestra PPS[^azar-3] obtendrá como resultado un valor de la matrícula mayor y una sobrerepresentación del ámbito urbano.
+Muchas veces, especialmente en diseños polietápicos, se desea que en la primera etapa las unidades de selección sean escogidas en función de alguna variable que sirva como indicador de su tamaño. Esta técnica se suele denominar muestreo proporcional al tamaño (PPS)[^azar-3] y puede considerarse como un caso especial del muestreo por Clusters [@lumley2010, pag. 46]. En el caso de unidades geográficas esa variable podrá ser el tamaño espacial o área (p.e. km^2^) y en variables no espaciales podrá ser la cantidad de personas (p.e. votantes en distritos). En el caso de una muestra de colegios, variables como el tamaño de la matrícula pueden ser buenas candidatas a utilizar en este tipo de muestras. Sin embargo, esto, por definición, va a otorgar una mayor probabilidad de salir en la muestra a los colegios con mayor matrícula y estos pueden poseer características particulares como, por ejemplo, encontrarse abrumadoramente en ámbitos urbanos. De este modo ya podemos intuir que, con respecto a la población de establecimientos, una muestra PPS (sin ponderar) obtendrá como resultado un valor de la matrícula mayor y una sobrerepresentación de los **establecimientos** de ámbito urbano aunque no necesariamente de los **estudiantes** de ámbito urbano. Esto último depende que se haga después de haber realizado la selección primaria.
 
-Por otro lado, esto justamente puede ser algo buscado explícitamente si se utiliza la selección de los colegios como unidades de selección primarias y luego a los estudiantes como unidades de selección final. En otras palabras, se trata de un efecto buscado por diseño, justamente porque ahora el objetivo está puesto en lograr un muestra de la población de estudiantes a través de una población de establecimientos que contiene variables agregadas de los estudiantes.
+A pesar de cierta idea intuitiva acerca del objetivo del muestro PPS, su efectiva aplicación (especialmente en muestreos sin reemplazo) tiene sus complejidades a nivel de los algoritmos a utilizar. Esto en parte es algo compartido por todos los muestreos sin reemplazo (versus los con reemplazos) pero aquí está presente la dificultad extra de que las probabilidades de inclusión son diferentes. En efecto, el muesteo PPS puede ser considerado como un tipo de muestreo con probabilidades diferentes (*unequal probabilities*) pero con la particularidad que esas probabilidades diferentes se calculan en función del tamaño de las unidades a seleccionar en primera instancia. A continuación vamos a utilizar un algoritmo que tiene que ver con la idea de "*local pivotal*" que vamos a ver con mayor profundidad cuando veamos las muestras bien dispersas (@sec-well_pread)[^azar-4]
 
-Una virtud práctica de estos diseños es que otorgan un mismo ponderador a cada caso seleccionado lo que facilita algunos análisis posteriores. A pesar de cierta idea intuitiva acerca del objetivo del muestro PPS su efectiva aplicación, especialmente en muestreos sin reemplazo, tiene sus complejidades a nivel de los algoritmos a utilizar. Esto suele ser algo compartido por todos los muestreos sin reemplazo (versus los con reemplazos) pero aquí está presente la dificultad extra de que las probabilidades de inclusion son diferentes. En efecto, el muesteo PPS puede ser considerado como un tipo de muestreo con probabilidades diferentes (*inequal probabilities*) pero con la particularidad que esas probabilidades diferentes se calculan en función del tamaño de las unidades a seleccionar. A continuación vamos a utilizar un algoritmo que tiene que ver con la idea de "*local pivotal*" que vamos a ver con mayor profundidad cuando veamos la @sec-well_pread.
+Para visualizar esto vamos primero vamos a construir a realizar 2 ejemplos. Uno en donde se realiza un PPS en donde luego sólo se expande por un igual ponderador y otro en donde a esa misma muestra se la pondera por la probabilidad inversa de haber ingresado en la muestra, esto es, un ponderador que haga pesar menos a aquellos establecimientos con mayor tamaño. Siguiendo con el ejemplo de los colegios, si el proceso es seleccionar los colegios por tamaño y luego realizar un censo (esto es, ninguna muestra) dentro de cada uno de los colegios seleccionados, tanto los colegios como los estudiantes de ámbito urbano se encontrarán sobrerepresentados por lo que este último ponderador puede ser útil.
 
 ```{r}
+#| label: muestra_pps_one_stage
+
 set.seed(314)
 
 # Saco los NA de las escuelas sin matrícula
-# No se construye la variable "weight" porque el diseño no lo necesita.
 
 base_toy_pps = base_toy |>
 filter(!is.na(matricula)) |>
@@ -496,32 +503,128 @@ rename(muestra_pps = value) |>
 bind_cols(base_toy_pps) |>
 bind_cols(as.data.frame(pi)) |>
 filter(muestra_pps > 0) |>
-mutate(fpc = sqrt((N-n)/(N-1)))
+mutate(fpc = sqrt((N-n)/(N-1)),
+       pi = pi,
+       pw = N/n)
 
 ```
 
 ```{r}
+#| label: muestra_pps_ponderacion
+
+# En este caso como se trata de un PPS de una sola etapa y la base es de establecimientos id = 1. Si se trataría de una PPS polietápico y se trabajaría con una base de estudiantes el id debería ser la variable que indique el establecimiento.
+
 # En este caso puntual no hay que setear el "weight" y en el fpc (Factor de correción para muestras finitas) debe ir las probabilidades 
 
-muestra_pps_sv = muestra_pps |>
+# No se construye la variable "weight" porque el diseño no lo necesita.
+
+muestra_pps_sin_ponderar_sv = muestra_pps |>
 as_survey_design(id = 1,
                 #probs = pi,
-                # weights = weight,
-                # strata = ambito,
-                 fpc = pi,
+                 weights = pw,
+                #strata = ambito,
+                 fpc = fpc,
                  pps = "brewer")
+
+write_rds(muestra_pps_sin_ponderar_sv,
+          here("Outputs", "muestra_pps_sin_ponderar_sv.rds"))
+
+muestra_pps_ponderada_sv = muestra_pps |>
+as_survey_design(id = 1,
+                probs = pi,
+                # weights = pi,
+                # strata = ambito,
+                 fpc = fpc,
+                 pps = "brewer")
+```
+
+```{r}
+#| label: tbl-pps_ponderadores
+#| tbl-cap: Tablas comparativas entre PPS con ponderador y sin ponderador
+
+tbl_pps_sin_ponderar = muestra_pps_sin_ponderar_sv |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{p}% (n={n_unweighted})"),
+digits = list(all_continuous() ~ c(1,2),
+              all_categorical() ~ c(1,0))) |>
+add_ci() 
+
+tbl_pps_ponderada = muestra_pps_ponderada_sv |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                all_categorical() ~ "{p}% (n={n_unweighted})"),
+digits = list(all_continuous() ~ c(1,2),
+              all_categorical() ~ c(1,0))) |>
+add_ci() 
+
+write_rds(tbl_pps_sin_ponderar,
+          here("Outputs", "tbl_pps_sin_ponderar.rds"))
+          
+write_rds(tbl_pps_ponderada,
+  here("Outputs", "tbl_pps_ponderada.rds"))
+
+tbl_merge(
+  tbls = list(tbl_pps_sin_ponderar, tbl_pps_ponderada),
+  tab_spanner = c("**PPS sin ponderar**", "**PPS ponderada**")
+) |>
+modify_footnote(all_stat_cols() ~ "Media (EST); % (n sin ponderar)")
+```
+
+En efecto, en la @tbl-pps_ponderadores puede observarse que si trabajamos en un PPS sólo expandiendo pero sin ponderar vemos como el valor promedio de la matrícula es alto (529) y que la abrumadora mayoría de los establecimientos seleccionados son del ámbito urbano (95%). Si luego analizamos la muestra ponderada vemos como la mayoría de los valores se acercan a los valores conocidos de la población, especialmente aquellos que refieren a propiedades intrínsecas de los establecimientos como la región y el ámbito. Es interesante también observar que en muchos casos el intervalo de confianza con la muestra ponderada se expande. Esto posiblemente se deba a que el estimador toma nota que al trabajar con la muestra ponderada el error estandar se amplía porque ahora pesan más que antes los casos de menor tamaño y estos son diferentes a los de mayor tamaño, por lo el estimador considera que la muestra pasa a ser más heterogénea.
+
+Si en cambio, luego se realiza un muestro de una cantidad fija (p.e. 10 estudiantes por colegio seleccionado) la muestra de colegios seguirá sobrerepresentando a los colegios del ámbito urbano pero ya no a la población de estudiantes. Esto último justamente puede ser algo buscado explícitamente si se utiliza la selección de los colegios como unidades de selección primarias y luego a los estudiantes como unidades de selección secundaria o final. En otras palabras, se trata de un efecto buscado por diseño, justamente porque ahora el objetivo está puesto en lograr un muestra representativa de la población de estudiantes a través de una población de establecimientos que contiene variables agregadas de los estudiantes.
+
+En este proceso si, por ejemplo, se seleccionarian en primera instancia unos 300 establecimientos, luego se obtendría una muestra final de 3000 estudiantes porque en la segunda instancia se seleccionaron 10 estudiantes por establecimiento. Una virtud práctica de este último ejemplo es que, aparte de reducir costos de logística en comparación a un muestreo por azar simple de un solo paso, otorga un mismo ponderador a cada caso seleccionado lo que facilita algunos análisis posteriores. Esto es un típico ejemplo de muestra compleja en donde la muestra se realiza en más de una etapa y en cada una de ellas se utilizan técnicas diferentes.
+
+En relación con lo anterior y de manera aparentemente paradójica, la muestra PPS sin ponderar estima mejor las variables agregadas como el valor del primer y segundo sondeo que un análisis censal de toda la población de colegios (como se hizo en @tbl-parametros_base). Lo paradógico de esto es que una muestra, esto es, una parte de un todo, logre una mejor acercamiento a un respectivo parámetro poblacional que un censo, esto es, un registro de cada una de la partes del todo. La solución a esta paradoja es entender que la @tbl-parametros_base hace referencia a la población de colegios y, en ese sentido, sus valores son correctos. Ahora bien, si con esos datos (censales, pero de la población de establecimientos) se quiere hacer afirmaciones sobre la población de estudiantes la información de la @tbl-parametros_base no es la más idónea o al menos hay que tratarla de manera diferente. En las variables que se pueden considerar como variables agregadas de estudiantes (p.e. sondeo_primero, sondeo_segundo) más que calcular la media habría que haber calculado la media ponderada por matrícula y ese cálculo sería un mejor estimador de la media de las notas de la población de estudiantes En ese caso, el resultado de ese cálculo sí se podría considerar como un parámetro de la población de estudiantes y contra esos valores se debería comparar las estimaciones del diseño PPS sin ponderar. En este sentido, en la XXXX
+
+```{r}
+#| label: tbl_media_ponderada_notas_estudiantes
+#| cap-tbl: Medias de las notas según tipo de muestra y población
+
+tbl_media_sin_ponderar = base_toy_pps |>
+tbl_summary(include = c(sondeo_primero, sondeo_segundo),
+            statistic = list(all_continuous() ~ "{mean}"),
+            missing = "no")
+
+tbl_media_ponderada = base_toy_pps |>
+as_survey_design(ids = id,
+                 weights = matricula) |>
+tbl_svysummary(include = c(sondeo_primero, sondeo_segundo),
+            statistic = list(all_continuous() ~ "{mean}"),
+            missing = "no")
+
+tbl_pps_sin_ponderar = muestra_pps_sin_ponderar_sv |>
+tbl_svysummary(
+include = c(sondeo_primero, sondeo_segundo),
+statistic = list(all_continuous() ~ "{mean}"),
+            missing = "no")
+
+tbl_merge(
+  tbls = list(tbl_pps_sin_ponderar, 
+              tbl_media_ponderada, 
+              tbl_media_sin_ponderar),
+  tab_spanner = c("**PPS sin ponderar**", "**Pob. media ponderada**", "**Pob. media sin ponderar**")) |>
+modify_header((all_stat_cols() ~ "")) |>
+modify_footnote(everything() ~ NA)
+
 ```
 
 ```{r}
 #| label: tbl-pps
 #| tbl-cap: Tablas comparativas entre PPS y estratificado propocional
+#| eval: false
+#| echo: false
 
 tbl_pps = muestra_pps_sv |>
 tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
 digits = list(deff = label_style_number(digits = 2),
               sd = label_style_number(digits = 3)),
-statistic = list(all_continuous() ~ "{mean} ({sd})",
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
 add_ci() 
 
@@ -529,16 +632,16 @@ write_rds(tbl_pps,
   here("Outputs", "tbl_pps.rds"))
 
 tbl_merge(
-  tbls = list(tbl_estrat_teo_prop, tbl_pps),
-  tab_spanner = c("**Estratificado P**", "**PPS**")
+  tbls = list(tbl_pps, tbl_estrat_teo_prop),
+  tab_spanner = c("**PPS**", "**Estratificado P**")
 ) |>
-modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
+modify_footnote(all_stat_cols() ~ "Media (STD); % (n sin ponderar)")
 ```
-
-De manera algo paradójica, este **muestreo** estima mejor, por ejemplo, variables agregadas como el valor del primer y segundo sondeo que un análisis **censal** de toda la población de colegios (como se hizo en @tbl-parametros_base). Lo paradógico de esto es que una muestra, esto es, una parte de un todo, logre una mejor acercamiento a un respectivo parámetro poblacional que un censo, esto es, un registro de cada una de la partes del todo. Una posible solución a esta paradoja es entender que la @tbl-parametros_base hace referencia a la población de colegios y, en ese sentido, sus valores son correctos. Ahora bien, si con esos datos (censales pero de la población de establecimientos) se quería hacer afirmaciones sobre la población de estudiantes la información de la @tbl-parametros_base no es la más idónea. En las variables que se pueden considerar como variables agregadas de estudiantes (p.e. sondeo_primero, sondeo_segundo) más que calcular la media habría que haber calculado la media ponderada por matrícula. En ese caso, el resultado de ese cálculo sí se podría considerar como un parámetro de la población de estudiantes y contra esos valores se debería comparar las estimaciones del diseño PPS.
 
 [^azar-1]: Si el conjunto de los estudiantes (así como los maestros y los directivos) de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia y si todos los colegios tendrían la misma matrícula (así como maestros y directivos), realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes (o de maestros y directivos) no sería un mayor problema. El primer criterio tiene que ver con las diferencias de cada colegio y el segundo con el modo de agregar esas diferencias en una muestra cuyo primer paso es la selección de unidades agregadas (colegios) para estimar valores de unidades de selección menores (estudiantes, maestras y directivos).
 
 [^azar-2]: Un dominio o subclase de estimación es una partición de la población o de la muestra sobre la cual se espera realizar inferencias. A veces se usa la denominación que los dominios denotan subpoblaciones (de la población) y las subclases reflejan esas divisiones en la muestra [@kish1980, p. 209]. En cualquier caso es conveniente introducir estos dominios en el diseño de la muestra para poder controlar su tamaño poblacional [@brus2022, cap. 14].
 
-[^azar-3]: PPS = **P**robability **P**roportional to **S**ize.
+[^azar-3]: La sigla PPS viene de la expresión "**P**robability **P**roportional to **S**ize" que es como se lo conoce en la bibliografía de muestreo.
+
+[^azar-4]: Existen otros algoritmos para realizar un muestreo PPS. Muchos de ellos son algoritmos especializados en probabilidades desiguales (en donde la desigualdad por tamaño sería un caso especial) por lo que muchos de sus nombres suelen empezar con UP (*unequal probabilities*). Algunos son los siguientes: UPtille, UPpivotal, UPpoisson [@tillé2023].

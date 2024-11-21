@@ -1,4 +1,4 @@
-## Calibración
+## Calibración {#sec-calibracion}
 
 La estrategia de la calibración esta compuesta por un conjunto de prácticas que aspiran a lograr objetivos similares al proceso del balanceo del cubo pero con métodos diferentes. La principal diferencia es que la calibración se realiza *ex-post* la ejecución de la muestra (o sea, en el momento de la estimación) y no *ex-ante* (o sea, en el momento del diseño). Esto es una diferencia fundamental que emparenta a la calibración con el enfoque del "Model Assisted". Otra diferencia es que para realizar la calibración usualmente (aunque esto depende de la técnica específica seleccionada) sólo es necesario los totales de la población y no, como en el balanceo, los valores de cada unidad que compone esa población. Esto también es lo que habilita a afirmar que la estratificación es un caso particular del balanceo así como la post-estratificación es un caso particular de la calibración [@tillé2011, pag. 223].
 
