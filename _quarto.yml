@@ -23,6 +23,9 @@ page-navigation: true
 search: true
 
 bibliography: references.bib
+# Esto depende de la extension "section-biblioraphie"
+reference-section-title: Referencias de este capítulo
+#citeproc: false
 #csl: apa.csl
 
 preview:
@@ -31,6 +34,9 @@ preview:
 
 format:
   html:
+    number-sections: true
+    crossref:
+      chapters: true
     toc: true
     theme: cosmo
     fig-cap-location: top
@@ -61,3 +67,4 @@ execute:
 
 filters:
   - first-line-indent
+  - section-bibliographies

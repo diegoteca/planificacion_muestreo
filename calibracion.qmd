@@ -59,7 +59,7 @@ Para eso vamos a recuperar el objeto con el cual le informábamos a R que había
 
 ```{r}
 #| label: tbl-azar_simple_calibrado
-#| tbl-cap: Calibración muestra azar simple
+#| tbl-cap: "Calibración muestra azar simple"
  
 muestra_azar_simple_sv = read_rds(here("Outputs", "muestra_azar_simple_sv.rds"))
 
@@ -150,7 +150,7 @@ download_this(base_muestra_AS_cal,
 
 ```{r}
 #| label: tbl-base_muestra_AS_cal
-#| tbl-cap: Ponderadores y calibradores. Base muestra Azar simple.
+#| tbl-cap: "Ponderadores y calibradores. Base muestra azar simple."
 
 base_muestra_AS_cal = base_muestra_AS_cal |>
 select(matricula, secciones, ambito, sondeo_primero, sondeo_segundo, pond_weight, cal_weight) |>
@@ -163,7 +163,7 @@ En el caso de la calibración de la muestra bien distribuida el proceso de calib
 
 ```{r}
 #| label: tbl-bien_distribuida_cal
-#| tbl-cap: Calibración muestra bien distribuida
+#| tbl-cap: "Calibración muestra bien distribuida"
 
 muestra_bien_distribuida_cal = 
 calibrate(muestra_bien_distribuida_sv,
@@ -227,7 +227,7 @@ Es interesante destacar, como se observa en la @tbl-base_muestra_BD_cal (y a dif
 
 ```{r}
 #| label: tbl-base_muestra_BD_cal
-#| tbl-cap: Ponderadores y calibradores. Base muestra bien distribuida.
+#| tbl-cap: "Ponderadores y calibradores. Base muestra bien distribuida."
 
 base_muestra_BD_cal = base_muestra_BD_cal |>
 select(matricula, secciones, ambito, sondeo_primero, sondeo_segundo, pond_weight, cal_weight) |>
@@ -240,7 +240,7 @@ Finalmente vamos a realizar una comparación entre los resultados de los proceso
 
 ```{r}
 #| label: tbl-comp_calibraciones
-#| tbl-cap: Comparación entre calibración de las muestras bien distribuidas, de azar simple y los respectivos parámetros poblacionales
+#| tbl-cap: "Comparación entre calibración de las muestras bien distribuidas, de azar simple y los respectivos parámetros poblacionales"
 
 tbl_comp_calibracion = tbl_merge(
 tbls = list(tbl_bien_distribuida_cal, tbl_azar_simple_cal, tbl_pob_param), 
@@ -250,6 +250,10 @@ tbl_comp_calibracion
 ```
 
 En la @tbl-comp_calibraciones puede observarse como ambas estrategias de calibración parecen igual de eficaces ya que ambas arrojan resultados muy similares entre sí y, a su vez, muy similares con los parámetros poblacionales. En este contexto se recuerda que, si bien los valores finales son muy similares, la mejora realizada en el proceso de calibración es mayor sobre el diseño de azar simple ya que esa muestra no era tan precisa como la muestra bien distribuida y, por lo tanto, existía la oportunidad de mejorar bastante.
+
+```         
+::: {.sectionrefs} :::
+```
 
 [^calibracion-1]: En cambio el balanceo, si bien en su origen tiene una fuerte vinculación con el enfoque del "Model Assisted", no se encuentra tan alejado del "design based" dado que el algoritmo del cubo selecciona muestras balanceadas dentro del conjunto de muestras aleatorias [@tillé2010, pag. 39].
 

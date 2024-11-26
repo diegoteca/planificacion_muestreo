@@ -511,6 +511,7 @@ De todos modos, en este caso particular es razonable suponer que la ubicación d
 
 ```{r}
 #| label: fig-mapa_bien_distribuida
+#| fig-cap: "svdsvsdv"
 #| cache: true
 
 tb = tb |>
@@ -540,6 +541,10 @@ tm_dots(fill_alpha = 0.9,
 
 fig_bien_distribuida 
 
+```
+
+```         
+::: {.sectionrefs} :::
 ```
 
 [^cubo-1]: Más adelante veremos que indagar sobre la precisión de la estimación es posible pero difícil en las muestras realizadas con el método del cubo. Por esta razón, si bien es posible comparar la precisión de estas muestras contra, por ejemplo, el muestreo por azar simple, acá se tomará como un supuesto y se remite al lector a fuentes en donde se prueba lo anterior [@brus2022, cap. 9][@schneider2024]. El principal problema es que, por ahora, las librerías de análisis de datos de encuestas (p.e. survey) todavía no tienen el instrumental adecuado para especificar este tipo de diseños y, por lo tanto, para calcular la precisión de sus estimaciones.

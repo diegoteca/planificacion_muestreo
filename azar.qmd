@@ -45,7 +45,7 @@ big.mark = ".")
 
 ```{r}
 #| label: tbl-escuelas
-#| tbl-cap: Información de la base de escuelas
+#| tbl-cap: "Información de la base de escuelas"
 
 levels_region = c("01", "02", "03", "04", "05", "06", "07",
                   "08", "09", "10", "11", "12", "13", "14",
@@ -95,7 +95,7 @@ En la @tbl-parametros_base puede observarse algunos de los valores de estos par�
 
 ```{r}
 #| label: tbl-parametros_base
-#| tbl-cap: Valores poblacionales de las escuelas
+#| tbl-cap: "Valores poblacionales de las escuelas"
 
 base_toy = base |>
 select(clave, matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito) 
@@ -139,7 +139,7 @@ rep_slice_sample(n = 300,
 
 ```{r}
 #| label: tbl-medias_muestrales_azar_simple
-#| tbl-cap: Medias de las medias muestrales
+#| tbl-cap: "Medias de las medias muestrales"
 
 tbl_medias_muestrales = muestras_azar_simple |>
 group_by(replicate) |>
@@ -158,7 +158,7 @@ Como se puede comparar entre @tbl-parametros_base y @tbl-medias_muestrales_azar_
 
 ```{r}
 #| label: fig-medias_muestrales_azar_simple
-#| fig-cap: Distribución de las medias muestrales
+#| fig-cap: "Distribución de las medias muestrales"
 
 fig_medias_muestrales_matricula = muestras_azar_simple |>
 group_by(replicate) |>
@@ -232,8 +232,7 @@ write_rds(muestra_azar_simple_sv,
 
 ```{r}
 #| label: tbl-azar_simple
-#| tbl-cap: Estimaciones con azar simple
-
+#| tbl-cap: "Estimaciones con azar simple"
 
 tbl_azar_simple = muestra_azar_simple_sv |>
 tbl_svysummary(
@@ -375,7 +374,7 @@ Y luego realizo la @tbl-estratificado_teo_prop con la información de algunas va
 
 ```{r}
 #| label: tbl-estratificado_teo_prop
-#| tbl-cap: Tablas comparativas entre resultados azar simple y estratificado
+#| tbl-cap: "Tablas comparativas entre resultados azar simple y estratificado"
 
 tbl_estrat_teo_prop = muestra_estrat_teo_prop_sv |>
 tbl_svysummary(
@@ -450,7 +449,7 @@ as_survey_design(id = 1,
 
 ```{r}
 #| label: tbl-estratificado_teo_no_prop
-#| tbl-cap: Tablas comparativas entre muestra estraificada proporcional y no propocional
+#| tbl-cap: "Tablas comparativas entre muestra estraificada proporcional y no propocional"
 
 tbl_estrat_teo_no_prop = muestra_estrat_teo_no_prop_sv |>
 tbl_svysummary(
@@ -538,7 +537,7 @@ as_survey_design(id = 1,
 
 ```{r}
 #| label: tbl-pps_ponderadores
-#| tbl-cap: Tablas comparativas entre PPS con ponderador y sin ponderador
+#| tbl-cap: "Tablas comparativas entre PPS con ponderador y sin ponderador"
 
 tbl_pps_sin_ponderar = muestra_pps_sin_ponderar_sv |>
 tbl_svysummary(
@@ -581,7 +580,7 @@ En relación con lo anterior y de manera aparentemente paradójica, la muestra P
 
 ```{r}
 #| label: tbl_media_ponderada_notas_estudiantes
-#| cap-tbl: Medias de las notas según tipo de muestra y población
+#| tbl-cap: "Medias de las notas según tipo de muestra y población"
 
 tbl_media_sin_ponderar = base_toy_pps |>
 tbl_summary(include = c(sondeo_primero, sondeo_segundo),
@@ -613,7 +612,7 @@ modify_footnote(everything() ~ NA)
 
 ```{r}
 #| label: tbl-pps
-#| tbl-cap: Tablas comparativas entre PPS y estratificado propocional
+#| tbl-cap: "Tablas comparativas entre PPS y estratificado propocional"
 #| eval: false
 #| echo: false
 
@@ -634,6 +633,10 @@ tbl_merge(
   tab_spanner = c("**PPS**", "**Estratificado P**")
 ) |>
 modify_footnote(all_stat_cols() ~ "Media (STD); % (n sin ponderar)")
+```
+
+```         
+::: {.sectionrefs} :::
 ```
 
 [^azar-1]: Si el conjunto de los estudiantes (así como los maestros y los directivos) de la provincia hubiera sido sorteado para ingresar a cualquier colegio de la provincia y si todos los colegios tendrían la misma matrícula (así como maestros y directivos), realizar una muestra aleatoria de colegios con el objetivo de realizar una muestra aleatoria de estudiantes (o de maestros y directivos) no sería un mayor problema. El primer criterio tiene que ver con las diferencias de cada colegio y el segundo con el modo de agregar esas diferencias en una muestra cuyo primer paso es la selección de unidades agregadas (colegios) para estimar valores de unidades de selección menores (estudiantes, maestras y directivos).
