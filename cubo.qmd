@@ -44,7 +44,7 @@ El contexto actual de:
 a)  un mayor acceso a fuentes secundarias de datos y
 b)  una mayor capacidad computacional,
 
-parece ser un contexto particularmente propicio para la aplicación y difusión de este tipo de diseños porque, justamente, se trata de un diseño demandante en cuanto a datos secundarios (en forma de información auxiliar o covariables) y demandante con respecto a recursos computacionales (el algoritmo del método del cubo). Antes de pasar a la aplicación de este diseño con la base de escuelas vamos a considerar un ejemplo trivial con variables espaciales en donde se puede simular facilmente la linealidad de la variable de estudio con respecto a otras covariables. Esto también servirá como un anticipo para cuando intentaremos incorporar explícitamente variables espaciales (coordenadas) en la muestra (@sec-well_pread).[^cubo-2]
+parece ser un contexto particularmente propicio para la aplicación y difusión de este tipo de diseños porque, justamente, se trata de un diseño demandante en cuanto a datos secundarios (en forma de información auxiliar o covariables) y demandante con respecto a recursos computacionales (el algoritmo del método del cubo). Antes de pasar a la aplicación de este diseño con la base de escuelas vamos a considerar un ejemplo trivial con variables espaciales en donde se puede simular facilmente la linealidad de la variable de estudio con respecto a otras covariables. Esto también servirá como un anticipo para cuando intentaremos incorporar explícitamente variables espaciales (coordenadas) en la muestra (@sec-bien_distribuido).[^cubo-2]
 
 Supongamos una población como un bosque en donde tenemos alguna variable continua que nos interesa investigar. Pongamos además que, a efectos pedagógicos, nosotros sabemos la distribución de esa variable. Además, para forzar el pensamiento espacial, vamos a suponer que esa variable continua es un valor de la densidad de la vegetación para cada celda de una grilla de coordenadas y el valor de esa densidad lo visualizamos indicando un valor amarillo para sus valores más altos y azul para sus valores más bajos. A estas coordenadas se las puede clasificar como un valor en el eje "Hacia el Norte" y otro valor en el eje "Hacia el Este". Este ejemplo espacial permite construir y visualizar fácilmente la linealidad de las covariables o variables auxiliares ("Hacia el Norte" y "Hacia el Este") con la variable de estudio ("Densidad de la vegentación"). En el caso de la @fig-muestreo_cube_ejemplo se observa como a medida que vamos hacia el Norte la vegetación es algo más espesa. Lo mismo puede decirse en cuanto si vamos hacia el Este. En este sentido, el valor más alto de densidad se encuentra en la intersección de los valores más altos de los ejes anteriores o, expresado de manera alternativa, en el cuadrante superior derecho de la población. Esto quiere decir que estas variables auxiliares se encuentran empíricamente relacionadas de ***forma lineal*** con el valor de la densidad de vegetación.
 
@@ -325,9 +325,9 @@ tbl_merge(
 
 ```
 
-### Muestreo Balanceado - Población Estudiantes {#sec-cubo_estudiantes}
+### Muestra Balanceada - Población Estudiantes {#sec-cubo_estudiantes}
 
-En esta pequeña sección vamos a observar la flexibilidad de la técnica del cubo obteniendo una muestra en donde las probabilidades de inclusión son diferentes. En este caso particular se aplicará el criterio que esas probabilidades sean proporcionales al tamaño de la matrícula. Esto tiene consecuencias similares a lo visto en la (@sec-pps) en donde, por diseño, los establecimientos con mayor matrícula tienen una mayor chance de ser incluidos en la muestra.
+En esta pequeña sección vamos a observar la flexibilidad de la técnica del cubo obteniendo una muestra en donde las probabilidades de inclusión son diferentes. En este caso particular se aplicará el criterio que esas probabilidades sean proporcionales al tamaño de la matrícula. Esto tiene consecuencias similares a lo visto en la (@sec-pps) en donde, por diseño, los establecimientos con mayor matrícula tienen una mayor chance de ser incluidos en la muestra. La diferencia con el muestreo PPS es quel muestreo balanceado permite, además, un conjunto de otras covariables que, nuevamente, reducen las chances que la muestra finalmente seleccionada sean una de las pocas sesgadas. A continuación, en la @tbl-cubos_matricula_comparacion puede observarse como
 
 ```{r}
 #| label: muestra_cubo_matricula
@@ -360,7 +360,7 @@ muestra_cubo_matricula_sv = muestra_cubo_matricula |>
 as_survey_design(id = 1,
                  weights = pw,
                 # strata = ambito,
-                # fpc = fpc,
+                 fpc = fpc,
                  pps = "brewer")
 
 ```
@@ -415,7 +415,7 @@ modify_footnote(everything() ~ NA)
 
 ```
 
-## Muestreos bien distribuidos {#sec-well_pread}
+## Muestreos bien distribuidos {#sec-bien_distribuido}
 
 Como se dijo en la @sec-cubo en los muestreos balanceados por el método del cubo el esfuerzo está en que los valores de la tendencia central de los estimadores de determinadas variables de la muestra se acerquen a los valores de las covariables existentes como información secundaria, esto es, a los parámetros conocidos de la población. En el muestreo bien extendido (*well spread*) es objetivo es similar pero con una restricción adicional que implica que la distribución de la/s covariable/s de la muestra se acerque a la distribución de la/s covariable/s en la población. El precio de esta mejora es que se debe conocer la distribución de esas variables en la población algo que nunca habían requerido los diseños anteriores. En el caso particular de la distribución espacial el diseño exige la introducción de las coordenadas de cada miembro de la población y no solo el promedio poblacional de ellas.
 
@@ -445,7 +445,7 @@ Agregadas las coordenadas ahora se puede aplicar la técnica del cubo con el adi
 En cierto sentido, la inclusión de las variables "Ámbito" y "Región" en el diseño balanceado (@sec-cubo_colegios) ya mejoraban la distribución geográfica o espacial de la muestra (con respecto a una muestra de azar simple) pero lo hacían focalizándonse en sus valores de tendencia central. Los valores de las coordenadas permiten una información de un grano más fino sobre la distribución espacial de la muestra. En efecto, al usarse esta última información en un diseño bien distribuido se aprecia una leve mejora en los valores que tienen una fuerte influencia espacial (p.e "Ambito" y "Región").
 
 ```{r}
-#| label: muestreo_well_spread
+#| label: muestreo_bien_distribuidos
 
 N = nrow(tb)
 n = 300
@@ -463,28 +463,28 @@ xy = cbind(tb$latitud, tb$longitud)
 
 set.seed(314)
 
-muestra_weel_spread = lcube(Xbal = X, 
+muestra_bien_distribuida = lcube(Xbal = X, 
                             Xspread = xy , 
                             prob = pi_colegio)
 
-muestra_well_spread = tb[muestra_weel_spread,] |>
+muestra_bien_distribuida = tb[muestra_bien_distribuida,] |>
 mutate(pw = N/n,
        fpc = sqrt((N-n)/(N-1)))
 
-muestra_well_spread_sv = muestra_well_spread |>
+muestra_bien_distribuida_sv = muestra_bien_distribuida |>
 as_survey_design(id = 1,
                  weights = pw,
                  fpc = fpc)
 
-write_rds(muestra_well_spread_sv,
-          here("Outputs", "muestra_well_spread_sv.rds"))
+write_rds(muestra_bien_distribuida_sv,
+          here("Outputs", "muestra_bien_distribuida_sv.rds"))
 ```
 
 ```{r}
-#| label: tbl-well_spread
+#| label: tbl-bien_distribuida
 #| tbl-fig: sdvdsvv
  
-tbl_well_spread = muestra_well_spread_sv |>
+tbl_bien_distribuida = muestra_bien_distribuida_sv |>
 tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
 digits = list(deff = label_style_number(digits = 3),
@@ -494,12 +494,12 @@ statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
 add_ci()  |>
 modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 
-write_rds(tbl_well_spread,
-          here("Outputs", "tbl_well_spread.rds"))
+write_rds(tbl_bien_distribuida,
+          here("Outputs", "tbl_bien_distribuida.rds"))
 
 tbl_merge(
-   tbls = list(tbl_well_spread, tbl_cubo_colegios, tbl_pob_param),
-   tab_spanner = c("**Well Spread**", "**Cubo colegios**", "**Pob. Colegios**")
+   tbls = list(tbl_bien_distribuida, tbl_cubo_colegios, tbl_pob_param),
+   tab_spanner = c("**Bien distribuida**", "**Cubo colegios**", "**Pob. Colegios**")
  )  
 
 
@@ -510,7 +510,8 @@ En ciencias sociales, la mejora de la distribución espacial de una muestra no e
 De todos modos, en este caso particular es razonable suponer que la ubicación de los establecimientos guarda relación con la ubicación de los estudiantes y, más en general, con la distribución de las personas.
 
 ```{r}
-#| label: fig-mapa_well_spread
+#| label: fig-mapa_bien_distribuida
+#| cache: true
 
 tb = tb |>
 st_as_sf(coords = c("longitud", "latitud"),
@@ -518,7 +519,7 @@ st_as_sf(coords = c("longitud", "latitud"),
          sf_column_name = "geom_escuela",
          crs = 4326)
 
-muestra_well_spread = muestra_well_spread |>
+muestra_bien_distribuida = muestra_bien_distribuida |>
 st_as_sf(coords = c("longitud", "latitud"),
          dim = "XY",
          sf_column_name = "geom_escuela",
@@ -526,18 +527,18 @@ st_as_sf(coords = c("longitud", "latitud"),
 
 tmap_mode("view")
 
-fig_well_spread = tm_basemap(server = "CartoDB.Positron",
+fig_bien_distribuida = tm_basemap(server = "CartoDB.Positron",
            alpha = 0.5) +
 tm_shape(tb,
          name = "Población") +
 tm_dots(fill_alpha = 0.20,
         fill = "black") +
-tm_shape(muestra_well_spread,
-         name = "Muestra well spread") +
+tm_shape(muestra_bien_distribuida,
+         name = "Muestra bien distribuida") +
 tm_dots(fill_alpha = 0.9,
         fill = "blue")
 
-fig_well_spread 
+fig_bien_distribuida 
 
 ```
 

@@ -1,6 +1,6 @@
-## El domesticación del azar como medio para lograr muestras (aproximadamente) representativas
+## La domesticación del azar como medio para lograr muestras (aproximadamente) representativas
 
-Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Este enfoque tiene mucho que ver con lo que se suele denominar *design based sample* en la literatura sobre muestreo*.* Básicamente, en línea con la clasificación de Neyman anteriormente utilizada, son muestras que ponen énfasis en el proceso aleatorio de la selección de los casos. Es una escuela clásica dentro del muestro y tiene muchas subvariantes. Algunas de ellas las veremos más adelante pero ahora nos concentraremos en la parte que tienen en común toda ellas. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria no muy grande (\<2000). Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
+Si ser muy profundos en cuanto a la teoría del muestreo o en cuanto a su justificación más académica en lo que sigue se intenta recordar que sucede si se realizan muestras aleatorias dentro de una población. Este enfoque tiene mucho que ver con lo que se suele denominar "*Design Based Sample"* en la literatura sobre muestreo*.* Básicamente, en línea con la clasificación de Neyman anteriormente utilizada, son muestras que ponen énfasis en el proceso aleatorio de la selección de los casos. Es una escuela clásica dentro del muestro y tiene muchas subvariantes. Algunas de ellas las veremos más adelante pero ahora nos concentraremos en la parte que tienen en común toda ellas. Para eso vamos a simular que hacemos muchas muestras aleatorias simples sobre una población imaginaria no muy grande (\<2000). Primero haremos, o más bien repetiremos, muestras relativamente pequeñas y luego haremos muestras algo más grandes.
 
 Para tener una mejor experiencia de este simulador es aconsejable su ejecución a través de este [link](https://planificacion-muestreo.netlify.app/simulador_teorema_limite_central.html).
 
@@ -482,8 +482,6 @@ Para visualizar esto vamos primero vamos a construir a realizar 2 ejemplos. Uno 
 
 ```{r}
 #| label: muestra_pps_one_stage
-
-set.seed(314)
 
 # Saco los NA de las escuelas sin matrícula
 
