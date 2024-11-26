@@ -251,10 +251,6 @@ tbl_comp_calibracion
 
 En la @tbl-comp_calibraciones puede observarse como ambas estrategias de calibración parecen igual de eficaces ya que ambas arrojan resultados muy similares entre sí y, a su vez, muy similares con los parámetros poblacionales. En este contexto se recuerda que, si bien los valores finales son muy similares, la mejora realizada en el proceso de calibración es mayor sobre el diseño de azar simple ya que esa muestra no era tan precisa como la muestra bien distribuida y, por lo tanto, existía la oportunidad de mejorar bastante.
 
-```         
-::: {.sectionrefs} :::
-```
-
 [^calibracion-1]: En cambio el balanceo, si bien en su origen tiene una fuerte vinculación con el enfoque del "Model Assisted", no se encuentra tan alejado del "design based" dado que el algoritmo del cubo selecciona muestras balanceadas dentro del conjunto de muestras aleatorias [@tillé2010, pag. 39].
 
 [^calibracion-2]: Este tipo de discusiones ha enfrentado (y por ahora continua enfrentando) a los representantes de los enfoques de la "*design based sample*" y del "*model assisted*". Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos [@elliott2017]. En el fondo lo que está en juego son los grados de garantía que ofrece cada técnicas acerca de la representatividad no sólo sobre las heterogeneidades observables (algo mantenido por ambos enfoques) sino también sobre las heterogeneidades no observables (algo históricamente mantenido por el enfoque de la "*design*").

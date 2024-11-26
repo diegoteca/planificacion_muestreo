@@ -43,10 +43,6 @@ Finalmente en el último tiempo, y en parte por el avance de una mayor disponibi
 
 En el útimo párrafo, casi al pasar, se ha comentado que "en el último tiempo" ha habido cambios en el mundo del muestreo. Más allá que se pueda afirmar que en algunos momentos haya habido más cambios que otros, la historia de la incorporación de las diferentes teorías de muestreo en la estadística como disciplina (antes dominada por aplicaciones sobre poblaciones enteras o censos) o en el diseño de investigaciones (antes dominada por diseños experimentales) es sumamente interesante y recomendable [@hacking2004; @hacking2006; @gigerenzer1997].
 
-```         
-::: {.sectionrefs} :::
-```
-
 [^muestras-1]: Expresado en términos de propiedades generales y específicas podría afirmarse que las **propiedades generales**, como su nombre lo indica, sirven para construir **géneros** y todas los objetos reales que pertenecen a ese género tienen el mismo valor en todas sus propiedades generales. Ejemplo: Todo objeto real que se clasifique como "persona" deberá cumplir una serie de propiedades generales que hacen a la esencia de "persona" y se incluyen en su definición. Ser estudiante o residir en la provincia de Buenos Aires no pertenece a un valor de una propiedad general de las personas. En cambio, mamífero descendiente del mono, sí. Las propiedades generales son necesarios para identificar la clase de referencia pero no suficientes para construir la población sobre la cual se realizará la muestra. 
 
     Las **propiedades específicas,** también como su nombre lo sugiere**,** sirven para construir **especies de los géneros** en función de los diferentes valores en las propiedades específicas. Tiempo y espacio son típicas propiedades específicas que ayudan recortar al universo anterior delimitando una población empírica. Luego pueden existir otras propiedades específicas (como las anteriores de ser estudiante o vivir en Buenos Aires) que sirven para seguir delimitando aún más nuestra población.
