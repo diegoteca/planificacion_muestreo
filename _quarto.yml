@@ -24,7 +24,7 @@ search: true
 
 bibliography: references.bib
 # Esto depende de la extension "section-biblioraphie"
-reference-section-title: Referencias de este capítulo
+# reference-section-title: Referencias de este capítulo
 #citeproc: false
 #csl: apa.csl
 
@@ -67,4 +67,3 @@ execute:
 
 filters:
   - first-line-indent
-  - section-bibliographies

@@ -18,7 +18,7 @@ Detalladas algunas diferencias entre la calibración y el balanceo ahora se pasa
 
 Por último, a veces se suele asimilar como sinónimos en término calibración con el término post-estratificación. Más arriba ya se había comentado que el segundo puede considerarse como un caso particular (aunque quizás el más difundido) del primero en donde sólo se utilizan variables categóricas (estratos) para el proceso de la calibración. Lo mismo puede afirmarse del método menos difundido del "raking" que permite la calibración de múltiples variables categóricas sin la necesidad de realizar cruces entre ellas con el riesgo de no tener casos en la muestra de algunas de las celdas de los múltiples cruces [@lumley2010, pag. 139]. Por esta razón, aquí usaremos directamente el método de la calibración por ser el más general ya que permite la inclusión tanto de variables categóricas como continuas y no presenta los riesgos de la post-calibración en cuanto a la posible ausencia de casos frutos de los cruces de las variables categóricas.
 
-A continuación vamos a trabajar con 2 ejemplos alternativos. Uno, en donde la calibración se realiza sobre la muestra aleatoria simple y otra que se realiza sobre la muestra balanceada y bien distribuida. En función de lo visto anteriormente (@sec-azar_simple, @sec-cubo y @sec-bien_distribuida) ya sabemos que ambas calibraciones van a partir desde un punto de inicio diferente. Veremos que tanta distancia entre sí y con respecto a los parámetros poblaciones van a tener los respectivos puntos de llegada (esto es, las estimaciones de ambas muestras) luego de realizar la calibración. En otras palabras, la muestra balanceada y bien distribuida ya se encontraba (en general) bastante cerca de los parámetros poblacionales por lo que, a priori, cuenta con alguna ventaja desde su puesto de largada.
+A continuación vamos a trabajar con 2 ejemplos alternativos. Uno, en donde la calibración se realiza sobre la muestra aleatoria simple y otra que se realiza sobre la muestra balanceada y bien distribuida. En función de lo visto anteriormente (@sec-azar_simple, @sec-cubo y @sec-bien_distribuido) ya sabemos que ambas calibraciones van a partir desde un punto de inicio diferente. Veremos que tanta distancia entre sí y con respecto a los parámetros poblaciones van a tener los respectivos puntos de llegada (esto es, las estimaciones de ambas muestras) luego de realizar la calibración. En otras palabras, la muestra balanceada y bien distribuida ya se encontraba (en general) bastante cerca de los parámetros poblacionales por lo que, a priori, cuenta con alguna ventaja desde su puesto de largada.
 
 ## Calibración muestra azar simple
 
@@ -60,7 +60,8 @@ Para eso vamos a recuperar el objeto con el cual le informábamos a R que había
 ```{r}
 #| label: tbl-azar_simple_calibrado
 #| tbl-cap: "Calibración muestra azar simple"
- 
+#| message: false
+
 muestra_azar_simple_sv = read_rds(here("Outputs", "muestra_azar_simple_sv.rds"))
 
 base = base |>
@@ -107,7 +108,8 @@ muestra_azar_simple_cal =
 calibrate(muestra_azar_simple_sv,
           formula = ~ matricula + ambito + region,
           population = totals,
-          calfun = "linear")
+          calfun = "linear",
+          verbose = FALSE)
 
 tbl_azar_simple_cal = muestra_azar_simple_cal |>
 tbl_svysummary(
@@ -154,7 +156,10 @@ download_this(base_muestra_AS_cal,
 
 base_muestra_AS_cal = base_muestra_AS_cal |>
 select(matricula, secciones, ambito, sondeo_primero, sondeo_segundo, pond_weight, cal_weight) |>
+head(n = 3) |>
 gt()
+
+base_muestra_AS_cal
 ```
 
 ## Calibración muestra bien distribuida {#sec-cal_bien_distribuida}
@@ -164,6 +169,7 @@ En el caso de la calibración de la muestra bien distribuida el proceso de calib
 ```{r}
 #| label: tbl-bien_distribuida_cal
 #| tbl-cap: "Calibración muestra bien distribuida"
+#| message: false
 
 muestra_bien_distribuida_cal = 
 calibrate(muestra_bien_distribuida_sv,
@@ -231,7 +237,10 @@ Es interesante destacar, como se observa en la @tbl-base_muestra_BD_cal (y a dif
 
 base_muestra_BD_cal = base_muestra_BD_cal |>
 select(matricula, secciones, ambito, sondeo_primero, sondeo_segundo, pond_weight, cal_weight) |>
+head(n = 3) |>
 gt()
+
+base_muestra_BD_cal
 ```
 
 ## Comparación calibración muestra balanceada y azar simple
