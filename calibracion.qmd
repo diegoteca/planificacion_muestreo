@@ -194,22 +194,6 @@ tab_spanner = c("BD calibrado","BD sin calibrar","Poblacion"))
 tbl_comp_bien_distribuida_cal
 ```
 
-```{r}
-cal_weight = weights(muestra_azar_simple_cal) |>
-as_tibble() |>
-rename(cal_weight = value)
-
-base_muestra_BD_cal = 
-bind_cols(as_tibble(muestra_bien_distribuida_cal), cal_weight) |>
-rename(pond_weight = pw)
-
-download_this(base_muestra_BD_cal,
-              output_name = "base_muestra_BD_cal",
-              output_extension = ".xlsx",
-              button_label = "Descargar Base")
-
-```
-
 Al igual que con la calibración de la base de la muestra de azar simple, aquí vamos a extraer los calibradores para luego agregarlos a la base de datos.
 
 ```{r}
