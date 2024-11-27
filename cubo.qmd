@@ -35,20 +35,22 @@ big.mark = ".")
 
 ## Muestras Balanceadas (por el método del cubo) {#sec-cubo}
 
-Este tipo de técnica permite diseñar muestras balanceadas en el sentido que las medias muestrales de las covariables sean (aproximadamente) iguales a las medias poblacionales de esas covariables. Esto, como mínimo, es una estrategia efectiva para evitar caer en el pequeño subconjunto de muestras aleatorias que son muy sesgadas [@tillé2011, pag. 221]. En este sentido, se recuerda que cuando realizamos diseños por azar tenemos chances (si bien bajas) de obtener muestras muy sesgadas. El muestreo balanceado evita esta situación y, la mayoría de las veces (siempre que las covariables estén empíricamente relacionadas con las variables de estudio) suele ofrecer muestras con una mejor precisión que el azar simple. Si se agregan más covariables al diseño y, nuevamente, estas se encuentran linealmente relacionadas con las variables de estudio, el estimador de la media poblacional también mejorará aún más su precisión.[^cubo-1]
+Las muestras balanceadas son un método particular dentro del espectro de las técnicas disponibles en la que felizmente se juntan las potencialidades del enfoque del "*Design Based*" y del "*Model Assisted*". Este tipo de técnica permite diseñar muestras balanceadas en el sentido que las medias muestrales de las covariables sean (aproximadamente) iguales a las medias poblacionales de esas covariables. Esto, como mínimo, es una estrategia efectiva para evitar caer en el pequeño subconjunto de muestras aleatorias que son muy sesgadas [@tillé2011, pag. 221]. En este sentido, se recuerda que cuando realizamos diseños por azar tenemos chances (si bien bajas) de obtener muestras muy sesgadas. El muestreo balanceado evita esta situación y, la mayoría de las veces (siempre que las covariables estén empíricamente relacionadas con las variables de estudio) suele ofrecer muestras con las que luego es posible realizar una estimación con una mayor precisión que el azar simple. Si se agregan más covariables al diseño y, nuevamente, estas se encuentran linealmente relacionadas con las variables de estudio, el estimador de la media poblacional también mejorará aún más su precisión.[^cubo-1]
 
-Lo anterior puede considerarse un viejo *desideratum* de los diseños muestrales aunque antes no había disponible algún algoritmo de cálculo aplicable de una manera generalizable y precisa [@deville2004]. Eso es lo que precisamente logra el método del cubo. De manera alternativa, las muestras balanceadas pueden ser vistas como un tipo de calibración (@sec-calibracion) integrada en el diseño de la muestra más que a la estimación de los estimadores [@tillé2011, pag. 216].
+Lo anterior puede considerarse un viejo *desideratum* de los diseños muestrales aunque antes no había disponible algún algoritmo de cálculo aplicable de una manera generalizable y precisa que pudiera ser ejecutado o calculado de manera viable [@deville2004]. Eso es lo que precisamente logra el método del cubo. De manera alternativa, las muestras balanceadas pueden ser vistas como un tipo de calibración (@sec-calibracion) integrada en el diseño de la muestra más que a la estimación de los estimadores [@tillé2011, pag. 216].
 
-El contexto actual de:
+Por lo tanto, el contexto actual de:
 
 a)  un mayor acceso a fuentes secundarias de datos y
 b)  una mayor capacidad computacional,
 
-parece ser un contexto particularmente propicio para la aplicación y difusión de este tipo de diseños porque, justamente, se trata de un diseño demandante en cuanto a datos secundarios (en forma de información auxiliar o covariables) y demandante con respecto a recursos computacionales (el algoritmo del método del cubo). Antes de pasar a la aplicación de este diseño con la base de escuelas vamos a considerar un ejemplo trivial con variables espaciales en donde se puede simular facilmente la linealidad de la variable de estudio con respecto a otras covariables. Esto también servirá como un anticipo para cuando intentaremos incorporar explícitamente variables espaciales (coordenadas) en la muestra (@sec-bien_distribuido).[^cubo-2]
+parece ser un contexto particularmente propicio para la aplicación y difusión de este tipo de diseños porque, justamente, se trata de un diseño demandante en cuanto a datos secundarios (en forma de información auxiliar o covariables) y demandante con respecto a recursos computacionales (para ejecutar el algoritmo del método del cubo).
 
-Supongamos una población como un bosque en donde tenemos alguna variable continua que nos interesa investigar. Pongamos además que, a efectos pedagógicos, nosotros sabemos la distribución de esa variable. Además, para forzar el pensamiento espacial, vamos a suponer que esa variable continua es un valor de la densidad de la vegetación para cada celda de una grilla de coordenadas y el valor de esa densidad lo visualizamos indicando un valor amarillo para sus valores más altos y azul para sus valores más bajos. A estas coordenadas se las puede clasificar como un valor en el eje "Hacia el Norte" y otro valor en el eje "Hacia el Este". Este ejemplo espacial permite construir y visualizar fácilmente la linealidad de las covariables o variables auxiliares ("Hacia el Norte" y "Hacia el Este") con la variable de estudio ("Densidad de la vegentación"). En el caso de la @fig-muestreo_cube_ejemplo se observa como a medida que vamos hacia el Norte la vegetación es algo más espesa. Lo mismo puede decirse en cuanto si vamos hacia el Este. En este sentido, el valor más alto de densidad se encuentra en la intersección de los valores más altos de los ejes anteriores o, expresado de manera alternativa, en el cuadrante superior derecho de la población. Esto quiere decir que estas variables auxiliares se encuentran empíricamente relacionadas de ***forma lineal*** con el valor de la densidad de vegetación.
+Antes de pasar a la aplicación de este diseño con la base de establecimientos de nivel primario vamos a considerar un ejemplo trivial con variables espaciales en donde se puede simular fácilmente la linealidad de la variable de estudio con respecto a otras covariables. Esto también servirá como un anticipo para cuando intentaremos incorporar explícitamente variables espaciales (a través de coordenadas) en la muestra (@sec-bien_distribuido).[^cubo-2]
 
-En la @fig-muestreo_cube_ejemplo también se observan 2 muestras balanceadas de la población descrita en el párrafo anterior. Cada una de 4 casos cada una representadas por los cuadrados blancos. La de la izquierda se encuentra balanceada solamente por el eje "Hacia el Este" y, acorde con esto, los casos seleccionados se esparcen de Este al Oeste. La muestra de la derecha, en cambio, se encuentra balanceada por ambos ejes por lo que la distribución de los casos seleccionados no sólo varían de Esta a Oeste sino que también lo hacen de Norte a Sur. En este sentido específico, se puede afirmar que la segunda muestra es más balanceada que la primera y, de manera intuitiva, se puede afirmar que aquella es más representativa que esta.
+Supongamos una población como un bosque en donde tenemos alguna variable continua que nos interesa investigar. Supongamos además que, a efectos pedagógicos, nosotros sabemos la distribución de esa variable y, para forzar el pensamiento espacial, vamos a suponer que esa variable continua es una representación de la densidad de la vegetación de cada celda de una grilla de coordenadas. El valor de esa densidad lo vamos a visualizar indicando un valor amarillo para sus valores más altos y azul para sus valores más bajos. Con respecto a la grillas que representan distintas partes del bosque se las puede ubicar con un valor en el eje "Hacia el Norte" y otro valor en el eje "Hacia el Este".
+
+Este ejemplo espacial es útil porque permite construir y visualizar fácilmente la linealidad de las covariables o variables auxiliares ("Hacia el Norte" y "Hacia el Este") con la variable de estudio ("Densidad de la vegetación"). En el caso de la @fig-muestreo_cube_ejemplo se observa como a medida que vamos hacia el Norte la vegetación es algo más espesa. Lo mismo puede decirse en cuanto si vamos hacia el Este. En este sentido, el valor más alto de densidad se encuentra en la intersección de los valores más altos de los ejes anteriores o, expresado de manera alternativa, en el cuadrante superior derecho de la población. Esto quiere decir que estas variables auxiliares se encuentran empíricamente relacionadas de ***forma lineal*** con el valor de la densidad de vegetación.
 
 ```{r}
 #| label: fig-muestreo_cube_ejemplo
@@ -137,23 +139,29 @@ repeat {
 }
 
 mysamples = rbind(mysample, mysample2)
-mysamples$samid = rep(c("E", "E - N"), each = 4)
+mysamples$samid = rep(c("Balanceo Hacia el Este", 
+                        "Balanceo hacia el Este y hacia el Norte"), 
+                        each = 4)
 
 ggplot(data = grid) +
   geom_tile(mapping = aes(x = x1, y = x2, fill = z)) +
   geom_tile(data = mysamples, mapping = aes(x = x1, y = x2), colour = "white", linewidth = 0.8, width = 1, height = 1, fill = NA) +
-  scale_fill_viridis_c(name = "z") +
+  scale_fill_viridis_c(name = "D. Vegetación") +
   scale_x_continuous(name = "Hacia el Este >") +
   scale_y_continuous(name = "Hacia el Norte >") +
   facet_wrap(~ samid, ncol = 2, nrow = 1) +
   coord_fixed()
 ```
 
+Por otro lado, en la @fig-muestreo_cube_ejemplo también se observan 2 muestras balanceadas de la población descrita en el párrafo anterior. Cada una de 4 casos cada una representadas por los cuadrados blancos. La de la izquierda se encuentra balanceada solamente por el eje "Hacia el Este" y, acorde con esto, los casos seleccionados se esparcen de Este al Oeste. La muestra de la derecha, en cambio, se encuentra balanceada por ambos ejes por lo que la distribución de los casos seleccionados no sólo varían de Esta a Oeste sino que también lo hacen de Norte a Sur. En este sentido específico, se puede afirmar que la segunda muestra es más balanceada que la primera y, de manera intuitiva, se puede afirmar que aquella es más representativa que esta.
+
 ## Muestras Balanceadas sobre base de establecimientos {#sec-cubo-establecimientos}
 
-Ahora pasaremos a aplicar este diseño a la base de escuelas que venimos trabajando. Esta vez trabajaremos con otras variables de esta base porque, precisamente, este diseño permite la introducción de una mayor cantidad de variables como información secundaria. Como en muchas otras técnicas, tener más variables no es garantía de un mejor resultado ya que la introducción de algunas variables, especialmente si no están linealmente relacionadas con las variables de estudio, puede ser contraproducente [@tillé2011, pag. 222]. Ese es precisamente una de la utilidades del ejemplo anterior ya que en el era fácil construir y visualizar la linealidad de la relación entre las covariables y la variable de estudio. Por esta razón, en este proceso de selección es importante recordar cual/es van a ser las variables de estudio para luego examinar cuales de las variables disponibles como información secundaria es conveniente utilizar como covariables. En este caso, nos focalizaremos en diferentes tipos de objetivos para demostrar la flexibilidad de la técnica. En primer lugar nos interesará tener una muestra de los establecimientos desde la base de los establecimientos (@sec-cubo_colegios) y luego una muestra de los estudiantes desde esa misma base (@sec-cubo_estudiantes).
+Ahora pasaremos a aplicar este diseño a la base de escuelas que venimos trabajando. Esta vez vamos a incorporar una mayor cantidad de información secundaria que se encuentra disponible en la base de establecimientos. Como en muchas otras técnicas, la introducción de más variables no es garantía de un mejor resultado ya que en este caso la agregación de más variables, especialmente si no están linealmente relacionadas con las variables de estudio, puede ser contraproducente [@tillé2011, pag. 222]. Ese es precisamente una de la utilidades del ejemplo anterior de la @fig-muestreo_cube_ejemplo ya que en el era fácil construir y visualizar la linealidad de la relación entre las covariables y la variable de estudio. Por esta razón, en este proceso de selección es importante recordar cual/es van a ser las variables de estudio para luego examinar cuales covariables, de las variables disponibles como información secundaria, es conveniente utilizar.
 
-Las lista de covariables que serán incluidas serán las siguientes:
+En este caso, nos focalizaremos en diferentes tipos de objetivos para demostrar la flexibilidad de la técnica. En primer lugar nos interesará tener una muestra de los establecimientos desde la base de los establecimientos (@sec-cubo_colegios) y luego una muestra de los estudiantes desde esa misma base (@sec-cubo_estudiantes).
+
+Las lista de covariables que serán incluidas, con fines más metodológicos que teóricos, serán las siguientes:
 
 -   Matrícula
 
@@ -165,13 +173,15 @@ Las lista de covariables que serán incluidas serán las siguientes:
 
 La lista anterior funciona a modo de ejemplo aunque tiene la virtud de trabajar con información secundaria casi completa ya que se trata de variables con muy baja tasa de no respuesta. En efecto, aquí usaremos estas covariables tanto cuando nos interese averiguar características de los establecimientos como de los estudiantes pero un análisis más real implicaría usar un conjunto diferente para cada muestra porque al ser diferentes las variables de estudio también podrían/deberían ser las covariables seleccionadas.
 
-Dicho lo anterior parece pertinente el siguiente comentario. Cuando algunos establecimientos no tienen datos en algunas de las covariables utilizadas estos no forman parte de la muestra. Esto recuerda algo que se había comentado cuando se vio el muestreo por azar simple (@sec-azar_simple). El muestreo por azar simple sólo exige una lista (y/o algún dato que luego permita su contacto empírico) de los miembros de la población. El método del cubo exige, además, el acceso a otras variables de la población en cuestión en forma de información auxiliar. Si existen casos que no tienen esa información, estos no podrán ingresar a la muestra. Esto tiene diferentes tipos de consecuencias.
+Dicho lo anterior parece pertinente el siguiente comentario. Cuando algunos establecimientos no tienen datos en algunas de las covariables utilizadas estos no forman parte de la muestra. Esto recuerda algo que se había comentado cuando se vio el muestreo por azar simple (@sec-azar_simple). El muestreo por azar simple sólo exige una lista (y/o algún dato que luego permita su contacto empírico) de los miembros de la población. El método del cubo exige, además, el acceso a otras variables de la población en cuestión en forma de información auxiliar. Si existen casos que no tienen esa información, estos no podrán ingresar a la muestra y esto tiene diferentes tipos de consecuencias.
 
-La primera consecuencia es que el investigador se puede enfrentar a la disyuntiva sobre si se prefiere usar covariables completas (en el sentido que no tienen casos faltantes) pero con una menor relación con la/s variable/s de estudio o covariables incompletas pero más fuertementes relacionadas con estas últimas. Por ejemplo, las variables "sondeo_primero" y "sondeo_segundo" podrían ser opciones como covariables (siempre igual dependiendo de que se quiera investigar) pero tienen una alta tasa de no respuesta (+ de 550 casos). Para peor, al menos desde el punto de vista de la población de los establecimientos, estas no respuestas se concentran en establecimientos con una matrícula de menos de 10 estudiantes. Esto generaría un sesgo muestral porque los casos que integran la muestra (p.e. Ámbito Urbano) son diferentes a los que no integran (p.e. Ámbitos Rurales). En otras palabras, la no respuesta no es aleatoria por lo que los van a quedar dentro de la muestra serán, por diseño, diferentes a los que quedaran fuera de la misma.[^cubo-3]
+La primera consecuencia es que el investigador se puede enfrentar a la disyuntiva sobre si se prefiere usar covariables completas (en el sentido que no tienen casos faltantes) pero con una menor relación con la/s variable/s de estudio o covariables incompletas pero más fuertemente relacionadas con estas últimas. Siempre pensando en casos algo extremos, en el primer caso el balanceo será efectivo pero quizá contraproducente porque balanceará la muestra con variables que no se encuentran empíricamente relacionadas con la variable de estudio. En el segundo caso se aumentan los problemas de cobertura (*undercoverage error*) y se disminuye la precisión de la muestra por trabajar con menos casos.
+
+Para poner un ejemplo, las variables "sondeo_primero" y "sondeo_segundo" podrían ser opciones como covariables (siempre igual dependiendo de que se quiera investigar) pero tienen una alta tasa de no respuesta o de dato faltante (+ de 550 casos). Y parece ser que esta ausencia de datos se distribuye de manera desigual entre la población de los establecimientos, ya que los mismos se concentran en establecimientos con una matrícula de menos de 10 estudiantes. En este caso su uso como covariables generaría un sesgo (*bias*) muestral por el problema de la falta de cobetura porque los casos que integran la muestra (p.e. Ámbito Urbano) son diferentes a los que no integran (p.e. Ámbitos Rurales). En otras palabras, la ausencia de datos no es aleatoria por lo que los van a quedar dentro de la muestra serán, por diseño, diferentes a los que quedaran fuera de la misma.[^cubo-3]
 
 ### Muestra Balanceada - Población Establecimientos {#sec-cubo_colegios}
 
-En esta primera aplicación del muestreo del cubo con la base de establecimientos vamos a tener como objetivo tener una muestra de la población de establecimientos y no, por ejemplo, de los estudiantes. En este caso las probabilidades de inclusión son iguales para establecimiento. De todos modos la técnica, en otro indicador de su flexibilidad, permite realizar muestras con diferentes probabilidades de inclusión.
+En esta primera aplicación del muestreo del cubo con la base de establecimientos vamos a tener como objetivo tener una muestra de la población de establecimientos y no, por ejemplo, de los estudiantes. En el primer caso, en principio, las probabilidades de inclusión son iguales para cada establecimiento. Como veremos más adelante (@sec-cubo_estudiantes) esta técnica también permite realizar muestras con diferentes probabilidades de inclusión.
 
 ```{r}
 #| label:  muestra_cubo_colegios
@@ -196,17 +206,23 @@ X = cbind(rep(1, times = N),
           as.numeric(tb$secciones),
           as.numeric(tb$region),
           as.numeric(tb$ambito))
+
 pi_colegio = rep(n / N, times = N)
 
+# Agrego las probabilidades de inclusión a la base
 
 tb = bind_cols(tb, as.data.frame(pi_colegio)) |>
 relocate("pi_colegio", .after = "rowid")
 
 set.seed(314)
 
+# Aplico el método del cubo de la librería "Balanced Sampling"
+
 muestra_balanceada_colegios = cube(prob = pi_colegio, 
                                    x = X,
                                    eps = 1e-12)
+
+# Me quedo con los casos seleccionados y creo expansores
 
 muestra_cubo_colegios = tb[muestra_balanceada_colegios, ] |>
 mutate(pw = N/n,
@@ -222,6 +238,7 @@ as_survey_design(id = 1,
 ```{r}
 #| label: muestra_cubo_estratificada
 #| eval: false
+
 # Lo ordeno porque esto es necesario para la estratificación
 
 tb = tb |>
@@ -231,7 +248,8 @@ tb = tb |>
  n = 300
  X2 = cbind(rep(1, times = N), 
            tb$matricula, 
-           tb$secciones)
+           tb$secciones,
+           tb$region)
  
  pi_colegio = rep(n / N, times = N)
  
@@ -267,11 +285,11 @@ muestra_cubo_colegios_sampling = bind_cols(tb, muestra_balanceada_colegios_sampl
                   fpc = fpc)
 ```
 
-En la @tbl-cubo_colegios se puede observar los resultados de la muestra balanceada para colegios. En esta los resultados se comparan con los resultados anteriores de la muestra de azar simple y los respectivos totales poblacionales. Como se aclaró anteriormente en estas tablas no se van a incluir ni el error estándar ni los intervalos de confianza dada lo incómodo de su cálculo y posterior visualización en tablas. De todos modos, se alcanza a visualizar que en muchas de las variables analizadas existe una pequeña mejora con la excepción de algunas categorías de la variable Región.[^cubo-4]
+En la @tbl-cubo_colegios se puede observar los resultados de la muestra balanceada para colegios. En esta tabla los resultados se comparan contra los resultados anteriores de la muestra de azar simple y los respectivos totales poblacionales. Como se aclaró anteriormente en estas tablas no se van a incluir ni el error estándar ni los intervalos de confianza dada lo incómodo de su cálculo y posterior visualización en tablas. De todos modos, se alcanza a visualizar que en muchas de las variables analizadas existe una pequeña mejora con la excepción de algunas categorías de la variable Región.[^cubo-4]
 
 ```{r}
 #| label: tbl-cubo_colegios
-#| tbl-cap: Estimaciones con muestra balanceada para colegios
+#| tbl-cap: "Estimaciones con muestra balanceada para colegios"
 
 tbl_cubo_colegios = muestra_cubo_colegios_sv |>
 tbl_svysummary(
@@ -283,20 +301,6 @@ digits = list(all_continuous() ~ c(1),
   # add_ci()  |>
 modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 
-tbl_cubo_colegios  
-
-
-# tbl_cubo_colegios_sampling = muestra_cubo_colegios_sv_sampling |>
-# tbl_svysummary(
-# include = c(matricula, sondeo_primero, sondeo_segundo, region, ambito),
-# digits = list(deff = label_style_number(digits = 3),
-#               sd = label_style_number(digits = 3)),
-# statistic = list(all_continuous() ~ "{mean} ({sd})",
-#                 all_categorical() ~ "{p}% (n={n_unweighted})")) |>
-# add_ci()  |>
-# modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
-# 
-# tbl_cubo_colegios_sampling  
   
 muestra_azar_simple_sv = read_rds(here("Outputs", "muestra_azar_simple_sv.rds"))
 
@@ -309,25 +313,20 @@ digits = list(all_continuous() ~ c(1),
               all_categorical() ~ c(1,0))) |>
 modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 
-# tbl_azar_simple = read_rds(here("Outputs", "tbl_azar_simple.rds"))
- tbl_pob_param = read_rds(here("Outputs", "tbl_pob_param.rds"))
-# tbl_summary(include = c(region, matricula, secciones, ambito),
-#             statistic = list(
-#       all_continuous() ~ "{mean} ({p25}, {p75})",
-#       all_categorical() ~ "{p}% ({n})"))
-# 
-# 
-# 
+tbl_pob_param = read_rds(here("Outputs", "tbl_pob_param.rds"))
+
 tbl_merge(
    tbls = list(tbl_cubo_colegios, tbl_azar_simple, tbl_pob_param),
-   tab_spanner = c("**Cubo Colegios**", "**Azar Simple**", "**Pob. Colegios**")
+   tab_spanner = c("**Balanceo Colegios**", "**Azar Simple**", "**Pob. Colegios**")
  )
 
 ```
 
 ### Muestra Balanceada - Población Estudiantes {#sec-cubo_estudiantes}
 
-En esta pequeña sección vamos a observar la flexibilidad de la técnica del cubo obteniendo una muestra en donde las probabilidades de inclusión son diferentes. En este caso particular se aplicará el criterio que esas probabilidades sean proporcionales al tamaño de la matrícula. Esto tiene consecuencias similares a lo visto en la (@sec-pps) en donde, por diseño, los establecimientos con mayor matrícula tienen una mayor chance de ser incluidos en la muestra. La diferencia con el muestreo PPS es quel muestreo balanceado permite, además, un conjunto de otras covariables que, nuevamente, reducen las chances que la muestra finalmente seleccionada sean una de las pocas sesgadas. A continuación, en la @tbl-cubos_matricula_comparacion puede observarse como
+En esta pequeña sección vamos a observar la flexibilidad de la técnica del cubo obteniendo una muestra en donde las probabilidades de inclusión son diferentes. En este caso particular se aplicará el criterio que esas probabilidades sean proporcionales al tamaño de la matrícula. Esto tiene consecuencias similares a lo visto en el muestreo PPS (@sec-pps) en donde, por diseño, los establecimientos con mayor matrícula tienen una mayor chance de ser incluidos en la muestra. La diferencia con el muestreo PPS es que el muestreo balanceado permite, además, un trabajar con un conjunto de otras covariables que, nuevamente, reducen las chances que la muestra finalmente seleccionada sean una de las pocas (muy) sesgadas.
+
+A continuación, en la @tbl-cubos_matricula_comparacion puede observarse como esta muestra tiene resultados aceptables en cuanto a su cercanía con los respectivos parámetros poblacionales (que fueron ponderados por el valor de la matrícula). En cuanto a su comparación con la muestra PPS sin ponderar no parece registrarse mejoras sustanciales dado que, por azar, la muestra PPS ya era lo suficientemente buena. La diferencia es que la técnica de balanceo, gracias al algoritmo del cubo, asegura que que no saldrá una mala muestra mientras que con el PPS se trata de confiar en que uno no tendrá mala suerte para que, por azar, se produzca una mala muestra.
 
 ```{r}
 #| label: muestra_cubo_matricula
@@ -350,7 +349,8 @@ X = cbind(rep(1, times = N),
 set.seed(314)
 
 muestra_balanceada_matricula = cube(prob = pi_matricula, 
-                                    x = X)
+                                    x = X,
+                                    eps = 1e-12)
 
 muestra_cubo_matricula = tb[muestra_balanceada_matricula, ] |>
 mutate(fpc = sqrt((N-n)/(N-1)),
@@ -367,7 +367,7 @@ as_survey_design(id = 1,
 
 ```{r}
 #| label: tbl-cubo_matricula
-#| tbl-cap: Estimaciones con muestra balanceada para población de estudiantes
+##| tbl-cap: "Estimaciones con muestra balanceada para población de estudiantes"
 
 tbl_cubo_matricula = muestra_cubo_matricula_sv |>
 tbl_svysummary(
@@ -383,14 +383,14 @@ modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 
 ```{r}
 #| label: tbl-cubos_matricula_comparacion
-#| tbl-cap: Comparación muestra balanceada por la matrícula y muestra PPS sin ponderar y poblacion de establecimientos ponderada por matrícula
+#| tbl-cap: "Comparación muestra balanceada por la matrícula y muestra PPS sin ponderar y poblacion de establecimientos ponderada por matrícula"
 
 tbl_pob_pond_matricula = tb |>
 as_survey_design(ids = rowid,
                  weights = matricula) |>
 tbl_svysummary(include = c(matricula, secciones,sondeo_primero, sondeo_segundo, region, ambito),
-            statistic = list(all_continuous() ~ "{mean}",
-                             all_categorical() ~ "{p}% (n={n_unweighted})"),
+statistic = list(all_continuous() ~ "{mean}",
+                all_categorical() ~ "{p}% (n={n_unweighted})"),
 digits = list(all_continuous() ~ c(1),
               all_categorical() ~ c(1,0)),
 missing = "no")
@@ -407,8 +407,8 @@ digits = list(all_continuous() ~ c(1),
 missing = "no")
  
 tbl_merge(
-   tbls = list(tbl_cubo_matricula, tbl_pps_sin_ponderar, tbl_pob_pond_matricula),
-   tab_spanner = c("**Cubo Matrícula**", "**PPS sin ponderar**", "**Pob. matricula**")
+tbls = list(tbl_cubo_matricula, tbl_pps_sin_ponderar, tbl_pob_pond_matricula),
+tab_spanner = c("**Cubo Matrícula**", "**PPS sin ponderar**", "**Pob. matricula**")
  ) |>
 modify_header((all_stat_cols() ~ "")) |>
 modify_footnote(everything() ~ NA)
@@ -417,11 +417,11 @@ modify_footnote(everything() ~ NA)
 
 ## Muestreos bien distribuidos {#sec-bien_distribuido}
 
-Como se dijo en la @sec-cubo en los muestreos balanceados por el método del cubo el esfuerzo está en que los valores de la tendencia central de los estimadores de determinadas variables de la muestra se acerquen a los valores de las covariables existentes como información secundaria, esto es, a los parámetros conocidos de la población. En el muestreo bien extendido (*well spread*) es objetivo es similar pero con una restricción adicional que implica que la distribución de la/s covariable/s de la muestra se acerque a la distribución de la/s covariable/s en la población. El precio de esta mejora es que se debe conocer la distribución de esas variables en la población algo que nunca habían requerido los diseños anteriores. En el caso particular de la distribución espacial el diseño exige la introducción de las coordenadas de cada miembro de la población y no solo el promedio poblacional de ellas.
+Como se dijo en la @sec-cubo en los muestreos balanceados por el método del cubo el esfuerzo está en que los valores de la tendencia central de los estimadores de determinadas variables de la muestra se acerquen a los valores de tendencia central de las covariables existentes como información secundaria, esto es, a los parámetros conocidos de la población. En el muestreo bien distribuido o bien extendido (*well spread*) es objetivo es similar pero con una restricción adicional que implica que la distribución de la/s covariable/s de la muestra se acerque a la distribución de la/s covariable/s en la población. El precio de esta mejora es que se debe conocer la distribución de esas variables en la población algo que, hasta ahora, nunca habían requerido los diseños anteriores. En el caso particular de la distribución espacial el diseño exige la introducción de las coordenadas de cada miembro de la población y no solo el promedio poblacional de ellas.
 
-En este contexto cobra importancia el ejemplo inicial de la @sec-cubo en donde se usaron covariables espaciales. Allí, de manera intuitiva, se asoció que una muestra bien distribuida es una muestra balanceada. Esta afirmación, útil como un primera aproximación, es verdadera pero su inversa no. En otras palabras, toda muestra balanceada no es bien distribuida, pero toda muestra bien distribuida sí es una muestra balanceada.
+En este contexto cobra importancia el ejemplo inicial de la @fig-muestreo_cube_ejemplo en donde se usaron covariables espaciales. Allí, de manera intuitiva, se asoció que una muestra bien distribuida es una muestra balanceada. Esta afirmación, útil como un primera aproximación, es verdadera pero su inversa no. En otras palabras, toda muestra balanceada no es bien distribuida, pero toda muestra bien distribuida sí es, también, una muestra balanceada.
 
-A continuación trabajaremos con los misma muestra balanceada de colegios de la sección anterior pero le agregaremos la condición de que esa muestra *también* sea bien distribuida en los valores de las coordenadas geográficas. Para eso primero agregaremos las coordenadas a la base de los establecimientos.
+A continuación trabajaremos con los misma muestra balanceada de colegios de la sección anterior pero le agregaremos la condición de que esa muestra *también* sea bien distribuida en los valores de las coordenadas geográficas de los establecimientos. Para eso primero agregaremos las coordenadas a la base de los establecimientos y luego nos quedaremos con sólo aquellos establecimientos que tengan las coordenadas.
 
 ```{r}
 #| label: coordenadas
@@ -442,7 +442,9 @@ filter(!is.na(longitud))
 
 Agregadas las coordenadas ahora se puede aplicar la técnica del cubo con el adicional que el balanceo no sólo se realice por los valores de tendencia central de la sección anterior, sino también con los valores de dispersión de las coordenadas de los establecimientos.
 
-En cierto sentido, la inclusión de las variables "Ámbito" y "Región" en el diseño balanceado (@sec-cubo_colegios) ya mejoraban la distribución geográfica o espacial de la muestra (con respecto a una muestra de azar simple) pero lo hacían focalizándonse en sus valores de tendencia central. Los valores de las coordenadas permiten una información de un grano más fino sobre la distribución espacial de la muestra. En efecto, al usarse esta última información en un diseño bien distribuido se aprecia una leve mejora en los valores que tienen una fuerte influencia espacial (p.e "Ambito" y "Región").
+En cierto sentido, la inclusión de las variables "Ámbito" y "Región" en el diseño balanceado (@sec-cubo_colegios) ya mejoraban la distribución geográfica o espacial de la muestra (con respecto a una muestra de azar simple) pero lo hacían focalizándose en sus valores de tendencia central. Los valores de las coordenadas permiten una información de un grano más fino sobre la distribución espacial de la muestra lo que no es un dato menor. Si se asume que el espacio es una especie de metavariable en las ciencias sociales [@small2019], controlar la muestra por el espacio ayuda a controlar una serie de otras características, usualmente inobservables o de difícil registro. Expresado en la jerga del diseño estadísticos de las investigaciones, este tipo de mejoras ayudan a controlar una serie de variables extrañas que, de otro modo, segurían siendo variables perturbadoras [@kish1987]. De todos modos, cabe destacar que las coordenadas son de los establecimientos y no de los estudiantes o, más en general, de las personas. El supuesto implícito es que la ubicación de los establecimientos guarda una relación estrecha con la ubicación de los estudiantes y, más en general, con la distribución de las personas.
+
+Desde un costado más operativo el algoritmo que se utiliza es el algoritmo del "*local cube*" [@tillé2013] que ya había sido utilizado en el muestro PPS. Este algoritmo penaliza si se seleccionan 2 casos "localmente" cercanos entre sí y luego de haber seleccionado un caso hay pocas chances que se seleccione otro caso muy cercano. La idea de distancia entre los casos es abstracta aunque en nuestro ejemplo se puede interpretar como distancia espacial.
 
 ```{r}
 #| label: muestreo_bien_distribuidos
@@ -452,11 +454,9 @@ n = 300
 X = cbind(rep(1, times = N), 
           as.numeric(tb$matricula),
           as.numeric(tb$secciones),
-        #  as.numeric(tb$matri_seccion),
-         # as.numeric(tb$indice_de_vulnerabilidad), 
           as.numeric(tb$region),
           as.numeric(tb$ambito))
-        #  as.numeric(tb$jornada))
+    
 pi_colegio = rep(n / N, times = N)
 
 xy = cbind(tb$latitud, tb$longitud)
@@ -465,7 +465,8 @@ set.seed(314)
 
 muestra_bien_distribuida = lcube(Xbal = X, 
                             Xspread = xy , 
-                            prob = pi_colegio)
+                            prob = pi_colegio,
+                            eps = 1e-12)
 
 muestra_bien_distribuida = tb[muestra_bien_distribuida,] |>
 mutate(pw = N/n,
@@ -482,36 +483,35 @@ write_rds(muestra_bien_distribuida_sv,
 
 ```{r}
 #| label: tbl-bien_distribuida
-#| tbl-fig: sdvdsvv
+#| tbl-cap: "Comparación entre muestra bien distribuida, balanceada y población de establecimientos"
  
 tbl_bien_distribuida = muestra_bien_distribuida_sv |>
 tbl_svysummary(
 include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-digits = list(deff = label_style_number(digits = 3),
-              sd = label_style_number(digits = 3)),
 statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
-                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
-add_ci()  |>
+                all_categorical() ~ "{p}% (n={n_unweighted})"),
+digits = list(all_continuous() ~ c(1),
+              all_categorical() ~ c(1,0)),
+missing = "no") |>
+# add_ci()  |>
 modify_footnote(all_stat_cols() ~ "Media (DE); % (n sin ponderar)")
 
 write_rds(tbl_bien_distribuida,
           here("Outputs", "tbl_bien_distribuida.rds"))
 
 tbl_merge(
-   tbls = list(tbl_bien_distribuida, tbl_cubo_colegios, tbl_pob_param),
-   tab_spanner = c("**Bien distribuida**", "**Cubo colegios**", "**Pob. Colegios**")
+tbls = list(tbl_bien_distribuida, tbl_cubo_colegios, tbl_pob_param),
+tab_spanner = c("**Bien distribuida**", "**Balanceo colegios**", "**Pob. Colegios**")
  )  
 
 
 ```
 
-En ciencias sociales, la mejora de la distribución espacial de una muestra no es un mejora cualquiera. Es una mejora muy interesante porque también ayuda a controlar, una serie de otras variables que se pueden presumir asociadas al espacio pero no fácilmente accesibles de forma empírica o, por lo menos, no accesible en términos de parámetros poblacionales para el momento del diseño de una muestra. Expresado en jerga metodológica, este tipo de mejoras ayudan a controlar una serie de variables extrañas haciendo que dejen de ser variables perturbadoras [@kish1987].
-
-De todos modos, en este caso particular es razonable suponer que la ubicación de los establecimientos guarda relación con la ubicación de los estudiantes y, más en general, con la distribución de las personas.
+Como puede observarse en @tbl-bien_distribuida, al usarse la distribución de las coordenadas como covariables se aprecia una leve mejora en los valores que tienen una fuerte influencia espacial (p.e "Ambito" y "Región"). Sin embargo, una manera más visual de captar esta mejora es, al igual que en la @fig-muestreo_cube_ejemplo, a través de un mapa como el de la @fig-mapa_bien_distribuida .
 
 ```{r}
 #| label: fig-mapa_bien_distribuida
-#| fig-cap: "svdsvsdv"
+#| fig-cap: "Distribución de la población de los establecimientos (puntos negros) y de la muestra bien distribuida (puntos azules)"
 #| cache: true
 
 tb = tb |>
@@ -547,6 +547,6 @@ fig_bien_distribuida
 
 [^cubo-2]: El ejemplo y el respectivo código fue adaptado del libro "Spatial sampling with R" [@brus2022].
 
-[^cubo-3]: En este sentido, más que nada por razones pedagógicas, aquí se han elegido como covariables, un conjunto de variables con poco margen de no respuesta. Esto se debe a que, si se hubieran escogido covariables con una alta tasa de no respuesta, se presenta el problema de contra que conjunto de datos testear las bondades de la técnica del cubo. Esto es así dado que si los resultados de la técnica del cubo se comparan contra los totales poblacionales de los colegios (@tbl-parametros_base) es esperable que los resultados vayan a ser diferentes porque, estrictamente, la técnica del cubo se realiza sólo sobre los establecimientos que tienen la información auxiliar pertinente. Lo mismo, *mutatis mutandi*, si se compara con la respectiva de azar simple de toda la población de colegios (@tbl-azar_simple).
+[^cubo-3]: En este sentido, más que nada por razones pedagógicas, aquí se han elegido como covariables, un conjunto de variables con poco margen de no respuesta. Esto se debe a que, si se hubieran escogido covariables con una alta tasa de no respuesta, se presenta el problema de contra que conjunto de datos testear las bondades de la técnica del balanceo. Esto es así dado que si los resultados de la técnica del cubo se comparan contra los totales poblacionales de los colegios (@tbl-parametros_base) es esperable que los resultados vayan a ser diferentes porque, estrictamente, el balanceo se realiza sólo sobre los establecimientos que tienen la información auxiliar pertinente. Lo mismo, *mutatis mutandi*, si se compara la técnica del balanceo con la respectiva muestra de azar simple de toda la población de colegios (@tbl-azar_simple).
 
-[^cubo-4]: Es posible que parte del los mayores errores en algunas categorías de la variable Región se deban a que la falta de datos en algunas de las covariables elegidas sea desigual según Región. De todos modos, la cantidad de casos (establecimientos) que no tenían las covariables completas era 9.
+[^cubo-4]: Es posible que parte de los mayores sesgos en algunas categorías de la variable Región se deban a que la falta de datos en algunas de las covariables elegidas sea desigual según Región. De todos modos, la cantidad de casos (establecimientos) que no tenían las covariables completas era 9.
