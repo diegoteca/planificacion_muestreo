@@ -366,7 +366,7 @@ as_survey_design(id = 1,
 ```
 
 ```{r}
-#| label: tbl-cubo_matricula
+#| label: tbl_cubo_matricula
 ##| tbl-cap: "Estimaciones con muestra balanceada para población de estudiantes"
 
 tbl_cubo_matricula = muestra_cubo_matricula_sv |>
@@ -518,13 +518,15 @@ tb = tb |>
 st_as_sf(coords = c("longitud", "latitud"),
          dim = "XY",
          sf_column_name = "geom_escuela",
-         crs = 4326)
+         crs = 4326) |>
+select(ambito, region)
 
 muestra_bien_distribuida = muestra_bien_distribuida |>
 st_as_sf(coords = c("longitud", "latitud"),
          dim = "XY",
          sf_column_name = "geom_escuela",
-         crs = 4326)
+         crs = 4326) |>
+select(ambito, region)
 
 tmap_mode("view")
 
