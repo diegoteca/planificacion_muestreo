@@ -8,7 +8,17 @@ resources:
 
 book:
   title: "Taller Muestreo"
-#  author: ""
+  author:
+    - name: "Diego Quartulli"
+      email: "dquartulli@gmail.com"
+      affiliations:
+        - id: "PBA"
+        - name: "Subsecretaria de Planeamiento Educativo - PBA"
+        - id: "UNAJ"
+        - name: "Metodología y Técnicas Cuantitativas (ISCyA - UNAJ)"
+  date: today
+  date-format: long
+  downloads: [pdf] 
 #  date: ""
   chapters:
     - index.qmd
@@ -53,12 +63,26 @@ format:
     first-line-indent:
       size: 0.5em
 
+  pdf:
+    pdfengine: xelatex
+    documentclass: scrreprt
+    abstract: "Versión 1.0.1"
+    template-partials:
+      - before-body.tex
+      - toc.tex
+    papersize: a4
+    indent: true
+    fig-cap-location: top
+    fig-dpi: 300
+    number-sections: true
+
 editor: visual
 lang: es
 language:
   search-text-placeholder: Buscar
   
 execute: 
+  echo: false
   warning: false
   message: false
   freeze: auto

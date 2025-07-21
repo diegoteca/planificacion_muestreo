@@ -1,0 +1,36 @@
+$if(has-frontmatter)$
+\frontmatter
+$endif$
+$if(title)$
+\cleardoublepage
+\thispagestyle{empty}
+{\centering
+\hbox{}\vskip 0cm plus 1fill
+{\Huge\bfseries $title$ \par}
+$if(subtitle)$
+\vspace{3ex}
+{\Large\bfseries $subtitle$ \par}
+$endif$
+\vspace{3ex}
+{\bfseries\large $abstract$ \par}
+\vspace{12ex}
+$for(by-author)$
+{\Large\bfseries $by-author.name.literal$ \par}
+\vspace{3ex}
+$for(by-author.affiliations)$%
+$if(it.department)$%
+{\bfseries\large $it.department$ \par}
+\vspace{3ex}
+$endif$%
+{\bfseries\large $it.name$ \par}
+\vspace{12ex}
+$endfor$$endfor$%
+\vspace{12ex}
+{\bfseries\large $date$ \par}
+\vspace{12ex}
+{\small Versión PDF. Consultar versión online para una experiencia más interactiva con el modelo SDA \par}
+}
+$endif$
+
+\let\mainmatterreal\mainmatter
+\let\mainmatter\relax

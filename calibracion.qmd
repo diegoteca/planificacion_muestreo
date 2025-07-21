@@ -2,9 +2,13 @@
 
 La estrategia de la calibración esta compuesta por un conjunto de prácticas que aspiran a lograr objetivos similares al proceso del balanceo del cubo pero con métodos cualitativamente diferentes. La principal diferencia radica en que la calibración se realiza *ex-post* la ejecución de la muestra (o sea, en el momento de la estimación) y no *ex-ante* (o sea, en el momento del diseño) [@deville2004, pag. 907]. Esto es una diferencia fundamental que emparenta a la calibración con el enfoque del "*Model Assisted*" y la aleja del "*Design Based*"[^calibracion-1]. En efecto, tanto el balanceo como la calibración pueden considerarse prácticas relativamente generales que, en su interior, incluyen otras prácticas más específicas. Esto es lo que habilita a afirmar que, por ejemplo, la estratificación es un caso particular del balanceo así como la post-estratificación es un caso particular de la calibración [@tillé2011, pag. 223].
 
+[^calibracion-1]: En cambio el balanceo, si bien en su origen tiene una fuerte vinculación con el enfoque del "Model Assisted", no se encuentra tan alejado del "design based" dado que el algoritmo del cubo selecciona muestras balanceadas dentro del conjunto de muestras aleatorias [@tillé2010, pag. 39].
+
 Otra diferencia entre el balanceo y la calibración es que para realizar la calibración en algunas situaciones (esto depende de la técnica específica seleccionada) sólo es necesario los totales de la población y no, como en el balanceo, los valores de cada unidad que compone esa población.
 
 Las características anteriores hacen que el proceso de calibración sea muy útil en momentos en donde existe conocimientos sobre algunos totales de la población y no se haya podido controlar mucho el proceso de diseño de la muestra (p.e. diseños no probabilistas) o diseños probabilistas pero con una alta tasa de no respuesta. Estas características hacen al proceso de calibración algo muy deseado para muchas investigaciones contemporáneas en donde pueda admitirse que se conocen algunos parámetros poblacionales y, por ejemplo, se ha realizado una muestra que se difundió de manera virtual a través de un link que circuló por diferentes redes sociales. Esto deja en pie la discusión sobre que "tan buenos" podrán ser los resultados de esa investigación pero no parece haber muchas dudas que la investigación del ejemplo anterior será mejor si se le realiza un proceso de calibración mientras que será peor si no se realiza ese proceso.[^calibracion-2]
+
+[^calibracion-2]: Este tipo de discusiones ha enfrentado (y por ahora continua enfrentando) a los representantes de los enfoques de la "*design based sample*" y del "*model assisted*". Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos [@elliott2017]. En el fondo lo que está en juego son los grados de garantía que ofrece cada técnicas acerca de la representatividad no sólo sobre las heterogeneidades observables (algo mantenido por ambos enfoques) sino también sobre las heterogeneidades no observables (algo históricamente mantenido por el enfoque de la "*design*").
 
 En cuanto a su pertinencia, siempre que haya disponibilidad de tiempo (y el saber necesario para realizarlo) es aconsejable realizar una calibración. Esto es cierto al menos porque el balanceo tiene el problema del redondeo (las muestras son muestras de números enteros) y la calibración no, ya que puede construirse calibradores con números racionales. Por esta misma razón, aún cuando se haya realizado una muestra con un diseño por balanceo, es recomendable calibrar con los totales de las variables que se usaron en el proceso de balanceo.
 
@@ -23,6 +27,8 @@ A continuación vamos a trabajar con 2 ejemplos alternativos. Uno, en donde la c
 ## Calibración muestra azar simple
 
 Comenzaremos haciendo la calibración sobre nuestra muestra realizada por azar simple y su resultado lo comparemos con la respectiva muestra de azar simple (sin calibrar) y con los respectivos parámetros poblacionales. Vamos a ver que, en comparación con otras técnicas, la mayor flexibilidad de la calibración se paga con una mayor especificación de los parámetros de sus funciones[^calibracion-3].
+
+[^calibracion-3]: En otras palabras, si ya se sabe de antemano que se va a realizar una post-estratificación es más simple utilizar una función específica para post-estratificar (p.e. la función "poststratify" de la librería survey o "poststrata" de la librería sampling).
 
 ```{r}
 #| label: librerias_calibracion
@@ -142,12 +148,16 @@ base_muestra_AS_cal =
 bind_cols(as_tibble(muestra_azar_simple_cal), cal_weight) |>
 rename(pond_weight = pw)
 
+```
+
+```{r}
+#| label: download_this_base_muestra_AS_cal
+#| eval: !expr knitr::is_html_output()
+
 download_this(base_muestra_AS_cal,
               output_name = "base_muestra_AS_cal",
               output_extension = ".xlsx",
               button_label = "Descargar Base")
-
-
 ```
 
 ```{r}
@@ -207,6 +217,12 @@ base_muestra_BD_cal =
 bind_cols(as_tibble(muestra_bien_distribuida_cal), cal_weight) |>
 rename(pond_weight = pw)
 
+```
+
+```{r}
+#| label: download_this_base_muestra_BD_cal
+#| eval: !expr knitr::is_html_output()
+
 download_this(base_muestra_BD_cal,
               output_name = "base_muestra_BD_cal",
               output_extension = ".xlsx",
@@ -243,9 +259,3 @@ tbl_comp_calibracion
 ```
 
 En la @tbl-comp_calibraciones puede observarse como ambas estrategias de calibración parecen igual de eficaces ya que ambas arrojan resultados muy similares entre sí y, a su vez, muy similares con los parámetros poblacionales. En este contexto se recuerda que, si bien los valores finales son muy similares, la mejora realizada en el proceso de calibración es mayor sobre el diseño de azar simple ya que esa muestra no era tan precisa como la muestra bien distribuida y, por lo tanto, existía la oportunidad de mejorar bastante.
-
-[^calibracion-1]: En cambio el balanceo, si bien en su origen tiene una fuerte vinculación con el enfoque del "Model Assisted", no se encuentra tan alejado del "design based" dado que el algoritmo del cubo selecciona muestras balanceadas dentro del conjunto de muestras aleatorias [@tillé2010, pag. 39].
-
-[^calibracion-2]: Este tipo de discusiones ha enfrentado (y por ahora continua enfrentando) a los representantes de los enfoques de la "*design based sample*" y del "*model assisted*". Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos [@elliott2017]. En el fondo lo que está en juego son los grados de garantía que ofrece cada técnicas acerca de la representatividad no sólo sobre las heterogeneidades observables (algo mantenido por ambos enfoques) sino también sobre las heterogeneidades no observables (algo históricamente mantenido por el enfoque de la "*design*").
-
-[^calibracion-3]: En otras palabras, si ya se sabe de antemano que se va a realizar una post-estratificación es más simple utilizar una función específica para post-estratificar (p.e. la función "poststratify" de la librería survey o "poststrata" de la librería sampling).
