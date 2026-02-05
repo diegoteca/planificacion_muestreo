@@ -9,13 +9,13 @@ resources:
 book:
   title: "Taller Muestreo"
   author:
-    - name: "Recursos Didácticos y Tecnológicos para la Enseñanza"
-      email: ""
+    - name: "Diego Quartulli"
+      email: "dquartulli@gmail.com"
       affiliations:
         - id: "PBA"
         - name: "Subsecretaria de Planeamiento Educativo - PBA"
         - id: "UNAJ"
-        - name: ""
+        - name: "Metodología y Técnicas Cuantitativas (ISCyA - UNAJ)"
   date: today
   date-format: long
   downloads: [pdf] 
