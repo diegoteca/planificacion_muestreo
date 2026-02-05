@@ -167,13 +167,13 @@ En este caso, nos focalizaremos en diferentes tipos de objetivos para demostrar 
 
 Las lista de covariables que serán incluidas, con fines más metodológicos que teóricos, serán las siguientes:
 
--   Matrícula
+- Matrícula
 
--   Secciones
+- Secciones
 
--   Región
+- Región
 
--   Ámbito
+- Ámbito
 
 La lista anterior funciona a modo de ejemplo aunque tiene la virtud de trabajar con información secundaria casi completa ya que se trata de variables con muy baja tasa de no respuesta. En efecto, aquí usaremos estas covariables tanto cuando nos interese averiguar características de los establecimientos como de los estudiantes pero un análisis más real implicaría usar un conjunto diferente para cada muestra porque al ser diferentes las variables de estudio también podrían/deberían ser las covariables seleccionadas.
 

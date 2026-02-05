@@ -84,17 +84,17 @@ Por ahora trabajaremos con este archivo para realizar diferentes tipos de muestr
 
 Dentro de los parámetros poblacionales vamos a calcular los siguientes:
 
--   Matrícula
+- Matrícula
 
--   Secciones
+- Secciones
 
--   Sondeo primero
+- Sondeo primero
 
--   Sondeo segundo
+- Sondeo segundo
 
--   Región
+- Región
 
--   Ámbito
+- Ámbito
 
 Algunas de las variables anteriores son categóricas (región, ámbito) y otras no. Vamos a ver que esto importa porque no es lo mismo estimar un parámetro continuo que uno categórico. Dentro de estos últimos tampoco es lo mismo estimar una variable con 25 categorías (p.e. región) que una variable categórica de 3 categorías (p.e. ámbito).
 
@@ -269,9 +269,7 @@ El muestreo sistemático no ofrece muchas diferencias apreciables de cálculo co
 
 Como ejemplo podemos analizar la siguiente situación. Se quiere realizar una muestra de estudiantes y a) no se cuenta con información nominal en el momento del diseño de la muestra aunque b) sí se cuenta con una buena base de los colegios y c) se asume que dentro de cada colegio sí existe acceso a una lista de contactos de los estudiantes. En este contexto, se puede sortear una cantidad de colegios en una primera etapa y luego, en una segunda etapa, se puede indicar al directivo, encuestador, etc. de cada escuela seleccionada que, una vez con acceso a la lista de estudiantes, seleccione una $X$ cantidad de los mismos. Para realizar esa última selección el proceso será sortear al primer estudiante, seleccionarlo y luego, desde allí, saltar $K$ estudiantes para seleccionar al segundo estudiante y así sucesivamente. En general, $K$ representa el cociente entre el tamaño de la población a seleccionar $N$ como el tamaño de la lista de estudiantes del colegio seleccionado y el tamaño de la muestra $n$ como la cantidad de estudiantes que se quiere seleccionar de esa lista.
 
-$$
-K = \frac{N}{n}
-$$
+$$K = \frac{N}{n}$$
 
 Siguiendo este ejemplo, supongamos que el encuestador tenga que elegir 5 estudiantes de una lista de 50. En ese caso se podría aplicar siguiente código:
 
