@@ -25,3 +25,6 @@ pps_ponderadores
 sondeo_primero
 sondeo_segundo
 media_ponderada_notas_estudiantes
+covariables
+desideratum
+pars

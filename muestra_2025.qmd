@@ -1,0 +1,32 @@
+---
+title: "Muestra 2025"
+format: html
+---
+
+Tal como convinimos en la reunión de recién, envío la **base de escuelas con el marco y la muestra correspondiente a las Pruebas Escolares Bonaerenses (PEB) 2023**.  Las solapas clave están resaltadas en color. Los casos de la muestra 2022 con respuesta están incluidos en la misma. 
+
+Para la muestra 2025, tendríamos que actualizar la AUH y el tipo de jornada en la **variable estrato** (quedaron antiguas). 
+
+En principio, trataríamos de mantener las escuelas para las cuales contamos con información para 2022-2025, de modo de **no descartar alguna posibilidad de seguimiento** a lo largo del tiempo. Si hay que expandir un poco en tamaño lo haríamos pero solo si es necesario.
+
+Otro punto a considerar es la posibilidad de robustecimiento para que la muestra **resista cruces entre sector y AUH**, de modo de enriquecer algunas lecturas también desde la base de estudiantes. 
+
+Adicionalmente, te dejo un [link ](https://drive.google.com/drive/folders/1ro13zwMi49zsTZsg4RVDjhwReH8dRPX5?usp=drive_link)a la carpeta que contiene las bases con los resultados obtenidos hasta el momento y el link a la [web ](https://abc.gob.ar/secretarias/areas/subsecretaria-de-planeamiento/evaluacion-e-investigacion/direccion-de-evaluacion/pruebas)donde tenemos los informes.
+
+En principio, apuntaríamos a tener la muestra hacia mediados de la semana próxima, de modo de poder enviar los comunicados a las escuelas para la carga. Luego, con más tiempo, podemos hacer una reunioncita formativa con todo el equipo para que nos comentes un poco la hechura. 
+
+```{r}
+library
+```
+
+```{r}
+
+```
+
+En el diseño muestral de 2023 parece que se usó la estrategia de construir una variable que tuviera la función de ser un "gran" estrato que, en su interior, pudiera representar la gama de heterogeneidad que más interesaba representar. Esta variable tenía unas 50 categorías aprox. con cantidades de casos muy variables en su interior (p.e. algunas categorías con más de 500 casos y otros con menos de 10).
+
+La construcción de la muestra siguió un diseño probabilístico, con selección sistemática de las unidades de muestreo. Previo a la selección, en el marco muestral (nómina de establecimientos de nivel primario) se agruparon los establecimientos en estratos constituidos por el cruce de las variables “dependencia de los establecimientos educativos” (provincial y resto-incluyendo en este último grupo a los establecimientos privados, municipales y nacionales), “porcentaje de estudiantes con AUH”, “presencia o no de jornada completa” y “ámbito”. Luego, se ordenaron los establecimientos por estrato, y se realizó una selección sistemática siguiendo la fracción de muestreo correspondientes (PEB, pág. 18).
+
+Hasta la descripción alcanzaría para la selección de establecimientos. Pero falta el paso que dscribe la selección de los estudiantes:
+
+Para cada sección de los años de estudio evaluados, se solicitó la selección de las/los primeros o últimos estudiantes de la lista (por orden alfabético) que hayan realizado la prueba. En secciones pequeñas (de hasta 10 estudiantes), se requirió la carga de información de todas y todos los estudiantes.
