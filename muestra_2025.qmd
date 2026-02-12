@@ -297,9 +297,13 @@ select(clave, jornada_completa, nivel_modalidad, sector, ambito, matricula_inici
 mutate(latitud = as.numeric(latitud),
       longitud = as.numeric(longitud))
 
-tb_AUH_establecimientos = read_csv(here("Inputs", "tb_AUH_establecimientos.csv")) |>
-rename("clave" = "CLAVEESTAB",
-      "n_auh" = "n_AUH")
+#tb_AUH_establecimientos = read_csv(here("Inputs", "tb_AUH_establecimientos.csv")) |>
+#rename("clave" = "CLAVEESTAB",
+ #     "n_auh" = "n_AUH")
+
+# Este es el archivo enviado por Rosario
+tb_AUH_establecimientos = read_xlsx(here("Inputs", "escuelas_AUH_2025.xlsx")) |>
+rename("n_auh" = "con AUH")
 
 marco_muestra = marco_muestra |>
 left_join(tb_AUH_establecimientos, by = "clave") |>
@@ -525,7 +529,7 @@ tbl_comparativa_2025
 
 ## Chequeos de distribución
 
-Dado que la muestra no es sólo balanceada en sus medidas de tendencia central sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere de la distribución del marco muestral.
+Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere de la distribución del marco muestral.
 
 ```{r}
 #| label: fig-mapa_muestra_2025

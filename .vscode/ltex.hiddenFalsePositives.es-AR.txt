@@ -77,3 +77,5 @@
 {"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qb\\) Porcentaje de estudiantes con AUH\\E$"}
 {"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qc\\) Presencia de jornada completa\\E$"}
 {"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qd\\) Ámbito\\E$"}
+{"rule":"COMMA_MARCADOR_DISCURSIVO","sentence":"^\\QEn el segundo caso se aumentan los problemas de cobertura (undercoverage error) y se disminuye la precisión de la muestra por trabajar con menos casos.\\E$"}
+{"rule":"EL_TILDE","sentence":"^\\QDesde un costado más operativo el algoritmo que se utiliza es el algoritmo del \"local cube\" @tillé2013 que ya había sido utilizado en el muestro PPS.\\E$"}
