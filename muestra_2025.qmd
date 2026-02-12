@@ -1,32 +1,783 @@
 ---
-title: "Muestra 2025"
+title: "Muestra 2025 de estudiantes para operativo PEB"
 format: html
 ---
 
-Tal como convinimos en la reunión de recién, envío la **base de escuelas con el marco y la muestra correspondiente a las Pruebas Escolares Bonaerenses (PEB) 2023**.  Las solapas clave están resaltadas en color. Los casos de la muestra 2022 con respuesta están incluidos en la misma. 
+Las pruebas PEB (Pruebas Escolares Bonaerenses) son un programa orientado a mejorar la enseñanza y el aprendizaje de Matemática y Prácticas del Lenguaje en el nivel Primario, tanto en el sector estatal como en el privado, que se puso en marcha en 2022 en la Provincia de Buenos Aires [@subsecretaría2025, pág. 5].
 
-Para la muestra 2025, tendríamos que actualizar la AUH y el tipo de jornada en la **variable estrato** (quedaron antiguas). 
+Desde el punto de vista metodológico que tiene que ver con cuestiones muestrales es pertinente destacar que estas pruebas aspiran a ser realizadas al total de los estudiantes aunque luego se registran sus resultados a través de dos componentes diferentes. Un primer componente censal aunque con datos agregados y un segundo componente muestral con datos nominales.
 
-En principio, trataríamos de mantener las escuelas para las cuales contamos con información para 2022-2025, de modo de **no descartar alguna posibilidad de seguimiento** a lo largo del tiempo. Si hay que expandir un poco en tamaño lo haríamos pero solo si es necesario.
+Lo que se detalla a continuación es el proceso de selección muestral de este segundo componente nominal.
 
-Otro punto a considerar es la posibilidad de robustecimiento para que la muestra **resista cruces entre sector y AUH**, de modo de enriquecer algunas lecturas también desde la base de estudiantes. 
+## Muestra 2023
 
-Adicionalmente, te dejo un [link ](https://drive.google.com/drive/folders/1ro13zwMi49zsTZsg4RVDjhwReH8dRPX5?usp=drive_link)a la carpeta que contiene las bases con los resultados obtenidos hasta el momento y el link a la [web ](https://abc.gob.ar/secretarias/areas/subsecretaria-de-planeamiento/evaluacion-e-investigacion/direccion-de-evaluacion/pruebas)donde tenemos los informes.
+Para tener como referencia vamos a intentar representar el método de selección de la muestra que se utiliza desde 2023. Un resumen descriptivo de la misma es el siguiente:
 
-En principio, apuntaríamos a tener la muestra hacia mediados de la semana próxima, de modo de poder enviar los comunicados a las escuelas para la carga. Luego, con más tiempo, podemos hacer una reunioncita formativa con todo el equipo para que nos comentes un poco la hechura. 
+"En paralelo, se relevaron resultados por estudiante en una muestra probabilística de 680 escuelas. Para cada institución, se solicitó información sobre las respuestas a las actividades de 5 estudiantes seleccionados al azar por las y los docentes de cada sección" [@subsecretaría2024, pág. 18].
+
+Más en detalle afirman "La construcción de la muestra siguió un diseño probabilístico, con selección sistemática de las unidades de muestreo. Previo a la selección, en el marco muestral (nómina de establecimientos de nivel primario) se agruparon los establecimientos en estratos constituidos por el cruce de las variables “dependencia de los establecimientos educativos” (provincial y resto-incluyendo en este último grupo a los establecimientos privados, municipales y nacionales), “porcentaje de estudiantes con AUH”, “presencia o no de jornada completa” y “ámbito”. Luego, se ordenaron los establecimientos por estrato, y se realizó una selección sistemática siguiendo la fracción de muestreo correspondiente" [@subsecretaría2024, pág. 18].
+
+La descripción anterior alcanzaría para la selección de establecimientos. Pero todavía falta el paso que describe la selección de los estudiantes:
+
+"Para cada sección de los años de estudio evaluados, se solicitó la selección de las/los primeros o últimos estudiantes de la lista (por orden alfabético) que hayan realizado la prueba. En secciones pequeñas (de hasta 10 estudiantes), se requirió la carga de información de todas y todos los estudiantes" [@subsecretaría2024, pág. 18].
+
+::: callout-caution
+Intentar reconstruir una muestra a partir de descripciones en prosa suele ser una actividad arriesgada. Esto se debe a que puede haber confusiones entre los objetivos de la muestra, las acciones que se hicieron en el momento del diseño, las que efectivamente se hicieron en campo y, algo no menos importante, los términos que se usan para describir todo lo anterior.
+
+Hay veces que, aunque parezca paradógico, para alguien habituado al trabajo con muestras, es preferible que le digan paso a paso que hicieron en un lenguaje cercano al sentido común sin usar términos propios de la jerga del muestreo. La razón es que en muestreo hay términos que tienen un significado particular que no es el mismo que tienen en otras disciplinas no tan lejanas. Por ejemplo, la palabra "estratificación" es usual en las ciencias sociales, pero en muestreo tiene una connotación muy particular. Del mismo modo, alguien con experiencia en análisis de datos entiende por "análisis de clústers (o conglomerados)" algo muy diferente a un muestrista que afirma que realizó un "diseño muestral por conglomerados".
+
+Lo anterior se complica porque es usual que en los diseños muestrales de las ciencias sociales se hagan diseños polietápicos lo que hace que, por ejemplo, circulen afirmaciones como "muestreo estratificado por conglomerados". Nuevamente, alguien con experiencia puede suponer más de una manera de entender esta afirmación y, *a posteriori*, más de una manera de haber diseñado o ejecutado esa muestra. Por ejemplo, ¿Se ejecutó primero en campo la parte de los conglomerados y luego se seleccionó por estratos? ¿O se hizo al revés? ¿El orden escrito se refiere a la "ejecución" de los pasos o refiere que momento se "diseñó" cada parte del diseño?
+:::
+
+En función de la bibliografía/léxico usado en las secciones anteriores se podría realizar los siguientes comentarios sobre las afirmaciones anteriores:
+
+Antes que nada se observa una particularidad importante. En las PEB efectivamente se va a (casi) todas las unidades de la población de estudiantes. La muestra es solo para ver a cuáles de ellos se "registra" de forma individual. Esto es algo particular porque muchas de las técnicas de muestreo están pensadas para justamente evitar ir a todas las unidades de la población o, en su defecto, para a que a una determinada subpoblación (muestra) se le pueda hacer más preguntas, mediciones, ensayos, etc. que hacen más extensa y profunda y, por lo general, más onerosa la investigación. En lo que acá respecta, lo oneroso no parece la prueba en sí, sino su posterior carga nominal. Esto hace (re)pensar cuál es la población de la muestra:
+
+¿Es la población de estudiantes de todo el nivel primario?
+
+¿Es la población de estudiantes de algunos años específicos de nivel primario (p.e. 3 y 6) a los cuales se les piensa realizar las PEB?
+
+¿Es la población de estudiantes de algunos años específicos de nivel primario (p.e. 3 y 6) a los que efectivamente se les realizó las PEB?
+
+Cabe destacar que en una muestra típica solo se podría decidir entre las primeras dos poblaciones porque, como se comentó arriba, muchas veces uno de los objetivos de la muestra es evitar "ir" a cada componente de la población. Sin embargo, en la PEB es posible también decidir que la tercera población sea la más idónea. En efecto, más haya de los posibles problemas de conseguir datos de esa población es claro que no tiene mucho sentido seleccionar establecimientos o secciones que no entraron en el "censo" previo.
+
+Dejando estas cuestiones referidas sobre qué población se debería hacer la muestra, el diseño muestral anterior se podría **clasificar** del siguiente modo:
+
+- Un diseño **polietápico**. En una primera etapa se seleccionan a los establecimientos y luego, en una segunda etapa, se seleccionan a los estudiantes de ese establecimiento a través de sus respectivas secciones. Se suele afirmar que los establecimientos son la unidad de selección primaria y los estudiantes son la unidad de selección secundaria y final. Es importante destacar que los establecimientos cumplen la función de ser un **conglomerado** en este diseño. En otras palabras, cada establecimiento es como un racimo (*cluster*) en donde se agrupan secciones y estudiantes. Por cuestiones logísticas es útil seleccionar primero a los establecimientos a los estudiantes que están en su interior. En esta descripción no decimos nada sobre las secciones porque en las descripciones de arriba parecería que ellas no se "seleccionan" aunque más adelante diremos algo sobre esto.
+
+- En la primera etapa se hace un diseño muestral **estratificado** de establecimientos con asignación proporcional mediante un método de selección sistemático. Este diseño primero crea una serie de categorías discretas en las que se presume que la varianza en su interior es algo menor a la varianza promedio de toda la población. Esto permite una ganancia estadística que se puede usar tanto para aumentar la precisión de la estimación o para reducir la cantidad de casos de la muestra. Cuanto se logre esto último es una cuestión que depende de las variables seleccionadas para construir los estratos. Lo que también (parcialmente) asegura este diseño es que se incluyan en la muestra casos de estratos chicos en tamaño que, mediante un diseño por azar simple, podrían quedar subrepresentados en la muestra.
+
+- Decimos que la **estratificación es de una asignación proporcional** porque la cantidad de casos a seleccionar para cada estrato estará en línea con los tamaños de estratos (no con los tamaños de los establecimientos). Esta muestra, en ese paso, intenta replicar la distribución porcentual de los estratos.
+
+- Dentro de cada estrato la selección es **sistemática**, y por lo tanto, probabilística.
+
+- En la segunda etapa se aplica una regla que apunta a resolver dos cuestiones diferentes. A "cuantos" y "a quienes" se le van a cargar los datos nominales. Respecto al "cuantos" parece que se resuelve con la regla de cargar todos los casos para las secciones de hasta 10 estudiantes y 5 para el resto. Aunque quizá pase más desapercibido, en esta seguda etapa las secciones cumplen la función de estrato, por lo que la segunda etapa se podría decir que se trata de una selección de estudiantes **estratificada** por las secciones. En cambio, el "a quienes" se resuelve mediante una regla que selecciona a los "primeros o últimos estudiantes de la lista (por orden alfabético)". Esta regla tiene el beneficio de ser simple (siendo esto un punto a favor) aunque, en principio, es **no probabilística** en el sentido que no se trata de selección por azar simple ni sistemática, etc. Su carácter no probabilísitica, no asegura que sea sesgada.
+
+Si la clasificación anterior es correcta se podrían hacer también los siguientes comentarios:
+
+La afirmación "Para cada institución, se solicitó información sobre las respuestas a las actividades de 5 estudiantes seleccionados al azar por las y los docentes de cada sección" no parece coincidir con lo realizado. Lo que la muestra selecciona al azar son "establecimientos" pero no "estudiantes".
+
+La regla sobre la discrecionalidad para que el docente elija los 5 primeros o los 5 últimos induce una dosis de arbitrariedad. La traducción de sí esto en un sesgo (o no) es una cuestión que, de forma aproximada, se puede resolver de forma empírica[^muestra_2025-1]. Por otro lado, si se asume que cada docente eligirá siempre al "mejor" grupo (comparando a los 5 primeros con los 5 últimos) esto no generará mayor problema en las comparaciónes entre establecimientos, secciones, etc. pero, posiblemente, sesge todos los resultados nominales de las pruebas hacia "arriba". En principio, esto se podría testear empíricamente comparando las medias de las notas muestrales con las medias de las notas censales de los establecimientos que entraron en la muestra.
+
+[^muestra_2025-1]: Cuanto (o no) esta regla no probabilística es un sesgo en la muestra es una cuestión empírica. Una manera de generar un testeo podría ser la comparación de las medias porcentuales de la poseción de AUH, a nivel de sección y establecimiento, de los primeros 5 estudiantes con la media del respectivo grupo conformado por la sección y el establecimiento. Esto se puede hacer partiendo de una base nominal de estudiante y ordenando los apellidos por orden alfábetico para cada sección y establecimiento. En el primer caso, se calcula la media de los 5 primeros de cada grupo y en la segunda se incluyen a todos los estudiantes de cada grupo. Al realizar el cálculo a nivel de cada sección no solo se puede testear si ambas medias coinciden, sino que también se puede calcular su respectivo desvío.
+
+En este diseño, al menos en su primera etapa, los estudiantes de los establecimientos más grandes tienen menores chances de salir en la muestra. Si esto no se corrige mediante ponderadores (*ex-ante*) o calibradores (*ex-post*) explícitos esto podría generar un sesgo en los análisis de los resultados. En otras palabras, si cada establecimiento dentro de un estrato tuvo la misma probabilidad de ser elegido, de forma independientemente de su matrícula, entonces para esa primera etapa **la probabilidad final de selección para un estudiante no es constante**.
+
+Algo de esto se corrige en la segunda etapa. Acá influye que la regla de cargar los datos sea por **sección** y no por **establecimiento**. Esta regla es la que legitima entender a la muestra anterior como una muestra polietápica en donde en la segunda etapa se usa un diseño estratificado por sección. De esta manera, a pesar de no ser la típica consecuencia buscada de la estratificación, aquellos establecimientos con mayor cantidad de secciones (y en general con mayor matrícula) pueden tener una mayor chances de incluir a sus estudiantes en la muestra. En efecto, en la @fig-matricula_seccion se observa una relación estrecha entre el tamaño de la matrícula y la cantidad de secciones del establecimiento.
 
 ```{r}
-library
+#| label: librerias_muestra_2025
+
+library(here)
+library(readxl)
+library(janitor)
+library(tidyverse)
+library(gt)
+library(sf)
+library(tmap)
+library(sampling)
+library(gtsummary)
+library(infer)
+library(patchwork)
+library(srvyr)
+library(survey)
+library(cardx)
+library(downloadthis)
+library(polars)
+
+i_am("muestra_2025.qmd")
+
+theme_gtsummary_language(
+language = "es",
+decimal.mark = ",",
+big.mark = ".")
 ```
 
 ```{r}
+#| label: fig-matricula_seccion
+#| fig-cap: Relación entre el tamaño de la matrícula y la cantidad de secciones de los establecimientos
+
+tb_establecimientos_2025 = read_xlsx(here("Inputs", "Nómina de establecimientos 20250720.xlsx")) |>
+clean_names()
+
+tb_establecimientos_primaria_2025 = tb_establecimientos_2025 |>
+filter(nivel_modalidad == "Primaria")
+
+tb_estab_matri_seccion = tb_establecimientos_2025 |>
+select(matricula_inicial_2025, secciones_inicial_2025)
+
+# 1. Cálculo un modelo lineal para obtener los parámetros
+modelo = lm(matricula_inicial_2025 ~ secciones_inicial_2025, 
+            data = tb_estab_matri_seccion)
+coeficientes = coef(modelo)
+r_cuadrado = summary(modelo)$r.squared
+
+# Creación de la etiqueta con la ecuación
+eq_label = paste0("y = ", round(coeficientes[1], 2), " + ", round(coeficientes[2], 2), "x",
+                   "\n (R² = ", round(r_cuadrado, 3), ")")
+
+# 2. Generación del gráfico
+fig_matricula_seccion = ggplot(tb_establecimientos_primaria_2025,
+   aes(x = secciones_inicial_2025, y = matricula_inicial_2025)) +
+  geom_point(alpha = 0.4, color = "midnightblue") +
+  # Adición de la línea de tendencia
+  geom_smooth(method = "lm", color = "darkred", fill = "lightgray", se = TRUE) +
+# Restricción viaul del eje Y a 3000 unidades
+  coord_cartesian(ylim = c(0, 3000),
+                  xlim = c(0, 75)) +
+  # Inserción de los parámetros en el cuerpo del gráfico
+  annotate("text", x = Inf, y = -Inf, label = eq_label, 
+           hjust = 1.1, vjust = -1.1, size = 4, fontface = "italic", family = "serif") +
+  labs(
+    #title = "Análisis de Regresión: Matrícula vs. Secciones",
+    subtitle = "Ciclo Lectivo 2025",
+    x = "Cantidad de secciones",
+    y = "Matrícula",
+    caption = "Fuente: Elaboración propia basada en nómina de establecimientos"
+  ) +
+  theme_minimal() +
+  theme(text = element_text(family = "serif"))
+
+fig_matricula_seccion
+```
+
+Sin embargo, hacer un "censo" para las secciones pequeñas hace que se aumente la chance de seleccionar estudiantes de secciones pequeñas que, en general, pertenecen a establecimientos con una menor matrícula. A continuación se muestra en la @tbl-matricula_size_seccion como las secciones de hasta 10 estudiantes suelen pertenecen a establecimientos con una media y una mediana de la matrícula muy por debajo de la que poseen las secciones más grandes.
+
+```{r}
+#| label: tbl-matricula_size_seccion
+#| tbl-cap: Comparación de la media y mediana de los establecimientos en función del tamaño de la sección (+- 10 estudiantes)
+
+# Extraigo la matrícula de los establecimientos. Voy a buscar a todos para luego poder hacer join con las secciones
+
+tb_establecimientos_matricula_2025 = tb_establecimientos_2025 |>
+clean_names() |>
+select(clave, matricula_inicial_2025, nivel_modalidad)
+
+# Abro secciones
+tb_secciones_2025 = read_xlsx(here("Inputs", "SeccionesdetalladasRA2025.xlsx")) |>
+clean_names()
+
+tb_secciones_primaria_2025 = tb_secciones_2025 |>
+mutate(total = as.double(total)) |>
+select(clave, total) |>
+left_join(tb_establecimientos_matricula_2025, by = "clave") |>
+filter(nivel_modalidad == "Primaria") |>
+mutate(secciones_10 = if_else(
+ total <= 10, "Chicas", "No chica")) |>
+select(secciones_10, matricula_inicial_2025) |>
+tbl_summary(by = secciones_10,
+           statistic = list(
+      matricula_inicial_2025 ~ "{mean} \n {median}"
+    ),
+    digits = list(matricula_inicial_2025 ~ c(1, 1)),
+    label = list(matricula_inicial_2025 ~ "Matrícula Inicial 2025")
+  ) |>
+  modify_header(label ~ "**Variable de Matrícula**") |>
+  bold_labels()
+
+tb_secciones_primaria_2025
+```
+
+En cualquier caso, las reglas identificadas de la selección de los estudiantes parece tener efectos contrapuestos y es algo difícil de estimar el impacto de cada uno por separado. En particular es difícil de construir ponderadores que anticipen (*ex-ante*) el sesgo de estas decisiones. De todos modos, siempre se podrá recurrir al recurso de los calibradores (*ex-post*) para usarlos al momento del análisis.
+
+Una opción que se puede tener cuenta en estos casos es la inclusión del tamaño de la matrícula en la probabilidad de seleccionar al establecimiento en la primera etapa. El beneficio de esta estrategia es que permite justamente una regla simple para la segunda etapa. En efecto, se podría registrar una misma cantidad de estudiantes por establecimiento de forma independiente a la cantidad de secciones. Esto tiene el beneficio adicional que, siguiendo ese diseño, la muestra se vuelve autoponderada lo que facilita los análisis posteriores. Claro está que serán necesario la construcción de calibradores que corrijan la no-respuesta, pero esto es un escenario diferente al anterior. En efecto, si la muestra no tiene (*a posteriori*) problemas de no-respuesta, no sería necesario la construcción de calibradores. Sin entrar en detalles (porque en parte se entremezclan un lenguaje de intenciones u objetivos con un lenguaje de métodos) se podría decir que se podrían aprovechar algunas de las características que ofrece el método conocido como muestreo proporcional al tamaño (@sec-pps).
+
+Por último algunos comentarios van en línea sobre el espectro de inferencias posibles con esta muestra. En la biblografía sobre muestreo se suele hacer una distinción clásica entre los **estratos** y los **dominios** de estimación (@sec-estratificado). Los primeros se suelen usar en el diseño (*ex-ante*) con la presunción de que en la población existen "clases" discretas que son parecidas en su interior y diferentes entre sí. Si esto es así, su inclusión en el diseño trae mejorar de precisión en la estimación. En cambio, los dominios, tienen que ver con los objetivos o intenciones del investigador para con la muestra. Por ejemplo, ¿Se tiene pensado realizar cruces por Ámbito?
+
+Cuando los estratos con los cuales se diseñan las muestras tienen una cantidad de casos similares la distinción con los dominios se vuelve algo ociosa. Sin embargo, cuando los estratos tienen diferentes números de casos (p.e. Urbano vs. Rural Agrupado) y luego se desea realizar estimaciones para todos los estratos, crecen las chances de la utilidad de la distinción.
+
+### Evaluación actual de la muestra de 2024
+
+Desde el momento en que se diseñó la muestra, la población de estudiantes y establecimientos fue cambiando. En especial, es notorio el aumento de establecimientos con jornada completa en los últimos años. Estos cambios poblacionales pueden sugerir dudas acerca de la adecuación de una muestra que fue diseñada para representar a una población con otras características. A pesar de estos supuestos razonables la muestra actual no parece, al menos a nivel de los establecimientos haber quedada especificamente desfasada para captar el aumento de la jornada completa. Más en particular se observa una pequeña sobrerepresentación de los establecimientos con jornada completa en la muestra.
+
+```{r}
+#| label: tb_muestra_2024
+tb_muestra_2024 = read_xlsx(here("Inputs", "Muestra_PrimPE_2023 (diseño)_vf.xlsx"),
+sheet = "Muestra vf") |>
+clean_names() |>
+select(clave) |>
+mutate(muestra_2024 = "SI")
+```
+
+```{r}
+#| label: muestra_2023
+#| eval: false
+levels_region = c("01", "02", "03", "04", "05", "06", "07",
+                  "08", "09", "10", "11", "12", "13", "14",
+                  "15", "16", "17", "18", "19", "20", "21",
+                  "22", "23", "24", "25")
+
+base = read_xlsx(here("Inputs", "base_escuelas_primaria.xlsx")) |>
+clean_names() |>
+mutate(ambito = as_factor(ambito),
+       region = as_factor(region),
+       region = fct_relevel(region, levels_region))
+```
+
+```{python}
+#| label: base_nominal_2025
+#| eval: false
+# C:\Users\dquar\positron_projects\mis_estudiantes_geo\inputs\estudiantes
+ 
+import polars as pl
+from pyhere import here
+# Aca voy a buscar el archivo a otro proyecto porque pesa varios gigas
+mis_estudiantes_2025 =(
+pl.read_ipc("C:/Users/dquar/positron_projects/mis_estudiantes_geo/inputs/estudiantes/base_SAT_2025.ipc")
+.select([
+    pl.col("CLAVEESTAB"),
+    pl.col("DESCRIPCION_PLANPROGRAMA"),
+    pl.col("IDALUMNO"),
+    pl.col("NIVEL"),
+    pl.col("AÑO_ESTUDIO")
+])
+#.filter(pl.col("NIVEL") == "Nivel Primario")
+  .with_columns(
+        pl.col("IDALUMNO").cast(pl.Int64))
+)
+```
+
+```{python}
+#| label: tb_AUH_2025
+#| eval: false
+
+#tb_AUH_2025 = (
+#mis_estudiantes_2025F
+ #   .filter(pl.col("DESCRIPCION_PLANPROGRAMA") == "ASIGNACION UNIVERSAL POR HIJO"))
+
+# AUH ANTO
+tb_AUH_2025_ANTO = (
+    pl.read_csv(here("Inputs", "AUH_por_idalumno.csv"),
+                            separator=';')
+    .rename({"AUH": "AUH_ANTO"})
+    .join(
+        mis_estudiantes_2025,
+    on="IDALUMNO",
+    how="left"
+    )
+    .filter(pl.col("NIVEL")=="Nivel Primario")
+)
+
+# Ahora tengo que agregar es tabla a mis_estudiantes
+
+mis_estudiantes_2025 = mis_estudiantes_2025.join(
+    tb_AUH_2025_ANTO,
+    on="IDALUMNO",
+    how = "left"
+)
+
+# Agregación para contar casos por establecimiento
+tb_AUH_establecimientos = (
+    mis_estudiantes_2025
+    .group_by("CLAVEESTAB")
+    .agg(
+        pl.col("AUH_ANTO").filter(pl.col("AUH_ANTO") == 1).count().alias("n_AUH"),
+    )
+    .sort("n_AUH", descending=True)
+)
+
+tb_AUH_establecimientos.write_csv(
+    here("Inputs", "tb_AUH_establecimientos.csv")
+)
+```
+
+```{r}
+#| label: tb_jornada_completa_2025
+# Voy a buscar tb_establecimientos_primaria_2025 y mejoro "jornada completa"
+tb_establecimientos_primaria_2025 = tb_establecimientos_primaria_2025 |>
+mutate(jornada_completa = if_else(
+str_detect(caracteristicas, "completa"), "SI","NO"),
+      jornada_completa = if_else(
+ is.na(jornada_completa), "NO", jornada_completa))
+```
+
+```{r}
+marco_muestra = tb_establecimientos_primaria_2025 |>
+select(clave, jornada_completa, nivel_modalidad, sector, ambito, matricula_inicial_2025, latitud, longitud) |>
+mutate(latitud = as.numeric(latitud),
+      longitud = as.numeric(longitud))
+
+tb_AUH_establecimientos = read_csv(here("Inputs", "tb_AUH_establecimientos.csv")) |>
+rename("clave" = "CLAVEESTAB",
+      "n_auh" = "n_AUH")
+
+marco_muestra = marco_muestra |>
+left_join(tb_AUH_establecimientos, by = "clave") |>
+mutate(auh_pct = (n_auh*100)/matricula_inicial_2025,
+       auh_pct = if_else(auh_pct > 100, 100, auh_pct)) |>
+left_join(tb_muestra_2024, by = "clave")
 
 ```
 
-En el diseño muestral de 2023 parece que se usó la estrategia de construir una variable que tuviera la función de ser un "gran" estrato que, en su interior, pudiera representar la gama de heterogeneidad que más interesaba representar. Esta variable tenía unas 50 categorías aprox. con cantidades de casos muy variables en su interior (p.e. algunas categorías con más de 500 casos y otros con menos de 10).
+```{r}
+#| label: tbl-poblacion_muestra_2024
+#| tbl-cap: Comparación parámetros poblacionales de establecimientos vs muestra 2024 
+# 1. Generamos la tabla para la Población Total
+tbl_poblacion = marco_muestra |>
+  select(!c("muestra_2024", "clave", "n_auh", "nivel_modalidad")) |> # Excluimos la columna de la muestra para no sesgar el resumen
+  tbl_summary() |>
+  modify_header(label = "**Variable**")
 
-La construcción de la muestra siguió un diseño probabilístico, con selección sistemática de las unidades de muestreo. Previo a la selección, en el marco muestral (nómina de establecimientos de nivel primario) se agruparon los establecimientos en estratos constituidos por el cruce de las variables “dependencia de los establecimientos educativos” (provincial y resto-incluyendo en este último grupo a los establecimientos privados, municipales y nacionales), “porcentaje de estudiantes con AUH”, “presencia o no de jornada completa” y “ámbito”. Luego, se ordenaron los establecimientos por estrato, y se realizó una selección sistemática siguiendo la fracción de muestreo correspondientes (PEB, pág. 18).
+# 2. Generamos la tabla exclusivamente para la Muestra
+tbl_muestra_2024 = marco_muestra |>
+  filter(muestra_2024 == "SI") |>
+  select(!c("muestra_2024", "clave", "n_auh", "nivel_modalidad")) |>
+  tbl_summary()
 
-Hasta la descripción alcanzaría para la selección de establecimientos. Pero falta el paso que dscribe la selección de los estudiantes:
+# 3. Fusionamos ambas tablas en una sola estructura comparativa
+tbl_comparativa = tbl_merge(
+    tbls = list(tbl_poblacion, tbl_muestra_2024),
+    tab_spanner = c("**Población Total (N = {N})**", "**Muestra 2024(n = {N})**")
+  )
 
-Para cada sección de los años de estudio evaluados, se solicitó la selección de las/los primeros o últimos estudiantes de la lista (por orden alfabético) que hayan realizado la prueba. En secciones pequeñas (de hasta 10 estudiantes), se requirió la carga de información de todas y todos los estudiantes.
+tbl_comparativa
+```
+
+## Muestra 2025
+
+La idea sería en 2025 aprovechar la flexibilidad del método del cubo para incorporar las siguientes restricciones:
+
+- Incluir los criterios (actualizados) que anteriormente se incluyeron en la construcción de los estratos. Esto son:
+
+  a\) Sector (Estatal/Privado)
+
+  b\) Porcentaje de estudiantes con AUH
+
+  c\) Presencia de jornada completa
+
+  d\) Ámbito
+
+  Además, se espera complementar lo anterior con:
+
+- Otorgarle una mayor probabilidad de entrar a la primera etapa a los establecimientos que entraron en la muestra anterior.
+
+- Otorgarle una probabilidad de entrar en la primera etapa en función del tamaño del establecimiento
+
+- Lograr una muestra "bien distribuida" desde el punto de vista espacial
+
+Una alternativa para la segunda etapa puede ser la siguiente: Dado que se aspira a una cantidad fija de estudiantes por establecimiento se podría poner como criterio que cada sección sea como los "punto muestra" de una muestra por timbreo. En este caso se aspira a registrar a 10 estudiantes de la sección seleccionada. El criterio acerca de como seleccionar a los "puntos muestras" y luego, a los respectivos 10 estudiantes podría ser el siguiente:
+
+Sortear entre las secciones disponibles y quedarse, en principio, con una. Dentro de la sección seleccionada, si el CUE del establecimiento termina en un número par, se elige a los primeros 10 estudiantes. Si el CUE del establecimiento termian en un número impar se cargan los últimos 10 estudiantes. Si la sección seleccionada se agota sin llegar a los 10 casos se pasa a la sección siguiente siguiendo el mismo criterio de selección de los estudiantes que en la sección anterior.
+
+```{r}
+#| label: muestra_cubo_2025
+
+library(BalancedSampling)
+library(sampling)
+
+#marco_muestra = marco_muestra |>
+#drop_na(sector, matricula_inicial_2025, latitud, longitud, ambito, AUH_pct) |>
+#rowid_to_column() |>
+#mutate(ambito_n = case_when(
+ #     ambito == "Urbano" ~ 1,
+  #    ambito == "Rural Disperso" ~ 2,
+   #   ambito == "Rural Agrupado" ~ 3)) |>
+#relocate(ambito_n, .after = ambito)
+
+#pi_matricula = inclusionprobabilities(marco_muestra$matricula_inicial_2025, n)
+
+#marco_muestra = bind_cols(marco_muestra, as.data.frame(pi_matricula)) |>
+#relocate("pi_matricula", .after = "rowid")
+
+
+#N = nrow(marco_muestra)
+#n = 676 # Es el número de establecimientos de la muestra de 2024
+#X = cbind(rep(1, times = N), 
+ #         as.numeric(marco_muestra$matricula_inicial_2025),
+         # as.numeric(marco_muestra$secciones),
+         # as.numeric(marco_muestra$region),
+  #        as.numeric(marco_muestra$ambito))
+
+#pi_establecimiento = rep(n / N, times = N)
+
+
+#muestra_balanceada_matricula_2025 = cube(prob = pi_matricula, 
+ #                                   x = X,
+  #                                  eps = 1e-12)
+
+#muestra_cubo_matricula_2025 = marco_muestra[muestra_balanceada_matricula_2025, ] |>
+#mutate(fpc = sqrt((N-n)/(N-1)),
+ #      pw = N / n)
+
+# Agrego las probabilidades de inclusión a la base
+
+#marco_muestra = bind_cols(marco_muestra, as.data.frame(pi_establecimiento)) |>
+#relocate("pi_establecimiento", .after = "rowid")
+
+#set.seed(314)
+```
+
+```{r}
+#xy = cbind(marco_muestra$latitud, marco_muestra$longitud)
+
+#set.seed(314)
+
+#muestra_bien_distribuida = lcube(Xbal = X, 
+ #                           Xspread = xy , 
+  #                          prob = pi_colegio,
+   #                         eps = 1e-12)
+```
+
+```{r}
+#| label: muestra_2025_bien_distribuida
+
+# 1. Definición de Probabilidades de Inclusión (pi)
+
+n = 676 # Tamaño de muestra deseado. Como referencia se toma uno similar a la muestra anterior
+alpha = 21.89 # Rotación cada 4 años. En este cáculo influye la relación de muestreo, esto es, cuanto establecimientos se van a seleccionar en comparación al marco muestral.
+
+marco_muestra = marco_muestra |>
+drop_na(sector, matricula_inicial_2025, latitud, longitud, ambito, auh_pct) |> # Se sacan los NA
+#rowid_to_column() # Número de caso
+mutate(muestra_2024_dummy = if_else(is.na(muestra_2024), 0, 1),  # dummy para muestra_2024
+      lat_std  = scale(latitud), #Escalamiento para dispersión
+      lon_std = scale(longitud),
+      auh_std  = scale(auh_pct))
+
+# 1. Calculo de las probabilidades de inclusion
+
+# Función para ajustar pi de manera que sum(pi) == n. Esto es importante porque ningún caso puede tener más de 1 como probabilidad de inclusión pero, a su vez, si solo se ajusta para que aquellos con más de 1 pasen a tener 1, la cantidad de casos de la muestra cambia. Es necesario no sólo corregir sino también distribuir las probabilidades de inclusión para que la suma o la masa de todas las probabilidades de inclusión de como resultado el respectivo número muestral deseado.
+
+ajustar_pi = function(weight, n) {
+  N = length(weight)
+  pi = n * weight / sum(weight)
+  
+  # Mientras existan pi > 1, aplicamos el ajuste
+  while (any(pi > 1)) {
+    forzosos = pi >= 1
+    pi[forzosos] = 1
+    
+    n_restante = n - sum(pi[forzosos])
+    pi[!forzosos] = n_restante * weight[!forzosos] / sum(weight[!forzosos])
+  }
+  return(pi)
+}
+
+# Aplicación la función
+marco_muestra$weight = marco_muestra$matricula_inicial_2025 * (1 + alpha * marco_muestra$muestra_2024_dummy)
+pi_corregido = ajustar_pi(marco_muestra$weight, 676)
+
+# Verificación crucial: debe devolver 676
+sum(pi_corregido)
+
+# 2. Matriz de Variables Auxiliares (Balancing)
+
+# Convierto las variables (y sus categorías) a dummies con model.matrix
+
+X = model.matrix(~ sector + auh_pct + jornada_completa + ambito - 1, 
+                 data = marco_muestra)
+
+# Aseguramos que pi_corregido sea parte de las restricciones de balanceo
+# Esto obliga al algoritmo a que la suma de unidades (n) sea fija.
+X_balanceado = cbind(pi_corregido, X)
+
+# 3. Matriz de Coordenadas (Spatial Spreading)
+# Es fundamental que las coordenadas estén en formato numérico.
+# Acá si hay que estandarizar. Es vital que Latitud, Longitud y AUH tengan media 0 y desvío 1
+
+coords = as.matrix(marco_muestra[, c("lat_std", "lon_std", "auh_std")])
+
+# 4. Selección de la Muestra
+# lcube intenta balancear X y dispersar en el espacio de coords
+set.seed(123) # Para reproducibilidad
+indices_muestra = lcube(
+    prob = pi_corregido, 
+    Xba = X_balanceado, 
+    Xsp = coords)
+
+# 1. Inicializamos la columna con valor 0 (ningún establecimiento seleccionado)
+marco_muestra$muestra_2025 = 0
+
+# 2. Asignamos el valor 1 únicamente a las filas seleccionadas por lcube
+marco_muestra$muestra_2025[indices_muestra] = 1
+
+# 3. Opcional: Convertir a factor para facilitar tabulaciones posteriores
+#marco_muestra$muestra_2025 = factor(marco_muestra$muestra_2025, 
+ #                                   levels = c(0, 1), 
+  #                                  labels = c("NO", "SI"))
+
+print(length(indices_muestra)) # Debería ser estrictamente 676
+```
+
+```{r}
+#| label: tbl-poblacion_muestra_2025
+#| tbl-cap: Comparación parámetros poblacionales de establecimientos vs muestra 2025 
+# 1. Generamos la tabla para la Población Total
+tbl_poblacion = marco_muestra |>
+  select(sector, ambito, matricula_inicial_2025, latitud, longitud, auh_pct, muestra_2024) |> # Excluimos la columna de la muestra para no sesgar el resumen
+  tbl_summary() |>
+  modify_header(label = "**Variable**")
+
+# 2. Generamos la tabla exclusivamente para la Muestra
+tbl_muestra_2025 = marco_muestra |>
+  filter(muestra_2025 == 1) |>
+  select(sector, ambito, matricula_inicial_2025, latitud, longitud, auh_pct, muestra_2024) |>
+  tbl_summary()
+
+# 3. Fusionamos ambas tablas en una sola estructura comparativa
+tbl_comparativa_2025 = tbl_merge(
+    tbls = list(tbl_poblacion, tbl_muestra_2025),
+    tab_spanner = c("**Población Total (N = {N})**", "**Muestra 2025(n = {N})**")
+  )
+
+tbl_comparativa_2025
+```
+
+## Chequeos de distribución
+
+Dado que la muestra no es sólo balanceada en sus medidas de tendencia central sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere de la distribución del marco muestral.
+
+```{r}
+#| label: fig-mapa_muestra_2025
+#| fig-cap: "Distribución de la población de los establecimientos (puntos negros) y de la muestra 2025 (puntos azules)"
+#| eval: !expr knitr::is_html_output()
+#| cache: true
+mapa_marco_muestra = marco_muestra |>
+st_as_sf(coords = c("longitud", "latitud"),
+         dim = "XY",
+         sf_column_name = "geom_escuela",
+         crs = 4326) |>
+select(ambito)
+
+mapa_muestra_2025 = marco_muestra |>
+filter(muestra_2025 == 1) |>
+st_as_sf(coords = c("longitud", "latitud"),
+         dim = "XY",
+         sf_column_name = "geom_escuela",
+         crs = 4326) |>
+select(ambito)
+
+tmap_mode("view")
+
+fig_muestra_2025 = tm_basemap(server = "CartoDB.Positron",
+           alpha = 0.5) +
+tm_shape(mapa_marco_muestra,
+         name = "Población") +
+tm_dots(fill_alpha = 0.20,
+        fill = "black") +
+tm_shape(mapa_muestra_2025,
+         name = "Muestra 2025") +
+tm_dots(fill_alpha = 0.9,
+        fill = "blue")
+
+fig_muestra_2025
+
+```
+
+```{r}
+#| label: fig-densidad_auh
+
+# 1. Preparación de los datos para la gráfica
+# Creamos un dataframe que combine población y muestra
+pop_data = data.frame(AUH = marco_muestra$auh_pct, Grupo = "Población")
+mue_data = data.frame(AUH = marco_muestra$auh_pct[marco_muestra$muestra_2025 == 1], 
+                       Grupo = "Muestra")
+
+plot_data = rbind(pop_data, mue_data)
+
+# 2. Generación del gráfico de densidades superpuestas
+fig_densidad_auh = ggplot(plot_data, aes(x = AUH, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 1) +
+  scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
+  scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
+  labs(title = "Comparativa de Densidad: Porcentaje de AUH",
+       subtitle = "Población total vs. Muestra balanceada y dispersa",
+       x = "Porcentaje de Estudiantes con AUH",
+       y = "Densidad",
+       caption = "Nota: El solapamiento indica la calidad del 'spreading' multivariado.") +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        text = element_text(family = "serif"))
+
+fig_densidad_auh
+
+# Realización del test K-S
+ks_result = ks.test(
+  marco_muestra$auh_pct[marco_muestra$muestra_2025 == 1], 
+  marco_muestra$auh_pct
+)
+
+print(ks_result)
+```
+
+```{r}
+# Función para crear el mapa de calor
+crear_mapa_calor <- function(data, titulo) {
+  ggplot(data) +
+    # Utilizamos las columnas numéricas directamente
+    stat_density_2d(aes(x = longitud, 
+                        y = latitud, 
+                        fill = after_stat(level)), # Sintaxis moderna de ggplot2
+                    geom = "polygon", 
+                    alpha = 0.4) +
+    # La capa sf se encarga de dibujar los puntos usando la columna 'geometry'
+    geom_sf(size = 0.1, alpha = 0.1, color = "black") +
+    scale_fill_viridis_c(option = "magma", name = "Densidad") +
+    labs(title = titulo, 
+         subtitle = "Visualización de la intensidad de cobertura",
+         x = "Longitud", 
+         y = "Latitud") +
+    theme_minimal() +
+    theme(legend.position = "right",
+          panel.grid.major = element_line(color = "grey90"))
+}
+
+# Convertimos preservando las columnas originales de coordenadas
+marco_sf = st_as_sf(marco_muestra, 
+                     coords = c("longitud", "latitud"), 
+                     crs = 4326, 
+                     remove = FALSE) # <--- Este parámetro es la clave
+
+muestra_sf = subset(marco_sf, muestra_2025 == 1)
+
+# Generar ambos mapas
+mapa_poblacion = crear_mapa_calor(marco_sf, "Densidad Geográfica: Población Total")
+mapa_muestra = crear_mapa_calor(muestra_sf, "Densidad Geográfica: Muestra 2025")
+
+# Visualización comparativa
+mapa_poblacion + mapa_muestra
+```
+
+## Simulación a nivel de estudiantes
+
+Dado que en el actual diseño se emplea una muestra en donde la probabilidad de inclusión deviene en parte del tamaño del establecimiento es esperable encontrar diferencias entre las tendencias centrales de algunas variables consideradas importantes y la muestra. Por esta razón, partiendo del marco muestral de los establecimientos vamos a crear una población de estudiantes en función de la matrícula de cada uno de ellos. Luego vamos a comparar lo anterior con lo siguiente. Vamos a recrear una población de estudiantes asumiendo que se seleccionan "x" estudiantes por cada establecimiento seleccionado.
+
+```{r}
+#| label: tbl-estudiantes_10
+# 1. Crear el universo de estudiantes (Simulado)
+# Repetimos cada fila del marco según su variable 'size' (matrícula)
+estudiantes_poblacion = marco_muestra[rep(seq_len(nrow(marco_muestra)), 
+                                           times = marco_muestra$matricula_inicial_2025), ]
+estudiantes_poblacion$Origen = "Población de Estudiantes"
+
+# 2. Crear la muestra de estudiantes (Simulada)
+# Seleccionamos las escuelas de la muestra y repetimos cada una 10 veces
+escuelas_seleccionadas = subset(marco_muestra, muestra_2025 == 1)
+estudiantes_muestra = escuelas_seleccionadas[rep(seq_len(nrow(escuelas_seleccionadas)), 
+                                                  each = 10), ] # Solo 10 en vez de la matricula
+estudiantes_muestra$Origen = "Muestra de Estudiantes (k=10)"
+
+# 3. Consolidar para la comparación
+
+comparativo_estudiantes = rbind(
+  estudiantes_poblacion,
+  estudiantes_muestra
+)
+
+```
+
+```{r}
+#| label: tbl-poblacion_estudiantes_vs_muestra_estudiantes
+
+# 1. Generamos la tabla para la Población Total
+tbl_muestra_estudiantes = comparativo_estudiantes |>
+  select(sector, ambito, matricula_inicial_2025, jornada_completa, latitud, longitud, auh_pct, muestra_2024, Origen) |> # Excluimos la columna de la muestra para no sesgar el resumen
+  tbl_summary(by = Origen) |>
+  modify_header(label = "**Variable**")
+tbl_muestra_estudiantes
+```
+
+```{r}
+#| label: fig-poblacion_estudiantes_vs_muestra_estudiantes
+
+comparativo_estudiantes <- rbind(
+  estudiantes_poblacion[, c("auh_pct", "Origen")],
+  estudiantes_muestra[, c("auh_pct", "Origen")]
+)
+ggplot(comparativo_estudiantes, aes(x = auh_pct, fill = Origen, color = Origen)) +
+  geom_density(alpha = 0.35, size = 0.8) +
+  scale_fill_manual(values = c("Población de Estudiantes" = "#bdc3c7", 
+                               "Muestra de Estudiantes (k=10)" = "#e67e22")) +
+  scale_color_manual(values = c("Población de Estudiantes" = "#7f8c8d", 
+                                "Muestra de Estudiantes (k=10)" = "#d35400")) +
+  labs(title = "Simulación del Perfil de Estudiantes",
+       subtitle = "Comparación bajo diseño PPS y cuota fija por establecimiento",
+       x = "Porcentaje de AUH (Variable del Establecimiento)",
+       y = "Densidad de Estudiantes",
+       caption = "Nota: La coincidencia de las curvas valida la propiedad de autoponderación.") +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+# Realización del test K-S
+ks_result = ks.test(
+  comparativo_estudiantes$auh_pct[comparativo_estudiantes$Origen == "Muestra de Estudiantes (k=10)"], 
+  comparativo_estudiantes$auh_pct[comparativo_estudiantes$Origen == "Población de Estudiantes"]
+)
+
+print(ks_result)
+```
+
+```{r}
+#| label: fig-matricula_size_seccion
+#| fig-cap: Relación entre el tamaño de la sección y el tamaño de la matrícula
+#| eval: false
+
+# 1. Cálculo un modelo lineal para obtener los parámetros
+modelo = lm(matricula_inicial_2025 ~ total, 
+            data = tb_secciones_primaria_2025)
+coeficientes = coef(modelo)
+r_cuadrado = summary(modelo)$r.squared
+
+# Creación de la etiqueta con la ecuación
+eq_label = paste0("y = ", round(coeficientes[1], 2), " + ", round(coeficientes[2], 2), "x",
+                   "\n (R² = ", round(r_cuadrado, 3), ")")
+
+fig_matricula_size_seccion = ggplot(tb_secciones_primarias_2025, 
+   aes(x = total, y = matricula_inicial_2025)) +
+  geom_point(alpha = 0.4, color = "midnightblue") +
+  # Adición de la línea de tendencia
+  geom_smooth(method = "lm", color = "darkred", fill = "lightgray", se = TRUE) +
+# Restricción viaul del eje Y a 3000 unidades
+  coord_cartesian(ylim = c(0, 3000),
+                  xlim = c(0, 80)) +
+  # Inserción de los parámetros en el cuerpo del gráfico
+  annotate("text", x = Inf, y = -Inf, label = eq_label, 
+           hjust = 1.1, vjust = -1.1, size = 4, fontface = "italic", family = "serif") +
+  labs(
+    title = "Análisis de Regresión: Tamano de la sección y tamaño de la matrícula",
+    subtitle = "Ciclo Lectivo 2025",
+    x = "Tamano de las secciones",
+    y = "Matrícula",
+    caption = "Fuente: Elaboración propia basada en nómina de establecimientos"
+  ) +
+  theme_minimal() +
+  theme(text = element_text(family = "serif"))
+
+fig_matricula_size_seccion
+
+######
+tb_secciones_chicas = tb_secciones_primaria_2025 |>
+filter(total <= 10)
+
+modelo = lm(matricula_inicial_2025 ~ total, 
+            data = tb_secciones_chicas)
+coeficientes = coef(modelo)
+r_cuadrado = summary(modelo)$r.squared
+
+# Creación de la etiqueta con la ecuación
+eq_label = paste0("y = ", round(coeficientes[1], 2), " + ", round(coeficientes[2], 2), "x",
+                   "\n (R² = ", round(r_cuadrado, 3), ")")
+
+fig_matricula_size_seccion_chica = ggplot(tb_secciones_chicas, 
+   aes(x = total, y = matricula_inicial_2025)) +
+  geom_point(alpha = 0.4, color = "midnightblue") +
+  # Adición de la línea de tendencia
+  geom_smooth(method = "lm", color = "darkred", fill = "lightgray", se = TRUE) +
+# Restricción viaul del eje Y a 3000 unidades
+  coord_cartesian(ylim = c(0, 3000),
+                  xlim = c(0, 10)) +
+  # Inserción de los parámetros en el cuerpo del gráfico
+  annotate("text", x = Inf, y = -Inf, label = eq_label, 
+           hjust = 1.1, vjust = -1.1, size = 4, fontface = "italic", family = "serif") +
+  labs(
+    title = "Análisis de Regresión: Tamano de la sección y tamaño de la matrícula",
+    subtitle = "Ciclo Lectivo 2025. Secciones de hasta 10 estudiantes",
+    x = "Tamano de las secciones",
+    y = "Matrícula",
+    caption = "Fuente: Elaboración propia basada en nómina de establecimientos"
+  ) +
+  theme_minimal() +
+  theme(text = element_text(family = "serif"))
+
+fig_matricula_size_seccion_chica 
+```

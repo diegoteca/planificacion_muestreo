@@ -26,6 +26,7 @@ book:
     - azar.qmd
     - cubo.qmd
     - calibracion.qmd
+    - muestra_2025.qmd
     - references.qmd
     
 page-navigation: true

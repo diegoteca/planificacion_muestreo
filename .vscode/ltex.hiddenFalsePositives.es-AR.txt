@@ -35,3 +35,45 @@
 {"rule":"COMMA_PERO","sentence":"^\\QNo se trata de una libraría muy sofisticada como algunas de las anteriores pero se trata de una librería útil y relativamente bien documentada.\\E$"}
 {"rule":"COMMA_PERO","sentence":"^\\Q^index-3: Otras librerías que existen dentro del ecosistema de R pero que no veremos aquí son SamplingStrata y surveyplanning.\\E$"}
 {"rule":"PREP_VERB","sentence":"^\\QCon respecto a las grillas que representan distintas partes del bosque se las puede ubicar con un valor en el eje \"Hacia el Norte\" y otro valor en el eje \"Hacia el Este\".\\E$"}
+{"rule":"SINGLE_CHARACTER","sentence":"^\\QDe todos modos, ante la existencia de algún patrón subyacente, el muestreo sistemático, versus opciones como \"elegir a los x primeros (o últimos)\" parece mejor equipado.\\E$"}
+{"rule":"YA_QUE","sentence":"^\\QEsto suele ser una pequeña ventaja para el momento del análisis ya que requiere mano de obra algo menos especializada.\\E$"}
+{"rule":"ES_INITIAL_QUESTION_MARK","sentence":"^\\QPara cada institución, se solicitó información sobre las respuestas a las actividades de 5 estudiantes seleccionados al azar por las y los docentes de cada sección\"@¿quéson2025, pág., 18.\\E$"}
+{"rule":"ES_INITIAL_QUESTION_MARK","sentence":"^\\QLuego, se ordenaron los establecimientos por estrato, y se realizó una selección sistemática siguiendo la fracción de muestreo correspondiente\" (@¿quéson2025, pág. 18).\\E$"}
+{"rule":"ES_INITIAL_QUESTION_MARK","sentence":"^\\QUn primer componente censal agregado y segundo componente muestral nominal @¿quéson2025, pág. 18.\\E$"}
+{"rule":"ES_INITIAL_QUESTION_MARK","sentence":"^\\QEn secciones pequeñas (de hasta 10 estudiantes), se requirió la carga de información de todas y todos los estudiantes\"@¿quéson2025, pág. 18.\\E$"}
+{"rule":"INCORRECT_SPACES","sentence":"^\\Q::: callout-caution Intentar recostruir una muestra a partir de sus descripciones y sin acceso a su código es una actividad arriesgada.\\E$"}
+{"rule":"ES_QUESTION_MARK","sentence":"^\\QO se hizo al revés?\\E$"}
+{"rule":"INCORRECT_SPACES","sentence":"^\\Q¿El orden escrito se refiere a la \"ejecución\" de los pasos o refiere que momento se \"diseñó\" cada parte del diseño? :::\\E$"}
+{"rule":"INCORRECT_SPACES","sentence":"^\\Q::: callout-note Las muestras que aspiran a ser representativas intentan captar la heterogeneidad de una determinada población para poder hablar legítimamente del todo a través de sólo una parte.\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\QDel mismo modo, alguien con experiencia en análisis de datos entiende por \"análisis de clústers (o conglomerados)\" algo muy diferente a un muestrista que afirma que realizó un \"diseño muestral por conglomerados\".\\E$"}
+{"rule":"COMMA_PERO","sentence":"^\\QSi hay que expandir un poco en tamaño lo haríamos pero solo si es necesario.\\E$"}
+{"rule":"SUBJUNTIVO_INCORRECTO","sentence":"^\\Q\\$\\$P_A = P(\\\\text{Escuela}) \\\\times P(\\\\text{Estudiante} \\\\mid \\\\text{Escuela}) = 0.1 \\\\times \\\\left( \\\\frac{10}{10} \\\\right) = \\\\mathbf{0.1}\\$\\$\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\Q\\$\\$P_A = P(\\\\text{Escuela}) \\\\times P(\\\\text{Estudiante} \\\\mid \\\\text{Escuela}) = 0.1 \\\\times \\\\left( \\\\frac{10}{10} \\\\right) = \\\\mathbf{0.1}\\$\\$\\E$"}
+{"rule":"SUBJUNTIVO_INCORRECTO","sentence":"^\\Q\\$\\$P_B = P(\\\\text{Escuela}) \\\\times P(\\\\text{Estudiante} \\\\mid \\\\text{Escuela}) = 0.1 \\\\times \\\\left( \\\\frac{10}{500} \\\\right) = \\\\mathbf{0.002}\\$\\$\\E$"}
+{"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\Q\\$\\$P_B = P(\\\\text{Escuela}) \\\\times P(\\\\text{Estudiante} \\\\mid \\\\text{Escuela}) = 0.1 \\\\times \\\\left( \\\\frac{10}{500} \\\\right) = \\\\mathbf{0.002}\\$\\$\\E$"}
+{"rule":"INCORRECT_SPACES","sentence":"^\\Q::: callout-note Las muestras que aspiran a ser representativas intentan captar la heterogeneidad de una determinada población para poder hablar legítimamente del todo a través de solo una parte.\\E$"}
+{"rule":"WHITESPACE_RULE","sentence":"^\\QPara eso hay que analizar:   a) La clase de referencia de los conceptos utilizados que nos dirá el/los tipo/s de referente/s a investigar (individuos, organizaciones, etc.).\\E$"}
+{"rule":"AGREEMENT_DET_NOUN","sentence":"^\\QPara eso hay que analizar:   a) La clase de referencia de los conceptos utilizados que nos dirá el/los tipo/s de referente/s a investigar (individuos, organizaciones, etc.).\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qb\\) Los objetivos de la investigación que nos indicaran, entre otras cuestiones, el alcance (usualmente especificando tiempo y espacio) de los referentes anteriores junto con otras características pertinentes de cada unidad de observación/experimentación. Usualmente los objetivos remiten a una población empírica que podrá grande o pequeña, homogénea o heterogénea, dispersa o aglomerada, etc.\\E$"}
+{"rule":"WHITESPACE_RULE","sentence":"^\\QDentro del muestreo al conjunto formado por todos los objetos reales que cumplan las condiciones de los puntos \"a\" y \"b\" se lo denomina población^muestras-1.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qa\\) Se ajustan los objetivos de la investigación, especialmente en lo tocante al grado de alcance o generalidad de la investigación, hasta un punto que efectivamente la definición de la unidad de análisis construya una población en la que se pueda abordable empíricamente a cada una de las unidades que la componen y/o\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qa\\) Se ajustan los objetivos de la investigación, especialmente en lo tocante al grado de alcance o generalidad de la investigación, hasta un punto que efectivamente la definición de la unidad de análisis construya una población en la que se pueda abordable empíricamente a cada una de las unidades que la componen y/o\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qb\\) Se realiza una muestra de aquella población.\\E$"}
+{"rule":"WHITESPACE_RULE","sentence":"^\\QExisten varios criterios para clasificar a las muestras.\\E$"}
+{"rule":"AGREEMENT_DET_NOUN","sentence":"^\\QEjemplos pueden considerarse las muestras basadas en el criterio de saturación y la heterogeneidad observada, los muestreos por conveniencia, los muestreos por matcheo (en donde las cuotas de Neyman serían un ejemplo), los muestreos basados en redes, usuales para el estudio de poblaciones invisibles (en donde el bola de nieve o snowball sería un ejemplo).\\E$"}
+{"rule":"INCORRECT_SPACES","sentence":"^\\Q::: {#refs} :::\\E$"}
+{"rule":"INCORRECT_SPACES","sentence":"^\\Q::: callout-caution Intentar reconstruir una muestra a partir de sus descripciones y sin acceso a su código es una actividad arriesgada.\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qa\\) dependencia de los establecimientos educativos” (provincial y resto-incluyendo en este último grupo a los establecimientos privados, municipales y nacionales),\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qb\\) “porcentaje de estudiantes con AUH”,\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qc\\) “presencia o no de jornada completa” y\\E$"}
+{"rule":"SI","sentence":"^\\QLa traducción de si esto en un sesgo (o no) es una cuestión empírica a resolver.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qa\\) Sector (Estatal/Privado).\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qa\\) Sector (Estatal/Privado).\\E$"}
+{"rule":"COMMA_MARCADOR_DISCURSIVO","sentence":"^\\Q^calibracion-1: En cambio el balanceo, si bien en su origen tiene una fuerte vinculación con el enfoque del \"Model Assisted\", no se encuentra tan alejado del \"design based\" dado que el algoritmo del cubo selecciona muestras balanceadas dentro del conjunto de muestras aleatorias @tillé2010, pág. 39.\\E$"}
+{"rule":"COMMA_MARCADOR_DISCURSIVO","sentence":"^\\QEn cambio la imputación, al menos como acá se la está entendiendo, es un proceso que tiene como objetivo estimar el valor faltante de una variable de los casos que respondieron de forma incompleta la muestra.\\E$"}
+{"rule":"AGREEMENT_POSTPONED_ADJ","sentence":"^\\QEste orden es particularmente importante si se confía en el proceso de la imputación y la/s variable/s imputadas son parte del proceso de calibración como covariables.\\E$"}
+{"rule":"CONTINUA","sentence":"^\\QPor esta razón, aquí usaremos directamente el método de la calibración por ser el más general, ya que permite la inclusión tanto de variables categóricas como continuas y no presenta los riesgos de la post-calibración en cuanto a la posible ausencia de casos frutos de los cruces de las variables categóricas.\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qa\\) Sector (Estatal/Privado)\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qb\\) Porcentaje de estudiantes con AUH\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qc\\) Presencia de jornada completa\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qd\\) Ámbito\\E$"}
