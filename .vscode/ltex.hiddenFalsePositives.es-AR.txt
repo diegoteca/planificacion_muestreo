@@ -79,3 +79,7 @@
 {"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qd\\) Ámbito\\E$"}
 {"rule":"COMMA_MARCADOR_DISCURSIVO","sentence":"^\\QEn el segundo caso se aumentan los problemas de cobertura (undercoverage error) y se disminuye la precisión de la muestra por trabajar con menos casos.\\E$"}
 {"rule":"EL_TILDE","sentence":"^\\QDesde un costado más operativo el algoritmo que se utiliza es el algoritmo del \"local cube\" @tillé2013 que ya había sido utilizado en el muestro PPS.\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qa\\) Latitud\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qb\\) Longitud\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qc\\) Porcentaje de AUH\\E$"}
+{"rule":"COMMA_ADVERB","sentence":"^\\QPreviamente se puede generar un número para cada caso/establecimiento seleccionado que ordene a los establecimientos en función de algún criterio (p.e. matrícula).\\E$"}
