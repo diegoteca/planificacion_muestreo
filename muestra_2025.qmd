@@ -322,14 +322,14 @@ left_join(tb_muestra_2024, by = "clave")
 #| tbl-cap: Comparación parámetros poblacionales de establecimientos vs muestra 2024 
 # 1. Generamos la tabla para la Población Total
 tbl_poblacion = marco_muestra |>
-  select(!c("muestra_2024", "clave", "n_auh", "nivel_modalidad")) |> # Excluimos la columna de la muestra para no sesgar el resumen
+  select(jornada_completa, sector, ambito, matricula_inicial_2025, auh_pct) |> # Excluimos la columna de la muestra para no sesgar el resumen
   tbl_summary() |>
   modify_header(label = "**Variable**")
 
 # 2. Generamos la tabla exclusivamente para la Muestra
 tbl_muestra_2024 = marco_muestra |>
   filter(muestra_2024 == "SI") |>
-  select(!c("muestra_2024", "clave", "n_auh", "nivel_modalidad")) |>
+  select(jornada_completa, sector, ambito, matricula_inicial_2025, auh_pct) |>
   tbl_summary()
 
 # 3. Fusionamos ambas tablas en una sola estructura comparativa
@@ -547,14 +547,14 @@ Teniendo presente las restricciones anteriores se realizó una muestra con los s
 #| tbl-cap: Comparación parámetros poblacionales de establecimientos vs muestra 2025 
 # 1. Generamos la tabla para la Población Total
 tbl_poblacion = marco_muestra |>
-  select(sector, ambito, matricula_inicial_2025, latitud, longitud, auh_pct, muestra_2024) |> # Excluimos la columna de la muestra para no sesgar el resumen
+  select(sector, ambito, matricula_inicial_2025, jornada_completa, latitud, longitud, auh_pct, muestra_2024) |> # Excluimos la columna de la muestra para no sesgar el resumen
   tbl_summary() |>
   modify_header(label = "**Variable**")
 
 # 2. Generamos la tabla exclusivamente para la Muestra
 tbl_muestra_2025 = marco_muestra |>
   filter(muestra_2025 == 1) |>
-  select(sector, ambito, matricula_inicial_2025, latitud, longitud, auh_pct, muestra_2024) |>
+  select(sector, ambito, matricula_inicial_2025, jornada_completa, latitud, longitud, auh_pct, muestra_2024) |>
   tbl_summary()
 
 # 3. Fusionamos ambas tablas en una sola estructura comparativa
