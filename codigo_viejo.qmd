@@ -1,0 +1,60 @@
+---
+title: "Untitled"
+format: html
+---
+
+{r} #\| label: fig-matricula_size_seccion #\| fig-cap: Relación entre el tamaño de la sección y el tamaño de la matrícula #\| eval: false
+
+# 1. Cálculo un modelo lineal para obtener los parámetros
+
+modelo = lm(matricula_inicial_2025 \~ total, data = tb_secciones_primaria_2025) coeficientes = coef(modelo) r_cuadrado = summary(modelo)\$r.squared
+
+# Creación de la etiqueta con la ecuación
+
+eq_label = paste0("y = ", round(coeficientes\[1\], 2), " + ", round(coeficientes\[2\], 2), "x", "\n (R² = ", round(r_cuadrado, 3), ")")
+
+fig_matricula_size_seccion = ggplot(tb_secciones_primarias_2025, aes(x = total, y = matricula_inicial_2025)) + geom_point(alpha = 0.4, color = "midnightblue") + \# Adición de la línea de tendencia geom_smooth(method = "lm", color = "darkred", fill = "lightgray", se = TRUE) + \# Restricción viaul del eje Y a 3000 unidades coord_cartesian(ylim = c(0, 3000), xlim = c(0, 80)) + \# Inserción de los parámetros en el cuerpo del gráfico annotate("text", x = Inf, y = -Inf, label = eq_label, hjust = 1.1, vjust = -1.1, size = 4, fontface = "italic", family = "serif") + labs( title = "Análisis de Regresión: Tamano de la sección y tamaño de la matrícula", subtitle = "Ciclo Lectivo 2025", x = "Tamano de las secciones", y = "Matrícula", caption = "Fuente: Elaboración propia basada en nómina de establecimientos" ) + theme_minimal() + theme(text = element_text(family = "serif"))
+
+fig_matricula_size_seccion
+
+###### 
+
+tb_secciones_chicas = tb_secciones_primaria_2025 \|\> filter(total \<= 10)
+
+modelo = lm(matricula_inicial_2025 \~ total, data = tb_secciones_chicas) coeficientes = coef(modelo) r_cuadrado = summary(modelo)\$r.squared
+
+# Creación de la etiqueta con la ecuación
+
+eq_label = paste0("y = ", round(coeficientes\[1\], 2), " + ", round(coeficientes\[2\], 2), "x", "\n (R² = ", round(r_cuadrado, 3), ")")
+
+fig_matricula_size_seccion_chica = ggplot(tb_secciones_chicas, aes(x = total, y = matricula_inicial_2025)) + geom_point(alpha = 0.4, color = "midnightblue") + \# Adición de la línea de tendencia geom_smooth(method = "lm", color = "darkred", fill = "lightgray", se = TRUE) + \# Restricción viaul del eje Y a 3000 unidades coord_cartesian(ylim = c(0, 3000), xlim = c(0, 10)) + \# Inserción de los parámetros en el cuerpo del gráfico annotate("text", x = Inf, y = -Inf, label = eq_label, hjust = 1.1, vjust = -1.1, size = 4, fontface = "italic", family = "serif") + labs( title = "Análisis de Regresión: Tamano de la sección y tamaño de la matrícula", subtitle = "Ciclo Lectivo 2025. Secciones de hasta 10 estudiantes", x = "Tamano de las secciones", y = "Matrícula", caption = "Fuente: Elaboración propia basada en nómina de establecimientos" ) + theme_minimal() + theme(text = element_text(family = "serif"))
+
+fig_matricula_size_seccion_chica
+
+{r} #marco_muestra = marco_muestra \|\> #drop_na(sector, matricula_inicial_2025, latitud, longitud, ambito, AUH_pct) \|\> #rowid_to_column() \|\> #mutate(ambito_n = case_when( \# ambito == "Urbano" \~ 1, \# ambito == "Rural Disperso" \~ 2, \# ambito == "Rural Agrupado" \~ 3)) \|\> #relocate(ambito_n, .after = ambito)
+
+#pi_matricula = inclusionprobabilities(marco_muestra\$matricula_inicial_2025, n)
+
+#marco_muestra = bind_cols(marco_muestra, as.data.frame(pi_matricula)) \|\> #relocate("pi_matricula", .after = "rowid")
+
+#N = nrow(marco_muestra) #n = 676 \# Es el número de establecimientos de la muestra de 2024 #X = cbind(rep(1, times = N), \# as.numeric(marco_muestra$matricula_inicial_2025),
+         # as.numeric(marco_muestra$secciones), \# as.numeric(marco_muestra$region),
+  #        as.numeric(marco_muestra$ambito))
+
+#pi_establecimiento = rep(n / N, times = N)
+
+#muestra_balanceada_matricula_2025 = cube(prob = pi_matricula, \# x = X, \# eps = 1e-12)
+
+#muestra_cubo_matricula_2025 = marco_muestra\[muestra_balanceada_matricula_2025, \] \|\> #mutatefpc = sqrt((N-n)/(N-1)), \# pw = N / n)
+
+# Agrego las probabilidades de inclusión a la base
+
+#marco_muestra = bind_cols(marco_muestra, as.data.frame(pi_establecimiento)) \|\> #relocate("pi_establecimiento", .after = "rowid")
+
+#set.seed(314)
+
+#xy = cbind(marco_muestra$latitud, marco_muestra$longitud)
+
+#set.seed(314)
+
+#muestra_bien_distribuida = lcube(Xbal = X, \# Xspread = xy , \# prob = pi_colegio, \# eps = 1e-12)
