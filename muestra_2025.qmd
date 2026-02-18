@@ -458,7 +458,7 @@ marco_muestra$weight = marco_muestra$matricula_inicial_2025 * (1 + alpha * marco
 pi_corregido = ajustar_pi(marco_muestra$weight, 676)
 
 # Verificación crucial: debe devolver n, esto es, la cantidad de casos a seleccionar (676)
-sum(pi_corregido)
+#sum(pi_corregido)
 
 # 4. Matriz de Variables Auxiliares (Balanced)
 
