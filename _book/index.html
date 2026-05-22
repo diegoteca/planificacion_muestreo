@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.17">
+<meta name="generator" content="quarto-1.10.3">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,15 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="./muestras.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-ce4278342a015d016477ed09bce942c5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-e44360b8a8db1e130c7792fece1c8032.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c8f27afbf93261b179eaefe1e60d5e5f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>
 /* first-line indent styles */
   p {
@@ -225,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Tabla de contenidos</h2>
+    <h2 id="toc-title">Índice de secciones</h2>
    
   <ul>
   <li><a href="#sec-introduccion" id="toc-sec-introduccion" class="nav-link active" data-scroll-target="#sec-introduccion"><span class="header-section-number">1</span> Introducción</a>
@@ -273,7 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">13 de febrero de 2026</p>
+      <p class="date">22 de mayo de 2026</p>
     </div>
   </div>
   
@@ -297,7 +296,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Por último, para el cálculo de los tamaños muestrales con diferentes diseños (y otras yerbas) puede consultarse la librería <a href="https://cran.r-project.org/web/packages/PracTools/index.html">PracTools</a>. No se trata de una libraría muy sofisticada como algunas de las anteriores pero se trata de una librería útil y relativamente bien documentada. Un dato no menor es que uno de sus autores es <a href="https://scholar.google.com/citations?user=6Q5RKeAAAAAJ&amp;hl=en">Richard Valliant</a> que, a su turno, es uno de los mayores exponentes de un enfoque importante dentro del mundo del muestreo como es el “<em>Model Assisted Sampling</em>”. <a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <section id="librerías-utilizadas" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="librerías-utilizadas"><span class="header-section-number">1.1</span> Librerías utilizadas</h2>
-<p>Abajo hay un código para instalar y cargar las librerías que vamos a utilizar. El código se encarga de cargar las librerías y de instalar las mismas en el caso de que no se encuentren previamente instaladas.</p>
+<p>Abajo hay un código para instalar y cargar las librerías que vamos a utilizar. El código se encarga de cargar las librerías y de instalar las mismas en el caso de que no se encuentren previamente instaladas. Esto es específicamente para R y la parte muestral.</p>
+<p>La sección de las aplicaciones prácticas, principalmente por cuestiones de confidencialidad, no son reproducibles. Por otro lado, algunos <em>chunks</em> incuyen código de Pyhton.</p>
 
 
 <!-- -->
@@ -786,51 +786,56 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>El código con que vamos a procesar los datos a lo largo del taller va a ser en lenguaje R. R es un lenguaje de programación que parece una opción razonable tanto para el diseño de la muestra como su posterior calibración y análisis de los datos. Si bien diseños de métodos de muestreo relativamente simples son posibles de realizarse en varios otros lenguajes la situación se complica un poco a medida que se quieren utilizar, y luego analizar, diseños más complejos. En esta última situación, ya no es posible conseguir librerías especializadas en muchos lenguajes aparte de R, Python, Julia y SAS.</span>
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Dentro del ecosistema de R, ejemplos de librerías para analizar datos producidos con diseños muestrales pueden considerarse <span class="co">[</span><span class="ot">survey</span><span class="co">](https://r-survey.r-forge.r-project.org/survey/)</span>, <span class="co">[</span><span class="ot">svrep</span><span class="co">](https://bschneidr.github.io/svrep/)</span> y su correspondiente versión tidy <span class="co">[</span><span class="ot">srvyr</span><span class="co">](http://gdfe.co/srvyr/)</span>. Estas librerías generalmente agregan meta-información al dataframe original que hace referencia al modo o diseño en que fue realizada la muestra. Esta información luego es utilizada para realizar estimaciones puntuales con sus respectivos errores estandard, intervalos de confianza o coeficientes de variación. La librería survey es una librería madura mantenida principalmente por <span class="co">[</span><span class="ot">Thomas Lumley</span><span class="co">]</span>(https://en.wikipedia.org/wiki/Thomas_Lumley_(statistician)) (un personaje conocido dentro de la comunidad estadística en general y en la en R en particular). La librería srvyr puede considerarse como su sucesora más moderna, aunque como lo destacan sus propios autores, se trata de una librería más amigable para el usuario en donde la mayoría del trabajo sucio lo sigue haciendo por detrás la librería survey. Algo similar resulta entre la relación entre survey y svrep ya que esta última se puede considerar una extensión de la primera para el cálculo de ponderadores replicados (*replicate weights*). Algo importante a destacar es la compatibilidad entre las 3 librerías y que, a pesar de la diferencia generacional (Lumley es el mayor) existe una relación afectuosa entre los diferentes autores. En efecto, <span class="co">[</span><span class="ot">Ben Schneider</span><span class="co">](https://github.com/bschneidr)</span>, el creador de la librería svrep, es un asiduo contribuidor de los 3 paquetes antes nombrados.<span class="ot">[^index-1]</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>Dentro del ecosistema de R, ejemplos de librerías para analizar datos producidos con diseños muestrales pueden considerarse <span class="co">[</span><span class="ot">survey</span><span class="co">](https://r-survey.r-forge.r-project.org/survey/)</span>, <span class="co">[</span><span class="ot">svrep</span><span class="co">](https://bschneidr.github.io/svrep/)</span> y su correspondiente versión tidy <span class="co">[</span><span class="ot">srvyr</span><span class="co">](http://gdfe.co/srvyr/)</span>. Estas librerías generalmente agregan meta-información al dataframe original que hace referencia al modo o diseño en que fue realizada la muestra. Esta información luego es utilizada para realizar estimaciones puntuales con sus respectivos errores estandard, intervalos de confianza o coeficientes de variación. La librería survey es una librería madura mantenida principalmente por <span class="co">[</span><span class="ot">Thomas Lumley</span><span class="co">]</span>(https://en.wikipedia.org/wiki/Thomas_Lumley_(statistician)) (un personaje conocido dentro de la comunidad estadística en general y en la en R en particular). La librería srvyr puede considerarse como su sucesora más moderna, aunque como lo destacan sus propios autores, se trata de una librería más amigable para el usuario en donde la mayoría del trabajo sucio lo sigue haciendo por detrás la librería survey. Algo similar resulta entre la relación entre survey y svrep ya que esta última se puede considerar una extensión de la primera para el cálculo de ponderadores replicados (*replicate weights*). Algo importante a destacar es la compatibilidad entre las 3 librerías y que, a pesar de la diferencia generacional (Lumley es el mayor) existe una relación afectuosa entre los diferentes autores. En efecto, <span class="co">[</span><span class="ot">Ben Schneider</span><span class="co">](https://github.com/bschneidr)</span>, el creador de la librería svrep, es un asiduo contribuidor de los 3 paquetes antes nombrados.<span class="ot">[^1]</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-1]: </span>Existen más librerías que pueden considerarse como extensiones de survey. <span class="co">[</span><span class="ot">robsurvey</span><span class="co">](https://cran.r-project.org/web/packages/robsurvey/index.html)</span>, para la realización de estimaciones robustas, es otro ejemplo.</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="ot">[^1]: </span>Existen más librerías que pueden considerarse como extensiones de survey. <span class="co">[</span><span class="ot">robsurvey</span><span class="co">](https://cran.r-project.org/web/packages/robsurvey/index.html)</span>, para la realización de estimaciones robustas, es otro ejemplo.</span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Ejemplos de librerías que sirven para el diseño de las muestras y su posterior ajuste son <span class="co">[</span><span class="ot">sampling</span><span class="co">](https://cran.r-project.org/web/packages/sampling/index.html)</span>, <span class="co">[</span><span class="ot">balanced sampling</span><span class="co">](https://envisim.se/balancedsampling)</span> y <span class="co">[</span><span class="ot">spbsampling</span><span class="co">](https://cran.r-project.org/web/packages/Spbsampling/index.html)</span>. Al igual que con las librerías anteriores, aquí también existe relación entre los diferentes autores. La librería sampling es una librería madura creada bajo la tutela de Yver Tillé, que es otro personaje bastante conocido tanto en el mundo de la estadística académica como dentro de los organismos oficiales de estadística de diferentes países. La librería balanced sampling hace mucho de las funciones que la librería sampling, pero es más moderna (corre en C^++^) y es mantenida por <span class="co">[</span><span class="ot">Anton Grafstrom</span><span class="co">](https://scholar.google.com/citations?user=JkMAOUEAAAAJ&amp;hl=sv)</span> que ha escrito con Tillé. Por otro lado, la librería spbsampling se especializa en muestreos espaciales (balanced sampling también tiene funciones para eso), se ejecuta en C^++^ y es mantenida por <span class="co">[</span><span class="ot">Roberto Benedetti</span><span class="co">](https://scholar.google.com/citations?user=h_Rnt4kAAAAJ&amp;hl=it)</span>. Tanto Benedetti como Grafstrom se reconocen entre ellos y algo interesante es que si, bien ambos han trabajado con institutos oficiales de estadística, ambos se especializan en organismos de agricultura. De ahí que ambos muestren interés en la dimensión espacial de los diseños muestrales porque esta es útil a la hora de, por ejemplo, diseñar una buena muestra de la vegetación de un bosque.<span class="ot">[^index-2]</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>Ejemplos de librerías que sirven para el diseño de las muestras y su posterior ajuste son <span class="co">[</span><span class="ot">sampling</span><span class="co">](https://cran.r-project.org/web/packages/sampling/index.html)</span>, <span class="co">[</span><span class="ot">balanced sampling</span><span class="co">](https://envisim.se/balancedsampling)</span> y <span class="co">[</span><span class="ot">spbsampling</span><span class="co">](https://cran.r-project.org/web/packages/Spbsampling/index.html)</span>. Al igual que con las librerías anteriores, aquí también existe relación entre los diferentes autores. La librería sampling es una librería madura creada bajo la tutela de Yver Tillé, que es otro personaje bastante conocido tanto en el mundo de la estadística académica como dentro de los organismos oficiales de estadística de diferentes países. La librería balanced sampling hace mucho de las funciones que la librería sampling, pero es más moderna (corre en C^++^) y es mantenida por <span class="co">[</span><span class="ot">Anton Grafstrom</span><span class="co">](https://scholar.google.com/citations?user=JkMAOUEAAAAJ&amp;hl=sv)</span> que ha escrito con Tillé. Por otro lado, la librería spbsampling se especializa en muestreos espaciales (balanced sampling también tiene funciones para eso), se ejecuta en C^++^ y es mantenida por <span class="co">[</span><span class="ot">Roberto Benedetti</span><span class="co">](https://scholar.google.com/citations?user=h_Rnt4kAAAAJ&amp;hl=it)</span>. Tanto Benedetti como Grafstrom se reconocen entre ellos y algo interesante es que si, bien ambos han trabajado con institutos oficiales de estadística, ambos se especializan en organismos de agricultura. De ahí que ambos muestren interés en la dimensión espacial de los diseños muestrales porque esta es útil a la hora de, por ejemplo, diseñar una buena muestra de la vegetación de un bosque.<span class="ot">[^2]</span></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-2]: </span>Para aquel que le interesa agregar explícitamente la dimensión espacial en los diseños muestrales puede consultar la obra de Dick Brus "<span class="co">[</span><span class="ot">Spatial sampling with R</span><span class="co">](https://dickbrus.github.io/SpatialSamplingwithR/)</span>". Brus, un geólogo ahora ya retirado, es una eminencia mundial en la temática de los muestreos de suelo (*soil sampling*) y más en general, de los muestreos espaciales.</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="ot">[^2]: </span>Para aquel que le interesa agregar explícitamente la dimensión espacial en los diseños muestrales puede consultar la obra de Dick Brus "<span class="co">[</span><span class="ot">Spatial sampling with R</span><span class="co">](https://dickbrus.github.io/SpatialSamplingwithR/)</span>". Brus, un geólogo ahora ya retirado, es una eminencia mundial en la temática de los muestreos de suelo (*soil sampling*) y más en general, de los muestreos espaciales.</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Por último, para el cálculo de los tamaños muestrales con diferentes diseños (y otras yerbas) puede consultarse la librería <span class="co">[</span><span class="ot">PracTools</span><span class="co">](https://cran.r-project.org/web/packages/PracTools/index.html)</span>. No se trata de una libraría muy sofisticada como algunas de las anteriores pero se trata de una librería útil y relativamente bien documentada. Un dato no menor es que uno de sus autores es <span class="co">[</span><span class="ot">Richard Valliant</span><span class="co">](https://scholar.google.com/citations?user=6Q5RKeAAAAAJ&amp;hl=en)</span> que, a su turno, es uno de los mayores exponentes de un enfoque importante dentro del mundo del muestreo como es el "*Model Assisted Sampling*". <span class="ot">[^index-3]</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>Por último, para el cálculo de los tamaños muestrales con diferentes diseños (y otras yerbas) puede consultarse la librería <span class="co">[</span><span class="ot">PracTools</span><span class="co">](https://cran.r-project.org/web/packages/PracTools/index.html)</span>. No se trata de una libraría muy sofisticada como algunas de las anteriores pero se trata de una librería útil y relativamente bien documentada. Un dato no menor es que uno de sus autores es <span class="co">[</span><span class="ot">Richard Valliant</span><span class="co">](https://scholar.google.com/citations?user=6Q5RKeAAAAAJ&amp;hl=en)</span> que, a su turno, es uno de los mayores exponentes de un enfoque importante dentro del mundo del muestreo como es el "*Model Assisted Sampling*". <span class="ot">[^3]</span></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ot">[^index-3]: </span>Otras librerías que existen dentro del ecosistema de R pero que no veremos aquí son <span class="co">[</span><span class="ot">SamplingStrata</span><span class="co">](https://barcaroli.github.io/SamplingStrata/)</span> y <span class="co">[</span><span class="ot">surveyplanning</span><span class="co">](https://csblatvia.github.io/surveyplanning/)</span>.</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="ot">[^3]: </span>Otras librerías que existen dentro del ecosistema de R pero que no veremos aquí son <span class="co">[</span><span class="ot">SamplingStrata</span><span class="co">](https://barcaroli.github.io/SamplingStrata/)</span> y <span class="co">[</span><span class="ot">surveyplanning</span><span class="co">](https://csblatvia.github.io/surveyplanning/)</span>.</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="fu">## Librerías utilizadas</span></span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Abajo hay un código para instalar y cargar las librerías que vamos a utilizar. El código se encarga de cargar las librerías y de instalar las mismas en el caso de que no se encuentren previamente instaladas.</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>Abajo hay un código para instalar y cargar las librerías que vamos a utilizar. El código se encarga de cargar las librerías y de instalar las mismas en el caso de que no se encuentren previamente instaladas. Esto es específicamente para R y la parte muestral.</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Código para activar librerias. Instala también las librerías que se necesitan pero no están instaladas previamente</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a> </span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pacman"</span>, <span class="at">repos =</span> <span class="st">"http://cran.us.r-project.org"</span>)</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: libraries</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(survey,</span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>               svrep,</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>               srvyr,</span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>               sampling,</span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>               BalancedSampling,</span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>               Spbsampling,</span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>               PracTools,</span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>               tidyverse,</span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>               janitor,</span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>               here,</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>               readxl,</span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>               infer,</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>               gt,</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>               gtsummary,</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>               cardx,</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>               patchwort,</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>               gstat,</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>               sf,</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>               tmap)</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>La sección de las aplicaciones prácticas, principalmente por cuestiones de confidencialidad, no son reproducibles. Por otro lado, algunos *chunks* incuyen código de Pyhton.</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># Código para activar librerias. </span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Instala también las librerías que se necesitan pero no están instaladas previamente</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"pacman"</span>, <span class="at">repos =</span> <span class="st">"http://cran.us.r-project.org"</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: libraries_r</span></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(survey,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>               svrep,</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>               srvyr,</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>               sampling,</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>               BalancedSampling,</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>               Spbsampling,</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>               PracTools,</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>               tidyverse,</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>               janitor,</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>               here,</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>               readxl,</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>               infer,</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>               gt,</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>               gtsummary,</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>               cardx,</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>               patchwork,</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>               gstat,</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>               sf,</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>               tmap,</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>               leaflet,</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>               reticulate)</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code></pre></div><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

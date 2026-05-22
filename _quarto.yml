@@ -2,9 +2,21 @@ project:
   type: book
   output-dir: "_book"
   execute-dir: project
+  resources:
+    -simulador_teorema_limite_central.html
 
-resources:
-  simulador_teorema_limite_central.html
+execute:
+  echo: false
+  warning: false # Esto se puede cambiar en aquellos casos en donde sea importante ver el código. p.e. calculo.qmd
+  freeze: auto # Usar "true" never re-render during project render. 
+  #Si está en auto es buena opción renderizar por documentos individuales para ver cambios rapidos 
+  #pero no es tan buena para el desarrollo porque no se renderizan los cambios en los documentos relacionados. 
+  #Por ejemplo, si se cambia algo en metodología.qmd, no se van a ver los cambios en calculo.qmd. 
+  # Con auto se renderizan los documentos que cambiaron y los relacionados.
+  cache: true
+
+number-depth: 3  
+toc-depth: 3
 
 book:
   title: "Taller Muestreo"
@@ -26,18 +38,27 @@ book:
     - azar.qmd
     - cubo.qmd
     - calibracion.qmd
-    - muestra_2025.qmd
-    - references.qmd
+    - part: "Aplicaciones prácticas"
+      chapters:
+         - muestra_2025.qmd
+         - muestra_adultos.qmd
+         - references.qmd
     
 page-navigation: true
-
 search: true
 
 bibliography: references.bib
 # Esto depende de la extension "section-biblioraphie"
 # reference-section-title: Referencias de este capítulo
-#citeproc: false
-#csl: apa.csl
+citeproc: false
+csl: apa7.csl
+
+crossref:
+  chapters: true #No se bien que hace
+  appendix-title: "Anexo"
+  appendix-delim: ":"
+  lof-title: "Índice de figuras"
+  lot-title: "Índice de tablas"
 
 preview:
   port: 4200
@@ -45,12 +66,12 @@ preview:
 
 format:
   html:
-    number-sections: true
-    crossref:
-      chapters: true
     toc: true
-    theme: cosmo
+    toc-depth: 3
+    toc-title: "Índice de secciones"
     fig-cap-location: top
+    number-sections: true
+    theme: cosmo
     other-links:
       - text: Repositorio del taller
         href: https://github.com/diegoteca/planificacion_muestreo
@@ -60,34 +81,79 @@ format:
        source: true
        toggle: true
        caption: "Código"
-    css: css_book.css
+    indent: true # Es parte del filtro fist-line-indent
     first-line-indent:
       size: 0.5em
-
-  pdf:
-    pdfengine: xelatex
-    documentclass: scrreprt
-    abstract: "Versión 1.0.1"
-    template-partials:
-      - before-body.tex
-      - toc.tex
-    papersize: a4
-    indent: true
-    fig-cap-location: top
-    fig-dpi: 300
+      remove-after:
+        - BlockQuote
+       # - BulletList
+        - CodeBlock
+       # - DefinitionList
+        - HorizontalRule
+       # - OrderedList
+    css: css_book.css # Hay que ver que cambia y como impacta en typst. En typst se puede usar css pero no es tan directo como en html. Hay que bajar la extensión "typst-partials" y editar los archivos .typ a mano.
+    callout-appearance: minimal
+    callout-icon: false
+    
+# Pruebo con typst porque ahora ya funciona con quarto book
+# La opción por defecto es orange-book. Si se baja la extensión se puede editar esos "partials" a mano.
+  orange-book-typst:  
+    toc: true
+    toc-title: "Índice de secciones"
+    lof: true
+    lot: true
     number-sections: true
+    papersize: a4
+    # page-numbering: true
+    fig-cap-location: top   
+    fig-dpi: 300
+    fig-format: svg
+     #   indent: true
+     # Fuentes y Tipografía (XeLaTeX permite usar fuentes del sistema)
+    mainfont: "Libertinus Serif" # O una similar como Linux Libertine
+    sansfont: "Libertinus Sans"
+    monofont: "FiraCode"
+   # prefer-html: true
+    keep-typ: true
+    logo: 
+      width: 5cm
+    cap-location: top
+    lang: es
+    callout-appearance: minimal
+    callout-icon: false
+    indent: true # Es parte del filtro fist-line-indent
+    first-line-indent:
+      size: 1.5em
+      remove-after:
+        - BlockQuote
+       # - BulletList
+        - CodeBlock
+       # - DefinitionList
+        - HorizontalRule
+       # - OrderedList
 
 editor: visual
 lang: es
 language:
-  search-text-placeholder: Buscar
+  search-text-placeholder: "Buscar"
+  section-title-appendices: "Anexos"
+  section-title-references: "Referencias"
+  section-title-copyright: "Licencia"
+  list-of-figure-title: "Lista de Figuras"
+  list-of-table-title: "Lista de Tablas"
+  crossref-nte-prefix: "Nota de color"
+  crossref-tip-prefix: "Tip"
+  crossref-wrn-prefix: "Atención"
+  crossref-imp-prefix: "Importante"
+  crossref-cau-prefix: "Peligro"
+  crossref-ch-prefix: "Cap."
+  crossref-sec-prefix: "Sec."
+  crossref-app-prefix: "Anexo"
+  crossref-ch-title: "Capítulos"
+  crossref-app-title: "Anexo" # Sin "s"
+  callout-nte-title: "Nota de color"
+  crossref-nte-title: "Nota de color"
   
-execute: 
-  echo: false
-  warning: false
-  message: false
-  freeze: auto
-# cache: true
 # Extensiones
 
 filters:

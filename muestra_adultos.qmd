@@ -1,0 +1,6 @@
+---
+title: "Encuesta estudiantes adultos"
+format: html
+---
+
+El objetivo es realizar una muestra 

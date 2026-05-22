@@ -24,8 +24,6 @@ library(gstat)
 library(sf)
 library(tmap)
 
-
-
 i_am("cubo.qmd")
 
 theme_gtsummary_language(
@@ -44,8 +42,8 @@ Lo anterior puede considerarse un viejo *desideratum* de los diseños muestrales
 
 Por lo tanto, el contexto actual de:
 
-a) un mayor acceso a fuentes secundarias de datos y
-b) una mayor capacidad computacional,
+a)  un mayor acceso a fuentes secundarias de datos y
+b)  una mayor capacidad computacional,
 
 parece ser un contexto particularmente propicio para la aplicación y difusión de este tipo de diseños porque, justamente, se trata de un diseño demandante en cuanto a datos secundarios (en forma de información auxiliar o covariables) y demandante con respecto a recursos computacionales (para ejecutar el algoritmo del método del cubo).
 
