@@ -56,6 +56,7 @@ library(sf)
 library(srvyr)
 library(survey)
 library(patchwork)
+library(BalancedSampling)
 
 i_am("muestra_adultos.qmd")
 
@@ -168,7 +169,7 @@ df_establecimientos_2026 = read_xlsx(here("Inputs", "Nómina de establecimientos
 clean_names()
 
 # Esto después se tiene que actualizar
-df_universo = read_xlsx(here("Inputs", "muestra_adultos", "Muestra Encuesta DEJAyAM 2026.xlsx")) |>
+df_universo = read_xlsx(here("Inputs", "muestra_adultos", "Muestra Encuesta DEJAyAM 2026-260604.xlsx")) |>
 clean_names() |>
 mutate(tipo_est_adulto = case_when(
 tipo_de_organizacion == "CENTRO EDUCATIVO DE NIVEL SECUNDARIO (C.E.N.S.)" ~ "CENS",
@@ -704,7 +705,7 @@ Decimos que 2 variables son jerárquicas porque "Gran área" se puede considerar
 [^muestra_adultos-1]: Cabe destacar que algunas construcciones de la variable "Gran Área" no son simplemente una agregación de regiones sino, más específicamente, solo una agregación de distritos. Por ejemplo, a veces se utiliza el criterio que algunos distritos de la Region 5 pertenecen a la categoría AMBA (p.e. Almirante Brown) y otros pertenecen a la categoria "Interior" (p.e. San Vicente). En este caso, como se trata de una agregación explícita de regiones, la variable "Gran Área" puede considerarse como una variable jerárquica de distrito y también de regiones.
 
 ```{r}
-#| label: tbl-dominios_estimacion_establecimientos
+#| label: dominios_estimacion_establecimientos
 tbl_dominio_establecimientos = df_sampling_frame |>
 select(dominio) |>
 tbl_summary(
@@ -713,7 +714,7 @@ tbl_summary(
 ```
 
 ```{r}
-#| label: tbl-dominios_estimacion_estudiantes
+#| label: dominios_estimacion_estudiantes
 
 df_estudiantes = read_rds(here("Inputs", "df_estudiantes.rds"))
 tbl_dominio_estudiantes = df_estudiantes |>
@@ -725,7 +726,7 @@ tbl_summary(
 
 ```{r}
 #| label: tbl-dominios_comparacion
-#| tbl-cap: Compracion dominios de estimación. Nivel establecimientos y nivel estudiantes.
+#| tbl-cap: Comparacion dominios de estimación. Nivel establecimientos y nivel estudiantes.
 tbl_dominios_comparacion = tbl_merge( 
  tbls = list(tbl_dominio_establecimientos, 
              tbl_dominio_estudiantes),
@@ -757,7 +758,7 @@ fig_mapa_dominios_regiones_facets = tm_shape(df_mapa_dominios_regiones_facets) +
                                     style = "quantile"),
     fill.legend = tm_legend(title = "% matrícula")
   ) +
-  tm_facets("tipo_est_adulto") +
+  tm_facets_wrap(by = "tipo_est_adulto", ncol = 3) +
   tm_title(text ="Porcentaje de matrícula por región agrupada") +
   tm_view(
     legend.outside = TRUE
@@ -788,7 +789,7 @@ fig_mapa_dominios_areas_facets = tm_shape(df_mapa_dominios_areas_facets) +
                                     style = "quantile"),
     fill.legend = tm_legend(title = "% matrícula")
   ) +
-  tm_facets("tipo_est_adulto") +
+tm_facets_wrap(by = "tipo_est_adulto", ncol = 3)+
   tm_title(text ="Porcentaje de matrícula por gran área") +
   tm_view(
     legend.outside = TRUE
@@ -799,7 +800,7 @@ fig_mapa_dominios_areas_facets
 
 ## Tamaño de la muestra
 
-El tamaño de una muestra no suele ser algo fácil de responder en un diseño con múltiples objetivos y estimadores [@valliant2018, pág. 26]. Una situación similar es cuando no se sabe bien para qué se va a usar la muestra, pero no se duda que diferentes investigadores van a intentar contestar diversas preguntas de investigación con ella. Esto último es una de las razones por las cuales muchas veces es preferible expresar los objetivos estadísticos en términos de un coeficiente de variación (*CV*). Este es adimensional (no posee unidades) y puede usarse para comparar la relativa precisión de las estimaciones de diferentes tipos de cantidades o variables [@valliant2018, pág. 27]. En otras palabras, nos permite comparar la precisión de las categorías de las variables discretas (como las categorías de género) con variables cuantitativas continuas (como la edad promedio).
+El tamaño de una muestra no suele ser algo fácil de responder en un diseño con múltiples objetivos y estimadores [@valliant2018, pág. 26]. Una situación similar es cuando no se sabe bien para qué finalmente se va a usar la muestra, pero no se duda que diferentes investigadores van a intentar contestar diversas preguntas de investigación con ella. Esto último es una de las razones por las cuales muchas veces es preferible expresar los objetivos estadísticos en términos de un coeficiente de variación (*CV*). Este es adimensional (no posee unidades) y puede usarse para comparar la relativa precisión de las estimaciones de diferentes tipos de cantidades o variables [@valliant2018, pág. 27]. En otras palabras, nos permite comparar la precisión de las categorías de las variables discretas (como las categorías de género) con variables cuantitativas continuas (como la edad promedio).
 
 Las principales agencias oficiales de estadística (como el INDEC en Argentina, INEGI en México o Eurostat) suelen evaluar la calidad y la factibilidad de publicación de sus estimaciones a partir de los límites de sus $CV$: un $CV \le 10\%$ se cataloga como una estimación de excelente precisión, mientras que estimaciones con un $CV > 20\%$ se consideran no publicables por su alta variabilidad.
 
@@ -807,15 +808,19 @@ Muchas veces suele solicitarse un determinado **Margen de Error absoluto** ($MdE
 
 ### Traducción de Margen de Error a Coeficiente de Variación
 
-Para ser consistente tanto con el pedido de precisión original (Nivel de confianza del $90\%$, $p=50\%$ y márgenes de error de $3\%$, $4\%$ y $5\%$) como con el supuesto de la superioridad de los CV, podemos establecer la siguiente equivalencia teórica. Si recordamos que el margen de error absoluto es:
+Para ser consistente tanto con el pedido de precisión original (Nivel de confianza del $90\%$, $p=50\%$ y márgenes de error de $3\%$, $4\%$ y $5\%$) como con el supuesto de la superioridad de los CV, podemos establecer la siguiente equivalencia teórica.
 
-ESTA FÓRMULA ESTÁ MAL
+El margen de error absoluto se relaciona con el error estándar de la siguiente manera:
 
-$d = z_{1-\alpha/2} \cdot SE(\hat{p})$
+$MOE = e = z_{1-\alpha/2} \cdot SE(\hat{p})$
+
+y, por otro lado, el CV es:
+
+$CV = \frac{SE}{Media}$
 
 bajo un diseño de máxima varianza donde $p = 0,5$ y un nivel de confianza del $90\%$ (con un valor crítico $z_{0,95} \approx 1,645$), la relación matemática para el $CV$ es:
 
-$$CV(\hat{p}) = \frac{SE(\hat{p})}{p} = \frac{d}{p \cdot z_{1-\alpha/2}} = \frac{d}{0,5 \cdot 1,645} \approx \frac{d}{0,8225}$$ {#eq-margen-cv}
+$$CV(\hat{p}) = \frac{SE(\hat{p})}{p} = \frac{MOE}{p \cdot z_{1-\alpha/2}} = \frac{MOE}{0,5 \cdot 1,645} \approx \frac{MOE}{0,8225}$$ {#eq-margen-cv}
 
 ```{r}
 #| label: traduccion_mde_a_cv
@@ -826,25 +831,25 @@ z_valor = qnorm(0.95) # ~ 1.645 para 90% de confianza
 p_varianza_max = 0.5  # Escenario de máxima varianza para una proporción binaria
 
 # Definimos la función de conversión
-convertir_mde_a_cv = function(mde, 
+convertir_moe_a_cv = function(moe, 
                               z = z_valor, 
                               p = p_varianza_max) 
 {
-  se_objetivo = mde / z # Estándar error
+  se_objetivo = moe / z # Estándar error
   cv_objetivo = se_objetivo / p # "p" el valor del estimador (puede ser categórico (proporcion) o numerico (media)
   return(cv_objetivo)
 }
 
 # Calculamos los coeficientes de variación objetivo para cada nivel de precisión
-cv_o_te_area = convertir_mde_a_cv(mde = 0.03)    # Para EPA y CENS (3% MdE)
-cv_o_te_region_agrupada = convertir_mde_a_cv(mde = 0.04)  # Para FINES individual (5% MdE)
-cv_o_te_region = convertir_mde_a_cv(mde = 0.05)   # Para FINES grupo de regiones (4% MdE)
+cv_o_te_area = convertir_moe_a_cv(moe = 0.03)    # Para EPA y CENS (3% MdE)
+cv_o_te_region_agrupada = convertir_moe_a_cv(moe = 0.04)  # Para FINES individual (5% MdE)
+cv_o_te_region = convertir_moe_a_cv(moe = 0.05)   # Para FINES grupo de regiones (4% MdE)
 
 
 # Presentamos los resultados formateados
 resultados_precision = tibble(
   Objetivo = c("TE/Área", "TE/Región", "TE/Región agrup."),
-  MdE_Original = c("3.0%", "4.0%", "5.0%"),
+  MOE_Original = c("3.0%", "4.0%", "5.0%"),
   CV_Objetivo = c(cv_o_te_area, 
                   cv_o_te_region_agrupada,
                   cv_o_te_region)
@@ -854,10 +859,10 @@ resultados_precision = tibble(
 ```
 
 ```{r}
-#| label: tbl-traduccion_mde_cv
-#| tbl-cap: Traducción de MdE a CV
-tbl_traduccion_mde_cv = resultados_precision |> 
-  select(Objetivo, MdE_Original, CV_Objetivo_Pct) |> 
+#| label: tbl-traduccion_moe_cv
+#| tbl-cap: Traducción de MOE a CV
+tbl_traduccion_moe_cv = resultados_precision |> 
+  select(Objetivo, MOE_Original, CV_Objetivo_Pct) |> 
   gt() |> 
   tab_header(
     title = "Equivalencia de Objetivos de Precisión",
@@ -865,10 +870,10 @@ tbl_traduccion_mde_cv = resultados_precision |>
   ) |> 
   cols_label(
     Objetivo = "Dominio de Estimación",
-    MdE_Original = "Margen de Error (MdE)",
+    MOE_Original = "Margen de Error (MOE)",
     CV_Objetivo_Pct = "CV Objetivo"
   )
-tbl_traduccion_mde_cv
+tbl_traduccion_moe_cv
 ```
 
 ## Cálculo del DEFF y del ESS
@@ -902,7 +907,7 @@ Donde $b$ representa el tamaño del cluster. En este caso sería la cantidad de 
 
 ### Rediseño de la segunda etapa para garantizar la autoponderación y reducir el *DEFF*
 
-El requerimiento sugería relevar **todas las secciones** de cada escuela seleccionada. A pesar de que en este tipo de establecimientos parece haber pocos con muchas secciones (@fig-explo_marco_continuas), esto puede generar que el número de estudiantes encuestados por escuela variara drásticamente. Esto tendría el efecto de afectar la preciada **autoponderación** de una muestra PPS, creando la necesidad tanto de construir ponderadores como de utilizarlos al momento del análisis. Por otro lado, incrementaría el tamaño medio de los estudiantes por cada cluster/establecimiento aumentado el parámetro ($b$) y, de ese modo, también aumentando el $deff$ y requiriendo un tamaño de muestra total mayor.
+El requerimiento sugería relevar **todas las secciones** de cada escuela seleccionada. A pesar de que en este tipo de establecimientos parece haber pocos con muchas secciones (@fig-comparacion), esto puede generar que el número de estudiantes encuestados por escuela variara drásticamente. Esto tendría el efecto de afectar la preciada **autoponderación** de una muestra PPS, creando la necesidad tanto de construir ponderadores como de utilizarlos al momento del análisis. Por otro lado, incrementaría el tamaño medio de los estudiantes por cada cluster/establecimiento aumentado el parámetro ($b$) y, de ese modo, también aumentando el $deff$ y requiriendo un tamaño de muestra total mayor.
 
 Para solucionar esto, se propone rediseñar la segunda etapa del muestreo de la siguiente manera:
 
@@ -920,7 +925,7 @@ Un $deff$ de $1,4$ significa que se necesitan un $40\%$ más de casos que un mue
 
 ### Simulación del impacto de la Correlación Intracluster ($\rho$) y el tamaño del cluster ($b$)
 
-Para comprender de manera intuitiva y didáctica cómo interactúan el tamaño del cluster por escuela ($b$) y la homogeneidad de las instituciones ($\rho$), se realiza una simulación que calcula el $deff$ y evalúa el tamaño de muestra teórico final requerido bajo escenarios alternativos de diseño para estimar una proporción con $CV = 3,65\%$ que era la estipulada para el cruce tipo de establecimiento y área (@tbl-traduccion_mde_cv).
+Para comprender de manera intuitiva y didáctica cómo interactúan el tamaño del cluster por escuela ($b$) y la homogeneidad de las instituciones ($\rho$), se realiza una simulación que calcula el $deff$ y evalúa el tamaño de muestra teórico final requerido bajo escenarios alternativos de diseño para estimar una proporción con $CV = 3,65\%$ que era la estipulada para el cruce tipo de establecimiento y área (@tbl-traduccion_moe_cv).
 
 ```{r}
 #| label: tbl-simulacion_deff
@@ -1073,7 +1078,7 @@ Salvo la excepción de las CEBAS que por su baja cantidad de casos de forma nece
 
 Una vez que hemos determinado los coeficientes de variación ($CV$) como objetivos de precisión para cada cruce de tipo de establecimiento y división geográfica, y habiendo modelado el efecto de diseño empírico ($deff = 1,4$) derivado de la selección de la sección anterior y 5 estudiantes por establecimiento, pasamos a calcular el tamaño de muestra teórico. Siempre cabe recordar que este tamaño es téorico en el sentido que es razonable basado en suposiciones y evidencia anterior, pero solo luego de haber realizado la muestra se sabrá, a ciencia cierta, el valor del coeficiente de variación (o margen de error en su defecto).
 
-Para esto, utilizaremos la función `nProp` de la librería `PracTools`. Esta función estima el tamaño mínimo de muestra en un diseño de Muestreo Aleatorio Simple () para una proporción en un escenario de máxima varianza ($p=0,5$). Luego, multiplicaremos ese tamaño por nuestro $deff = 1,4$ para obtener el tamaño final de estudiantes. Ese tamaño total luego se divide por la cantidad de estudiantes a seleccionar por cada establecimiento (5) y ese valor es la cantidad de sedes a seleccionar:
+Para esto, utilizaremos la función `nProp` de la librería `PracTools`. Esta función estima el tamaño mínimo de muestra en un diseño de Muestreo Aleatorio Simple (*MAS*) para una proporción en un escenario de máxima varianza ($p=0,5$). Luego, multiplicaremos ese tamaño por nuestro $deff = 1,4$ para obtener el tamaño final de estudiantes. Ese tamaño total luego se divide por la cantidad de estudiantes a seleccionar por cada establecimiento (5) y ese valor es la cantidad de sedes a seleccionar en el primer paso del diseño muestral:
 
 ```{r}
 #| label: calculo_tamano_muestra
@@ -1147,13 +1152,13 @@ En la siguiente sección, procederemos a segmentar nuestro marco muestral (`df_s
 
 ## Asignación empírica de la muestra y corrección por población finita (FPC)
 
-Una vez calculados los tamaños muestrales teóricos bajo el supuesto de universos infinitos o muy grandes, el paso metodológico fundamental es confrontar estos requerimientos con el tamaño real de nuestro marco muestral (@sec-marco_muestral_adultos).
+Una vez calculados los tamaños muestrales teóricos bajo el supuesto de universos infinitos o muy grandes, el paso metodológico fundamental es confrontar estos requerimientos con el tamaño real de la población objetivo estimado a través de nuestro marco muestral (@sec-marco_muestral_adultos).
 
 En este diseño polietápico, la primera etapa de selección se realizará utilizando **Probabilidad Proporcional al Tamaño (PPS)** en función de la matrícula de cada establecimiento. La selección PPS tiene la caracterísitca de otorgar mayor probabilidad de inclusión a las escuelas grandes (que concentran a la mayor cantidad de estudiantes del universo). En la segunda etapa, al sortear exactamente una sección y seleccionar un número fijo de 5 estudiantes, logramos que la muestra sea estrictamente **autoponderada** a nivel de estudiante.
 
 Sin embargo, al analizar el marco muestral real, nos enfrentamos a dos particularidades del universo que exigen una intervención metodológica:
 
-1\. **La Corrección por Población Finita (FPC):** Cuando el tamaño de muestra de sedes calculado ($n_h$) representa una fracción significativa del total de sedes disponibles en el universo de ese estrato ($N_h$, por ejemplo, más del $5\%$), la varianza del estimador disminuye porque conocemos a una porción muy grande de la población. Para evitar un sobremuestreo innecesario y costoso, corregimos el tamaño muestral aplicando el factor de población finita: $$n_{\text{corregido}, h} = \frac{n_h}{1 + \frac{n_h}{N_h}}$$ 2. **Estratos pequeños e inferencia regional:** En ofertas como FINES en regiones del interior muy pequeñas, el requerimiento teórico de precisión regional (5% MdE, que exige unas 76 sedes por región) puede superar la cantidad física de sedes disponibles en el universo de esa región. En esos casos, el estrato se vuelve automáticamente **censal** (se seleccionan todas las sedes del estrato, asignándoles probabilidad de inclusión $\pi_i = 1$).
+1\. **La Corrección por Población Finita (FPC):** Cuando el tamaño de muestra de sedes calculado ($n_0$) representa una fracción significativa del total de sedes disponibles en el universo de ese estrato ($N_0$, por ejemplo, más del $5\%$), la varianza del estimador disminuye porque conocemos a una porción relativamente grande de esa población. Para evitar un sobremuestreo innecesario y costoso, corregimos el tamaño muestral aplicando el factor de población finita: $$n_{\text{corregido}, 0} = \frac{n_0}{1 + \frac{n_0}{N_0}}$$ 2. **Estratos pequeños e inferencia regional:** En ofertas como FINES en regiones del interior muy pequeñas, el requerimiento teórico de precisión regional (5% MdE, que exige unas 76 sedes por región) puede superar la cantidad física de sedes disponibles en el universo de esa región. En esos casos, el estrato se vuelve automáticamente **censal** (se seleccionan todas las sedes del estrato, asignándoles probabilidad de inclusión $\pi_i = 1$).
 
 A continuación, se calcula los estratos en nuestro marco real, calcular los tamaños finales corregidos de estudiantes y sedes, y preparar la asignación empírica:
 
@@ -1227,7 +1232,7 @@ resumen_asignacion |>
   )
 ```
 
-Como se observará en los resultados de la simulación empírica en el marco real, la aplicación de la **Corrección por Población Finita (FPC)** es una herramienta de optimización de recursos fundamental. En estratos donde el universo de sedes es acotado, la corrección reduce sustancialmente el número de establecimientos físicos a visitar, manteniendo exactamente la misma precisión estadística exigida.
+Como se observará en los resultados de la simulación empírica en el marco real, la aplicación de la **Corrección por Población Finita (FPC)** es una herramienta de optimización de recursos fundamental en este tipo de investigaciones. En estratos donde el universo de sedes es acotado, la corrección reduce sustancialmente el número de establecimientos físicos a visitar, manteniendo exactamente la misma precisión estadística exigida.
 
 ### Próximos pasos metodológicos: Hacia muestras balanceadas y el Método del Cubo
 
@@ -1252,13 +1257,13 @@ El **Método del Cubo** se implementará bajo la siguiente estructura lógica de
 
 ### Probabilidades de Inclusión PPS y Sedes Autorepresentadas
 
-En un muestreo PPS, la probabilidad de selección de la sede $i$ en el estrato $h$ se define como: $$\pi_{ih} = n_{\text{corregida}, h} \cdot \frac{\text{Matrícula}_{ih}}{\text{Matrícula Total}_h}$$
+En un muestreo PPS, la probabilidad de selección de la sede $i$ en el estrato $h$ se define como: $$\pi_{ih} = n_{\text{corregida}, h} \cdot \frac{\text{Matricula}_{ih}}{\text{Matricula Total}_h}$$
 
 Sin embargo, en escuelas sumamente grandes, esta probabilidad teórica puede resultar mayor a $1$. Estos casos se denominan metodológicamente **sedes autorepresentadas** (o de selección forzosa). Debemos identificarlas de forma iterativa, asignarles una probabilidad de inclusión fija de exactamente $1$, y recalcular las probabilidades de inclusión del resto de las sedes con la matrícula remanente para que la suma final de las probabilidades coincida exactamente con nuestro tamaño de muestra asignado.
 
 A continuación, he escrito el código en R para realizar el ajuste iterativo de probabilidades PPS y ejecutar la selección definitiva utilizando el Método del Cubo:
 
-``` r
+```{r}
 #| label: seleccion_primera_etapa_cubo
 
 # 1. Limpieza y preparación de variables continuas y estandarización del IVT (IVSE)
@@ -1271,8 +1276,9 @@ df_marco_seleccion = df_marco_estratificado |>
   )
 
 # 2. Función iterativa para calcular y ajustar las probabilidades de inclusión PPS
-calcular_pi_pps = function(matricula_vector, n_sedes_muestra) {
-  N = length(matricula_vector)
+calcular_pi_pps = function(matricula_vector, 
+                           n_sedes_muestra) {
+N = length(matricula_vector)
   
   # Si la cantidad de sedes requeridas supera o iguala al universo del estrato, todos tienen pi = 1
   if(n_sedes_muestra >= N) {
@@ -1300,11 +1306,10 @@ calcular_pi_pps = function(matricula_vector, n_sedes_muestra) {
 
 # 3. Calculamos la probabilidad de inclusión (pi) para cada sede en su estrato correspondiente
 df_marco_seleccion = df_marco_seleccion |> 
-  left_join(resumen_asignacion |> select(estrato_diseno, sedes_corregidas_n), by = "estrato_diseno") |> 
+  left_join(resumen_asignacion |> 
+ select(estrato_diseno, sedes_corregidas_n), by = "estrato_diseno") |> 
   group_by(estrato_diseno) |> 
-  mutate(
-    pi_pps = calcular_pi_pps(matricula, first(sedes_corregidas_n))
-  ) |> 
+  mutate(pi_pps = calcular_pi_pps(matricula, first(sedes_corregidas_n))) |> 
   ungroup()
 
 # 4. Construcción de Matrices para el Algoritmo del Cubo (lcube)
@@ -1319,7 +1324,7 @@ Xba_final = cbind(df_marco_seleccion$pi_pps, X_balanceo)
 Xsp_esparcimiento = as.matrix(df_marco_seleccion$ivse_std)
 
 # 5. Ejecución del Algoritmo del Cubo (lcube)
-set.seed(42) # Fijamos semilla para reproducibilidad
+set.seed(123) # Fijamos semilla para reproducibilidad
 
 # Seleccionamos la muestra física
 indices_muestra_cubo = lcube(
