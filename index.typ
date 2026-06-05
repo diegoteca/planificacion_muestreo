@@ -434,7 +434,7 @@
 #show: book.with(
   title: [Taller Muestreo],
   author: "Recursos Didácticos y Tecnológicos para la Enseñanza",
-  date: "22 de mayo de 2026",
+  date: "1 de junio de 2026",
   lang: "es",
   main-color: brand-color.at("primary", default: blue),
   logo: {
@@ -444,6 +444,7 @@
   outline-depth: 3,
   list-of-figure-title: "Índice de figuras",
   list-of-table-title: "Índice de tablas",
+  supplement-chapter: "Cap.",
 )
 
 
@@ -475,11 +476,11 @@ Finalmente, se verán algunas estrategias de calibración que, en principio, al 
 
 El código con que vamos a procesar los datos a lo largo del taller va a ser en lenguaje R. R es un lenguaje de programación que parece una opción razonable tanto para el diseño de la muestra como su posterior calibración y análisis de los datos. Si bien diseños de métodos de muestreo relativamente simples son posibles de realizarse en varios otros lenguajes la situación se complica un poco a medida que se quieren utilizar, y luego analizar, diseños más complejos. En esta última situación, ya no es posible conseguir librerías especializadas en muchos lenguajes aparte de R, Python, Julia y SAS.
 
-Dentro del ecosistema de R, ejemplos de librerías para analizar datos producidos con diseños muestrales pueden considerarse #link("https://r-survey.r-forge.r-project.org/survey/")[survey], #link("https://bschneidr.github.io/svrep/")[svrep] y su correspondiente versión tidy #link("http://gdfe.co/srvyr/")[srvyr]. Estas librerías generalmente agregan meta-información al dataframe original que hace referencia al modo o diseño en que fue realizada la muestra. Esta información luego es utilizada para realizar estimaciones puntuales con sus respectivos errores estandard, intervalos de confianza o coeficientes de variación. La librería survey es una librería madura mantenida principalmente por #link("https://en.wikipedia.org/wiki/Thomas_Lumley_(statistician)")[Thomas Lumley] (un personaje conocido dentro de la comunidad estadística en general y en la en R en particular). La librería srvyr puede considerarse como su sucesora más moderna, aunque como lo destacan sus propios autores, se trata de una librería más amigable para el usuario en donde la mayoría del trabajo sucio lo sigue haciendo por detrás la librería survey. Algo similar resulta entre la relación entre survey y svrep ya que esta última se puede considerar una extensión de la primera para el cálculo de ponderadores replicados (#emph[replicate weights]). Algo importante a destacar es la compatibilidad entre las 3 librerías y que, a pesar de la diferencia generacional (Lumley es el mayor) existe una relación afectuosa entre los diferentes autores. En efecto, #link("https://github.com/bschneidr")[Ben Schneider], el creador de la librería svrep, es un asiduo contribuidor de los 3 paquetes antes nombrados.#footnote[Existen más librerías que pueden considerarse como extensiones de survey. #link("https://cran.r-project.org/web/packages/robsurvey/index.html")[robsurvey], para la realización de estimaciones robustas, es otro ejemplo.]
+Dentro del ecosistema de R, ejemplos de librerías para analizar datos producidos con diseños muestrales pueden considerarse #link("https://r-survey.r-forge.r-project.org/survey/")[survey], #link("https://bschneidr.github.io/svrep/")[svrep] y su correspondiente versión tidy #link("http://gdfe.co/srvyr/")[srvyr]. Estas librerías generalmente agregan meta-información al dataframe original que hace referencia al modo o diseño en que fue realizada la muestra. Esta información luego es utilizada para realizar estimaciones puntuales con sus respectivos errores estandard, intervalos de confianza o coeficientes de variación. La librería survey es una librería madura mantenida principalmente por #link("https://en.wikipedia.org/wiki/Thomas_Lumley_(statistician)")[Thomas Lumley] (un personaje conocido dentro de la comunidad estadística en general y en la en R en particular). La librería srvyr puede considerarse como su sucesora más moderna, aunque como lo destacan sus propios autores, se trata de una librería más amigable para el usuario en donde la mayoría del trabajo sucio lo sigue haciendo por detrás la librería survey. Algo similar resulta entre la relación entre survey y svrep ya que esta última se puede considerar una extensión de la primera para el cálculo de ponderadores replicados (#emph[replicate weights]). Algo importante a destacar es la compatibilidad entre las 3 librerías y que, a pesar de la diferencia generacional (Lumley es el mayor) existe una relación afectuosa entre los diferentes autores. En efecto, #link("https://github.com/bschneidr")[Ben Schneider], el creador de la librería svrep, es un asiduo contribuidor de los 3 paquetes antes nombrados.#footnote[Más adelante veremos que indagar sobre la precisión de la estimación es posible pero difícil en las muestras realizadas con el método del cubo. Por esta razón, si bien es posible comparar la precisión de estas muestras contra, por ejemplo, el muestreo por azar simple, acá esto se tomará como un supuesto y se remite al lector a fuentes en donde se prueba lo anterior \[#cite(<brus2022>, form: "prose"), cap. 9\]@schneider2024. El principal problema es que, por ahora, las librerías de análisis de datos de encuestas (p.e. #emph[survey]) todavía no tienen el instrumental adecuado para especificar este tipo de diseños y, por lo tanto, para calcular la precisión de sus estimaciones.]
 
-Ejemplos de librerías que sirven para el diseño de las muestras y su posterior ajuste son #link("https://cran.r-project.org/web/packages/sampling/index.html")[sampling], #link("https://envisim.se/balancedsampling")[balanced sampling] y #link("https://cran.r-project.org/web/packages/Spbsampling/index.html")[spbsampling]. Al igual que con las librerías anteriores, aquí también existe relación entre los diferentes autores. La librería sampling es una librería madura creada bajo la tutela de Yver Tillé, que es otro personaje bastante conocido tanto en el mundo de la estadística académica como dentro de los organismos oficiales de estadística de diferentes países. La librería balanced sampling hace mucho de las funciones que la librería sampling, pero es más moderna (corre en C#super[\++]) y es mantenida por #link("https://scholar.google.com/citations?user=JkMAOUEAAAAJ&hl=sv")[Anton Grafstrom] que ha escrito con Tillé. Por otro lado, la librería spbsampling se especializa en muestreos espaciales (balanced sampling también tiene funciones para eso), se ejecuta en C#super[\++] y es mantenida por #link("https://scholar.google.com/citations?user=h_Rnt4kAAAAJ&hl=it")[Roberto Benedetti]. Tanto Benedetti como Grafstrom se reconocen entre ellos y algo interesante es que si, bien ambos han trabajado con institutos oficiales de estadística, ambos se especializan en organismos de agricultura. De ahí que ambos muestren interés en la dimensión espacial de los diseños muestrales porque esta es útil a la hora de, por ejemplo, diseñar una buena muestra de la vegetación de un bosque.#footnote[Para aquel que le interesa agregar explícitamente la dimensión espacial en los diseños muestrales puede consultar la obra de Dick Brus "#link("https://dickbrus.github.io/SpatialSamplingwithR/")[Spatial sampling with R]". Brus, un geólogo ahora ya retirado, es una eminencia mundial en la temática de los muestreos de suelo (#emph[soil sampling]) y más en general, de los muestreos espaciales.]
+Ejemplos de librerías que sirven para el diseño de las muestras y su posterior ajuste son #link("https://cran.r-project.org/web/packages/sampling/index.html")[sampling], #link("https://envisim.se/balancedsampling")[balanced sampling] y #link("https://cran.r-project.org/web/packages/Spbsampling/index.html")[spbsampling]. Al igual que con las librerías anteriores, aquí también existe relación entre los diferentes autores. La librería sampling es una librería madura creada bajo la tutela de Yver Tillé, que es otro personaje bastante conocido tanto en el mundo de la estadística académica como dentro de los organismos oficiales de estadística de diferentes países. La librería balanced sampling hace mucho de las funciones que la librería sampling, pero es más moderna (corre en C#super[\++]) y es mantenida por #link("https://scholar.google.com/citations?user=JkMAOUEAAAAJ&hl=sv")[Anton Grafstrom] que ha escrito con Tillé. Por otro lado, la librería spbsampling se especializa en muestreos espaciales (balanced sampling también tiene funciones para eso), se ejecuta en C#super[\++] y es mantenida por #link("https://scholar.google.com/citations?user=h_Rnt4kAAAAJ&hl=it")[Roberto Benedetti]. Tanto Benedetti como Grafstrom se reconocen entre ellos y algo interesante es que si, bien ambos han trabajado con institutos oficiales de estadística, ambos se especializan en organismos de agricultura. De ahí que ambos muestren interés en la dimensión espacial de los diseños muestrales porque esta es útil a la hora de, por ejemplo, diseñar una buena muestra de la vegetación de un bosque.#footnote[El ejemplo y el respectivo código fue adaptado del libro "Spatial sampling with R" @brus2022.]
 
-Por último, para el cálculo de los tamaños muestrales con diferentes diseños (y otras yerbas) puede consultarse la librería #link("https://cran.r-project.org/web/packages/PracTools/index.html")[PracTools]. No se trata de una libraría muy sofisticada como algunas de las anteriores pero se trata de una librería útil y relativamente bien documentada. Un dato no menor es que uno de sus autores es #link("https://scholar.google.com/citations?user=6Q5RKeAAAAAJ&hl=en")[Richard Valliant] que, a su turno, es uno de los mayores exponentes de un enfoque importante dentro del mundo del muestreo como es el "#emph[Model Assisted Sampling]". #footnote[Otras librerías que existen dentro del ecosistema de R pero que no veremos aquí son #link("https://barcaroli.github.io/SamplingStrata/")[SamplingStrata] y #link("https://csblatvia.github.io/surveyplanning/")[surveyplanning].]
+Por último, para el cálculo de los tamaños muestrales con diferentes diseños (y otras yerbas) puede consultarse la librería #link("https://cran.r-project.org/web/packages/PracTools/index.html")[PracTools]. No se trata de una libraría muy sofisticada como algunas de las anteriores pero se trata de una librería útil y relativamente bien documentada. Un dato no menor es que uno de sus autores es #link("https://scholar.google.com/citations?user=6Q5RKeAAAAAJ&hl=en")[Richard Valliant] que, a su turno, es uno de los mayores exponentes de un enfoque importante dentro del mundo del muestreo como es el "#emph[Model Assisted Sampling]". #footnote[En este sentido, más que nada por razones pedagógicas, aquí se han elegido como covariables, un conjunto de variables con poco margen de no respuesta. Esto se debe a que, si se hubieran escogido covariables con una alta tasa de no respuesta, se presenta el problema de contra que conjunto de datos testear las bondades de la técnica del balanceo. Esto es así dado que si los resultados de la técnica del cubo se comparan contra los totales poblacionales de los colegios (#ref(<tbl-parametros_base>, supplement: [Tabla])) es esperable que los resultados vayan a ser diferentes porque, estrictamente, el balanceo se realiza solo sobre los establecimientos que tienen la información auxiliar pertinente. Lo mismo, #emph[mutatis mutandis], si se compara la técnica del balanceo con la respectiva muestra de azar simple de toda la población de colegios (#ref(<tbl-azar_simple>, supplement: [Tabla])).]
 
 == Librerías utilizadas
 <librerías-utilizadas>
@@ -487,6 +488,7 @@ Abajo hay un código para instalar y cargar las librerías que vamos a utilizar.
 
 La sección de las aplicaciones prácticas, principalmente por cuestiones de confidencialidad, no son reproducibles. Por otro lado, algunos #emph[chunks] incuyen código de Pyhton.
 
+#part[Diseños muestrales]
 = Cuándo y por qué hacer muestras
 <cuándo-y-por-qué-hacer-muestras>
 Una muestra es una parte de un todo. En los muestreos que aspiran a ser (en algún grado) representativos lo que se intenta lograr es que esa parte que se seleccione no sea muy diferente al todo o, como decían los romanos, que sea legítimo tomar una parte como el todo (#emph[pars pro toto]). En este sentido, lo que vamos a hablar aquí sobre muestreo tiene mayor pertinencia cuando en la investigación se intenta maximizar la #strong[representatividad], pero por alguna razón no es posible o conveniente la realización de un censo de todas las partes que conforman ese todo. Por otro lado, diseñar muestras también puede ser importante cuando se necesitan construir grupos de tratamiento y control en diseños experimentales, especialmente en los diseños experimentales aleatorios @kish1987. En efecto, la vinculación entre la bibliografía de los diseños muestrales y los diseños experimentales suele ser útil si se aspira a entender las razones (y no solo saber ejecutarlas en la práctica) de algunas recomendaciones metodológicas, ya que muchos de los conceptos más abstractos son compartidos por ambas \[#cite(<hedlin2015>, form: "prose")\]@fienberg1988.
@@ -1854,6 +1856,7 @@ supplement: "Tabla",
 
 En la #ref(<tbl-comp_calibraciones>, supplement: [Tabla]) puede observarse como ambas estrategias de calibración parecen igual de eficaces ya que ambas arrojan resultados muy similares entre sí y, a su vez, muy similares con los parámetros poblacionales. En este contexto se recuerda que, si bien los valores finales son muy similares, la mejora realizada en el proceso de calibración es mayor sobre el diseño de azar simple ya que esa muestra no era tan precisa como la muestra bien distribuida y, por lo tanto, existía la oportunidad de mejorar bastante.
 
+#part[Aplicaciones prácticas]
 = Muestra PEB 2025
 <muestra-peb-2025>
 Las pruebas PEB (Pruebas Escolares Bonaerenses) son un programa orientado a mejorar la enseñanza y el aprendizaje de Matemática y Prácticas del Lenguaje en el nivel Primario, tanto en el sector estatal como en el privado, que se puso en marcha en 2022 en la Provincia de Buenos Aires @subsecretaría2025[pág. 5].
@@ -1949,7 +1952,7 @@ Si se pasa al otro extremo de seleccionar a todas las secciones del establecimie
 De esta manera, a pesar de no ser la típica consecuencia buscada de la estratificación, aquellos establecimientos con mayor cantidad de secciones (y en general con mayor matrícula) pueden tener una mayor chances de incluir a sus estudiantes en la muestra. En efecto, en la #ref(<fig-matricula_seccion>, supplement: [Figura]) se observa una relación estrecha entre el tamaño de la matrícula y la cantidad de secciones del establecimiento.
 
 #figure([
-#box(image("muestra_2025_files/figure-typst/fig-matricula_seccion-1.svg"))
+#box(image("muestra_peb_2025_files/figure-typst/fig-matricula_seccion-1.svg"))
 ], caption: figure.caption(
 position: top, 
 [
@@ -2046,7 +2049,7 @@ supplement: "Tabla",
 
 
 == Muestra 2025
-<muestra-2025>
+<sec-muestra_peb_2025>
 Teniendo en mente las características destacadas de la muestra anterior, ahora vamos a pasar a describir los objetivos de la muestra de 2025. En general se conservan muchos de ellos aunque también se agregan otros. Esto hace que, en términos de las técnicas empleadas para llegar a esos objetivos, se exceda el léxico clásico de la estratificación y la conglomeración. Los objetivos son:
 
 + Incluir los mismos criterios (actualizados a valores de 2025) que anteriormente se incluyeron en la construcción de los estratos para la construcción de una muestra #strong[balanceada]. Esto son:
@@ -2142,7 +2145,7 @@ supplement: "Tabla",
 Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere, en las variables latitud, longitud (#strong[?\@fig-mapa\_muestra\_2025]) y porcentaje de AUH (#ref(<fig-densidad_auh>, supplement: [Figura])), de la distribución de las mismas a nivel del marco muestral.
 
 #figure([
-#box(image("muestra_2025_files/figure-typst/fig-mapa_calor_poblacion_muestra-1.svg"))
+#box(image("muestra_peb_2025_files/figure-typst/fig-mapa_calor_poblacion_muestra-1.svg"))
 ], caption: figure.caption(
 position: top, 
 [
@@ -2155,7 +2158,7 @@ supplement: "Figura",
 
 
 #figure([
-#box(image("muestra_2025_files/figure-typst/fig-densidad_auh-1.svg"))
+#box(image("muestra_peb_2025_files/figure-typst/fig-densidad_auh-1.svg"))
 ], caption: figure.caption(
 separator: "", 
 position: top, 
@@ -2221,7 +2224,7 @@ supplement: "Tabla",
 
 
 #figure([
-#box(image("muestra_2025_files/figure-typst/fig-poblacion_estudiantes_vs_muestra_estudiantes-1.svg"))
+#box(image("muestra_peb_2025_files/figure-typst/fig-poblacion_estudiantes_vs_muestra_estudiantes-1.svg"))
 ], caption: figure.caption(
 separator: "", 
 position: top, 
@@ -2248,7 +2251,7 @@ Sin embargo, el problema no se trata solo de que antes se iba a #emph[todas] las
 Lo anterior puede analizarce de modo empírico de dos modos diferentes. Primero analizaremos la distribución, medida a través de la desviación estándar, de todas las secciones con respecto a su respectiva media de tamaño para su mismo establecimiento y año. Esto nos va a permitir captar la heterogeneridad en función de la misma unidad que se utiliza para calcular la media que, en este caso, es la cantidad de estudiantes. En la #ref(<fig-sd_size_secciones_intra_establecimiento>, supplement: [Figura]) se observa como, si bien con una distribución normal, existen divergencias con respecto a la media. Esto asegura que, si se seleccionara siempre a las secciones más grandes del tandem establecimiento/año, efectivamente la muestra estaría compuesta casi exclusivamente por secciones que se encuentran por encima de su respectiva media. Claro está que la mayoría de ellas estaría compuesta por secciones que sobrepasan por pocos estudiantes (2 estudiantes) a su respectiva media.
 
 #figure([
-#box(image("muestra_2025_files/figure-typst/fig-sd_size_secciones_intra_establecimiento-1.svg"))
+#box(image("muestra_peb_2025_files/figure-typst/fig-sd_size_secciones_intra_establecimiento-1.svg"))
 ], caption: figure.caption(
 position: top, 
 [
@@ -2297,6 +2300,1232 @@ supplement: "Tabla",
 <tbl-poblacion_muestra_secciones>
 
 
+= Muestra EJAyAM
+<muestra-ejayam>
+== Objetivos
+<objetivos>
+El objetivo es realizar una muestra representativa de estudiantes jóvenes, adultos y adultos mayores (EJAyAM) de la provincia de Buenos Aires.
+
+Expresado en el lenguaje clásico de los márgenes de error, la precisión de los resultados con la se espera poder realizar inferencias son en general de:
+
+- Nivel de confianza: 90%
+
+- P: 50%
+
+pero con los siguientes márgenes de error específicos:
+
+- Sobre los establecimientos FINES a nivel regional con un margen de error del 5%.
+
+- En el resto de los establecimientos (EPA y CENSA) se espera poder hacer inferencias a nivel de Gran Área con un margen de error del 3%.
+
+- En el caso de los CEBAS, dado su pequeño tamaño poblacional, se espera realizar un relevamiento censal. Por esta razón no habrá márgen de error para esta categoría.
+
+Si se asume que los diferentes tipos de establecimientos son "Estratos" muestrales, se podría pensar
+
+3% por estrato-gran área,
+
+4% por estrato-región agrupada.
+
+5% por estrato-región
+
+Por ahora no diremos algo más específico con referencia a los medios para lograr ese objetivo. La razón de esto es, justamente, distinguir los objetivos del estudio de los medios para lograrlos. Incluso más adelante vamos a proponer una manera alternativa de proponer los objetivos de la muestra basada en el léxico del coeficiente de variación (#emph[CV]) que puede considerarse como un error estándar relativo @valliant2018[pág. 3]. El cómo enunciar los objetivos de una muestra no algo banal. En efecto, suele haber diferencias entre las disciplinas a la hora de que pedirle a una muestra. Por ejemplo, en contextos epidemiológicos es usual hablar de #emph[power requirements] aunque lo usual en las ciencias sociales es hablar sobre #emph[precision goals] @valliant2018[pág. 8].
+
+Para esto se espera realizar un diseño muestral polietápico en donde en una primera etapa seleccione a los establecimeintos y luego a los estudiantes que concurren a ellos.
+
+Los estudiantes pueden pertenecer a los siguientes #strong[tipos de establecimientos]:
+
+- Nivel Primario. Se incluyen solo a los EPA. Se excluyen a los centros de alfabetización y a los CEPA.
+
+- Nivel Secundario de oferta institucional. Estos pueden ser CENS o SEBAS.
+
+- Nivel Secundario por fuera de la oferta institucional. Son los establecimientos FINES.
+
+#figure([
+#block[
+#box(image("muestra_adultos_files\\figure-typst\\dot-figure-1.png", height: 3.6in, width: 5in))
+
+]
+], caption: figure.caption(
+position: top, 
+[
+Establecimientos de educación adulta y población objetivo
+]), 
+kind: "quarto-float-fig", 
+supplement: "Figura", 
+)
+<fig-tipos_establecimientos>
+
+
+== Resultados esperados
+<resultados-esperados>
+Encuesta de perfil de lxs estudiantes de la modalidad de EJAyAM
+
+Población objetivo: Estudiantes EPA (solo sedes) de nivel Primario y de todas las ofertas de nivel Secundario (CENS, CEBAS, FINES) de gestión estatal (oficial).
+
+Diseño de la muestra
+
+\-Tipo de muestreo: estratificado polietápico y por conglomerados con selección proporcional al tamaño y sistemática
+
+\-Estratos:
+
+Por oferta (EPA, CENS, CEBAS, FINES) y
+
+por área:
+
+1) CEBAS: Censal •
+
+2) EPA y CENS: AMBA (R01 a R11) e Interior (R12 a R25) •
+
+3) FINES: Por región o agregado de regiones (16, 21, 22 y 23; 15, 17, 24 y 25).
+
+\-Etapas de selección: •
+
+1° Unidades de servicios / Sedes: Proporcional al tamaño (matrícula), con orden sistemático por IVSE-T. •
+
+2° Secciones: Todas las secciones de los establecimientos seleccionados. •
+
+3° Estudiantes: 5 primeros o últimos de cada sección.
+
+== Tamaño de la muestra
+<tamaño-de-la-muestra>
+deff=2 para EPA y CENS
+
+deff= 1,5 para FINES y CEBAS.
+
+Se estima la realización de unas 14.000 encuestas (algo más de 7.000 en FINES, cerca de 3.000 en EPA y CENS y 600 en CEBAS) en aproximadamente 2.700 secciones (cerca de 1/4 del total).
+
+El margen de error para el total provincial sería del 1% para FINES, del 2% para EPA y CENS y del 3% para CEBAS, ubicándose en torno al 1,2% para el total del nivel secundario y del total de ambos niveles de la modalidad.
+
+#figure([
+#box(image("images/paste-1.png", width: 7.76042in))
+], caption: figure.caption(
+position: bottom, 
+[
+#box(image("images/paste-2.png"))
+]), 
+kind: "quarto-float-fig", 
+supplement: "Figura", 
+)
+
+
+=== Clasificación
+<clasificación-1>
+El presente diseño muestral, a diferencia de #ref(<sec-muestra_peb_2025>, supplement: [Sec.]), no tiene que ser compatible o mejorar en algunos puntos específicos de un diseño muestral anterior. Por otro lado, en este caso sí hay exigencias o restricciones específicas en cuanto a la precisión estadística del resultado esperado. En otras situaciones relativamente similares, esas exigencias/restricciones se explicitan o se traducen en términos de costo operativo o económico del estilo "Nosotros podemos/queremos una muestra de X casos" o "Recolectar tal tipo de caso nos cuesta más que tal u otro así que, en lo posible, tenga eso en cuenta dentro del diseño".
+
+== Afinando la población objetivo
+<afinando-la-población-objetivo>
+Más allá que se cuente previamente o se construya especialmente para la ocasión, siempre es importante saber el origen del marco muestral. La indagación sobre este punto no solo aclara que entra dentro de él, sino también que queda fuera de él y porque. En este sentido, no es lo mismo que el marco muestral deje afuera algo deseado, pero impráctico de obtener que, por otro lado, algo que si bien desde lejos parecía cercano a la población objetivo, desde el principio se prefirió no incluir. En el primer caso, se mantiene la definición intensiva de la población objetivo, pero se restringue la extensión empírica del marco muestral creando una distancia entre uno y otro. En el segundo caso, lo que se cambia/ajusta es la definición de la población objetivo y se evita una distancia entre lo deseado/buscado y lo realizable con el marco muestral disponible.
+
+Aplicado lo anterior al presente problema, la cuestión es discernir a qué tipo de estudiante se desea alcanzar y a cuáles no. A primera vista se puede suponer que la población objetivo (#emph[target population]) son los estudiantes #strong[adultos] de nivel primario y secundario de la provincia de Buenos Aires.
+
+Sin embargo, como se observa en #ref(<tbl-poblacion_objetivo>, supplement: [Tabla]), existen una serie de establecimientos de educacion de jóvenes y adultos que quedan por fuera de la población objetivo de esta muestra. Más concretamente, existe un 19% que no posee todas las características necesarias.
+
+#figure([
+#{set text(font: ("system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji") , size: 12pt); table(
+  columns: (50%, 50%),
+  align: (left,center,),
+  table.header(table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[Characteristic]], table.cell(align: bottom + center, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[N = 3,822]#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]]],),
+  table.hline(),
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Población Objetivo], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~SI], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3,078 (81%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~NO], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[744 (19%)],
+  table.hline(),
+  table.footer(table.cell(colspan: 2)[#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]] n (%)],),
+)}
+], caption: figure.caption(
+position: top, 
+[
+Población objetivo dentro del universo de establecimiento de educación adulta
+]), 
+kind: "quarto-float-tbl", 
+supplement: "Tabla", 
+)
+<tbl-poblacion_objetivo>
+
+
+Entre las características que se tuvieron en cuenta se encuentran en la confección de la población objetivo se encuentra la dependencia y el tipo de establecimiento. Como se observa en #ref(<tbl-poblacion_objetivo_criterios>, supplement: [Tabla]) todos los establecimientos de la población objetivo son de dependencia oficial. Dada que la presencia de otros tipos de dependencia en la educación adulta es muy baja, este criterio no es crítico desde el punto de vista empírico.
+
+Esto no significa que todos los establecimientos de dependencia oficial pertenecen a la población objetivo. En efecto, existe un 19% de establecimientos de dependencia oficial que no pertenecen a la población objetivo. Dentro del nivel primario, se trata de los establecimientos CEPA (671) y los centros de alfabetización (45) y dentro del nivel secundario de aquellos establecimientos denominados "Escuelas de educación media o secundaria". Los que sí entran a la población objetivo, siempre que sean de dependencia oficial, son los establecimientos FINES, los CENS, los EPA y los CEBAS.
+
+#figure([
+#{set text(font: ("system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji") , size: 12pt); table(
+  columns: (25%, 25%, 25%, 25%),
+  align: (left,center,center,center,),
+  table.header(table.cell(align: bottom + left, rowspan: 2, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[Characteristic]], table.cell(align: bottom + center, rowspan: 2, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[Overall] \
+    N = 3,822#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]]], table.cell(align: center, colspan: 2, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #block[
+    #strong[Población Objetivo]
+    ]],
+    table.cell(align: bottom + center, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[NO] \
+    N = 744#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]]], table.cell(align: bottom + center, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[SI] \
+    N = 3,078#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]]],),
+  table.hline(),
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Tipo de establecimiento], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~FINES], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2,190 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2,190 (100%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~CEPA], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[671 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[671 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~CENS], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[541 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[7 (1.3%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[534 (99%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~EPA], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[336 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2 (0.6%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[334 (99%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~ALFABETIZACION], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[45 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[45 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~CEBAS], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[20 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[20 (100%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~ESC. EDU. MEDIA], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[13 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[13 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~ESC. EDU. SECUNDARIA], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Dependencia], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Oficial], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3,794 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[716 (19%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3,078 (81%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Privada], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[23 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[23 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Nacional], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Municipal], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2 (100%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0 (0%)],
+  table.hline(),
+  table.footer(table.cell(colspan: 4)[#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]] n (%)],),
+)}
+], caption: figure.caption(
+position: top, 
+[
+Distribución de tipos de establecimiento de educación adulta
+]), 
+kind: "quarto-float-tbl", 
+supplement: "Tabla", 
+)
+<tbl-poblacion_objetivo_criterios>
+
+
+Dado que se cuenta con un marco muestral flexible en el cual ya se han detectado que establecimientos podrían entrar en la muestra, lo interesante es ajustar la población objetivo al marco muestral entregado. No se trata de un simple juego de palabras. Si se detectan o sospechan diferencias apreciables entre la población objetivo y el marco muestral, antes o después, será aconsejable realizar alguna intervención para corregir o aminorar esa distancia. En cambio, si el marco muestral se ajusta a la población objetivo algunas de las anteriores intervenciones no serán necesarias o recomendadas.
+
+Sin embargo, ahora veremos que en realidad se trata de una subpoblación más específica porque la población que finalmente tiene posibilidades de entrar a la muestra es un subconjunto de aquel conjunto. Y dada que contamos con un marco muestral flexible la razón de no inclusión no es por falta de información en el marco.
+
+Esto hace que el investigador concentre las energías en otras partes de la investigación. En
+
+== Marco muestral
+<marco-muestral>
+Una vez definida la población objetivo comenzamos a mejorar el marco muestral. Decimos que comenzamos a "mejorar" porque, por suerte, ya tenemos un marco muestral básico que nos permite identificar a las unidades de selección primarias (#emph[PSU] en inglés). Decimos "por suerte" porque una característica particularmente interesante de trabajar en grandes organizaciones, que no es lo usual por fuera de ellas, es la posibilidad de trabajar con un marco muestral (#emph[sampling frame]) que se ajuste bastante bien a la población objetivo (#emph[population target]). Por ejemplo, en una universidad o colegio podemos tener un listado de estudiantes relativamente actualizado. En cambio, en otro tipo de investigaciones, los investigadores suelen dedicar un tiempo considerable a conseguir un marco muestral que o bien sobrerrepresente o subrepresente empíricamente a la población objetivo. Cabe recordar que el marco muestral no es solo una lista de elementos a seleccionar sino también alguna información que ayude a su contacto/localización. Tener una lista de DNI para cada uno de los miembros del marco muestral es una ayuda, pero no es muy útil si esa información no viene anexada con algún dato que permita contactar/localizar a los DNI efectivamente seleccionados en la muestra.
+
+Al pasar antes dijimos que el marco muestral básico con el que vamos a trabajar nos permite identificar a las unidades de selección primarias. En otras palabras, vamos a trabajar con un listado de establecimientos y no de estudiantes y vamos a desarrollar un muestreo polietápico en donde en primera instancia (de ahí lo de unidades "primarias") se seleccionan establecimientos y recien luego se seleccioan secciones y/o estudiantes.
+
+Para la selección de las unidades de seleccion, existen dos tipos generales de marcos muestrales: directos e indirectos @valliant2018[pág. 6]. Los marcos muestrales que contienen una lista de las unidades de observación finales se denominan #strong[marcos directos]. Estos marcos facilitan/permiten los diseños de una sola etapa. Por ejemplo, si se tiene una lista de estudiantes y algún contacto virtual (p.e. mail), se puede realizar un diseño en una sola etapa. En ese caso, no será necesario seleccionar primero a unidades de selección primarias como, por ejemplo, los establecimientos educativos.
+
+Los #strong[marcos indirectos], en cambio, requieren de mucha menor información, pero permiten realizar la selección de las unidades de selección primarias (#emph[clusters] o conglomerados) y se utilizan en diseños polietápicos. Los marcos indirectos necesariamente se usan en diseños polietápicos, pero los marcos directos se pueden usar tanto en diseños de una sola etapa o, vía agregación de su información, en diseños polietápicos.
+
+Volviendo a nuestro marco muestral el mismo es del tipo indirecto y, suponemos, que es de una muy buena calidad en términos de su ajuste a la población objetivo. Sin embargo, ahora veremos con mayor detalle la información auxiliar que tendremos de las covariables presente en él, para sí poder realizar un mejor diseño muestral.
+
+#figure([
+#{set text(font: ("system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji")); table(
+  columns: 28,
+  align: (left,right,right,left,right,left,right,right,left,left,left,left,left,left,left,left,left,left,right,right,left,left,left,left,left,right,left,right,),
+  table.header(table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); tipo], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); region], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); region\_n], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); distrito], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); distrito\_n], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); area], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); cue], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); anexo], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); clave\_provincial], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); dependencia], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); tipo\_de\_organizacion], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); sede\_anexo\_extension], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); escuela\_sede], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); nombre\_del\_establecimiento], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); ambito], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); matricula\_estimada], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); modalidad], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); nivel], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); matricula], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); secciones], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); population\_target], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); universo\_excl], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); estrato\_oferta], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); estrato\_geo], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); estrato], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); ivse], table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); tipo\_est\_adulto], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); estudiante\_seccion],),
+  table.hline(),
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[22], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[22], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Bahía Blanca], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[8], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[INTERIOR], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[616446], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0008DS0030], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº 30 \"ENFERMERAS 1982 POR MALVINAS\"], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[48], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.071], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[16.00000],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[08], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[8], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Merlo], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[71], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[616233], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0071DS0029], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº29], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[102], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.199], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[17.00000],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[01], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[La Plata], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[INTERIOR], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[620508], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0001DS0048], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº48 \"DR. RENÉ FAVALORO\"], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[16], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.274], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[16.00000],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[11], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[11], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Escobar], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[116], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[INTERIOR], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[616870], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0116DS0037], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº37], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[54], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.295], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[18.00000],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[09], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[9], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[José C. Paz], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[132], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[619103], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0132DS0039], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº39], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[96], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.300], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[16.00000],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[04], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[4], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Berazategui], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[119], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[614624], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0119DS0017], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº17], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[86], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.337], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[14.33333],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[15], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[15], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[9 de Julio], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[76], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[INTERIOR], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[615601], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0076DS0019], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº19], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[39], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.374], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[13.00000],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[07], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[7], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[General San Martín], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[45], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[609445], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0045DS0002], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº2 \"EDUCADOR PAULO FREIRE\"], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[89], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.396], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[14.83333],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[02], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Avellaneda], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[610303], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0005DS0010], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº10], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[124], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.419], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[20.66667],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[02], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Lanús], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[111], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[620507], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0111DS0049], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº49], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[43], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.420], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[14.33333],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[08], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[8], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Morón], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[100], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[616437], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0100DS0028], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº28], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[109], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.422], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[18.16667],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[01], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[La Plata], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[INTERIOR], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[609006], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0001DS0001], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº1 \"FLOREAL FERRARA\"], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[256], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[9], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.457], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[28.44444],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[05], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Esteban Echeverría], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[30], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[620534], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0030DS0041], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº41], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[33], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.571], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[11.00000],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[06], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Tigre], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[55], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CONURBANO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[616870], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0055DS2370], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[EXTENSION], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0116DS0037], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO DE BACHILLERATO DE ADULTOS CON ORIENTACIÓN EN SALUD PÚBLICA N°37 - EXTENSIÓN], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[61], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.658], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[20.33333],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Un.Serv.], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[13], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[13], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[San Antonio de Areco], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[94], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[INTERIOR], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[619088], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0094DS0047], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Oficial], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SEDE], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[C.E.B.A.S. Nº47], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Urbano], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[No], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Educación de Jóvenes y Adultos], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Primario], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[33], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[SI], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[NA], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[UNICO], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS\_UNICO], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.765], table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CEBAS], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[16.50000],
+)}
+], caption: figure.caption(
+position: top, 
+[
+Características del marco muestral
+]), 
+kind: "quarto-float-tbl", 
+supplement: "Tabla", 
+)
+<tbl-sampling_frame>
+
+
+Como vemos tenemos información auxiliar a nivel de cada establecimiento tanto de variables discretas como continuas:
+
+Variables discretas:
+
+- Distrito
+
+- Región
+
+- Región Agrupada
+
+- Ámbito
+
+- Área
+
+- Nivel
+
+- Tipo de establecimiento
+
+Variables continuas:
+
+- Matrícula
+
+- Secciones
+
+- Medai de estudiantes por sección
+
+- IVSE
+
+Para tener una idea de las distribuciones de estas variables vamos a realizar un análisis exploratorio de datos. Primero lo haremos a nivel de los establecimientos (#strong[?\@sec-marco\_muestral\_establecimientos]) y luego lo haremos a nivel de los estudiantes (#strong[?\@sec-marco\_muestral\_estudiantes]). Para esto, vamos a realizar un análisis descriptivo de cada una de las variables discretas y continuas. Para las variables discretas vamos a mostrar su distribución en términos de frecuencias y porcentajes. Para las variables continuas, vamos a mostrar su distribución a través de histogramas o gráficos de densidad.
+
+#figure([
+], caption: figure.caption(
+position: top, 
+[
+Análisis exploratorio variables discretas - Nivel establecimientos
+]), 
+kind: "quarto-float-tbl", 
+supplement: "Tabla", 
+)
+<tbl-explo_marco_discretas_establecimientos>
+
+
+#figure([
+], caption: figure.caption(
+position: top, 
+[
+Análisis exploratorio variables discretas - Nivel estudiantes
+]), 
+kind: "quarto-float-tbl", 
+supplement: "Tabla", 
+)
+<tbl-explo_marco_discretas_estudiantes>
+
+
+#figure([
+#{set text(font: ("system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji") , size: 12pt); table(
+  columns: (33.33%, 33.33%, 33.33%),
+  align: (left,center,center,),
+  table.header(table.cell(align: bottom + left, rowspan: 2, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[Característica]], table.cell(align: center, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #block[
+    #strong[Establecimientos]
+    ]], table.cell(align: center, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #block[
+    #strong[Estudiantes]
+    ]],
+    table.cell(align: bottom + center, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[N = 3.078]#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]]], table.cell(align: bottom + center, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); #strong[N = 198,427]#text(size: 0.75em , style: "italic" , weight: "regular")[#super[2]]],),
+  table.hline(),
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Región], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~01], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[237 (7,7%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[14,506 (7.3%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~02], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[268 (8,7%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[16,889 (8.5%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~03], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[305 (9,9%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[20,878 (11%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~04], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[236 (7,7%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[17,803 (9.0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~05], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[266 (8,6%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[18,388 (9.3%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~06], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[102 (3,3%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[7,457 (3.8%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~07], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[136 (4,4%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[8,044 (4.1%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~08], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[163 (5,3%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[12,100 (6.1%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~09], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[163 (5,3%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[14,100 (7.1%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~10], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[162 (5,3%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[8,430 (4.2%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~11], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[145 (4,7%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[11,029 (5.6%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~12], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[75 (2,4%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[4,635 (2.3%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~13], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[47 (1,5%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2,850 (1.4%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~14], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[66 (2,1%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3,679 (1.9%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~15], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[51 (1,7%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2,611 (1.3%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~16], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[34 (1,1%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1,517 (0.8%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~17], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[36 (1,2%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1,383 (0.7%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~18], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[86 (2,8%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3,915 (2.0%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~19], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[190 (6,2%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[9,528 (4.8%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~20], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[72 (2,3%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3,146 (1.6%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~21], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[45 (1,5%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1,807 (0.9%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~22], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[66 (2,1%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[4,797 (2.4%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~23], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[38 (1,2%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1,517 (0.8%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~24], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[32 (1,0%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2,282 (1.2%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~25], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[57 (1,9%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5,136 (2.6%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Ámbito], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Urbano], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3.044 (99%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[192,227 (97%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Rural Agrupado], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[15 (0,5%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[616 (0.3%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Rural Disperso], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[19 (0,6%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5,584 (2.8%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Área], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~CONURBANO], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.593 (52%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[111,749 (56%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~INTERIOR], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.485 (48%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[86,678 (44%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Nivel], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Primario], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[888 (29%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[123,378 (62%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~Secundario], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2.190 (71%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[75,049 (38%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Tipo de establecimiento], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[ \
+  ],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~CEBAS], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[20 (0,6%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1,590 (0.8%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~CENS], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[534 (17%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[80,793 (41%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~EPA], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[334 (11%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[40,995 (21%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[~~~~FINES], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2.190 (71%)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[75,049 (38%)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Matrícula], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[33 (17 -- 87)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[123 (64, 208)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Secciones], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2,0 (1,0 -- 5,0)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6 (3, 11)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Estudiante por sección], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[17 (13 -- 23)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[20 (15, 25)],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[IVSE], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0,50 (0,25 -- 0,74)], table.cell(align: horizon + center, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[0.50 (0.23, 0.75)],
+  table.hline(),
+  table.footer(table.cell(colspan: 3)[#text(size: 0.75em , style: "italic" , weight: "regular")[#super[1]] n (%); Mediana (Q1 -- Q3)],
+    table.cell(colspan: 3)[#text(size: 0.75em , style: "italic" , weight: "regular")[#super[2]] n (%); Median (Q1, Q3)],),
+)}
+], caption: figure.caption(
+position: top, 
+[
+Comparación exploratorio del marco muestral. Nivel establecimieno y nivel estudiantes
+]), 
+kind: "quarto-float-tbl", 
+supplement: "Tabla", 
+)
+<tbl-comparacion>
+
+
+#figure([
+#box(image("muestra_adultos_files/figure-typst/fig-comparacion-1.svg"))
+], caption: figure.caption(
+position: top, 
+[
+Comparación exploratorio del marco muestral. Nivel establecimieno y nivel estudiantes
+]), 
+kind: "quarto-float-fig", 
+supplement: "Figura", 
+)
+<fig-comparacion>
+
+
+\`\`\`{r.content-visible when-format="html"} \#| label: fig\_mapa\_distritos \#| fig-cap: Mapa según distrito \# Quiero realizar un mapa con tmap en version "view" con las coordenadas de los distritos (columan geom\_depto) y la cantidad de estudiantes por distrito (matricula). Para esto, tengo que agrupar el dataframe por distrito y sumar la cantidad de estudiantes por distrito. Luego, tengo que unir el dataframe con el dataframe espacial de los distritos para poder graficar el mapa. tmap\_mode("view") \# Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df\_estudiantes
+
+df\_sampling\_frame = df\_sampling\_frame |\> mutate(distrito = str\_to\_upper(distrito)) |\> mutate(distrito = str\_replace\_all(distrito, "Á", "A")) |\> mutate(distrito = str\_replace\_all(distrito, "É", "E")) |\> mutate(distrito = str\_replace\_all(distrito, "Í", "I")) |\> mutate(distrito = str\_replace\_all(distrito, "Ó", "O")) |\> mutate(distrito = str\_replace\_all(distrito, "Ú", "U")) |\> left\_join(df\_sf\_distritos, by = "distrito") |\> relocate(fna, .after = distrito)
+
+df\_mapa\_distritos = df\_sampling\_frame |\> group\_by(distrito) |\> summarise(matricula = sum(matricula), secciones = sum(secciones)) |\> mutate(pct\_matricula = matricula / sum(matricula) \* 100) |\> left\_join(df\_sf\_distritos, by = "distrito") |\> st\_as\_sf()
+
+fig\_mapa = tm\_shape(df\_mapa\_distritos) + tm\_polygons( fill = "pct\_matricula", fill.scale = tm\_scale\_intervals(values = "Blues", style = "quantile"), fill.legend = tm\_legend(title = "% matrícula") ) + tm\_layout( title = "Porcentaje de matrícula por distrito" ) + tm\_view( legend.outside = TRUE )
+
+fig\_mapa
+
+#Skylighting(([],
+[#NormalTok("## Tamaño de la muestra");],
+[],
+[#NormalTok("El tamaño de una muestra no suele ser algo fácil de responder en un diseño con múltiples objetivos y estimadores [@valliant2018, pág. 26]. Una situación similar es cuando no se sabe bien para qué se va a usar la muestra, pero no se duda que diferentes investigadores van a intentar contestar diferentes preguntas de investigación con ella. Esto último es una de las razones por las cuales muchas veces es preferible expresar los objetios estadísticos en términos de un coeficiente de variación (*CV*). Este es adimensional (no posee unidades) y puede usarse para comparar la relativa precisión de las estimaciones de diferentes tipos de cantidades o variables [@valliant2018, pág. 27]. En otras palabras, nos permite comparar la precisión de variables discretas (como la tasa de ocupación de los estudiantes) con variables cuantitativas continuas (como el promedio de ingresos del hogar o la edad promedio), algo que resulta imposible utilizando márgenes de error absolutos.");],
+[],
+[#NormalTok("Las principales agencias oficiales de estadística (como el INDEC en Argentina, INEGI en México o Eurostat) suelen evaluar la calidad y la factibilidad de publicación de sus estimaciones a partir de los límites de sus $CV$: un $CV \\le 10\\%$ se cataloga como una estimación de excelente precisión, mientras que estimaciones con un $CV > 20\\%$ se consideran no publicables por su alta variabilidad.");],
+[],
+[#NormalTok("Muchas veces suele solicitarse un determinado **Margen de Error absoluto** ($MdE$), asumiendo un escenario de máxima varianza para una proporción teórica ($p = 50\\%$). Sin embargo, en comparación con el CV presenta **el peligro del error absoluto en proporciones pequeñas.** Si fijamos un margen de error absoluto del $3\\%$ (0,03) para medir un fenómeno de alta prevalencia en torno al $50\\%$, el intervalo resultante ($47\\% - 53\\%$) es sumamente preciso. Pero si queremos estimar un fenómeno de baja prevalencia (por ejemplo, estudiantes de la modalidad con alguna condición socioeducativa o de salud particular que represente un $5\\%$), un margen absoluto del $3\\%$ nos daría un intervalo de estimación de $[2\\%, 8\\%]$. En esos casos, el **error relativo** aumenta a niveles que suele afectar severamente la utilidad de esas estimaciones. Al fijar un objetivo de $CV$, el error estándar se evalúa siempre en términos relativos ($CV = SE(\\hat{p}) / p$), lo que garantiza que la calidad y precisión de la estimación sea robusta tanto para proporciones mayoritarias como para minoritarias.");],
+[],
+[#NormalTok("### Traducción de Margen de Error a Coeficiente de Variación");],
+[],
+[#NormalTok("Para ser consistente tanto con el pedido de precisión original (Nivel de confianza del $90\\%$, $p=50\\%$ y márgenes de error de $3\\%$, $4\\%$ y $5\\%$) como con el supuesto de la superioridad de los CV, podemos establecer la siguiente equivalencia teórica. Si recordamos que el margen de error absoluto es:");],
+[],
+[#NormalTok("$d = z_{1-\\alpha/2} \\cdot SE(\\hat{p})$");],
+[],
+[#NormalTok("bajo un diseño de máxima varianza donde $p = 0,5$ y un nivel de confianza del $90\\%$ (con un valor crítico $z_{0,95} \\approx 1,645$), la relación matemática para el $CV$ es:");],
+[],
+[#NormalTok("$$CV(\\hat{p}) = \\frac{SE(\\hat{p})}{p} = \\frac{d}{p \\cdot z_{1-\\alpha/2}} = \\frac{d}{0,5 \\cdot 1,645} \\approx \\frac{d}{0,8225}$$ {#eq-margen-cv}");],
+[],
+[],
+[#NormalTok("::: {.cell}");],
+[],
+[#NormalTok(":::");],
+[],
+[],
+[],
+[#NormalTok("::: {#tbl-traduccion_mde_cv .cell tbl-cap='Traducción de MdE a CV'}");],
+[#NormalTok("::: {.cell-output-display}");],
+[],
+[#NormalTok("```{=html}");],
+[#NormalTok("<div id=\"cnsdxozdii\" style=\"padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;\">");],
+[#NormalTok("<style>#cnsdxozdii table {");],
+[#NormalTok("  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';");],
+[#NormalTok("  -webkit-font-smoothing: antialiased;");],
+[#NormalTok("  -moz-osx-font-smoothing: grayscale;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii thead, #cnsdxozdii tbody, #cnsdxozdii tfoot, #cnsdxozdii tr, #cnsdxozdii td, #cnsdxozdii th {");],
+[#NormalTok("  border-style: none;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii p {");],
+[#NormalTok("  margin: 0;");],
+[#NormalTok("  padding: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_table {");],
+[#NormalTok("  display: table;");],
+[#NormalTok("  border-collapse: collapse;");],
+[#NormalTok("  line-height: normal;");],
+[#NormalTok("  margin-left: auto;");],
+[#NormalTok("  margin-right: auto;");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  font-size: 16px;");],
+[#NormalTok("  font-weight: normal;");],
+[#NormalTok("  font-style: normal;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  width: auto;");],
+[#NormalTok("  border-top-style: solid;");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("  border-top-color: #A8A8A8;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 2px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #A8A8A8;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 2px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_caption {");],
+[#NormalTok("  padding-top: 4px;");],
+[#NormalTok("  padding-bottom: 4px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_title {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  font-size: 125%;");],
+[#NormalTok("  font-weight: initial;");],
+[#NormalTok("  padding-top: 4px;");],
+[#NormalTok("  padding-bottom: 4px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  border-bottom-color: #FFFFFF;");],
+[#NormalTok("  border-bottom-width: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_subtitle {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  font-size: 85%;");],
+[#NormalTok("  font-weight: initial;");],
+[#NormalTok("  padding-top: 3px;");],
+[#NormalTok("  padding-bottom: 5px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  border-top-color: #FFFFFF;");],
+[#NormalTok("  border-top-width: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_heading {");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  text-align: center;");],
+[#NormalTok("  border-bottom-color: #FFFFFF;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 1px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 1px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_bottom_border {");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_col_headings {");],
+[#NormalTok("  border-top-style: solid;");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("  border-top-color: #D3D3D3;");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 1px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 1px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_col_heading {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  font-size: 100%;");],
+[#NormalTok("  font-weight: normal;");],
+[#NormalTok("  text-transform: inherit;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 1px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 1px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("  vertical-align: bottom;");],
+[#NormalTok("  padding-top: 5px;");],
+[#NormalTok("  padding-bottom: 6px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  overflow-x: hidden;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_column_spanner_outer {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  font-size: 100%;");],
+[#NormalTok("  font-weight: normal;");],
+[#NormalTok("  text-transform: inherit;");],
+[#NormalTok("  padding-top: 0;");],
+[#NormalTok("  padding-bottom: 0;");],
+[#NormalTok("  padding-left: 4px;");],
+[#NormalTok("  padding-right: 4px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_column_spanner_outer:first-child {");],
+[#NormalTok("  padding-left: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_column_spanner_outer:last-child {");],
+[#NormalTok("  padding-right: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_column_spanner {");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("  vertical-align: bottom;");],
+[#NormalTok("  padding-top: 5px;");],
+[#NormalTok("  padding-bottom: 5px;");],
+[#NormalTok("  overflow-x: hidden;");],
+[#NormalTok("  display: inline-block;");],
+[#NormalTok("  width: 100%;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_spanner_row {");],
+[#NormalTok("  border-bottom-style: hidden;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_group_heading {");],
+[#NormalTok("  padding-top: 8px;");],
+[#NormalTok("  padding-bottom: 8px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  font-size: 100%;");],
+[#NormalTok("  font-weight: initial;");],
+[#NormalTok("  text-transform: inherit;");],
+[#NormalTok("  border-top-style: solid;");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("  border-top-color: #D3D3D3;");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 1px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 1px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("  vertical-align: middle;");],
+[#NormalTok("  text-align: left;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_empty_group_heading {");],
+[#NormalTok("  padding: 0.5px;");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  font-size: 100%;");],
+[#NormalTok("  font-weight: initial;");],
+[#NormalTok("  border-top-style: solid;");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("  border-top-color: #D3D3D3;");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("  vertical-align: middle;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_from_md > :first-child {");],
+[#NormalTok("  margin-top: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_from_md > :last-child {");],
+[#NormalTok("  margin-bottom: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_row {");],
+[#NormalTok("  padding-top: 8px;");],
+[#NormalTok("  padding-bottom: 8px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  margin: 10px;");],
+[#NormalTok("  border-top-style: solid;");],
+[#NormalTok("  border-top-width: 1px;");],
+[#NormalTok("  border-top-color: #D3D3D3;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 1px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 1px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("  vertical-align: middle;");],
+[#NormalTok("  overflow-x: hidden;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_stub {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  font-size: 100%;");],
+[#NormalTok("  font-weight: initial;");],
+[#NormalTok("  text-transform: inherit;");],
+[#NormalTok("  border-right-style: solid;");],
+[#NormalTok("  border-right-width: 2px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_stub_row_group {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  font-size: 100%;");],
+[#NormalTok("  font-weight: initial;");],
+[#NormalTok("  text-transform: inherit;");],
+[#NormalTok("  border-right-style: solid;");],
+[#NormalTok("  border-right-width: 2px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  vertical-align: top;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_row_group_first td {");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_row_group_first th {");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_summary_row {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  text-transform: inherit;");],
+[#NormalTok("  padding-top: 8px;");],
+[#NormalTok("  padding-bottom: 8px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_first_summary_row {");],
+[#NormalTok("  border-top-style: solid;");],
+[#NormalTok("  border-top-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_first_summary_row.thick {");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_last_summary_row {");],
+[#NormalTok("  padding-top: 8px;");],
+[#NormalTok("  padding-bottom: 8px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_grand_summary_row {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  text-transform: inherit;");],
+[#NormalTok("  padding-top: 8px;");],
+[#NormalTok("  padding-bottom: 8px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_first_grand_summary_row {");],
+[#NormalTok("  padding-top: 8px;");],
+[#NormalTok("  padding-bottom: 8px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  border-top-style: double;");],
+[#NormalTok("  border-top-width: 6px;");],
+[#NormalTok("  border-top-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_last_grand_summary_row_top {");],
+[#NormalTok("  padding-top: 8px;");],
+[#NormalTok("  padding-bottom: 8px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("  border-bottom-style: double;");],
+[#NormalTok("  border-bottom-width: 6px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_striped {");],
+[#NormalTok("  background-color: rgba(128, 128, 128, 0.05);");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_table_body {");],
+[#NormalTok("  border-top-style: solid;");],
+[#NormalTok("  border-top-width: 2px;");],
+[#NormalTok("  border-top-color: #D3D3D3;");],
+[#NormalTok("  border-bottom-style: solid;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_footnotes {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  border-bottom-style: none;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 2px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 2px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_footnote {");],
+[#NormalTok("  margin: 0px;");],
+[#NormalTok("  font-size: 90%;");],
+[#NormalTok("  padding-top: 4px;");],
+[#NormalTok("  padding-bottom: 4px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_sourcenotes {");],
+[#NormalTok("  color: #333333;");],
+[#NormalTok("  background-color: #FFFFFF;");],
+[#NormalTok("  border-bottom-style: none;");],
+[#NormalTok("  border-bottom-width: 2px;");],
+[#NormalTok("  border-bottom-color: #D3D3D3;");],
+[#NormalTok("  border-left-style: none;");],
+[#NormalTok("  border-left-width: 2px;");],
+[#NormalTok("  border-left-color: #D3D3D3;");],
+[#NormalTok("  border-right-style: none;");],
+[#NormalTok("  border-right-width: 2px;");],
+[#NormalTok("  border-right-color: #D3D3D3;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_sourcenote {");],
+[#NormalTok("  font-size: 90%;");],
+[#NormalTok("  padding-top: 4px;");],
+[#NormalTok("  padding-bottom: 4px;");],
+[#NormalTok("  padding-left: 5px;");],
+[#NormalTok("  padding-right: 5px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_left {");],
+[#NormalTok("  text-align: left;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_center {");],
+[#NormalTok("  text-align: center;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_right {");],
+[#NormalTok("  text-align: right;");],
+[#NormalTok("  font-variant-numeric: tabular-nums;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_font_normal {");],
+[#NormalTok("  font-weight: normal;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_font_bold {");],
+[#NormalTok("  font-weight: bold;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_font_italic {");],
+[#NormalTok("  font-style: italic;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_super {");],
+[#NormalTok("  font-size: 65%;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_footnote_marks {");],
+[#NormalTok("  font-size: 75%;");],
+[#NormalTok("  vertical-align: 0.4em;");],
+[#NormalTok("  position: initial;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_asterisk {");],
+[#NormalTok("  font-size: 100%;");],
+[#NormalTok("  vertical-align: 0;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_indent_1 {");],
+[#NormalTok("  text-indent: 5px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_indent_2 {");],
+[#NormalTok("  text-indent: 10px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_indent_3 {");],
+[#NormalTok("  text-indent: 15px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_indent_4 {");],
+[#NormalTok("  text-indent: 20px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .gt_indent_5 {");],
+[#NormalTok("  text-indent: 25px;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii .katex-display {");],
+[#NormalTok("  display: inline-flex !important;");],
+[#NormalTok("  margin-bottom: 0.75em !important;");],
+[#NormalTok("}");],
+[],
+[#NormalTok("#cnsdxozdii div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {");],
+[#NormalTok("  height: 0px !important;");],
+[#NormalTok("}");],
+[#NormalTok("</style>");],
+[#NormalTok("<table class=\"gt_table\" data-quarto-disable-processing=\"false\" data-quarto-bootstrap=\"false\">");],
+[#NormalTok("  <thead>");],
+[#NormalTok("    <tr class=\"gt_heading\">");],
+[#NormalTok("      <td colspan=\"3\" class=\"gt_heading gt_title gt_font_normal\" style>Equivalencia de Objetivos de Precisión</td>");],
+[#NormalTok("    </tr>");],
+[#NormalTok("    <tr class=\"gt_heading\">");],
+[#NormalTok("      <td colspan=\"3\" class=\"gt_heading gt_subtitle gt_font_normal gt_bottom_border\" style>Conversión de Margen de Error Absoluto a Coeficiente de Variación (90% Confianza, p=50%)</td>");],
+[#NormalTok("    </tr>");],
+[#NormalTok("    <tr class=\"gt_col_headings\">");],
+[#NormalTok("      <th class=\"gt_col_heading gt_columns_bottom_border gt_left\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"Objetivo\">Dominio de Estimación</th>");],
+[#NormalTok("      <th class=\"gt_col_heading gt_columns_bottom_border gt_right\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"MdE_Original\">Margen de Error (MdE)</th>");],
+[#NormalTok("      <th class=\"gt_col_heading gt_columns_bottom_border gt_right\" rowspan=\"1\" colspan=\"1\" scope=\"col\" id=\"CV_Objetivo_Pct\">CV Objetivo</th>");],
+[#NormalTok("    </tr>");],
+[#NormalTok("  </thead>");],
+[#NormalTok("  <tbody class=\"gt_table_body\">");],
+[#NormalTok("    <tr><td headers=\"Objetivo\" class=\"gt_row gt_left\">TE/Área</td>");],
+[#NormalTok("<td headers=\"MdE_Original\" class=\"gt_row gt_right\">3.0%</td>");],
+[#NormalTok("<td headers=\"CV_Objetivo_Pct\" class=\"gt_row gt_right\">3.65%</td></tr>");],
+[#NormalTok("    <tr><td headers=\"Objetivo\" class=\"gt_row gt_left\">TE/Región</td>");],
+[#NormalTok("<td headers=\"MdE_Original\" class=\"gt_row gt_right\">4.0%</td>");],
+[#NormalTok("<td headers=\"CV_Objetivo_Pct\" class=\"gt_row gt_right\">4.86%</td></tr>");],
+[#NormalTok("    <tr><td headers=\"Objetivo\" class=\"gt_row gt_left\">TE/Región agrup.</td>");],
+[#NormalTok("<td headers=\"MdE_Original\" class=\"gt_row gt_right\">5.0%</td>");],
+[#NormalTok("<td headers=\"CV_Objetivo_Pct\" class=\"gt_row gt_right\">6.08%</td></tr>");],
+[#NormalTok("  </tbody>");],
+[#NormalTok("  ");],
+[#NormalTok("</table>");],
+[#NormalTok("</div>");],));
+::: :::
+
+== Cálculo del DEFF y del ESS
+<cálculo-del-deff-y-del-ess>
+La existencia de #emph[clusters] o conglomerados espaciales permite reducir los costos logísticos tanto en términos de transporte (especialmente en diseños presenciales) y reduce el costo de elaborar listas de direcciones/contactos de las unidades de selección finales (especialmente en diseños polietápicos). Mediante la combinación de ambos mecansmos, se reduce el costo unitario de realizar encuestas. A cambio, suele generar mayores varianzas para un tamaño de muestra determinado en comparación con una muestra de azar simple @valliant2018[pág. 4].
+
+Dos medidas sencillas, pero extremadamente útiles para expresar el efecto de usar #emph[clusters] o conglomerados en las estimaciones de la encuesta, son el #strong[efecto del diseño] (#emph[deff o design effect]) y el #strong[tamaño efectivo de la muestra] (#emph[ess o effective size sample]) @kish1965.
+
+Con base en la estrategia anterior de convertir los márgenes de error (#emph[MdE]) en coeficientes de variación (#emph[CV]), ahora vamos a pasar a modelar el efecto del diseño ($D E F F$) a partir de diferentes supuestos y escenarios. Esto tendrá una función más pedagógica que instrumental en el diseño de la muestra. La razón es que el $D E F F$ es específico para cada estimador que se quiera calcular por lo que, salvo que se quiera realizar un diseño complejo para estimar una sola variable, desde un punto de vista estrictamente estadístico, se deberían calcular un $D E F F$ para cada estimación. Cuando decimos específico queremos decir que su valor es variable para diferentes estimadores dentro de un mismo diseño muestral. En este caso, podría haber un #emph[DEFF] para la matrícula y un DEFF diferente para el índice de vulnerabilidad territorial. Otro punto negativo del #emph[DEFF] es que no siempre es relevante en muestras en donde las varinzas difieren a través de los estratos, en donde los subgrupos son seleccionados intencionalmente a diferentes porcentajes o donde diferentes subgrupos poseen diferentes tasas de respuesta @zipf.
+
+Dicho estos puntos negativos sobre el #emph[DEFF], cable aclarar que se trata de un concepto muy intuitivo para captar que se pierde y que se gana con un diseño polietápido (versus un aleatorio simple), pero también sirve para comparar entre diferentes diseños polietápicos. Gracias a él, se entiende por qué la #strong[estratificación] es más efectiva cuando los elementos de cada estrato son homogéneos dentro de cada estrato, pero diferente entre estratos @kish1965[pág. 76]. Del mismo modo, también es intuitivo para comprender que a mayor homogeneidad dentro de un #strong[cluster o conglomerado] mayor aumento del #emph[DEFF] dado que los casos llegan a su saturación teórica más rápidamente. En otras palabras, se llega más rápido a la situación en donde cada nuevo caso marginal aporta información cada menos nueva y cada vez más redundante. Por esta razón, si se asume que los cluster son muy homogéneos en su interior, no es buena idea seleccionar muchos casos en cada uno de ellos, porque muchos de ellos se repetiran y aportarán información redundante. De la misma manera, en una muestra polietápica por timbreo, y a igualdad de cantidad de casos totales, la precisión de las estimaciones mejora si se usan más puntos muestras con menos personas en cada uno de ellos.
+
+Expresado de modo alternativo, el #emph[DEFF] permite comprender los pros y contras de jugar el juego de cuantos casos más baratos (por estar más juntos espacialmente) estoy dispuesto a agregar para compensar, casi con seguridad, su peor eficiencia estadística (por ser más homogéneos entre sí). En este contexto, el #emph[DEFF] permite optimizar el tipo de diseño polietápico a seguir.
+
+La definición típica del DEFF, debido a su creador Leslie Kish, es que el mismo es la razón de la varianzade un estimador en una muestra compleja sobre la varianza de ese mismo estimador en una muestra de muestreo simple @kish1965[pág. 75].
+
+== El Efecto del Diseño (#emph[deff]) y la Correlación Intracluster ($rho$)
+<el-efecto-del-diseño-deff-y-la-correlación-intracluster-rho>
+Como se ha reflexionado en la sección anterior, si los clusters son muy homogéneos en su interior, no tiene sentido seleccionar muchos estudiantes por establecimiento porque nos aportarán información redundante. Esta homogeneidad interna se modela formalmente mediante la #strong[Correlación Intracluster] ($rho$ o #emph[ICC]) @lumley2010[pág. 51]:
+
+- #strong[Si] $rho = 0$: Los estudiantes dentro de una misma escuela son tan heterogéneos como si los hubiéramos seleccionado al azar en toda la provincia. No hay "efecto de pertenencia escolar". Cada encuesta adicional nos aporta mucha información nueva.
+- #strong[Si] $rho = 1$: Todos los estudiantes de una escuela son idénticos. Ir a encuestar al segundo, tercero o quinto estudiante de la misma escuela no nos aporta nada de información nueva.
+
+En encuestas socioeducativas de perfil estudiantil en América Latina, el valor empírico de $rho$ suele oscilar entre $0 \, 02$ y $0 \, 10$ @valliant2018[pág. 247]@grosh1996[pág. 58-59]. Para nuestro diseño, utilizaremos un valor de $rho = 0 \, 1$, el cual representa una hipótesis conservadora, pero sumamente realista que nos protege de subestimar el error muestral.
+
+Para estimar formalmente este incremento en la varianza (el $d e f f$), utilizamos la ecuación clásica de Kish:
+
+$ d e f f = 1 + \( b - 1 \) rho $
+
+Donde $b$ representa el tamaño del cluster. En este caso sería la cantidad de estudiantes seleccionados por escuela.
+
+=== Rediseño de la segunda etapa para garantizar la autoponderación y reducir el deff
+<rediseño-de-la-segunda-etapa-para-garantizar-la-autoponderación-y-reducir-el-deff>
+El requerimiento sugería relevar #strong[todas las secciones] de cada escuela seleccionada. A pesar de que en este tipo de establecimientos parece haber pocos con muchas secciones (#strong[?\@fig-explo\_marco\_continuas]), esto puede generar que el número de estudiantes encuestados por escuela variara drásticamente. Esto tendría el efecto de afectar la preciada #strong[autoponderación] de una muestra PPS, creando la necesidad tanto de construir ponderadores como de utilizarlos al momento del análisis. Por otro lado, incrementaría el tamaño medio de los estudiantes por cada cluster/establecimiento aumentado el parámetro ($b$) y, de ese modo, disparando el $d e f f$ y requiriendo un tamaño de muestra total mayor.
+
+Para solucionar esto, se propone rediseñar la segunda etapa del muestreo de la siguiente manera:
+
+\1. En cada escuela seleccionada en la primera etapa, #strong[se sortea de manera estrictamente aleatoria una única (1) sección] (con probabilidad $1 \/ B_i$, donde $B_i$ es la cantidad de secciones de la sede $i$).
+
+\2. Dentro de esa sección sorteada, #strong[se seleccionan exactamente 5 estudiantes] ($b = 5$).
+
+Al mantener el tamaño de cluster fijo y constante en $b = 5$ estudiantes para todas las escuelas, se logran dos ventajas metodológicas:
+
+- Se #strong[garantiza una muestra estrictamente autoponderada.] La razón es queal multiplicar la probabilidad de la primera etapa (PPS proporcional a la matrícula) con el sorteo de una sección en la segunda etapa ($1 \/ B_i$), la probabilidad final de selección del estudiante se vuelve constante. Podremos analizar los datos directamente sin necesidad de ponderadores complejos.
+
+- #strong[Minimizamos el Efecto del Diseño:] Al reducir el cluster a solo 5 alumnos, el $d e f f$ se reduce drásticamente: $ d e f f = 1 + \( 5 - 1 \) dot.op 0 \, 1 = 1 + 4 dot.op 0 \, 1 = 1 \, 4 $
+
+Un $d e f f$ de $1 \, 4$ significa que se necesitan un $40 %$ más de casos que un muestreo aleatorio simple, reduciendo el tamaño de muestra total necesario en campo en comparación con el supuesto inicial de $d e f f = 2 \, 0$.
+
+=== Simulación del impacto de la Correlación Intracluster ($rho$) y el tamaño del cluster ($b$)
+<simulación-del-impacto-de-la-correlación-intracluster-rho-y-el-tamaño-del-cluster-b>
+Para comprender de manera intuitiva y didáctica cómo interactúan el tamaño del cluster por escuela ($b$) y la homogeneidad de las instituciones ($rho$), se realiza una simulación que calcula el $d e f f$ y evalúa el tamaño de muestra teórico final requerido bajo escenarios alternativos de diseño para estimar una proporción con $C V = 3 \, 65 %$ que era la estipulada para el cruce tipo de establecimiento y área (#strong[?\@tbl-traduccion\_mde\_cv]).
+
+#figure([
+#{set text(font: ("system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji")); table(
+  columns: 7,
+  align: (left,right,right,right,right,right,right,),
+  table.header(table.cell(align: center, colspan: 7, fill: rgb("#ffffff"))[#set text(size: 1.25em , weight: "regular" , fill: rgb("#333333")); Simulación Comparativa de Escenarios de Diseño Muestral],
+    table.cell(align: center, colspan: 7, fill: rgb("#ffffff"), stroke: (bottom: (paint: rgb("#d3d3d3"), thickness: 1.5pt)))[#set text(size: 0.85em , weight: "regular" , fill: rgb("#333333")); Impacto en el tamaño muestral requerido para una precisión de CV = 3,65% (MdE = 3%)],
+    table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Estrategia de Selección], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Estudiantes por Sede (b)], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Homogeneidad Escolar (Rho)], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Efecto de Diseño (Deff)], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Total Estudiantes (n)], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Tamaño Efectivo (ESS)], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Total Sedes a Visitar],),
+  table.hline(),
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 1 sección (b=5)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.08], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[203], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[188], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[41],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 1 sección (b=5)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[10%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.40], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[263], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[188], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[53],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 1 sección (b=5)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[18%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.72], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[323], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[188], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[65],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 2 secciones (b=10)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[10], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.18], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[221], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[187], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[22],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 2 secciones (b=10)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[10], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[10%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.90], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[357], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[188], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[36],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 2 secciones (b=10)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[10], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[18%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2.62], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[492], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[188], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[49],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 3 secciones (b=15)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[15], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.28], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[240], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[188], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[16],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 3 secciones (b=15)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[15], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[10%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[2.40], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[450], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[187], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[30],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[Diseño 3 secciones (b=15)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[15], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[18%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3.52], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[661], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[188], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[44],
+)}
+], caption: figure.caption(
+position: top, 
+[
+Simulación del impacto de la correlación intracluster (rho) y el tamaño del cluster por escuela (b) en la cantidad de casos finales
+]), 
+kind: "quarto-float-tbl", 
+supplement: "Tabla", 
+)
+<tbl-simulacion_deff>
+
+
+Como se observa claramente en la tabla simulada, a medida que aumentamos el número de estudiantes por escuela ($b$), el $d e f f$ aumenta drásticamente. Esto es especialmente cierto cuando se acompaña de altos valores de correlaciones intraclusters ($rho$).
+
+Por ejemplo, si asumiéramos el escenario tradicional de relevar todas las secciones con un promedio de $b = 15$ encuestas por escuela (3 secciones y 5 estudiantes por cada una de ellas) y una homogeneidad escolar del $8 %$, el $d e f f$ se dispararía a $2 \, 12$, exigiéndonos encuestar a $398$ estudiantes para lograr la misma precisión que con $248$ estudiantes usando el diseño propuesto de $b = 5$ ($d e f f = 1 \, 32$).
+
+Aunque concentrar más estudiantes por escuela reduce la cantidad de sedes físicas a visitar (pasa de $50$ a $27$ sedes), la cantidad de cuestionarios a procesar es más del doble. Por ende, nuestro diseño con $b = 5$ representa un equilibrio óptimo entre viabilidad logística de campo y economía de recursos analíticos.
+
+== Cálculo del tamaño de muestra por estrato (#NormalTok("PracTools");)
+<cálculo-del-tamaño-de-muestra-por-estrato-practools>
+Una vez que hemos determinado los coeficientes de variación ($C V$) objetivos de precisión para cada cruce de tipo de establecimiento y división geográfica, y habiendo modelado el efecto de diseño empírico ($d e f f = 1 \, 4$) derivado de la selección de una sección y 5 estudiantes por establecimiento, pasamos a calcular el tamaño de muestra teórico.
+
+Para esto, utilizaremos la función #NormalTok("nProp"); de la librería #NormalTok("PracTools");. Esta función estima el tamaño mínimo de muestra en un diseño de Muestreo Aleatorio Simple (MAS) para una proporción en un escenario de máxima varianza ($p = 0 \, 5$). Luego, multiplicaremos ese tamaño por nuestro $d e f f = 1 \, 4$ para obtener el tamaño final de estudiantes y, dividiendo por 5, la cantidad de sedes a seleccionar:
+
+#{set text(font: ("system-ui", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji") , size: 12pt); table(
+  columns: 6,
+  align: (left,right,right,right,right,right,),
+  table.header(table.cell(align: center, colspan: 6, fill: rgb("#ffffff"))[#set text(size: 1.25em , weight: "regular" , fill: rgb("#333333")); Tamaños de Muestra Requeridos por Dominio de Inferencia],
+    table.cell(align: center, colspan: 6, fill: rgb("#ffffff"), stroke: (bottom: (paint: rgb("#d3d3d3"), thickness: 1.5pt)))[#set text(size: 0.85em , weight: "regular" , fill: rgb("#333333")); Cálculo de alumnos y sedes físicas a seleccionar (5 estudiantes por establecimiento)],
+    table.cell(align: bottom + left, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Dominio de Estimación], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Margen de Error (MdE)], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); CV Objetivo], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Deff], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Estudiantes Requeridos (n)], table.cell(align: bottom + right, fill: rgb("#ffffff"))[#set text(size: 1.0em , weight: "regular" , fill: rgb("#333333")); Sedes a Seleccionar],),
+  table.hline(),
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[CENS/EPA por Área (AMBA/Interior)], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3.0%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[3.65%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.4], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1053], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[211],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[FINES por Región Individual], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[5.0%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[6.08%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.4], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[379], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[76],
+  table.cell(align: horizon + left, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[FINES por Región Agrupada], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[4.0%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[4.86%], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[1.4], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[592], table.cell(align: horizon + right, stroke: (top: (paint: rgb("#d3d3d3"), thickness: 0.75pt)))[119],
+)}
+En la siguiente sección, procederemos a segmentar nuestro marco muestral (#NormalTok("df_sampling_frame");) real por cada estrato de diseño e identificar cuántos alumnos y sedes le corresponden empíricamente en la muestra física.
+
+== Asignación empírica de la muestra y corrección por población finita (FPC)
+<asignación-empírica-de-la-muestra-y-corrección-por-población-finita-fpc>
+Una vez calculados los tamaños muestrales teóricos bajo el supuesto de universos infinitos o muy grandes, el paso metodológico fundamental es confrontar estos requerimientos con el tamaño real de nuestro marco muestral (#NormalTok("df_sampling_frame");).
+
+En este diseño polietápico, la primera etapa de selección se realizará utilizando #strong[Probabilidad Proporcional al Tamaño (PPS)] en función de la matrícula de cada establecimiento. La selección PPS tiene la inmensa ventaja de otorgar mayor probabilidad de inclusión a las escuelas grandes (que concentran a la mayor cantidad de estudiantes del universo). En la segunda etapa, al sortear exactamente una sección y seleccionar un número fijo de 5 estudiantes, logramos que la muestra sea estrictamente #strong[autoponderada] a nivel de estudiante.
+
+Sin embargo, al analizar el marco muestral real, nos enfrentamos a dos particularidades del universo que exigen una intervención metodológica: 1. #strong[La Corrección por Población Finita (FPC):] Cuando el tamaño de muestra de sedes calculado ($n_h$) representa una fracción significativa del total de sedes disponibles en el universo de ese estrato ($N_h$, por ejemplo, más del $5 %$), la varianza del estimador disminuye porque conocemos a una porción muy grande de la población. Para evitar un sobremuestreo innecesario y costoso, corregimos el tamaño muestral aplicando el factor de población finita: $ n_(upright("corregido") \, h) = frac(n_h, 1 + n_h / N_h) $ 2. #strong[Estratos pequeños e inferencia regional:] En ofertas como FINES en regiones del interior muy pequeñas, el requerimiento teórico de precisión regional (5% MdE, que exige unas 76 sedes por región) puede superar la cantidad física de sedes disponibles en el universo de esa región. En esos casos, el estrato se vuelve automáticamente #strong[censal] (se seleccionan todas las sedes del estrato, asignándoles probabilidad de inclusión $pi_i = 1$).
+
+A continuación, he escrito el código en R para estructurar los estratos en nuestro marco real, calcular los tamaños finales corregidos de estudiantes y sedes, y preparar la asignación empírica:
+
+#Skylighting(([#CommentTok("#| label: asignacion_muestra_real");],
+[],
+[#CommentTok("# 1. Definimos los estratos de diseño en nuestro marco real");],
+[#NormalTok("df_marco_estratificado ");#OtherTok("=");#NormalTok(" df_sampling_frame ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("mutate");#NormalTok("(");],
+[#NormalTok("    ");#CommentTok("# Construimos el estrato de diseño");],
+[#NormalTok("    ");#AttributeTok("estrato_diseno =");#NormalTok(" ");#FunctionTok("case_when");#NormalTok("(");],
+[#NormalTok("      tipo_est_adulto ");#SpecialCharTok("==");#NormalTok(" ");#StringTok("\"CEBAS\"");#NormalTok(" ");#SpecialCharTok("~");#NormalTok(" ");#StringTok("\"CEBAS - Censal\"");#NormalTok(",");],
+[#NormalTok("      tipo_est_adulto ");#SpecialCharTok("==");#NormalTok(" ");#StringTok("\"FINES\"");#NormalTok(" ");#SpecialCharTok("~");#NormalTok(" ");#FunctionTok("paste0");#NormalTok("(");#StringTok("\"FINES - Región \"");#NormalTok(", region),");],
+[#NormalTok("      tipo_est_adulto ");#SpecialCharTok("%in%");#NormalTok(" ");#FunctionTok("c");#NormalTok("(");#StringTok("\"CENS\"");#NormalTok(", ");#StringTok("\"EPA\"");#NormalTok(") ");#SpecialCharTok("~");#NormalTok(" ");#FunctionTok("paste0");#NormalTok("(tipo_est_adulto, ");#StringTok("\" - \"");#NormalTok(", area),");],
+[#NormalTok("      ");#AttributeTok(".default =");#NormalTok(" ");#StringTok("\"Otros\"");],
+[#NormalTok("    )");],
+[#NormalTok("  )");],
+[],
+[#CommentTok("# 2. Obtenemos el tamaño del universo (N de sedes y matrícula total) por estrato");],
+[#NormalTok("resumen_universo ");#OtherTok("=");#NormalTok(" df_marco_estratificado ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("group_by");#NormalTok("(estrato_diseno, tipo_est_adulto, region, area) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("summarise");#NormalTok("(");],
+[#NormalTok("    ");#AttributeTok("N_sedes_universo =");#NormalTok(" ");#FunctionTok("n");#NormalTok("(),");],
+[#NormalTok("    ");#AttributeTok("Matricula_universo =");#NormalTok(" ");#FunctionTok("sum");#NormalTok("(matricula, ");#AttributeTok("na.rm =");#NormalTok(" ");#ConstantTok("TRUE");#NormalTok("),");],
+[#NormalTok("    ");#AttributeTok(".groups =");#NormalTok(" ");#StringTok("\"drop\"");],
+[#NormalTok("  )");],
+[],
+[#CommentTok("# 3. Asignamos los requerimientos teóricos de alumnos y sedes a cada estrato");],
+[#CommentTok("# CENS/EPA = 3% MdE, FINES individual = 5% MdE");],
+[#NormalTok("resumen_asignacion ");#OtherTok("=");#NormalTok(" resumen_universo ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("mutate");#NormalTok("(");],
+[#NormalTok("    ");#CommentTok("# Asignamos el tamaño de muestra teórico de sedes (antes de FPC)");],
+[#NormalTok("    ");#AttributeTok("sedes_teoricas_n =");#NormalTok(" ");#FunctionTok("case_when");#NormalTok("(");],
+[#NormalTok("      tipo_est_adulto ");#SpecialCharTok("==");#NormalTok(" ");#StringTok("\"CEBAS\"");#NormalTok(" ");#SpecialCharTok("~");#NormalTok(" N_sedes_universo, ");#CommentTok("# Censal");],
+[#NormalTok("      tipo_est_adulto ");#SpecialCharTok("%in%");#NormalTok(" ");#FunctionTok("c");#NormalTok("(");#StringTok("\"CENS\"");#NormalTok(", ");#StringTok("\"EPA\"");#NormalTok(") ");#SpecialCharTok("~");#NormalTok(" muestra_te_area");#SpecialCharTok("$");#NormalTok("n_sedes,");],
+[#NormalTok("      tipo_est_adulto ");#SpecialCharTok("==");#NormalTok(" ");#StringTok("\"FINES\"");#NormalTok(" ");#SpecialCharTok("~");#NormalTok(" muestra_fines_individual");#SpecialCharTok("$");#NormalTok("n_sedes,");],
+[#NormalTok("      ");#AttributeTok(".default =");#NormalTok(" ");#DecValTok("0");],
+[#NormalTok("    ),");],
+[#NormalTok("    ");#CommentTok("# Aplicamos la Corrección por Población Finita (FPC)");],
+[#NormalTok("    ");#AttributeTok("sedes_corregidas_n =");#NormalTok(" ");#FunctionTok("case_when");#NormalTok("(");],
+[#NormalTok("      tipo_est_adulto ");#SpecialCharTok("==");#NormalTok(" ");#StringTok("\"CEBAS\"");#NormalTok(" ");#SpecialCharTok("~");#NormalTok(" N_sedes_universo,");],
+[#NormalTok("      ");#CommentTok("# Si el tamaño requerido supera o iguala al universo, se vuelve censal");],
+[#NormalTok("      sedes_teoricas_n ");#SpecialCharTok(">=");#NormalTok(" N_sedes_universo ");#SpecialCharTok("~");#NormalTok(" N_sedes_universo,");],
+[#NormalTok("      ");#CommentTok("# De lo contrario, aplicamos la fórmula del FPC");],
+[#NormalTok("      ");#AttributeTok(".default =");#NormalTok(" ");#FunctionTok("ceiling");#NormalTok("(sedes_teoricas_n ");#SpecialCharTok("/");#NormalTok(" (");#DecValTok("1");#NormalTok(" ");#SpecialCharTok("+");#NormalTok(" (sedes_teoricas_n ");#SpecialCharTok("/");#NormalTok(" N_sedes_universo)))");],
+[#NormalTok("    ),");],
+[#NormalTok("    ");#CommentTok("# Calculamos la muestra de estudiantes correspondiente (5 por sede)");],
+[#NormalTok("    ");#AttributeTok("estudiantes_muestra_n =");#NormalTok(" ");#FunctionTok("if_else");#NormalTok("(tipo_est_adulto ");#SpecialCharTok("==");#NormalTok(" ");#StringTok("\"CEBAS\"");#NormalTok(", ");],
+[#NormalTok("                                    sedes_corregidas_n ");#SpecialCharTok("*");#NormalTok(" ");#DecValTok("5");#NormalTok(", ");#CommentTok("# Asumiendo 5 para simular");],
+[#NormalTok("                                    sedes_corregidas_n ");#SpecialCharTok("*");#NormalTok(" ");#DecValTok("5");#NormalTok(")");],
+[#NormalTok("  )");],
+[],
+[#CommentTok("# 4. Formateamos y presentamos los primeros estratos para análisis");],
+[#NormalTok("resumen_asignacion ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("filter");#NormalTok("(tipo_est_adulto ");#SpecialCharTok("!=");#NormalTok(" ");#StringTok("\"CEBAS\"");#NormalTok(") ");#SpecialCharTok("|>");#NormalTok(" ");#CommentTok("# Excluimos CEBAS para visualizar los muestreables");],
+[#NormalTok("  ");#FunctionTok("arrange");#NormalTok("(tipo_est_adulto, region) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("slice_head");#NormalTok("(");#AttributeTok("n =");#NormalTok(" ");#DecValTok("15");#NormalTok(") ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("select");#NormalTok("(estrato_diseno, N_sedes_universo, Matricula_universo, sedes_teoricas_n, sedes_corregidas_n, estudiantes_muestra_n) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("gt");#NormalTok("() ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("tab_header");#NormalTok("(");],
+[#NormalTok("    ");#AttributeTok("title =");#NormalTok(" ");#StringTok("\"Asignación de Muestra por Estrato y Corrección FPC (Primeras 15 celdas)\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("subtitle =");#NormalTok(" ");#StringTok("\"Comparación entre requerimiento teórico inicial y tamaño corregido por población finita\"");],
+[#NormalTok("  ) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("cols_label");#NormalTok("(");],
+[#NormalTok("    ");#AttributeTok("estrato_diseno =");#NormalTok(" ");#StringTok("\"Estrato de Diseño\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("N_sedes_universo =");#NormalTok(" ");#StringTok("\"Sedes Universo (N)\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("Matricula_universo =");#NormalTok(" ");#StringTok("\"Matrícula Universo\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("sedes_teoricas_n =");#NormalTok(" ");#StringTok("\"Sedes Teóricas (n)\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("sedes_corregidas_n =");#NormalTok(" ");#StringTok("\"Sedes Corregidas (FPC)\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("estudiantes_muestra_n =");#NormalTok(" ");#StringTok("\"Alumnos Muestra\"");],
+[#NormalTok("  )");],));
+Como se observará en los resultados de la simulación empírica en el marco real, la aplicación de la #strong[Corrección por Población Finita (FPC)] es una herramienta de optimización de recursos fundamental. En estratos donde el universo de sedes es acotado, la corrección reduce sustancialmente el número de establecimientos físicos a visitar, manteniendo exactamente la misma precisión estadística exigida.
+
+=== Próximos pasos metodológicos: Hacia muestras balanceadas y el Método del Cubo
+<próximos-pasos-metodológicos-hacia-muestras-balanceadas-y-el-método-del-cubo>
+Una vez que hemos asignado de forma clásica la muestra por estratos y sabemos cuántas sedes necesitamos de cada uno, el gran desafío es la #strong[estrategia de selección física de los establecimientos].
+
+Si bien podríamos optar por una selección sistemática clásica PPS ordenada unidimensionalmente por el IVSE-T, este enfoque presenta limitaciones para asegurar que la muestra represente adecuadamente la riqueza y heterogeneidad territorial de la provincia. Por ello, en la siguiente sección evaluaremos una alternativa de vanguardia: #strong[El Método del Cubo (#NormalTok("lcube");)] para la selección de muestras balanceadas y bien distribuidas espacialmente.
+
+El método del cubo nos permitirá forzar a que la muestra de sedes seleccionada represente de forma óptima tanto a las variables categóricas de oferta y región, como a la distribución continua de latitud, longitud e Índice de Vulnerabilidad Territorial simultáneamente.
+
+== Selección de la Primera Etapa: Método del Cubo (#NormalTok("lcube");) y Probabilidad Proporcional al Tamaño (PPS)
+<selección-de-la-primera-etapa-método-del-cubo-lcube-y-probabilidad-proporcional-al-tamaño-pps>
+Dada la ausencia de coordenadas geográficas precisas (latitud y longitud) en este marco muestral, se propone una estrategia metodológica adaptada que explota al máximo la variable continua del #strong[Índice de Vulnerabilidad Territorial (IVT/IVSE)] (#NormalTok("ivse"); en nuestro dataset).
+
+El #strong[Método del Cubo] se implementará bajo la siguiente estructura lógica de dos dimensiones:
+
++ #strong[Balanceo (Tendencia Central en #NormalTok("Xba");):] Obligamos al algoritmo a que los valores medios estimados de la muestra coincidan de forma exacta con los parámetros conocidos del universo. Balancearemos por:
+  - #strong[Ámbito] (Urbano/Rural).
+  - #strong[Tipo de Establecimiento] (CENS / EPA / FINES).
+  - #strong[Área] (AMBA / Interior).
+  - #strong[La media del IVT (IVSE):] Garantizando que el promedio de vulnerabilidad de las sedes de la muestra represente fielmente al promedio provincial.
++ #strong[Esparcimiento y Dispersión (#NormalTok("Xsp"); usando el IVT):] Para asegurar que la muestra esté #strong[bien distribuida] a lo largo de todo el espectro socioeducativo (y no concentrada únicamente en escuelas de vulnerabilidad "promedio"), utilizaremos el #strong[IVT estandarizado] como variable continua de esparcimiento en #NormalTok("Xsp");. Esto obligará al algoritmo a dispersar la selección cubriendo de forma óptima desde las sedes con vulnerabilidad muy baja hasta aquellas con vulnerabilidad crítica.
+
+=== Probabilidades de Inclusión PPS y Sedes Auto-representadas
+<probabilidades-de-inclusión-pps-y-sedes-auto-representadas>
+En un muestreo PPS, la probabilidad de selección de la sede $i$ en el estrato $h$ se define como: $ pi_(i h) = n_(upright("corregida") \, h) dot.op upright("Matrícula")_(i h) / upright("Matrícula Total")_h $
+
+Sin embargo, en escuelas sumamente grandes, esta probabilidad teórica puede resultar mayor a $1$. Estos casos se denominan metodológicamente #strong[sedes auto-representadas] (o de selección forzosa). Debemos identificarlas de forma iterativa, asignarles una probabilidad de inclusión fija de exactamente $1$, y recalcular las probabilidades de inclusión del resto de las sedes con la matrícula remanente para que la suma final de las probabilidades coincida exactamente con nuestro tamaño de muestra asignado.
+
+A continuación, he escrito el código en R para realizar el ajuste iterativo de probabilidades PPS y ejecutar la selección definitiva utilizando el Método del Cubo:
+
+#Skylighting(([#CommentTok("#| label: seleccion_primera_etapa_cubo");],
+[],
+[#CommentTok("# 1. Limpieza y preparación de variables continuas y estandarización del IVT (IVSE)");],
+[#NormalTok("df_marco_seleccion ");#OtherTok("=");#NormalTok(" df_marco_estratificado ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#CommentTok("# Eliminamos sedes que no tengan cargada la matrícula (universo real)");],
+[#NormalTok("  ");#FunctionTok("filter");#NormalTok("(");#SpecialCharTok("!");#FunctionTok("is.na");#NormalTok("(matricula), matricula ");#SpecialCharTok(">");#NormalTok(" ");#DecValTok("0");#NormalTok(") ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("mutate");#NormalTok("(");],
+[#NormalTok("    ");#CommentTok("# Estandarizamos el IVT (media 0, desviación 1) para un esparcimiento estable");],
+[#NormalTok("    ");#AttributeTok("ivse_std =");#NormalTok(" ");#FunctionTok("scale");#NormalTok("(ivse)[, ");#DecValTok("1");#NormalTok("]");],
+[#NormalTok("  )");],
+[],
+[#CommentTok("# 2. Función iterativa para calcular y ajustar las probabilidades de inclusión PPS");],
+[#NormalTok("calcular_pi_pps ");#OtherTok("=");#NormalTok(" ");#ControlFlowTok("function");#NormalTok("(matricula_vector, n_sedes_muestra) {");],
+[#NormalTok("  N ");#OtherTok("=");#NormalTok(" ");#FunctionTok("length");#NormalTok("(matricula_vector)");],
+[#NormalTok("  ");],
+[#NormalTok("  ");#CommentTok("# Si la cantidad de sedes requeridas supera o iguala al universo del estrato, todos tienen pi = 1");],
+[#NormalTok("  ");#ControlFlowTok("if");#NormalTok("(n_sedes_muestra ");#SpecialCharTok(">=");#NormalTok(" N) {");],
+[#NormalTok("    ");#FunctionTok("return");#NormalTok("(");#FunctionTok("rep");#NormalTok("(");#DecValTok("1");#NormalTok(", N))");],
+[#NormalTok("  }");],
+[#NormalTok("  ");],
+[#NormalTok("  ");#CommentTok("# Inicializamos las probabilidades PPS iniciales");],
+[#NormalTok("  pi ");#OtherTok("=");#NormalTok(" n_sedes_muestra ");#SpecialCharTok("*");#NormalTok(" (matricula_vector ");#SpecialCharTok("/");#NormalTok(" ");#FunctionTok("sum");#NormalTok("(matricula_vector))");],
+[#NormalTok("  ");],
+[#NormalTok("  ");#CommentTok("# Ajustamos de manera iterativa para las escuelas auto-representadas (pi >= 1)");],
+[#NormalTok("  ");#ControlFlowTok("while");#NormalTok(" (");#FunctionTok("any");#NormalTok("(pi ");#SpecialCharTok(">");#NormalTok(" ");#DecValTok("1");#NormalTok(")) {");],
+[#NormalTok("    forzosos ");#OtherTok("=");#NormalTok(" pi ");#SpecialCharTok(">=");#NormalTok(" ");#DecValTok("1");],
+[#NormalTok("    pi[forzosos] ");#OtherTok("=");#NormalTok(" ");#DecValTok("1");],
+[#NormalTok("    ");],
+[#NormalTok("    n_restante ");#OtherTok("=");#NormalTok(" n_sedes_muestra ");#SpecialCharTok("-");#NormalTok(" ");#FunctionTok("sum");#NormalTok("(pi[forzosos])");],
+[#NormalTok("    ");#ControlFlowTok("if");#NormalTok("(n_restante ");#SpecialCharTok("<=");#NormalTok(" ");#DecValTok("0");#NormalTok(") {");],
+[#NormalTok("      pi[");#SpecialCharTok("!");#NormalTok("forzosos] ");#OtherTok("=");#NormalTok(" ");#DecValTok("0");],
+[#NormalTok("      ");#ControlFlowTok("break");],
+[#NormalTok("    }");],
+[#NormalTok("    ");],
+[#NormalTok("    pi[");#SpecialCharTok("!");#NormalTok("forzosos] ");#OtherTok("=");#NormalTok(" n_restante ");#SpecialCharTok("*");#NormalTok(" (matricula_vector[");#SpecialCharTok("!");#NormalTok("forzosos] ");#SpecialCharTok("/");#NormalTok(" ");#FunctionTok("sum");#NormalTok("(matricula_vector[");#SpecialCharTok("!");#NormalTok("forzosos]))");],
+[#NormalTok("  }");],
+[#NormalTok("  ");#FunctionTok("return");#NormalTok("(pi)");],
+[#NormalTok("}");],
+[],
+[#CommentTok("# 3. Calculamos la probabilidad de inclusión (pi) para cada sede en su estrato correspondiente");],
+[#NormalTok("df_marco_seleccion ");#OtherTok("=");#NormalTok(" df_marco_seleccion ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("left_join");#NormalTok("(resumen_asignacion ");#SpecialCharTok("|>");#NormalTok(" ");#FunctionTok("select");#NormalTok("(estrato_diseno, sedes_corregidas_n), ");#AttributeTok("by =");#NormalTok(" ");#StringTok("\"estrato_diseno\"");#NormalTok(") ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("group_by");#NormalTok("(estrato_diseno) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("mutate");#NormalTok("(");],
+[#NormalTok("    ");#AttributeTok("pi_pps =");#NormalTok(" ");#FunctionTok("calcular_pi_pps");#NormalTok("(matricula, ");#FunctionTok("first");#NormalTok("(sedes_corregidas_n))");],
+[#NormalTok("  ) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("ungroup");#NormalTok("()");],
+[],
+[#CommentTok("# 4. Construcción de Matrices para el Algoritmo del Cubo (lcube)");],
+[#CommentTok("# Creamos la matriz de balanceo categórico y continuo");],
+[#NormalTok("X_balanceo ");#OtherTok("=");#NormalTok(" ");#FunctionTok("model.matrix");#NormalTok("(");#SpecialCharTok("~");#NormalTok(" tipo_est_adulto ");#SpecialCharTok("+");#NormalTok(" ambito ");#SpecialCharTok("+");#NormalTok(" area ");#SpecialCharTok("+");#NormalTok(" ivse ");#SpecialCharTok("-");#NormalTok(" ");#DecValTok("1");#NormalTok(", ");],
+[#NormalTok("                          ");#AttributeTok("data =");#NormalTok(" df_marco_seleccion)");],
+[],
+[#CommentTok("# Agregamos la probabilidad de inclusión como la primera columna para fijar el n muestral");],
+[#NormalTok("Xba_final ");#OtherTok("=");#NormalTok(" ");#FunctionTok("cbind");#NormalTok("(df_marco_seleccion");#SpecialCharTok("$");#NormalTok("pi_pps, X_balanceo)");],
+[],
+[#CommentTok("# Matriz de Esparcimiento basada en la dispersión continua del IVT (IVSE estandarizado)");],
+[#NormalTok("Xsp_esparcimiento ");#OtherTok("=");#NormalTok(" ");#FunctionTok("as.matrix");#NormalTok("(df_marco_seleccion");#SpecialCharTok("$");#NormalTok("ivse_std)");],
+[],
+[#CommentTok("# 5. Ejecución del Algoritmo del Cubo (lcube)");],
+[#FunctionTok("set.seed");#NormalTok("(");#DecValTok("42");#NormalTok(") ");#CommentTok("# Fijamos semilla para reproducibilidad");],
+[],
+[#CommentTok("# Seleccionamos la muestra física");],
+[#NormalTok("indices_muestra_cubo ");#OtherTok("=");#NormalTok(" ");#FunctionTok("lcube");#NormalTok("(");],
+[#NormalTok("  ");#AttributeTok("prob =");#NormalTok(" df_marco_seleccion");#SpecialCharTok("$");#NormalTok("pi_pps, ");],
+[#NormalTok("  ");#AttributeTok("Xba =");#NormalTok(" Xba_final, ");],
+[#NormalTok("  ");#AttributeTok("Xsp =");#NormalTok(" Xsp_esparcimiento");],
+[#NormalTok(")");],
+[],
+[#CommentTok("# Registramos la selección en nuestro dataset del marco");],
+[#NormalTok("df_marco_seleccion");#SpecialCharTok("$");#NormalTok("seleccionada_primera_etapa ");#OtherTok("=");#NormalTok(" ");#DecValTok("0");],
+[#NormalTok("df_marco_seleccion");#SpecialCharTok("$");#NormalTok("seleccionada_primera_etapa[indices_muestra_cubo] ");#OtherTok("=");#NormalTok(" ");#DecValTok("1");],
+[],
+[#CommentTok("# 6. Tabla resumen de las escuelas efectivamente seleccionadas en la muestra");],
+[#NormalTok("resumen_muestra_final ");#OtherTok("=");#NormalTok(" df_marco_seleccion ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("filter");#NormalTok("(seleccionada_primera_etapa ");#SpecialCharTok("==");#NormalTok(" ");#DecValTok("1");#NormalTok(") ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("group_by");#NormalTok("(tipo_est_adulto, area) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("summarise");#NormalTok("(");],
+[#NormalTok("    ");#AttributeTok("Sedes_Seleccionadas =");#NormalTok(" ");#FunctionTok("n");#NormalTok("(),");],
+[#NormalTok("    ");#AttributeTok("Matricula_Promedio =");#NormalTok(" ");#FunctionTok("round");#NormalTok("(");#FunctionTok("mean");#NormalTok("(matricula)),");],
+[#NormalTok("    ");#AttributeTok("IVSE_Promedio =");#NormalTok(" ");#FunctionTok("round");#NormalTok("(");#FunctionTok("mean");#NormalTok("(ivse, ");#AttributeTok("na.rm =");#NormalTok(" ");#ConstantTok("TRUE");#NormalTok("), ");#DecValTok("2");#NormalTok("),");],
+[#NormalTok("    ");#AttributeTok(".groups =");#NormalTok(" ");#StringTok("\"drop\"");],
+[#NormalTok("  )");],
+[],
+[#NormalTok("resumen_muestra_final ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("gt");#NormalTok("() ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("tab_header");#NormalTok("(");],
+[#NormalTok("    ");#AttributeTok("title =");#NormalTok(" ");#StringTok("\"Sedes Seleccionadas en la Primera Etapa (Muestra del Cubo)\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("subtitle =");#NormalTok(" ");#StringTok("\"Consolidado por Tipo de Establecimiento y Área Geográfica\"");],
+[#NormalTok("  ) ");#SpecialCharTok("|>");#NormalTok(" ");],
+[#NormalTok("  ");#FunctionTok("cols_label");#NormalTok("(");],
+[#NormalTok("    ");#AttributeTok("tipo_est_adulto =");#NormalTok(" ");#StringTok("\"Tipo de Establecimiento\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("area =");#NormalTok(" ");#StringTok("\"Área Geográfica\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("Sedes_Seleccionadas =");#NormalTok(" ");#StringTok("\"Sedes en Muestra\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("Matricula_Promedio =");#NormalTok(" ");#StringTok("\"Matrícula Promedio\"");#NormalTok(",");],
+[#NormalTok("    ");#AttributeTok("IVSE_Promedio =");#NormalTok(" ");#StringTok("\"IVT Promedio\"");],
+[#NormalTok("  )");],));
+Este algoritmo garantiza que nuestra muestra no solo cumple perfectamente con el tamaño físico establecido tras las correcciones de población finita, sino que está excepcionalmente balanceada y bien esparcida a lo largo de toda la vulnerabilidad socioeducativa de la provincia.
+
+#show: appendices.with("Anexos", hide-parent: true)
+#heading(level: 1, numbering: none)[Anexos]
 = Referencias Bibliográficas
 <referencias-bibliográficas>
 #block[

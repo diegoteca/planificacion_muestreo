@@ -98,3 +98,10 @@
 {"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\Q#muestra_bien_distribuida = lcube(Xbal = X, \\# Xspread = xy , \\# prob = pi_colegio, \\# eps = 1e-12)\\E$"}
 {"rule":"COMMA_PARENTHESIS_WHITESPACE","sentence":"^\\Q#marco_muestra = bind_cols(marco_muestra, as.data.frame(pi_establecimiento)) \\|\\> #relocate(\"pi_establecimiento\", .after = \"rowid\")\\E$"}
 {"rule":"WHITESPACE_RULE","sentence":"^\\Qa)  un mayor acceso a fuentes secundarias de datos y b)  una mayor capacidad computacional,\\E$"}
+{"rule":"AGREEMENT_DET_NOUN","sentence":"^\\QEn el caso de los CEBAS, dado su pequeño tamaño poblacional, se espera realizar un relevamiento censal.\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Q1\\) CEBAS:\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Q2\\) EPA y CENS:\\E$"}
+{"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Q3\\) FINES:\\E$"}
+{"rule":"AGREEMENT_DET_NOUN","sentence":"^\\QSe excluyen a los centros de alfabetización y a los CEPA.\\E$"}
+{"rule":"CONTINUA","sentence":"^\\QComo vemos tenemos información auxiliar a nivel de cada establecimiento tanto de variables discretas como continuas:\\E$"}
+{"rule":"MAS","sentence":"^\\QEsta función estima el tamaño mínimo de muestra en un diseño de Muestreo Aleatorio Simple (MAS) para una proporción en un escenario de máxima varianza (\\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Dummy\\+|Dummy's\\+)[0-9]+\\Q).\\E$"}

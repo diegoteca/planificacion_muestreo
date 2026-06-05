@@ -34,14 +34,17 @@ book:
 #  date: ""
   chapters:
     - index.qmd
-    - muestras.qmd
-    - azar.qmd
-    - cubo.qmd
-    - calibracion.qmd
+    - part: "Diseños muestrales"
+      chapters:
+        - muestras.qmd
+        - azar.qmd
+        - cubo.qmd
+        - calibracion.qmd
     - part: "Aplicaciones prácticas"
       chapters:
-         - muestra_2025.qmd
+         - muestra_peb_2025.qmd
          - muestra_adultos.qmd
+  appendices:
          - references.qmd
     
 page-navigation: true
@@ -97,39 +100,39 @@ format:
     
 # Pruebo con typst porque ahora ya funciona con quarto book
 # La opción por defecto es orange-book. Si se baja la extensión se puede editar esos "partials" a mano.
-  orange-book-typst:  
-    toc: true
-    toc-title: "Índice de secciones"
-    lof: true
-    lot: true
-    number-sections: true
-    papersize: a4
-    # page-numbering: true
-    fig-cap-location: top   
-    fig-dpi: 300
-    fig-format: svg
-     #   indent: true
-     # Fuentes y Tipografía (XeLaTeX permite usar fuentes del sistema)
-    mainfont: "Libertinus Serif" # O una similar como Linux Libertine
-    sansfont: "Libertinus Sans"
-    monofont: "FiraCode"
-   # prefer-html: true
-    keep-typ: true
-    logo: 
-      width: 5cm
-    cap-location: top
-    lang: es
-    callout-appearance: minimal
-    callout-icon: false
-    indent: true # Es parte del filtro fist-line-indent
-    first-line-indent:
-      size: 1.5em
-      remove-after:
-        - BlockQuote
-       # - BulletList
-        - CodeBlock
-       # - DefinitionList
-        - HorizontalRule
+#  typst:  
+#    toc: true
+#    toc-title: "Índice de secciones"
+#    lof: true
+#    lot: true
+#    number-sections: true
+#    papersize: a4
+#    # page-numbering: true
+#   fig-cap-location: top   
+#    fig-dpi: 300
+#    fig-format: svg
+#     #   indent: true
+#     # Fuentes y Tipografía (XeLaTeX permite usar fuentes del sistema)
+#    mainfont: "Libertinus Serif" # O una similar como Linux Libertine
+#    sansfont: "Libertinus Sans"
+#    monofont: "FiraCode"
+#   # prefer-html: true
+#    keep-typ: true
+#    logo: 
+#      width: 5cm
+#    cap-location: top
+#    lang: es
+#    callout-appearance: minimal
+#    callout-icon: false
+#    indent: true # Es parte del filtro fist-line-indent
+#    first-line-indent:
+#      size: 1.5em
+#      remove-after:
+#        - BlockQuote
+#       # - BulletList
+ #       - CodeBlock
+ #      # - DefinitionList
+ #       - HorizontalRule
        # - OrderedList
 
 editor: visual
