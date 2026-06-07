@@ -58,7 +58,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -293,7 +313,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="no-first-line-indent-after"></div>
-<p>Una muestra es una parte de un todo. En los muestreos que aspiran a ser (en algún grado) representativos lo que se intenta lograr es que esa parte que se seleccione no sea muy diferente al todo o, como decían los romanos, que sea legítimo tomar una parte como el todo (<em>pars pro toto</em>). En este sentido, lo que vamos a hablar aquí sobre muestreo tiene mayor pertinencia cuando en la investigación se intenta maximizar la <strong>representatividad</strong>, pero por alguna razón no es posible o conveniente la realización de un censo de todas las partes que conforman ese todo. Por otro lado, diseñar muestras también puede ser importante cuando se necesitan construir grupos de tratamiento y control en diseños experimentales, especialmente en los diseños experimentales aleatorios <span class="citation" data-cites="kish1987">[@kish1987]</span>. En efecto, la vinculación entre la bibliografía de los diseños muestrales y los diseños experimentales suele ser útil si se aspira a entender las razones (y no solo saber ejecutarlas en la práctica) de algunas recomendaciones metodológicas, ya que muchos de los conceptos más abstractos son compartidos por ambas [<span class="citation" data-cites="hedlin2015">@hedlin2015</span>]<span class="citation" data-cites="fienberg1988">[@fienberg1988]</span>.</p>
+<p>Una muestra es una parte de un todo. En los muestreos que aspiran a ser (en algún grado) representativos lo que se intenta lograr es que esa parte que se seleccione no sea muy diferente al todo o, como decían los romanos, que sea legítimo tomar una parte como el todo (<em>pars pro toto</em>). En este sentido, lo que vamos a hablar aquí sobre muestreo tiene mayor pertinencia cuando en la investigación se intenta maximizar la <strong>representatividad</strong>, pero por alguna razón no es posible o conveniente la realización de un censo de todas las partes que conforman ese todo. Por otro lado, diseñar muestras también puede ser importante cuando se necesitan construir grupos de tratamiento y control en diseños experimentales, especialmente en los diseños experimentales aleatorios <span class="citation" data-cites="kish1987">(<a href="references.html#ref-kish1987" role="doc-biblioref">Kish, 1987</a>)</span>. En efecto, la vinculación entre la bibliografía de los diseños muestrales y los diseños experimentales suele ser útil si se aspira a entender las razones (y no solo saber ejecutarlas en la práctica) de algunas recomendaciones metodológicas, ya que muchos de los conceptos más abstractos son compartidos por ambas [<span class="citation" data-cites="hedlin2015">Hedlin (<a href="references.html#ref-hedlin2015" role="doc-biblioref">2015</a>)</span>]<span class="citation" data-cites="fienberg1988">(<a href="references.html#ref-fienberg1988" role="doc-biblioref">Fienberg &amp; Tanur, 1988</a>)</span>.</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
@@ -305,10 +325,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>En algunas situaciones, más usuales en las ciencias naturales, la representatividad a veces se logra sin un mayor esfuerzo por parte del investigador por lo que no suele ser explícitamente un objetivo de la investigación sino un supuesto más o menos implícito a lo largo de ella. En otras palabras, la hipótesis de la homogeneidad forma parte del modelo mediante el cual se intenta aprendeder de la realidad. Entender la razón de esto último puede ayudar a hacer más transparente alguna especificidad de las ciencias sociales en este punto. En efecto, muchos investigadores consideran que en los niveles más bajos de la realidad (p.e. niveles estudiados por la física y la química) existe una mayor homogeneidad de los referentes básicos que estudian esas disciplinas. En cambio, en los niveles más superiores (p.e. niveles estudiados por ejemplo por la psicología y las ciencias sociales) la variabilidad inherentes de los referentes estudiados hace que sea necesario prestar especial atención al problema de la representatividad, En este sentido, el investigador suele realizar acciones específicas para poder captar la heterogeneidad que surge a nivel poblacional debido a la variabilidad individual de los referentes estudiados y, en ese camino, suele venir en ayuda el diseño muestral.</p>
-<p>De manera derivada, lo anterior es una de las razones por lo cual el método experimental ha sido bastante exitoso en la historia de las ciencias naturales, ya que con unos pocos experimentos sus resultados se pueden inferir a su respectiva <strong>población</strong> empírica actual. No solo eso. Muchas veces también se puede inferir a lo que a veces se denomina su <strong>universo</strong> que estaría compuesto no solo por la población actual sino también por la clase de esas poblaciones pasadas y futuras. Este tipo de problemáticas son conocidas por diferentes disciplinas. Desde la epistemología a veces se los relaciona con el problema de los universales <span class="citation" data-cites="klima2022">[@klima2022]</span> y desde la metodología se lo relaciona con el problema de la <strong>validez externa</strong> de las investigaciones <span class="citation" data-cites="campbell1963">[@campbell1963]</span>.<br>
+<p>De manera derivada, lo anterior es una de las razones por lo cual el método experimental ha sido bastante exitoso en la historia de las ciencias naturales, ya que con unos pocos experimentos sus resultados se pueden inferir a su respectiva <strong>población</strong> empírica actual. No solo eso. Muchas veces también se puede inferir a lo que a veces se denomina su <strong>universo</strong> que estaría compuesto no solo por la población actual sino también por la clase de esas poblaciones pasadas y futuras. Este tipo de problemáticas son conocidas por diferentes disciplinas. Desde la epistemología a veces se los relaciona con el problema de los universales <span class="citation" data-cites="klima2022">(<a href="references.html#ref-klima2022" role="doc-biblioref">Klima, 2022</a>)</span> y desde la metodología se lo relaciona con el problema de la <strong>validez externa</strong> de las investigaciones <span class="citation" data-cites="campbell1963">(<a href="references.html#ref-campbell1963" role="doc-biblioref">Campbell &amp; Stanley, 1963</a>)</span>.<br>
 <br>
 A modo de ejemplo, un físico que investiga el impacto del calor en el átomo de carbono puede tener una razonable confianza que el átomo de carbono que está hoy estudiando no solo es muy similar a los otros átomos de carbono actuales en la Tierra (población) sino que también es similar a los pasados y los futuros átomos de carbono (universo). También puede tener confianza que los átomos de carbono encontrados en la Tierra son similares a los existentes en el resto del universo. En el otro extremo, este tipo de suposiciones en general son difíciles de mantener en el nivel social.</p>
-<p>Estas diferencias en cuanto a la validez externa no son tan marcadas cuanto se analiza la dimensión de la <strong>validez interna</strong> de las investigaciones. En la jerga de la bibliografía de los diseños de investigación se suele afirmar que en todas las investigaciones que se quiera realizar inferencias causales, independientemente si se trata de investigaciones físicas o sociales, el investigador se debe asegurar, en la fase de diseño de la investigación, de controlar o aleatorizar el conjunto de factores extraños que le sugiera/n la o las teorías utilizadas. Esto es lo que precisamente le asegurará que aquellos factores extraños no sigan existiendo como factores perturbadores que puedan invalidar las inferencias internas o locales en el momento de las conclusiones <span class="citation" data-cites="kish1987">[@kish1987]</span>. En el último tiempo la visión anterior se ha expandido aún más permitiendo mayor seguridad en diseños observacionales en situaciones en donde no es posible un diseño experimental aleatorio lo que es sumamente importante en el dominio de las ciencias sociales <span class="citation" data-cites="pearl2018a morgan2015">[@pearl2018a; @morgan2015]</span>.</p>
+<p>Estas diferencias en cuanto a la validez externa no son tan marcadas cuanto se analiza la dimensión de la <strong>validez interna</strong> de las investigaciones. En la jerga de la bibliografía de los diseños de investigación se suele afirmar que en todas las investigaciones que se quiera realizar inferencias causales, independientemente si se trata de investigaciones físicas o sociales, el investigador se debe asegurar, en la fase de diseño de la investigación, de controlar o aleatorizar el conjunto de factores extraños que le sugiera/n la o las teorías utilizadas. Esto es lo que precisamente le asegurará que aquellos factores extraños no sigan existiendo como factores perturbadores que puedan invalidar las inferencias internas o locales en el momento de las conclusiones <span class="citation" data-cites="kish1987">(<a href="references.html#ref-kish1987" role="doc-biblioref">Kish, 1987</a>)</span>. En el último tiempo la visión anterior se ha expandido aún más permitiendo mayor seguridad en diseños observacionales en situaciones en donde no es posible un diseño experimental aleatorio lo que es sumamente importante en el dominio de las ciencias sociales <span class="citation" data-cites="pearl2018a morgan2015">(<a href="references.html#ref-morgan2015" role="doc-biblioref">Morgan &amp; Winship, 2015</a>; <a href="references.html#ref-pearl2018a" role="doc-biblioref">Pearl, 2018</a>)</span>.</p>
 <p>Dada la introducción anterior, ahora estamos en condiciones de expresar lo mismo pero en términos más simples:</p>
 <div class="callout callout-style-simple callout-note no-icon">
 <div class="callout-body d-flex">
@@ -325,7 +345,7 @@ A modo de ejemplo, un físico que investiga el impacto del calor en el átomo de
 <p><br>
 Un primer paso importante cuando uno se preocupa por la representatividad es entender sobre qué población de referentes y de unidades de observación/experimentación uno va a querer predicar sus inferencias. Para eso hay que analizar:&nbsp;<br>
 <br>
-a) La clase de referencia de los conceptos utilizados que nos dirá el/los tipo/s de referente/s a investigar (individuos, organizaciones, etc.). Esto a veces se suele denominar <strong>universo</strong> o dominio de la teoría <span class="citation" data-cites="bunge1974a">[@bunge1974a]</span>.</p>
+a) La clase de referencia de los conceptos utilizados que nos dirá el/los tipo/s de referente/s a investigar (individuos, organizaciones, etc.). Esto a veces se suele denominar <strong>universo</strong> o dominio de la teoría <span class="citation" data-cites="bunge1974a">(<a href="references.html#ref-bunge1974a" role="doc-biblioref">Bunge, 1974</a>)</span>.</p>
 <p>b) Los objetivos de la investigación que nos indicaran, entre otras cuestiones, el alcance (usualmente especificando tiempo y espacio) de los referentes anteriores junto con otras características pertinentes de cada unidad de observación/experimentación. Usualmente los objetivos remiten a una población empírica que podrá grande o pequeña, homogénea o heterogénea, dispersa o aglomerada, etc.&nbsp;<br>
 <br>
 Dentro del muestreo al conjunto formado por todos los objetos reales que cumplan las condiciones de los puntos “a” y “b” se lo denomina <strong>población</strong><a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>.&nbsp;En nuestra vida cotidiana, aunque sea solo por vivir en un tiempo y espacio determinado (y aun si somos investigadores de profesión) usualmente solo tenemos posibilidad de acceso empírico a un subconjunto de aquella población. Para empeorar las cosas, en las ciencias sociales muchas poblaciones son muy numerosas, heterogéneas y/u otras se encuentran muy separadas espacialmente lo que dificulta y hace costoso llegar a cada una de las partes de aquellas. En el extremo, a veces el investigador tiene el problema adicional de trabajar con poblaciones “invisibles” de las que se sabe o se presupone que existen, pero no se tienen datos agregados de ella y/o es sumamente difícil identificar/contactar a miembros de ella.&nbsp;Ante esta situación el investigador tiene 2 grandes opciones:</p>
@@ -333,13 +353,54 @@ Dentro del muestreo al conjunto formado por todos los objetos reales que cumplan
 <p>b) Se realiza una&nbsp;<strong>muestra</strong>&nbsp;de aquella población.</p>
 <p>En este sentido, en este taller se le prestará atención a las estrategias tipo ‘b’ como un modo de conocer el todo a través de solo una parte de aquel. Más adelante también veremos que hay estrategias más eficientes que otras para con ‘poco’ inferir ‘bastante’, aun cuando, en muchos casos, no se sepa a ciencia cierta si ese ‘bastante’ es ‘suficiente’. En otras palabras, se verán las distintas características de diferentes diseños muestrales que aspiran a algún grado de representatividad con el objetivo de comprender cuál de ellos puede ser más idóneo en función de los objetivos, el presupuesto y los datos disponibles en cada caso.&nbsp;<br>
 <br>
-Existen varios criterios para clasificar a las muestras. Siguiendo una clasificación clásica <span class="citation" data-cites="neyman1934">[@neyman1934]</span>, todos los que se basan en algún modo en la aleatoriedad (<em>random</em>), ponen el acento en el <strong>proceso</strong> de la muestra y se las puede clasificar como <strong>muestras probabilísticas</strong>. Otros, como todos los que se basan en cuotas ponen más acento en las acciones y chequeos basados en las intenciones (<em>purposive</em>) del&nbsp;<strong>resultado o producto final.</strong> Aquí, más que usar el término de muestras intencionales de Neyman vamos a preferir el más amplio de muestras no probabilísticas, ya que también engloba a otros diseños que tienen la similitud, al menos a primera vista, de no ser probabilísticos <span class="citation" data-cites="baker2013">[@baker2013]</span>. Ejemplos pueden considerarse las muestras basadas en el criterio de saturación y la heterogeneidad observada, los muestreos por conveniencia, los muestreos por matcheo (en donde las cuotas de Neyman serían un ejemplo), los muestreos basados en redes, usuales para el estudio de poblaciones invisibles (en donde el bola de nieve o snowball sería un ejemplo).</p>
+Existen varios criterios para clasificar a las muestras. Siguiendo una clasificación clásica <span class="citation" data-cites="neyman1934">(<a href="references.html#ref-neyman1934" role="doc-biblioref">Neyman, 1934</a>)</span>, todos los que se basan en algún modo en la aleatoriedad (<em>random</em>), ponen el acento en el <strong>proceso</strong> de la muestra y se las puede clasificar como <strong>muestras probabilísticas</strong>. Otros, como todos los que se basan en cuotas ponen más acento en las acciones y chequeos basados en las intenciones (<em>purposive</em>) del&nbsp;<strong>resultado o producto final.</strong> Aquí, más que usar el término de muestras intencionales de Neyman vamos a preferir el más amplio de muestras no probabilísticas, ya que también engloba a otros diseños que tienen la similitud, al menos a primera vista, de no ser probabilísticos <span class="citation" data-cites="baker2013">(<a href="references.html#ref-baker2013" role="doc-biblioref">Baker et&nbsp;al., 2013</a>)</span>. Ejemplos pueden considerarse las muestras basadas en el criterio de saturación y la heterogeneidad observada, los muestreos por conveniencia, los muestreos por matcheo (en donde las cuotas de Neyman serían un ejemplo), los muestreos basados en redes, usuales para el estudio de poblaciones invisibles (en donde el bola de nieve o snowball sería un ejemplo).</p>
 <p>Finalmente en el último tiempo, y en parte por el avance de una mayor disponibilidad de información secundaria, cada vez existen más métodos que permiten incorporar esa mayor información secundaria como información auxiliar (<em>auxiliary information</em>) tanto en el diseño de la muestra como en el posterior ajuste de los estimadores de la misma. Este último proceso en particular se suele denominar calibración. Ambos usos de la información secundaria (tanto si se usan para el diseño <em>ex-ante</em> o para el ajuste de los estimadores <em>ex-post</em>) son ejemplos de diseños muestrales asistidos por modelos que derivan de información secundaria (<em>model assisted</em>).</p>
-<p>En el útimo párrafo, casi al pasar, se ha comentado que “en el último tiempo” ha habido cambios en el mundo del muestreo. Más allá que se pueda afirmar que en algunos momentos haya habido más cambios que otros, la historia de la incorporación de las diferentes teorías de muestreo en la estadística como disciplina (antes dominada por aplicaciones sobre poblaciones enteras o censos) o en el diseño de investigaciones (antes dominada por diseños experimentales) es sumamente interesante y recomendable <span class="citation" data-cites="hacking2004 hacking2006 gigerenzer1997">[@hacking2004; @hacking2006; @gigerenzer1997]</span>.</p>
+<p>En el útimo párrafo, casi al pasar, se ha comentado que “en el último tiempo” ha habido cambios en el mundo del muestreo. Más allá que se pueda afirmar que en algunos momentos haya habido más cambios que otros, la historia de la incorporación de las diferentes teorías de muestreo en la estadística como disciplina (antes dominada por aplicaciones sobre poblaciones enteras o censos) o en el diseño de investigaciones (antes dominada por diseños experimentales) es sumamente interesante y recomendable <span class="citation" data-cites="hacking2004 hacking2006 gigerenzer1997">(<a href="references.html#ref-gigerenzer1997" role="doc-biblioref">Gigerenzer et&nbsp;al., 1997</a>; <a href="references.html#ref-hacking2004" role="doc-biblioref">Hacking, 1990/2004</a>, <a href="references.html#ref-hacking2006" role="doc-biblioref">2006</a>)</span>.</p>
 
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-baker2013" class="csl-entry" role="listitem">
+Baker, R., Brick, M., Bates, N., Battaglia, M., Couper, M., Dever, J., Gile, K., &amp; Tourangeau, R. (2013). <em>Report of the AAPOR task force on non-probability sampling</em>.
+</div>
+<div id="ref-bunge1974a" class="csl-entry" role="listitem">
+Bunge, M. (1974). <em>Semantics</em>. Dordrecht. Reidel.
+</div>
+<div id="ref-campbell1963" class="csl-entry" role="listitem">
+Campbell, D., &amp; Stanley, J. (1963). <em>Experimental and quasi-experimental designs for research</em>. Houghton Mifflin Company.
+</div>
+<div id="ref-fienberg1988" class="csl-entry" role="listitem">
+Fienberg, S., &amp; Tanur, J. (1988). From the inside out and the outside in: Combining experimental and sampling structures. <em>The Canadian Journal of Statistics</em>, <em>16</em>(2), 135-151.
+</div>
+<div id="ref-gigerenzer1997" class="csl-entry" role="listitem">
+Gigerenzer, G., Swijtink, Z., Porter, T., Beatty, J., &amp; Krüger, L. (1997). <em>The empire of chance</em>. Cambridge University Press.
+</div>
+<div id="ref-hacking2004" class="csl-entry" role="listitem">
+Hacking, I. (2004). <em>The taming of chance</em>. Cambridge University Press. (Obra original publicada en 1990)
+</div>
+<div id="ref-hacking2006" class="csl-entry" role="listitem">
+Hacking, I. (2006). <em>The emergence of probability: A philosophical study of early ideas about probability, induction and statistical inference</em>. Cambridge University Press.
+</div>
+<div id="ref-hedlin2015" class="csl-entry" role="listitem">
+Hedlin, D. (2015). <em>Why are design in survey sampling ad design of randomised experiments separate areas of statistical science?</em>
+</div>
+<div id="ref-kish1987" class="csl-entry" role="listitem">
+Kish, L. (1987). <em>Statistical design for research</em>. John Wiley.
+</div>
+<div id="ref-klima2022" class="csl-entry" role="listitem">
+Klima, G. (2022). <em>The medieval problem of universals</em> (E. Zalta, Ed.; Spring 2022). Stanford University.
+</div>
+<div id="ref-morgan2015" class="csl-entry" role="listitem">
+Morgan, S., &amp; Winship, C. (2015). <em>Counterfactuals and Causal Inference</em> (Second Edition). Cambridge University Press.
+</div>
+<div id="ref-neyman1934" class="csl-entry" role="listitem">
+Neyman, J. (1934). On the Two Different Aspects of the Representative Method: The Method of Stratified Sampling and the Method of Purposive Selection. <em>Journal of the Royal Statistical Society</em>, <em>97</em>(4), 558-625.
+</div>
+<div id="ref-pearl2018a" class="csl-entry" role="listitem">
+Pearl, J. (2018). <em>The book of why</em>. New York. Basic Books.
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

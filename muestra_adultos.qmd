@@ -2,17 +2,29 @@
 title: "Muestra EJAyAM"
 ---
 
-## Objetivos
+## Introducción
 
-El objetivo es realizar una muestra representativa de estudiantes jóvenes, adultos y adultos mayores (EJAyAM) de la provincia de Buenos Aires.
+El objetivo es realizar una muestra representativa de los estudiantes jóvenes, adultos y adultos mayores (EJAyAM) que asisten, en 2026, a establecimientos de dependencia oficial en la provincia de Buenos Aires. Como se verá a lo largo de esta sección, esta aplicación en interesante porque, entre otras cuestiones:
+
+- Tensiona la percepción de los dominios de estimación como sinónimos de los estratos de una muestra.
+
+- En parte relacionado con el punto anterior, es que se verá de forma explícita las virtudes de distinguir entre los objetivos o fines de la muestra con los modos o medios para cumplir con ellos.
+
+- Por último, se verá que, al menos al principio o *a priori*, no queda claro que "medios", dentro de los disponibles para lograr los "fines" propuestos, es/será el más conveniente.
+
+El presente diseño muestral, a diferencia de @sec-muestra_peb_2025, no tiene que ser compatible o mejorar en algunos puntos específicos de un diseño muestral anterior. Por otro lado, en este caso sí hay exigencias o restricciones específicas en cuanto a la precisión estadística del resultado esperado. En otras situaciones relativamente similares, esas exigencias/restricciones se explicitan o se traducen en términos de costo operativo o económico del estilo "Nosotros podemos/queremos una muestra de X casos" o "Recolectar tal tipo de caso nos cuesta más que tal u otro así que, en lo posible, tenga eso en cuenta dentro del diseño".
+
+En cualquier caso, siempre es importante distinguir cuales son los objetivos, cuales son las restricciones y cuales son los márgenes de maniobra para obetener una solución relativamente óptima al problema [@valliant2018, cap. 5].
+
+## Objetivos
 
 Expresado en el lenguaje clásico de los márgenes de error, la precisión de los resultados con la se espera poder realizar inferencias son en general de:
 
 - Nivel de confianza: 90%
 
-- P: 50%
+- $P$: 50%
 
-pero con los siguientes márgenes de error específicos:
+Sin embargo, la complejidad de esta muestra es que, con estos supuestos de fondo, los márgenes de error que se piden son diversos para diferentes subpoblaciones que surguen o se construyen, muchas veces, mediante el cruce entre otras variables. Para peor, algunos de esos cruces implican variables que podrían considerarse como jerárquicas (p.e. Región y Distrito) lo que plantea problemas particulares. Finalmente, en el pedido original, y bajo la forma del lenguaje de los estratos, se afirma que estos son una combinación de estratos de "oferta" (p.e. FINES, EPA, etc.) y de "zonas" (p.e. regiones, grupo de regiones, etc.). En ese contexto se pide lo siguiente:
 
 - Sobre los establecimientos FINES a nivel regional con un margen de error del 5%.
 
@@ -20,13 +32,15 @@ pero con los siguientes márgenes de error específicos:
 
 - En el caso de los CEBAS, dado su pequeño tamaño poblacional, se espera realizar un relevamiento censal. Por esta razón no habrá márgen de error para esta categoría.
 
-Si se asume que los diferentes tipos de establecimientos son "Estratos" muestrales, se podría pensar
+Si se asume que los diferentes tipos de establecimientos son "Estratos" de la oferta, se podría pensar que se aspira a un margen de error de:
 
-3% por estrato-gran área,
+3% por estrato-Gran Área,
 
 4% por estrato-región agrupada.
 
 5% por estrato-región
+
+La idea que está por detrás de esto último es que, a mayor nivel de agregación geografica o espacial, se espera uan reducción del margen de error.
 
 Por ahora no diremos algo más específico con referencia a los medios para lograr ese objetivo. La razón de esto es, justamente, distinguir los objetivos del estudio de los medios para lograrlos. Incluso más adelante vamos a proponer una manera alternativa de proponer los objetivos de la muestra basada en el léxico del coeficiente de variación (*CV*) que puede considerarse como un error estándar relativo [@valliant2018, pág. 3]. El cómo enunciar los objetivos de una muestra no algo banal. En efecto, suele haber diferencias entre las disciplinas a la hora de que pedirle a una muestra. Por ejemplo, en contextos epidemiológicos es usual hablar de *power requirements* aunque lo usual en las ciencias sociales es hablar sobre *precision goals* [@valliant2018, pág. 8].
 
@@ -57,6 +71,7 @@ library(srvyr)
 library(survey)
 library(patchwork)
 library(BalancedSampling)
+library(rsamplr)
 
 i_am("muestra_adultos.qmd")
 
@@ -140,7 +155,7 @@ por área:
 
 3° Estudiantes: 5 primeros o últimos de cada sección.
 
-## Tamaño de la muestra
+### Tamaño de la muestra
 
 deff=2 para EPA y CENS
 
@@ -150,11 +165,7 @@ Se estima la realización de unas 14.000 encuestas (algo más de 7.000 en FINES,
 
 El margen de error para el total provincial sería del 1% para FINES, del 2% para EPA y CENS y del 3% para CEBAS, ubicándose en torno al 1,2% para el total del nivel secundario y del total de ambos niveles de la modalidad.
 
-![![](images/paste-2.png)](images/paste-1.png){width="745"}
-
-## Clasificación
-
-El presente diseño muestral, a diferencia de @sec-muestra_peb_2025, no tiene que ser compatible o mejorar en algunos puntos específicos de un diseño muestral anterior. Por otro lado, en este caso sí hay exigencias o restricciones específicas en cuanto a la precisión estadística del resultado esperado. En otras situaciones relativamente similares, esas exigencias/restricciones se explicitan o se traducen en términos de costo operativo o económico del estilo "Nosotros podemos/queremos una muestra de X casos" o "Recolectar tal tipo de caso nos cuesta más que tal u otro así que, en lo posible, tenga eso en cuenta dentro del diseño".
+![](images/paste-3.png)
 
 ## Afinando la población objetivo
 
@@ -183,6 +194,13 @@ tipo_de_organizacion == "SEDE FINES" ~ "FINES",
 .default = "NULL")) |>
 rename(population_target = universo) |>
 mutate(population_target = if_else(population_target == 0, "NO", "SI"))
+
+# Después se agregó la dimensión encierro
+
+df_universo = df_universo |>
+mutate(encierro = if_else(
+str_detect(estrato_oferta, "ECE"), "SI", "NO")) |>
+relocate(encierro, .after = nivel)
 
 df_establecimientos_indicadores = suppressWarnings(read_excel(here(
     "inputs",
@@ -292,7 +310,8 @@ rename(matricula = matricula_total,
        ivse = ivse_t,
        distrito_n = codigo_distrito_dg_cy_e,
        distrito = nombre_de_distrito_partido,
-       dominio = estrato) |>
+       dominio = estrato,
+       criterio_seleccion = criterios_seleccion_sede) |>
 mutate(estudiante_seccion = matricula / secciones,
        nivel = if_else(nivel == "Nivel Secundario (FINES)", "Secundario", "Primario"),
        region_n = as.numeric(region),
@@ -330,14 +349,27 @@ relocate(region_n, .after = region) |>
 relocate(distrito_n, .after = distrito) |>
 relocate(region_agrupada, .after = region_n)
 
+df_sampling_frame = df_sampling_frame |>
+mutate(distrito = str_to_upper(distrito)) |>
+mutate(distrito = str_replace_all(distrito, "Á", "A")) |>
+mutate(distrito = str_replace_all(distrito, "É", "E")) |>
+mutate(distrito = str_replace_all(distrito, "Í", "I")) |>
+mutate(distrito = str_replace_all(distrito, "Ó", "O")) |>
+mutate(distrito = str_replace_all(distrito, "Ú", "U"))
+
 levels_region = c("01", "02", "03", "04", "05", "06", "07", "08", "09","10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25")
 levels_area = c("AMBA", "INTERIOR")
 levels_ambito = c("Urbano", "Rural Agrupado", "Rural Disperso")
+levels_encierro = c("SI", "NO")
 
 df_sampling_frame = df_sampling_frame |>
 mutate(region = fct_relevel(region, levels_region),
        area = fct_relevel(area, levels_area),
-      ambito = fct_relevel(ambito, levels_ambito))
+       ambito = fct_relevel(ambito, levels_ambito),
+       encierro = fct_relevel(encierro, levels_encierro))
+
+write_rds(df_sampling_frame,
+         here("Inputs", "df_sampling_frame.rds"))
 
 ```
 
@@ -378,6 +410,8 @@ Variables discretas:
 
 - Tipo de establecimiento
 
+- Condición de encierro
+
 Variables continuas:
 
 - Matrícula
@@ -386,16 +420,16 @@ Variables continuas:
 
 - Media de estudiantes por sección
 
-- IVSE
+- índice de vulnerabilidad socioecómico - IVSE
 
 Para tener una idea de las distribuciones de estas variables vamos a realizar un análisis exploratorio de datos. Para esto, vamos a realizar un análisis descriptivo de cada una de las variables discretas y continuas tanto a nivel de establecimientos como a nivel de los estudiantes. Para las variables discretas vamos a mostrar su distribución en términos de frecuencias y porcentajes. Para las variables continuas, vamos a mostrar su distribución a través de histogramas o gráficos de densidad.
 
 ```{r}
-#| label: tbl-explo_marco_discretas_establecimientos
+#| label: tbl_explo_marco_establecimientos
 #| tbl-cap: Análisis exploratorio variables discretas - Nivel establecimientos
 # Las tablas con gtsummary y los gráficos con ggplot y luego ggploly para hacerlo interactivo
-tbl_explo_marco_discretas_establecimientos = df_sampling_frame |>
-select(region, region_agrupada, ambito, area, nivel, tipo_est_adulto, matricula, secciones, estudiante_seccion, ivse) |>
+tbl_explo_marco_establecimientos = df_sampling_frame |>
+select(region, region_agrupada, ambito, area, nivel, tipo_est_adulto, matricula, secciones, estudiante_seccion, encierro, ivse) |>
 tbl_summary(
            label = list(region = "Región",
                         region_agrupada = "Región Agrupada",
@@ -406,16 +440,17 @@ tbl_summary(
                         matricula = "Matrícula",
                         tipo_est_adulto = "Tipo de establecimiento",
                         estudiante_seccion = "Estudiante por sección",
+                        encierro = "Condición de encierro",
                         ivse = "IVSE")
          )
 
 ```
 
 ```{r}
-#| label: fig-explo_marco_continuas_establecimientos
+#| label: fig_explo_marco_establecimientos
 #| fig-cap: Análisis exploratorio variables continuas - Nivel establecimientos
 # graficar con ggplot y ggplotly
-fig_explo_marco_continuas_establecimientos = df_sampling_frame |>
+fig_explo_marco_establecimientos = df_sampling_frame |>
 select(matricula, secciones, estudiante_seccion, ivse) |>
 pivot_longer(cols = everything(), names_to = "variable", values_to = "valor") |>
 ggplot(aes(x = valor)) +
@@ -442,32 +477,32 @@ write_rds(df_estudiantes,
 ```
 
 ```{r}
-#| label: tbl-explo_marco_discretas_estudiantes
-#| tbl-cap: Análisis exploratorio variables discretas - Nivel estudiantes
-# Las tablas con gtsummary y los gráficos con ggplot y luego ggploly para hacerlo interactivo
-tbl_explo_marco_discretas_estudiantes = df_estudiantes |>
-select(region, region_agrupada, ambito, area, nivel, tipo_est_adulto, matricula, secciones, estudiante_seccion, ivse) |>
-tbl_summary(
-           sort = all_categorical() ~ "frequency",
-           label = list(region = "Región",
-                        region_agrupada = "Región Agrupada",
-                        ambito = "Ámbito",
-                        area = "Gran Área",
-                        nivel = "Nivel",
-                        secciones = "Secciones",
-                        matricula = "Matrícula",
-                        tipo_est_adulto = "Tipo de establecimiento",
-                        estudiante_seccion = "Estudiante por sección",
-                        ivse = "IVSE")
-         )
+#| label: tbl_explo_marco_estudiantes 
+#| tbl-cap: Análisis exploratorio variables discretas - Nivel estudiantes 
+# Las tablas con gtsummary y los gráficos con ggplot y luego ggploly para hacerlo interactivo 
 
+df_estudiantes = read_rds(here("inputs", "df_estudiantes.rds"))
+tbl_explo_marco_estudiantes = df_estudiantes |> 
+  select(region, region_agrupada, ambito, area, nivel, tipo_est_adulto, matricula, secciones, estudiante_seccion, encierro, ivse) |> 
+  tbl_summary(sort = all_categorical() ~ "frequency", 
+  label = list(region = "Región", 
+  region_agrupada = "Región Agrupada", 
+  ambito = "Ámbito", 
+  area = "Gran Área", 
+  nivel = "Nivel", 
+  encierro = "Condición de encierro", 
+  secciones = "Secciones", 
+  matricula = "Matrícula", 
+  tipo_est_adulto = "Tipo de establecimiento", 
+  estudiante_seccion = "Estudiante por sección", 
+  ivse = "IVSE"))
 ```
 
 ```{r}
-#| label: fig-explo_marco_continuas_estudiantes
+#| label: fig_explo_marco_estudiantes
 #| fig-cap: Análisis exploratorio variables continuas - Nivel establecimientos
 # graficar con ggplot y ggplotly
-fig_explo_marco_continuas_estudiantes = df_estudiantes |>
+fig_explo_marco_estudiantes = df_estudiantes |>
 select(matricula, secciones, estudiante_seccion, ivse) |>
 pivot_longer(cols = everything(), names_to = "variable", values_to = "valor") |>
 ggplot(aes(x = valor)) +
@@ -491,8 +526,8 @@ En cuanto a los niveles tampoco parece haber mayores problemas aunque, estrictam
 #| label: tbl-comparacion
 #| tbl-cap: Comparación exploratorio del marco muestral. Nivel establecimieno y nivel estudiantes
 tbl_comparacion_establecimientos_estudiantes = tbl_merge( 
- tbls = list(tbl_explo_marco_discretas_establecimientos, 
-             tbl_explo_marco_discretas_estudiantes),
+ tbls = list(tbl_explo_marco_establecimientos, 
+             tbl_explo_marco_estudiantes),
     tab_spanner = c("**Establecimientos**", "**Estudiantes**")
   )
 
@@ -503,7 +538,7 @@ tbl_comparacion_establecimientos_estudiantes
 #| label: fig-comparacion
 #| fig-cap: Comparación exploratorio del marco muestral. Nivel establecimieno y nivel estudiantes
 
-fig_comparacion_establecimientos_estudiantes = fig_explo_marco_continuas_establecimientos / fig_explo_marco_continuas_estudiantes
+fig_comparacion_establecimientos_estudiantes = fig_explo_marco_establecimientos / fig_explo_marco_estudiantes
 
 fig_comparacion_establecimientos_estudiantes
 ```
@@ -514,14 +549,6 @@ fig_comparacion_establecimientos_estudiantes
 # Quiero realizar un mapa con tmap en version "view" con las coordenadas de los distritos (columan geom_depto) y la cantidad de estudiantes por distrito (matricula). Para esto, tengo que agrupar el dataframe por distrito y sumar la cantidad de estudiantes por distrito. Luego, tengo que unir el dataframe con el dataframe espacial de los distritos para poder graficar el mapa.
 tmap_mode("view")
 # Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df_estudiantes
-
-df_sampling_frame = df_sampling_frame |>
-mutate(distrito = str_to_upper(distrito)) |>
-mutate(distrito = str_replace_all(distrito, "Á", "A")) |>
-mutate(distrito = str_replace_all(distrito, "É", "E")) |>
-mutate(distrito = str_replace_all(distrito, "Í", "I")) |>
-mutate(distrito = str_replace_all(distrito, "Ó", "O")) |>
-mutate(distrito = str_replace_all(distrito, "Ú", "U"))
 
 insumo_mapa_distritos = df_sampling_frame |>
 left_join(df_sf_distritos, by = "distrito") |>
@@ -678,15 +705,62 @@ fig_mapa_areas = tm_shape(df_mapa_areas) +
 fig_mapa_areas
 ```
 
+Por último, antes de pasar a la siguiente sección, analizaremos la relación entre la cantidad de secciones y el tamaño de los establecimientos. Esto nos puede anticipar una idea de como se comportarían diferentes diseños muestrales en función de como seleccionen o censen a las secciones de cada establecimiento seleccionado en la primera etapa.
+
+```{r}
+#| label: fig-matricula_seccion
+#| fig-cap: Relación entre el tamaño de la matrícula y la cantidad de secciones de los establecimientos
+
+df_estab_matri_seccion = df_sampling_frame |>
+select(matricula, secciones)
+
+# 1. Cálculo un modelo lineal para obtener los parámetros
+modelo = lm(matricula ~ secciones, 
+            data = df_estab_matri_seccion)
+coeficientes = coef(modelo)
+r_cuadrado = summary(modelo)$r.squared
+
+# Creación de la etiqueta con la ecuación
+eq_label = paste0("y = ", round(coeficientes[1], 2), " + ", round(coeficientes[2], 2), "x",
+                   "\n (R² = ", round(r_cuadrado, 3), ")")
+
+# 2. Generación del gráfico
+fig_matricula_seccion = ggplot(df_estab_matri_seccion,
+   aes(x = secciones, y = matricula)) +
+  geom_point(alpha = 0.4, color = "midnightblue") +
+  # Adición de la línea de tendencia
+  geom_smooth(method = "lm", color = "darkred", fill = "lightgray", se = TRUE) +
+# Restricción viaul del eje Y a 3000 unidades
+  coord_cartesian(ylim = c(0, 1000),
+                  xlim = c(0, 50)) +
+  # Inserción de los parámetros en el cuerpo del gráfico
+  annotate("text", x = Inf, y = -Inf, label = eq_label, 
+           hjust = 1.1, vjust = -1.1, size = 5, fontface = "italic", family = "serif") +
+  labs(
+    #title = "Análisis de Regresión: Matrícula vs. Secciones",
+    subtitle = "Ciclo Lectivo 2026",
+    x = "Cantidad de secciones",
+    y = "Matrícula",
+    caption = "Fuente: Elaboración propia basada en marco muestral"
+  ) +
+  theme_minimal() +
+  theme(text = element_text(family = "serif"))
+
+fig_matricula_seccion
+
+#fig_matricula_seccion_i = ggplotly(fig_matricula_seccion)
+#fig_matricula_seccion_i
+```
+
 ## Dominios de estimación {#sec-adultos_dominios_estimacion}
 
-Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de 2 conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera de la muestra. En otras palabras, el primero es un medio (entre otros) y el segundo un fin(entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación es un buen medio crear un estrato para cada uno de ellos.
+Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de 2 conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera de la muestra. En otras palabras, el primero es un medio (entre otros) y el segundo un fin (entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación, es un buen medio crear un estrato para cada uno de ellos [@tillé2020, pág. 79].
 
 Dado que parte de la confusión tiene que ver por su gran coextensión puede ser útil pensar en situaciones en donde estos conceptos no sean, justamente, coextensivos. Por un lado, puede que el dominio de estimación sea la propia población total (como algo diferente a alguna subpoblación de ella). En ese caso se puede construir estratos para realizar un diseño estratificado simplemente porque este diseño, al menos en comparación con el azar simple, es más eficiente. En este ejemplo hay estratos y no hay dominios de estimación como subpoblaciones. En cualquier caso, lo importante es que en este ejemplo hay más estratos que dominios de estimación y, por lo tanto, en este ejemplo ambos conceptos no serían coextensivos.
 
 Otro ejemplo podría ser donde efectivamente sí haya varios dominios de estimación, esto es, se desea realziar inferencias para diversas subpoblaciones, pero no se realice un diseño estratificado. Para muchos este ejemplo puede resultar forzado porque suponen que se trata de un ejemplo ficticio en donde se asume cierta ignorancia del diseñador de la muestra. El supuesto por detrás de esta opinión es que si bien puede ser realizable la combinación que propone el ejemplo, la misma se encuentra fuera lo óptimo y de ahí que se considere como un caso forzado. Sin embargo, esto no siempre es así. Puede que existan algunos casos en donde se requiera múltiples dominios de estimación y donde el mejor medio para ese fin no sea la construcción de múltiples estratos. Diseños como el balanceado o el bien distribuido (@sec-cubo) no necesitan, explícitamente, la construcción de estratos y puede, en algunos casos, ser más aconsejables que un diseño estratificado.
 
-Volviendo a la diferencia intensiva, esto es, de sentido más que extensiva entre ambos conceptos, los dominios de estimación muchas veces se estipulan en función de criterios administrativos/políticos. Usualmente, este es el caso de los dominios distritales o regionales. Esta distinción, muchas veces (pero no siempre) puede también implicar similitudes y diferencias sociales por detrás. Si esto es así, estamos en presencia de buenos candidatos para que esos dominios también se consideren como estratos, dado que su construcción agrupará casos relativamente más similares entre sí que si se hubieran elegido al azar dentro de toda la población. El punto crítico de la afirmación anterior es el "pero no siempre" que, nuevamente, habilita la distinción entre dominios de estimación y estratos. Para poner un ejemplo, los distritos de General Pueyrredón y Bahía Blanca son distritos que contienen, por poner un ejemplo de caracterítica social, tanto población urbana como rural dentro de sus límites. En efecto, cada uno de ellos contiene una gran ciudad en su interior con su respectivo conurbano. En otras palabras, es clara su utilización como dominio de estimación, pero no es clara su utilización dentro de algún estrato en términos de asegurar una menor heterogeneidad de alguna variable de interés.
+Dejando las similitudes extensivas y volviendo a las diferencias intensivas o de sentido entre ambos conceptos, los dominios de estimación muchas veces se estipulan en función de criterios administrativos/políticos. Usualmente, este es el caso de los dominios distritales o regionales. Esta distinción, muchas veces (pero no siempre) puede también implicar similitudes y diferencias sociales por detrás. Si esto es así, estamos en presencia de buenos candidatos para que esos dominios también se consideren como estratos, dado que su construcción agrupará casos relativamente más similares entre sí que si se hubieran elegido al azar dentro de toda la población. El punto crítico de la afirmación anterior es el "pero no siempre" que, nuevamente, habilita la distinción entre dominios de estimación y estratos. Para poner un ejemplo, los distritos de General Pueyrredón y Bahía Blanca son distritos que contienen, por poner un ejemplo de caracterítica social, tanto población urbana como rural dentro de sus límites. En efecto, cada uno de ellos contiene una gran ciudad en su interior con su respectivo conurbano. En otras palabras, es clara su utilización como dominio de estimación, pero no es clara su utilización dentro de algún estrato en términos de asegurar una menor heterogeneidad de alguna variable de interés.
 
 En cualquier caso, la distinción de los dominios de estimación son importantes para calcular el tamaño muestral en conjunción con alguna preferencia sobre los niveles de precisión de las estimaciones (p.e. MOE o CV). En este diseño muestral en particular, los dominios de estimacion son una combinación de variables categóricas o discretas. Más en concreto, se trata de 3 variables, pero con la complejidad que 2 de ellas son variables que se encuentran jerárquicamente relacionadas. Otra complejidad relacionada es que no se espera la misma precisión para todos los dominios. Nos explicamos.
 
@@ -698,9 +772,9 @@ Las variables que se han tenido en cuenta en los dominios de estimación son:
 
 - La Región agrupada
 
-- Gran área
+- Gran Área
 
-Decimos que 2 variables son jerárquicas porque "Gran área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^muestra_adultos-1]
+Decimos que 2 variables son jerárquicas porque "Gran Área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^muestra_adultos-1]
 
 [^muestra_adultos-1]: Cabe destacar que algunas construcciones de la variable "Gran Área" no son simplemente una agregación de regiones sino, más específicamente, solo una agregación de distritos. Por ejemplo, a veces se utiliza el criterio que algunos distritos de la Region 5 pertenecen a la categoría AMBA (p.e. Almirante Brown) y otros pertenecen a la categoria "Interior" (p.e. San Vicente). En este caso, como se trata de una agregación explícita de regiones, la variable "Gran Área" puede considerarse como una variable jerárquica de distrito y también de regiones.
 
@@ -797,6 +871,8 @@ tm_facets_wrap(by = "tipo_est_adulto", ncol = 3)+
 
 fig_mapa_dominios_areas_facets
 ```
+
+Por último, entre las especificaciones se indicaba que se debía hacer un muestreo sistemático luego de haber ordenado por la variable IVSE. Claramente, esto parece más un consejo de medios más que de fines, pero invita a pensar el porqué de esa decisión y esto, a su turno, puede aydar a entender algún fin latente. Esta estrategia suele denominarise "estratificación implícita", ya que esa ordenación con la selección posterior sistemática es una manera simple de generar "estratos" como resultado partiendo, o al menos usando en algún momento de su construcción, una variable continua [@cochran1977, pág. 205; @valliant2018, pág. 63].
 
 ## Tamaño de la muestra
 
@@ -992,65 +1068,27 @@ Por ejemplo, si asumiéramos el escenario tradicional de relevar todas las secci
 
 Aunque concentrar más estudiantes por escuela reduce la cantidad de sedes físicas a visitar (pasa de $50$ a $27$ sedes), la cantidad de cuestionarios a procesar es más del doble. Por ende, nuestro diseño con $b=5$ representa un equilibrio óptimo entre viabilidad logística de campo y economía de recursos analíticos.
 
-```{r}
-#| eval: false
-n = nrow(muestra_azar_simple)
-N = nrow(base)
-
-muestra_azar_simple = muestra_azar_simple |>
-mutate(pw = N/n,
-       fpc = sqrt((N-n)/(N-1)))
-
-muestra_azar_simple_sv = muestra_azar_simple |>
-as_survey_design(ids = id,
-                 weights = pw,
-                 fpc = fpc)
-
-tbl_azar_simple = muestra_azar_simple_sv |>
-tbl_svysummary(
-include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
-               all_categorical() ~ "{p}% (n={n_unweighted})"),
-digits = list(all_continuous() ~ c(1),
-              all_categorical() ~ c(1,0))) |>
-add_ci()
-
-write_rds(tbl_azar_simple,
-          here("Outputs", "tbl_azar_simple.rds"))
-
-tbl_merge(
-  tbls = list(tbl_azar_simple, tbl_pob_param),
-  tab_spanner = c("**Azar simple**", "**Parámetro Pob.**")
-)
-```
-
-```{r}
-#| label: pps
-#| eval: false
-base_toy_pps = base_toy |>
-filter(!is.na(matricula)) |>
-arrange(desc(matricula))
-
-N = nrow(base_toy_pps)
-n = 300
-pi = inclusionprobabilities(base_toy_pps$matricula, n)
-
-set.seed(314)
-
-muestra_pps = UPrandompivotal(pik = pi) |>
-              as_tibble() |>
-rename(muestra_pps = value) |>
-bind_cols(base_toy_pps) |>
-bind_cols(as.data.frame(pi)) |>
-filter(muestra_pps > 0) |>
-mutate(fpc = sqrt((N-n)/(N-1)),
-       pi = pi,
-       pw = N/n)
-```
-
 ## Simulación por el método del cubo
 
-Teniendo en mente, por un lado, la distribución poblacional, esto es, la distribución del marco muetsral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o su coeficente de variacion, serán mayores a los aceptables en los objetivos. Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos.
+Teniendo en mente, por un lado, la distribución poblacional, esto es, la distribución del marco muetsral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o sus coeficientes de variación, serán mayores a los aceptables en los objetivos. Esta situación también se expresaría a través de un muestreo estratitificado proporcional.
+
+Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación óptima (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificacón proporcional.
+
+Cuales son los pros y contras de ete movimiento? Múltiples dominios de estimación, y usos todavía desconocidos de la muestra al momento del análisis hace que Si se compararan 2 muesestras. Ambas con la misma cantidad de casos. Ambas con un ponderador para cada caso.
+
++------------+----------------------------+----------------+
+| Col1       | Estratificado proporcional | Estratificado  |
+|            |                            |                |
+|            |                            | optimo         |
++============+============================+================+
+| Eficiencia |                            |                |
++------------+----------------------------+----------------+
+|            |                            |                |
++------------+----------------------------+----------------+
+|            |                            |                |
++------------+----------------------------+----------------+
+
+optima XXXXXXX
 
 Los dominios de estimación que parecen cumplir ese criterio son:
 
@@ -1074,6 +1112,157 @@ Por poner un ejemplo si se logra obtener una muestra que se ajuste a los paráme
 
 Salvo la excepción de las CEBAS que por su baja cantidad de casos de forma necesaria se necesitará una encuesta casi censal, la situación parece diferente en los otros tipos de establecimientos. En este contexto, la duda es que tan lejos se está de lograr los objetivos de los dominios de estimación con sus niveles de precisión si se realiza una muestra que solo se preocupe por ser representativa del resto de los establecimientos educativos a nivel de las regiones agrupadas.
 
+Para eso vamos a probar con una muestra balanceada y bien distribuida por el método del cubo. La idea de estos es que la muestra (de estudiantes y no de establecimientos) se acerque a los valores de tendencia central de esas variables. En otras palabras, que la muestra se encuentra **balanceada** en un punto óptimo que reduzca las distancias con las diferentes medidas de **tendencia central** de las variables anteriores.
+
+Dado que algunas variables numéricas se encuentran disponibles como marco muestral para cada establecimeinto también se va a implementar una muestra **bien distribuida**. En otras palabras, el objetivo es también exigir una convergencia con la **distribución** (esto es, no solo con sus valores de tendencia central) de las siguientes variables:
+
+```{r}
+#| label: pps_cube
+
+# 1.Arreglos generales al objeto
+
+df_sampling_frame = read_rds(here("Inputs", "df_sampling_frame.rds"))
+df_insumo_cubo = df_sampling_frame |>
+drop_na(matricula, secciones, ambito, distrito, region, tipo_est_adulto, ivse, criterio_seleccion, encierro) |> 
+mutate(censal = if_else(criterio_seleccion == "CENSO", 1, 0),  # dummy censal
+     # lat_std = scale(latitud), #Escalamiento para well distribution
+     # lon_std = scale(longitud),
+      ivse = scale(ivse))
+
+# 2. Definición de Probabilidades de Inclusión (pi) de establecimientos
+
+n = 1200
+
+# 3. Calculo de las probabilidades de inclusion
+
+# Función para ajustar pi de manera que sum(pi) == n. Esto es importante porque ningún caso puede tener más de 1 como probabilidad de inclusión pero, a su vez, si solo se ajusta para que aquellos con más de 1 pasen a tener 1, la cantidad de casos deseada pasa a ser diferente al número de casos seleccionados mediante el cálculo. Es necesario no sólo corregir sino también distribuir esa corrección en las probabilidades de inclusión para que la suma o la masa de todas las probabilidades de inclusión de como resultado el respectivo número muestral deseado.
+
+ajustar_pi = function(weight, n) {
+  N = length(weight)
+  pi = n * weight / sum(weight)
+
+      # Mientras existan pi > 1, aplicamos el ajuste
+  while (any(pi > 1)) {
+    forzosos = pi >= 1
+    pi[forzosos] = 1
+    
+    n_restante = n - sum(pi[forzosos])
+    pi[!forzosos] = n_restante * weight[!forzosos] / sum(weight[!forzosos])
+  }
+  return(pi)
+}
+
+# Aplicación la función. Acá no hay alpha porque no hay renovación como en peb2025
+#df_insumo_cubo$weight = df_insumo_cubo$matricula * (1 + df_insumo_cubo$censal)
+# Si es censal, le asignamos un peso masivo (ej. 99 millones). Si no, su matrícula.
+df_insumo_cubo$weight = if_else(df_insumo_cubo$censal == 1, 
+                                99999999, 
+                                df_insumo_cubo$matricula)
+pi_corregido = ajustar_pi(df_insumo_cubo$weight, n)
+
+# Verificación crucial: debe devolver n, esto es, la cantidad de casos a seleccionar (1200)
+#sum(pi_corregido)
+
+# 4. Matriz de Variables Auxiliares (Balanced)
+
+# Convierto las variables (y sus categorías) a dummies con model.matrix
+X = model.matrix(~ tipo_est_adulto + ambito + ivse + distrito - 1, 
+                 data = df_insumo_cubo)
+
+# Aseguramos que pi_corregido sea parte de las restricciones de balanceo
+# Esto obliga al algoritmo a que la suma de unidades (n) sea fija.
+X_balanceado = cbind(pi_corregido, X)
+
+# 5. Matriz de Coordenadas (Well distribution)
+
+# Es fundamental que las coordenadas estén en formato numérico.
+# Acá si hay que estandarizar. Es vital que Latitud, Longitud y AUH tengan media 0 y desvío 1.
+# Esto ya se había realizado antes en la preparación del objeto.
+
+coords = as.matrix(df_insumo_cubo[, c("ivse")])
+
+# 6. Selección de la Muestra
+# lcube intenta balancear X y dispersar en el espacio de coords
+set.seed(123) # Para reproducibilidad
+indices_muestra = lcube(
+    prob = pi_corregido, 
+    Xba = X_balanceado, 
+    Xsp = coords)
+
+# 1. Inicializamos la columna con valor 0 (ningún establecimiento seleccionado)
+df_insumo_cubo$muestra_adultos = 0
+
+# 2. Asignamos el valor 1 únicamente a las filas seleccionadas por lcube
+df_insumo_cubo$muestra_adultos[indices_muestra] = 1
+
+```
+
+```{r}
+#| label: fig-mapa_muestra_adultos_cubo
+#| fig-cap: "Distribución de la población de los establecimientos (puntos negros) y de la muestra de adultos (puntos azules)"
+#| eval: !expr knitr::is_html_output()
+#| cache: true
+mapa_poblacion_cubo = df_insumo_cubo |>
+left_join(df_sf_regiones, by = "region") |>
+st_as_sf() 
+
+mapa_muestra_cubo = df_insumo_cubo |>
+filter(muestra_adultos == 1) |>
+left_join(df_sf_regiones, by = "region") |>
+st_as_sf()
+
+tmap_mode("view")
+
+fig_muestra_cubo = tm_basemap(server = "CartoDB.Positron",
+                              alpha = 0.5) +
+tm_shape(mapa_poblacion_cubo,
+         name = "Población") +
+tm_shape(mapa_muestra_cubo,
+         name = "Muestra cubo") +
+tm_dots(fill_alpha = 0.9,
+        fill = "blue")
+
+fig_muestra_cubo 
+
+```
+
+```{r}
+#| label: fig-densidad_evse
+#| tbl-cap: Distribución de densidad de evse. Población y muestra adultos.
+
+# 1. Preparación de los datos para la gráfica
+# Creamos un dataframe que combine población y muestra
+pop_data = data.frame(IVSE = df_insumo_cubo$ivse, Grupo = "Población")
+mue_data = data.frame(IVSE = df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
+                       Grupo = "Muestra")
+
+plot_data = rbind(pop_data, mue_data)
+
+# 2. Generación del gráfico de densidades superpuestas
+fig_densidad_ivse = ggplot(plot_data, aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 1) +
+  scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
+  scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
+  labs(title = "Comparativa de Densidad: IVSE",
+       subtitle = "Población total vs. Muestra balanceada y dispersa",
+       x = "Porcentaje de Estudiantes con IVSE",
+       y = "Densidad",
+       caption = "Nota: El solapamiento indica la calidad del 'spreading' multivariado.") +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        text = element_text(family = "serif"))
+
+fig_densidad_ivse
+
+# Realización del test K-S
+ks_result = ks.test(
+  df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
+  df_insumo_cubo$ivse
+)
+
+#print(ks_result)
+```
+
 ## Cálculo del tamaño de muestra por estrato (`PracTools`)
 
 Una vez que hemos determinado los coeficientes de variación ($CV$) como objetivos de precisión para cada cruce de tipo de establecimiento y división geográfica, y habiendo modelado el efecto de diseño empírico ($deff = 1,4$) derivado de la selección de la sección anterior y 5 estudiantes por establecimiento, pasamos a calcular el tamaño de muestra teórico. Siempre cabe recordar que este tamaño es téorico en el sentido que es razonable basado en suposiciones y evidencia anterior, pero solo luego de haber realizado la muestra se sabrá, a ciencia cierta, el valor del coeficiente de variación (o margen de error en su defecto).
@@ -1089,11 +1278,11 @@ p_estimada = 0.5      # Escenario de máxima varianza
 confianza_z = qnorm(0.95) # ~ 1.645 para 90% de confianza
 
 # 2. Creamos una función personalizada para estimar la cantidad de alumnos y sedes por estrato
-estimar_tamano_estrato = function(mde_objetivo, 
+estimar_tamano_estrato = function(moe_objetivo, 
                                   deff = deff_real, 
                                   p = p_estimada) {
   # Calculamos el CV correspondiente a ese MdE
-  cv_objetivo = (mde_objetivo / confianza_z) / p
+  cv_objetivo = (moe_objetivo / confianza_z) / p
   
  # Calculamos el tamaño MAS teórico con nProp de PracTools
   n_mas = nProp(CV0 = cv_objetivo, 
@@ -1112,16 +1301,16 @@ estimar_tamano_estrato = function(mde_objetivo,
 }
 
 # 3. Calculamos la muestra teórica necesaria por cada tipo de dominio
-muestra_te_area = estimar_tamano_estrato(mde_objetivo = 0.03)   # 3% MdE
-muestra_fines_grupo = estimar_tamano_estrato(mde_objetivo = 0.04) # 4% MdE
-muestra_fines_individual = estimar_tamano_estrato(mde_objetivo = 0.05) # 5% MdE
+muestra_te_area = estimar_tamano_estrato(moe_objetivo = 0.03)   # 3% MdE
+muestra_fines_grupo = estimar_tamano_estrato(moe_objetivo = 0.04) # 4% MdE
+muestra_fines_individual = estimar_tamano_estrato(moe_objetivo = 0.05) # 5% MdE
 
 # 4. Consolidamos en una tabla informativa los requerimientos teóricos
 tabla_requerimientos = tibble(
   Dominio = c("CENS/EPA por Área (AMBA/Interior)", 
               "FINES por Región Individual", 
               "FINES por Región Agrupada"),
-  MdE = c("3.0%", "5.0%", "4.0%"),
+  MOE = c("3.0%", "5.0%", "4.0%"),
   CV_Objetivo = paste0(round(c(cv_o_te_area, cv_o_te_region, cv_o_te_region_agrupada) * 100, 2), "%"),
   Deff = deff_real,
   Alumnos_por_Dominio = c(muestra_te_area$n_estudiantes, 
@@ -1140,7 +1329,7 @@ tabla_requerimientos |>
   ) |> 
   cols_label(
     Dominio = "Dominio de Estimación",
-    MdE = "Margen de Error (MdE)",
+    MOE = "Margen de Error (MOE)",
     CV_Objetivo = "CV Objetivo",
     Deff = "Deff",
     Alumnos_por_Dominio = "Estudiantes Requeridos (n)",
@@ -1370,3 +1559,59 @@ Este algoritmo garantiza que nuestra muestra no solo cumple perfectamente con el
 El objetivo general de la creación de ponderadores es encontrar una lista de ponderadores que puedan ser utilizados virtualmente en todos los análisis para producir estimadores de la población objetivo del estudio [@valliant2018, pág. 322].
 
 Dentro de los ponderadores es útil distinguir entre 2 grandes tipos. Los **ponderadores** propiamente dichos y los **expansores**. Ambos se encargan de corregir sesgos (*bias*) para producir estimaciones insesgadas (*unbiased*). En otras palabras, los ponderadores tienen el objetivo de ayudar a construir buenos estimadores [@valliant2018, pág. 323]. Sin embargo, existe una diferencia fundamental entre ambos.
+
+```{r}
+#| eval: false
+n = nrow(muestra_azar_simple)
+N = nrow(base)
+
+muestra_azar_simple = muestra_azar_simple |>
+mutate(pw = N/n,
+       fpc = sqrt((N-n)/(N-1)))
+
+muestra_azar_simple_sv = muestra_azar_simple |>
+as_survey_design(ids = id,
+                 weights = pw,
+                 fpc = fpc)
+
+tbl_azar_simple = muestra_azar_simple_sv |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+               all_categorical() ~ "{p}% (n={n_unweighted})"),
+digits = list(all_continuous() ~ c(1),
+              all_categorical() ~ c(1,0))) |>
+add_ci()
+
+write_rds(tbl_azar_simple,
+          here("Outputs", "tbl_azar_simple.rds"))
+
+tbl_merge(
+  tbls = list(tbl_azar_simple, tbl_pob_param),
+  tab_spanner = c("**Azar simple**", "**Parámetro Pob.**")
+)
+```
+
+```{r}
+#| label: pps
+#| eval: false
+base_toy_pps = base_toy |>
+filter(!is.na(matricula)) |>
+arrange(desc(matricula))
+
+N = nrow(base_toy_pps)
+n = 300
+pi = inclusionprobabilities(base_toy_pps$matricula, n)
+
+set.seed(314)
+
+muestra_pps = UPrandompivotal(pik = pi) |>
+              as_tibble() |>
+rename(muestra_pps = value) |>
+bind_cols(base_toy_pps) |>
+bind_cols(as.data.frame(pi)) |>
+filter(muestra_pps > 0) |>
+mutate(fpc = sqrt((N-n)/(N-1)),
+       pi = pi,
+       pw = N/n)
+```

@@ -58,7 +58,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -297,18 +317,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <div class="no-first-line-indent-after"></div>
-<p>La estrategia de la calibración está compuesta por un conjunto de prácticas que aspiran a lograr objetivos similares al proceso del balanceo del cubo pero con métodos cualitativamente diferentes. La principal diferencia radica en que la calibración se realiza <em>ex-post</em> la ejecución de la muestra (o sea, en el momento de la estimación) y no <em>ex-ante</em> (o sea, en el momento del diseño) <span class="citation" data-cites="deville2004">[@deville2004, pág. 907]</span>. Esto es una diferencia fundamental que emparenta a la calibración con el enfoque del “<em>Model Assisted</em>” y la aleja del “<em>Design Based</em>”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. En efecto, tanto el balanceo como la calibración pueden considerarse prácticas relativamente generales que, en su interior, incluyen otras prácticas más específicas. Esto es lo que habilita a afirmar que, por ejemplo, la estratificación es un caso particular del balanceo así como la post-estratificación es un caso particular de la calibración <span class="citation" data-cites="tillé2011">[@tillé2011, pág. 223]</span>.</p>
+<p>La estrategia de la calibración está compuesta por un conjunto de prácticas que aspiran a lograr objetivos similares al proceso del balanceo del cubo pero con métodos cualitativamente diferentes. La principal diferencia radica en que la calibración se realiza <em>ex-post</em> la ejecución de la muestra (o sea, en el momento de la estimación) y no <em>ex-ante</em> (o sea, en el momento del diseño) <span class="citation" data-cites="deville2004">(<a href="references.html#ref-deville2004" role="doc-biblioref">Deville &amp; Tillé, 2004</a>, pág. 907)</span>. Esto es una diferencia fundamental que emparenta a la calibración con el enfoque del “<em>Model Assisted</em>” y la aleja del “<em>Design Based</em>”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. En efecto, tanto el balanceo como la calibración pueden considerarse prácticas relativamente generales que, en su interior, incluyen otras prácticas más específicas. Esto es lo que habilita a afirmar que, por ejemplo, la estratificación es un caso particular del balanceo así como la post-estratificación es un caso particular de la calibración <span class="citation" data-cites="tillé2011">(<a href="references.html#ref-tillé2011" role="doc-biblioref">Tillé, 2011</a>, pág. 223)</span>.</p>
 <p>Otra diferencia entre el balanceo y la calibración es que para realizar la calibración en algunas situaciones (esto depende de la técnica específica seleccionada) solo es necesario los totales de la población y no, como en el balanceo, los valores de cada unidad que compone esa población.</p>
 <p>Las características anteriores hacen que el proceso de calibración sea muy útil en momentos en donde existe conocimientos sobre algunos totales de la población y no se haya podido controlar mucho el proceso de diseño de la muestra (p.e. diseños no probabilistas) o diseños probabilistas pero con una alta tasa de no respuesta. Estas características hacen al proceso de calibración algo muy deseado para muchas investigaciones contemporáneas en donde pueda admitirse que se conocen algunos parámetros poblacionales y, por ejemplo, se ha realizado una muestra que se difundió de manera virtual a través de un link que circuló por diferentes redes sociales. Esto deja en pie la discusión sobre que “tan buenos” podrán ser los resultados de esa investigación, pero no parece haber muchas dudas que la investigación del ejemplo anterior será mejor si se le realiza un proceso de calibración mientras que será peor si no se realiza ese proceso.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
 <p>En cuanto a su pertinencia, siempre que haya disponibilidad de tiempo (y el saber necesario para realizarlo) es aconsejable realizar una calibración. Esto es cierto al menos porque el balanceo tiene el problema del redondeo (las muestras son muestras de números enteros) y la calibración no, ya que puede construirse calibradores con números racionales. Por esta misma razón, aun cuando se haya realizado una muestra con un diseño por balanceo, es recomendable calibrar con los totales de las variables que se usaron en el proceso de balanceo.</p>
 <p>Detalladas algunas diferencias entre la calibración y el balanceo ahora se pasa a diferenciar la calibración (de una muestra) de la imputación (de variables específicas).</p>
 <ul>
-<li><p>En cuanto a su producto, la calibración produce como resultado un calibrador (o un nuevo ponderador en la situación que el diseño de la muestra ya cuente con un ponderador) que es único para cada caso seleccionado en la muestra. En cambio la imputación, al menos como acá se la está entendiendo, es un proceso que tiene como objetivo estimar el valor faltante de una variable de los casos que respondieron de forma incompleta la muestra. En este sentido, un caso efectivamente seleccionado en la muestra puede tener más un valor imputado (p.e. para la variable ingresos y para la variable autopercepción de género) y, en cambio, otro caso puede que no tenga ninguno (p.e. si ese caso tuvo respuestas en todas las variables). En otros contextos se suele diferenciar a ambos procesos afirmando que la calibración ayuda a mitigar el problema del <em>unit-not-response</em> y la imputación ayuda a mitigar el problema del <em>ítem-not-response</em> [<span class="citation" data-cites="lumley2010">@lumley2010</span>, pág. 136]<span class="citation" data-cites="lundström2009">[@lundström2009, pág. 9]</span>.</p></li>
+<li><p>En cuanto a su producto, la calibración produce como resultado un calibrador (o un nuevo ponderador en la situación que el diseño de la muestra ya cuente con un ponderador) que es único para cada caso seleccionado en la muestra. En cambio la imputación, al menos como acá se la está entendiendo, es un proceso que tiene como objetivo estimar el valor faltante de una variable de los casos que respondieron de forma incompleta la muestra. En este sentido, un caso efectivamente seleccionado en la muestra puede tener más un valor imputado (p.e. para la variable ingresos y para la variable autopercepción de género) y, en cambio, otro caso puede que no tenga ninguno (p.e. si ese caso tuvo respuestas en todas las variables). En otros contextos se suele diferenciar a ambos procesos afirmando que la calibración ayuda a mitigar el problema del <em>unit-not-response</em> y la imputación ayuda a mitigar el problema del <em>ítem-not-response</em> [<span class="citation" data-cites="lumley2010">Lumley (<a href="references.html#ref-lumley2010" role="doc-biblioref">2010</a>)</span>, pág. 136]<span class="citation" data-cites="lundström2009">(<a href="references.html#ref-lundström2009" role="doc-biblioref">Lundström &amp; Särndal, 2009</a>, pág. 9)</span>.</p></li>
 <li><p>En cuanto a los insumos, la calibración necesita los totales poblacionales y, en cambio, la imputación necesita los valores de las otras variables que el caso a imputar ha respondido así como los valores de las covariables y la variable a imputar de los otros casos.</p></li>
 <li><p>En cuanto al momento de la investigación, siempre que se usen ambos procesos, usualmente primero se imputa los casos particulares de las variables que se considera pertinente y luego se calibra la muestra incluyendo los valores de los casos imputados. Este orden es particularmente importante si se confía en el proceso de la imputación y la/s variable/s imputadas son parte del proceso de calibración como covariables.</p></li>
 </ul>
 <div class="no-first-line-indent-after"></div>
-<p>Por último, a veces se suele asimilar como sinónimos en término calibración con el término post-estratificación. Más arriba ya se había comentado que el segundo puede considerarse como un caso particular (aunque quizás el más difundido) del primero en donde solo se utilizan variables categóricas (estratos) para el proceso de la calibración. Lo mismo puede afirmarse del método menos difundido del “raking” que permite la calibración de múltiples variables categóricas sin la necesidad de realizar cruces entre ellas con el riesgo de no tener casos en la muestra de algunas de las celdas de los múltiples cruces <span class="citation" data-cites="lumley2010">[@lumley2010, pág. 139]</span>. Por esta razón, aquí usaremos directamente el método de la calibración por ser el más general, ya que permite la inclusión tanto de variables categóricas como continuas y no presenta los riesgos de la post-calibración en cuanto a la posible ausencia de casos frutos de los cruces de las variables categóricas.</p>
+<p>Por último, a veces se suele asimilar como sinónimos en término calibración con el término post-estratificación. Más arriba ya se había comentado que el segundo puede considerarse como un caso particular (aunque quizás el más difundido) del primero en donde solo se utilizan variables categóricas (estratos) para el proceso de la calibración. Lo mismo puede afirmarse del método menos difundido del “raking” que permite la calibración de múltiples variables categóricas sin la necesidad de realizar cruces entre ellas con el riesgo de no tener casos en la muestra de algunas de las celdas de los múltiples cruces <span class="citation" data-cites="lumley2010">(<a href="references.html#ref-lumley2010" role="doc-biblioref">Lumley, 2010</a>, pág. 139)</span>. Por esta razón, aquí usaremos directamente el método de la calibración por ser el más general, ya que permite la inclusión tanto de variables categóricas como continuas y no presenta los riesgos de la post-calibración en cuanto a la posible ausencia de casos frutos de los cruces de las variables categóricas.</p>
 <p>A continuación vamos a trabajar con 2 ejemplos alternativos. Uno, en donde la calibración se realiza sobre la muestra aleatoria simple y otra que se realiza sobre la muestra balanceada y bien distribuida. En función de lo visto anteriormente (<a href="azar.html#sec-azar_simple" class="quarto-xref"><span>Sec. 3.2</span></a>, <a href="cubo.html#sec-cubo" class="quarto-xref"><span>Sec. 4.1</span></a> y <a href="cubo.html#sec-bien_distribuido" class="quarto-xref"><span>Sec. 4.3</span></a>) ya sabemos que ambas calibraciones van a partir desde un punto de inicio diferente. Veremos que tanta distancia entre sí y con respecto a los parámetros poblaciones van a tener los respectivos puntos de llegada (esto es, las estimaciones de ambas muestras) luego de realizar la calibración. En otras palabras, la muestra balanceada y bien distribuida ya se encontraba (en general) bastante cerca de los parámetros poblacionales por lo que, a priori, cuenta con alguna ventaja desde su puesto de largada.</p>
 <section id="calibración-muestra-azar-simple" class="level2" data-number="5.1">
 <h2 data-number="5.1" class="anchored" data-anchor-id="calibración-muestra-azar-simple"><span class="header-section-number">5.1</span> Calibración muestra azar simple</h2>
@@ -3897,12 +3917,32 @@ Poblacion
 
 <!-- -->
 
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="ref-deville2004" class="csl-entry" role="listitem">
+Deville, J., &amp; Tillé, Y. (2004). Efficient balanced sampling: The cube method. <em>Biometrika</em>, <em>91</em>(4), 893-912.
+</div>
+<div id="ref-elliott2017" class="csl-entry" role="listitem">
+Elliott, M., &amp; Valliant, R. (2017). Inference for nonprobability samples. <em>Statistical Science</em>, <em>32</em>(2), 249-264.
+</div>
+<div id="ref-lumley2010" class="csl-entry" role="listitem">
+Lumley, T. (2010). <em>Complex surveys. A guide to analysis using R</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-lundström2009" class="csl-entry" role="listitem">
+Lundström, S., &amp; Särndal, C. E. (2009). <em>Calibration of weights in surveys with nonresponse and frame imperfections</em>.
+</div>
+<div id="ref-tillé2010" class="csl-entry" role="listitem">
+Tillé, Y. (2010). <em>Balanced sampling by means of the cube method</em>.
+</div>
+<div id="ref-tillé2011" class="csl-entry" role="listitem">
+Tillé, Y. (2011). Ten years of balanced sampling with the cube method: An appraisal. <em>Survey Methodology</em>, <em>37</em>(2), 215-226.
+</div>
+</div>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>En cambio el balanceo, si bien en su origen tiene una fuerte vinculación con el enfoque del “Model Assisted”, no se encuentra tan alejado del “design based” dado que el algoritmo del cubo selecciona muestras balanceadas dentro del conjunto de muestras aleatorias <span class="citation" data-cites="tillé2010">[@tillé2010, pág. 39]</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Este tipo de discusiones ha enfrentado (y por ahora continúa enfrentando) a los representantes de los enfoques de la “<em>design based sample</em>” y del “<em>model assisted</em>”. Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos <span class="citation" data-cites="elliott2017">[@elliott2017]</span>. En el fondo lo que está en juego son los grados de garantía que ofrece cada técnica acerca de la representatividad y esto no solo incluya la discusión sobre las heterogeneidades observables (algo mantenido por ambos enfoques) sino también sobre las heterogeneidades no observables (algo históricamente mantenido por el enfoque de la “<em>design</em>”).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>En cambio el balanceo, si bien en su origen tiene una fuerte vinculación con el enfoque del “Model Assisted”, no se encuentra tan alejado del “design based” dado que el algoritmo del cubo selecciona muestras balanceadas dentro del conjunto de muestras aleatorias <span class="citation" data-cites="tillé2010">(<a href="references.html#ref-tillé2010" role="doc-biblioref">Tillé, 2010</a>, pág. 39)</span>.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>Este tipo de discusiones ha enfrentado (y por ahora continúa enfrentando) a los representantes de los enfoques de la “<em>design based sample</em>” y del “<em>model assisted</em>”. Los primeros suelen dudar de los beneficios de aplicar la calibración sobre diseños no probabilísticos aunque no suelen tener objeciones cuando la calibración se realiza sobre diseños probabilísticos <span class="citation" data-cites="elliott2017">(<a href="references.html#ref-elliott2017" role="doc-biblioref">Elliott &amp; Valliant, 2017</a>)</span>. En el fondo lo que está en juego son los grados de garantía que ofrece cada técnica acerca de la representatividad y esto no solo incluya la discusión sobre las heterogeneidades observables (algo mantenido por ambos enfoques) sino también sobre las heterogeneidades no observables (algo históricamente mantenido por el enfoque de la “<em>design</em>”).<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>En otras palabras, si ya se sabe de antemano que se va a realizar una post-estratificación es más simple utilizar una función específica para post-estratificar (p.e. la función “poststratify” de la librería survey o “poststrata” de la librería sampling).<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section>
