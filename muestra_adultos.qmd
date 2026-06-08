@@ -754,7 +754,7 @@ fig_matricula_seccion
 
 ## Dominios de estimación {#sec-adultos_dominios_estimacion}
 
-Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de 2 conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera de la muestra. En otras palabras, el primero es un medio (entre otros) y el segundo un fin (entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación, es un buen medio crear un estrato para cada uno de ellos [@tillé2020, pág. 79].
+Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de 2 conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera de la muestra. En otras palabras, el primero es un medio (entre otros) y el segundo un fin (entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación, es un buen medio crear un estrato para cada uno de ellos [@tillé2020, pág. 79]. En efecto, como señala Valliant y cía, una pregunta sumamente legítima es "¿Si los dominios serán importantes para el análisis, porqué no hacer que cada dominio sea un estrato de diseño y que entonces el tamaño muestral de cada uno pueda ser controlado?" [@valliant2018, pág. 70]. La respuesta es que algunas veces el muestreo estratificado no es la mejor respuesta y lo difícil es saber o anticipar cuando hay otras mejores opciones.
 
 Dado que parte de la confusión tiene que ver por su gran coextensión puede ser útil pensar en situaciones en donde estos conceptos no sean, justamente, coextensivos. Por un lado, puede que el dominio de estimación sea la propia población total (como algo diferente a alguna subpoblación de ella). En ese caso se puede construir estratos para realizar un diseño estratificado simplemente porque este diseño, al menos en comparación con el azar simple, es más eficiente. En este ejemplo hay estratos y no hay dominios de estimación como subpoblaciones. En cualquier caso, lo importante es que en este ejemplo hay más estratos que dominios de estimación y, por lo tanto, en este ejemplo ambos conceptos no serían coextensivos.
 
@@ -770,11 +770,13 @@ Las variables que se han tenido en cuenta en los dominios de estimación son:
 
 - Condición de encierro
 
-- La Región agrupada
+- La Región Agrupada
 
 - Gran Área
 
-Decimos que 2 variables son jerárquicas porque "Gran Área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^muestra_adultos-1]
+Se puede discutir, quizá de modo bizantino, si estas 4 "variables" son diferentes o algunas son agrupaciones (p.e Gran Área) de otra variable más desagregada (p.e. Regiones Agrupada) o si es mejor entender algunas de ellas (p.e. Condición de encierro) como una condición previa que, luego de cruzarlos con los diferentes tipos de organización (p.e. CENS o EPA), produce una nueva variable que se podría denominar "Tipo de establecimiento" (p.e. ECE-CENSA o ECE-EPA).
+
+Con respecto a la relación entre "Gran Área" y "Regiones Agrupadas" nos inclinamos por afirmar que se tratan de dos variajes jerárquucas jerárquicas porque "Gran Área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^muestra_adultos-1]
 
 [^muestra_adultos-1]: Cabe destacar que algunas construcciones de la variable "Gran Área" no son simplemente una agregación de regiones sino, más específicamente, solo una agregación de distritos. Por ejemplo, a veces se utiliza el criterio que algunos distritos de la Region 5 pertenecen a la categoría AMBA (p.e. Almirante Brown) y otros pertenecen a la categoria "Interior" (p.e. San Vicente). En este caso, como se trata de una agregación explícita de regiones, la variable "Gran Área" puede considerarse como una variable jerárquica de distrito y también de regiones.
 
@@ -1072,23 +1074,31 @@ Aunque concentrar más estudiantes por escuela reduce la cantidad de sedes físi
 
 Teniendo en mente, por un lado, la distribución poblacional, esto es, la distribución del marco muetsral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o sus coeficientes de variación, serán mayores a los aceptables en los objetivos. Esta situación también se expresaría a través de un muestreo estratitificado proporcional.
 
-Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación óptima (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificacón proporcional.
+Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación óptima (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificación proporcional.
 
-Cuales son los pros y contras de ete movimiento? Múltiples dominios de estimación, y usos todavía desconocidos de la muestra al momento del análisis hace que Si se compararan 2 muesestras. Ambas con la misma cantidad de casos. Ambas con un ponderador para cada caso.
+Cuales son los pros y contras de este movimiento? Se recuerda que el contexto son:
 
-+------------+----------------------------+----------------+
-| Col1       | Estratificado proporcional | Estratificado  |
-|            |                            |                |
-|            |                            | optimo         |
-+============+============================+================+
-| Eficiencia |                            |                |
-+------------+----------------------------+----------------+
-|            |                            |                |
-+------------+----------------------------+----------------+
-|            |                            |                |
-+------------+----------------------------+----------------+
+- Múltiples dominios de estimación explicitios
 
-optima XXXXXXX
+- Algunos de ellos incluyen variables jerárquicas
+
+- El uso y los estimadores a estimar todavía son desconocidos
+
+La creación de estratos (sean proporcinales o no) ofrece ganancias decrecientes a partie de un punto en donde los estr
+
+Si se compararan 2 muesestras. Ambas con la misma cantidad de casos. Ambas con un ponderador para cada caso.
+
++---------------+----------------------------+---------------+
+| Col1          | Estratificado proporcional | Estratificado |
+|               |                            |               |
+|               |                            | óptimo        |
++===============+============================+===============+
+| Eficiencia    |                            |               |
++---------------+----------------------------+---------------+
+|               |                            |               |
++---------------+----------------------------+---------------+
+|               |                            |               |
++---------------+----------------------------+---------------+
 
 Los dominios de estimación que parecen cumplir ese criterio son:
 
