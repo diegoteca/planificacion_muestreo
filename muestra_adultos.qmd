@@ -14,7 +14,7 @@ El objetivo es realizar una muestra representativa de los estudiantes jóvenes, 
 
 El presente diseño muestral, a diferencia de @sec-muestra_peb_2025, no tiene que ser compatible o mejorar en algunos puntos específicos de un diseño muestral anterior. Por otro lado, en este caso sí hay exigencias o restricciones específicas en cuanto a la precisión estadística del resultado esperado. En otras situaciones relativamente similares, esas exigencias/restricciones se explicitan o se traducen en términos de costo operativo o económico del estilo "Nosotros podemos/queremos una muestra de X casos" o "Recolectar tal tipo de caso nos cuesta más que tal u otro así que, en lo posible, tenga eso en cuenta dentro del diseño".
 
-En cualquier caso, siempre es importante distinguir cuales son los objetivos, cuales son las restricciones y cuales son los márgenes de maniobra para obetener una solución relativamente óptima al problema [@valliant2018, cap. 5].
+En cualquier caso, siempre es importante distinguir cuáles son los objetivos, cuáles son las restricciones y cuáles son los márgenes de maniobra para obetener una solución relativamente óptima al problema [@valliant2018, cap. 5].
 
 ## Objetivos
 
@@ -754,7 +754,7 @@ fig_matricula_seccion
 
 ## Dominios de estimación {#sec-adultos_dominios_estimacion}
 
-Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de 2 conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera de la muestra. En otras palabras, el primero es un medio (entre otros) y el segundo un fin (entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación, es un buen medio crear un estrato para cada uno de ellos [@tillé2020, pág. 79]. En efecto, como señala Valliant y cía, una pregunta sumamente legítima es "¿Si los dominios serán importantes para el análisis, porqué no hacer que cada dominio sea un estrato de diseño y que entonces el tamaño muestral de cada uno pueda ser controlado?" [@valliant2018, pág. 70]. La respuesta es que algunas veces el muestreo estratificado no es la mejor respuesta y lo difícil es saber o anticipar cuando hay otras mejores opciones.
+Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de 2 conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera de la muestra. En otras palabras, el primero es un medio (entre otros) y el segundo un fin (entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación, es un buen medio crear un estrato para cada uno de ellos [@tillé2020, pág. 79]. En efecto, como señala Valliant y cía, una pregunta sumamente legítima es "¿Si los dominios serán importantes para el análisis, por qué no hacer que cada dominio sea un estrato de diseño y que entonces el tamaño muestral de cada uno pueda ser controlado?" [@valliant2018, pág. 70]. La respuesta es que algunas veces el muestreo estratificado no es la mejor respuesta y lo difícil es saber o anticipar cuando hay otras mejores opciones.
 
 Dado que parte de la confusión tiene que ver por su gran coextensión puede ser útil pensar en situaciones en donde estos conceptos no sean, justamente, coextensivos. Por un lado, puede que el dominio de estimación sea la propia población total (como algo diferente a alguna subpoblación de ella). En ese caso se puede construir estratos para realizar un diseño estratificado simplemente porque este diseño, al menos en comparación con el azar simple, es más eficiente. En este ejemplo hay estratos y no hay dominios de estimación como subpoblaciones. En cualquier caso, lo importante es que en este ejemplo hay más estratos que dominios de estimación y, por lo tanto, en este ejemplo ambos conceptos no serían coextensivos.
 
@@ -1074,19 +1074,21 @@ Aunque concentrar más estudiantes por escuela reduce la cantidad de sedes físi
 
 Teniendo en mente, por un lado, la distribución poblacional, esto es, la distribución del marco muetsral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o sus coeficientes de variación, serán mayores a los aceptables en los objetivos. Esta situación también se expresaría a través de un muestreo estratitificado proporcional.
 
-Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación óptima (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificación proporcional.
+Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación óptima (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificación proporcional. También es posible pensar en un diseño basado en la asignación de potencia (*power allocation*) [@bankier1988].
 
-Cuales son los pros y contras de este movimiento? Se recuerda que el contexto son:
+Cuáles son los pros y contras de este movimiento? Se recuerda que el contexto son:
 
-- Múltiples dominios de estimación explicitios
+- Múltiples dominios de estimación explícitos
 
 - Algunos de ellos incluyen variables jerárquicas
 
 - El uso y los estimadores a estimar todavía son desconocidos
 
-La creación de estratos (sean proporcinales o no) ofrece ganancias decrecientes a partie de un punto en donde los estr
+La realización de diseño estratificado no proporcional tiene el riesgo que su resultado es muy dependiente de cual sea la variable objetivo [@tillé2020, pág. 75]. En contextos en donde exista más de una variable de interés (lo usual en muchas investigaciones sociales) y/o en casos en donde se presuma que determinada fuente primaria luego será utilizada como fuente secundaria por otros investigadores con objetivos que todavía se desconocen, se debe analizar los pros y contras de esta elección. Por ejemplo, algunos análisis estadísticos complejos (todavía) no permiten incorporar los valores de los ponderadores/expansores en sus cálculos.
 
-Si se compararan 2 muesestras. Ambas con la misma cantidad de casos. Ambas con un ponderador para cada caso.
+Por otro lado, cuanto más estratos se construyan, más preciso será el estimador. Sin embargo, cabe advertir que un caso por cada estrato no es un buen diseño muestral [@tillé2020, pág. 77]. La razónde esto es que, usualmente, el estimador de la varianza se convierte cada vez más inestable como el número de estatos se acrecienta por la pérdida de grados de libertad derivada de la estimación de la media de los estratos.
+
+Si se compararan 2 muestras. Ambas con la misma cantidad de casos. Ambas con un ponderador para cada caso.
 
 +---------------+----------------------------+---------------+
 | Col1          | Estratificado proporcional | Estratificado |
@@ -1118,9 +1120,9 @@ EPA-AMBA
 
 EPA-INTERIOR
 
-Por poner un ejemplo si se logra obtener una muestra que se ajuste a los parámetros conocidos de los distritos, esta deberá acercarse también a las de las regiones, así como también a las regiones agrupadas y, en última instancia, a nivel de Gran Área. En cambio, el camino inverso está lejos de garantizarce. Por ejemplo podría ser que, por azar, los casos de AMBA se seleccionen todos dentro de La Matanza o que los de INTERIOR se seleccionen dentro de Bahía Blanca o General Pueyerredón. Es claro que en estos casos, una buena muestra a nivel de Gran Área no asegura una buena muestra a niveles inferiores.
+Por poner un ejemplo si se logra obtener una muestra que se ajuste a los parámetros conocidos de los distritos, esta deberá acercarse también a las de las regiones, así como también a las regiones agrupadas y, en última instancia, a nivel de Gran Área. En cambio, el camino inverso está lejos de garantizarce. Por ejemplo podría ser que, por azar, los casos de AMBA se seleccionen todos dentro de La Matanza, o que los de INTERIOR se seleccionen mayoriamente dentro de Bahía Blanca o General Pueyerredón. Es claro que en estos casos, una buena muestra a nivel de Gran Área no asegura una buena muestra a niveles inferiores.
 
-Salvo la excepción de las CEBAS que por su baja cantidad de casos de forma necesaria se necesitará una encuesta casi censal, la situación parece diferente en los otros tipos de establecimientos. En este contexto, la duda es que tan lejos se está de lograr los objetivos de los dominios de estimación con sus niveles de precisión si se realiza una muestra que solo se preocupe por ser representativa del resto de los establecimientos educativos a nivel de las regiones agrupadas.
+Salvo la excepción de las CEBAS, que por su baja cantidad de casos de forma necesaria se necesitará una encuesta casi censal, la situación parece diferente en los otros tipos de establecimientos. En este contexto, la duda es que tan lejos se está de lograr los objetivos de los dominios de estimación con sus niveles de precisión si se realiza una muestra que solo se preocupe por ser representativa del resto de los establecimientos educativos a nivel de las regiones agrupadas.
 
 Para eso vamos a probar con una muestra balanceada y bien distribuida por el método del cubo. La idea de estos es que la muestra (de estudiantes y no de establecimientos) se acerque a los valores de tendencia central de esas variables. En otras palabras, que la muestra se encuentra **balanceada** en un punto óptimo que reduzca las distancias con las diferentes medidas de **tendencia central** de las variables anteriores.
 
@@ -1137,7 +1139,7 @@ drop_na(matricula, secciones, ambito, distrito, region, tipo_est_adulto, ivse, c
 mutate(censal = if_else(criterio_seleccion == "CENSO", 1, 0),  # dummy censal
      # lat_std = scale(latitud), #Escalamiento para well distribution
      # lon_std = scale(longitud),
-      ivse = scale(ivse))
+      ivse_std = scale(ivse))
 
 # 2. Definición de Probabilidades de Inclusión (pi) de establecimientos
 
@@ -1165,9 +1167,31 @@ ajustar_pi = function(weight, n) {
 # Aplicación la función. Acá no hay alpha porque no hay renovación como en peb2025
 #df_insumo_cubo$weight = df_insumo_cubo$matricula * (1 + df_insumo_cubo$censal)
 # Si es censal, le asignamos un peso masivo (ej. 99 millones). Si no, su matrícula.
-df_insumo_cubo$weight = if_else(df_insumo_cubo$censal == 1, 
-                                99999999, 
-                                df_insumo_cubo$matricula)
+# En lo posible, para las regiones con menor porcentaje se esperaría que sus establecimientos tuvieran una pequena mayor probabildiad de inclusión con respecto a los establecimientos de las regiones más grandes. Funcionaría con casi como un desempate a favor de las regiones más chicas. No se espera una gran difrencia pero, por ejemlo, lo que se quiere evitar es que si una region en la poblacion posee el 4.5%  se indica que es preferible que esa region termine teniendo 5.5% antes que 3.5%.
+
+# 1. Calculamos la participación (share) de cada región en la matrícula total (solo sorteables)
+regional_shares = df_insumo_cubo |>
+  filter(censal == 0) |>
+  group_by(region_agrupada) |>
+  summarise(matricula_region_agrupada = sum(matricula, na.rm = TRUE), .groups = "drop") |>
+  mutate(
+    share_real = matricula_region_agrupada / sum(matricula_region_agrupada),
+    # Aplicamos potencia 0.9: esto "infla" suavemente a las regiones pequeñas
+    share_nudge = (share_real^0.2) / sum(share_real^0.2),
+    # Factor de corrección para aplicar a cada establecimiento
+    nudge_multiplier = share_nudge / share_real
+  )
+
+# 2. Unimos y calculamos el peso final con el "desempate"
+df_insumo_cubo = df_insumo_cubo |>
+  left_join(regional_shares |> select(region_agrupada, nudge_multiplier), by = "region_agrupada") |>
+  mutate(
+    # Si es censal va al 100%, si no, se ajusta por tamaño de la matrículo (pps) y el "nudge" regional
+    weight = if_else(censal == 1, 
+                     99999999, 
+                     matricula * coalesce(nudge_multiplier, 1))
+  )
+
 pi_corregido = ajustar_pi(df_insumo_cubo$weight, n)
 
 # Verificación crucial: debe devolver n, esto es, la cantidad de casos a seleccionar (1200)
@@ -1176,7 +1200,7 @@ pi_corregido = ajustar_pi(df_insumo_cubo$weight, n)
 # 4. Matriz de Variables Auxiliares (Balanced)
 
 # Convierto las variables (y sus categorías) a dummies con model.matrix
-X = model.matrix(~ tipo_est_adulto + ambito + ivse + distrito - 1, 
+X = model.matrix(~ tipo_est_adulto + ambito + ivse_std + distrito - 1, 
                  data = df_insumo_cubo)
 
 # Aseguramos que pi_corregido sea parte de las restricciones de balanceo
@@ -1189,7 +1213,7 @@ X_balanceado = cbind(pi_corregido, X)
 # Acá si hay que estandarizar. Es vital que Latitud, Longitud y AUH tengan media 0 y desvío 1.
 # Esto ya se había realizado antes en la preparación del objeto.
 
-coords = as.matrix(df_insumo_cubo[, c("ivse")])
+coords = as.matrix(df_insumo_cubo[, c("ivse_std")])
 
 # 6. Selección de la Muestra
 # lcube intenta balancear X y dispersar en el espacio de coords
@@ -1208,36 +1232,221 @@ df_insumo_cubo$muestra_adultos[indices_muestra] = 1
 ```
 
 ```{r}
-#| label: fig-mapa_muestra_adultos_cubo
-#| fig-cap: "Distribución de la población de los establecimientos (puntos negros) y de la muestra de adultos (puntos azules)"
-#| eval: !expr knitr::is_html_output()
-#| cache: true
-mapa_poblacion_cubo = df_insumo_cubo |>
-left_join(df_sf_regiones, by = "region") |>
-st_as_sf() 
+#| label: ponderadores
+#| code-summary: "Cálculo de expansores y creación del objeto de diseño complejo"
+# Utilizando alguna de librerias de R para este fin (survey, srvyr, surveycore, surveytidy o surveywts, etc.) se deber;ian poder crear los expansores y ponderadores de la muestra que se calculó anteriormente con las probabilidades de inclusión diferenciales (algunos con valor = 1, otros con la alocación de potencia) y luego con el método del cubo. Esto es importante porque, aunque el método del cubo intenta balancear la muestra, no garantiza que se logre exactamente el mismo resultado que con una muestra estratificada proporcional. Por lo tanto, es necesario calcular los ponderadores para corregir cualquier desviación que pueda haber entre la muestra obtenida y la población objetivo. Estos ponderadores permitirán ajustar las estimaciones de la muestra para que sean representativas de la población, teniendo en cuenta las probabilidades de inclusión y las características de los casos seleccionados.
+# Entiendo que esto sólo se realiza para los casos que salieron efectivamente ne la muestra, es decir, para los casos con muestra_adultos == 1. Para los casos que no salieron en la muestra, el ponderador sería 0 porque no contribuyen a las estimaciones.
+# 1. Definimos los totales del marco (Universo)
+N_estabs_pob = nrow(df_insumo_cubo)
+N_estud_pob = sum(df_insumo_cubo$matricula, na.rm = TRUE)
 
-mapa_muestra_cubo = df_insumo_cubo |>
-filter(muestra_adultos == 1) |>
-left_join(df_sf_regiones, by = "region") |>
-st_as_sf()
+#Aseguramos que pi_corregido esté en el dataframe original ANTES de filtrar
+# para que los valores correspondan a las escuelas correctas.
+df_insumo_cubo$pi_corregido = pi_corregido
 
-tmap_mode("view")
+# 1. Cálculo de pesos de diseño (Design Weights
 
-fig_muestra_cubo = tm_basemap(server = "CartoDB.Positron",
-                              alpha = 0.5) +
-tm_shape(mapa_poblacion_cubo,
-         name = "Población") +
-tm_shape(mapa_muestra_cubo,
-         name = "Muestra cubo") +
-tm_dots(fill_alpha = 0.9,
-        fill = "blue")
+# 2. Filtrado de la muestra analítica
+# Como se sugirió en la revisión, extraemos solo los casos seleccionados.
+# Mantener casos con peso 0 en el mismo dataframe puede sesgar errores estándar.
+# 2. Preparamos el dataset de la muestra
+df_muestra_final = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  mutate(
+    # FPC: Se basa en la cantidad de unidades de muestreo (escuelas)
+    fpc_escuelas = N_estabs_pob,
+    peso_diseno = 1 / pi_corregido) |>
+mutate(ponderador_final = peso_diseno * (N_estabs_pob / sum(peso_diseno)))
+   #Ajuste por ratio: para que la suma de pesos sea exactamente 3211
+    # Este sum() ahora sí se hace sobre las 1200 filas de la muestr
 
-fig_muestra_cubo 
+# 3. Creación del objeto de diseño con srvyr
+# Esto permite que todos los cálculos posteriores (medias, proporciones) 
+# incorporen automáticamente los pesos y el diseño complejo.
+df_muestra_final_sv = df_muestra_final |> 
+  as_survey_design(
+    weights = ponderador_final,
+    fpc = fpc_escuelas,
+    variables = everything()
+  )
 
+# 4. Verificación de la expansión
+# La suma de los expansores debe ser igual al total de establecimientos del marco (N)
+total_universo_N = nrow(df_insumo_cubo)
+total_expandido_n = sum(df_muestra_final$expansor)
+
+# Mensaje de control
+# 5. Verificación de expansión
+res_verificacion = df_muestra_final_sv |> 
+  summarise(
+    estabs_estimados = survey_total(),
+    estud_estimados = survey_total(matricula)
+  )
+
+message(paste0("Establecimientos Marco: ", N_estabs_pob, 
+               " | Estimados: ", round(res_verificacion$estabs_estimados, 1)))
+message(paste0("Estudiantes Marco: ", round(N_estud_pob, 0), 
+               " | Estimados: ", round(res_verificacion$estud_estimados, 0)))
 ```
 
+Ahora voy probando los resultados de la muestra con la precisión esperada para cda dominio de estimación
+
+#### CENSALES
+
 ```{r}
-#| label: fig-densidad_evse
+#| label: tbl-analisis_censales
+#| tbl-cap: "Estimaciones para casos censales"
+
+tbl_censales = df_muestra_final_sv |> 
+  filter(criterio_seleccion == "CENSO") |> 
+  select(matricula, estrato_oferta, ivse, area) |>
+ tbl_svysummary(
+  by = estrato_oferta,
+  statistic = list(
+   all_continuous() ~ "{mean} ± {sd}",
+   all_categorical() ~ "{p} ({p_unweighted}) deff {deff} se {p.std.error} {n}"))
+
+tbl_censales
+```
+
+#### GRAN AREA
+
+```{r}
+#| label: tbl-analisis_gran_area
+#| tbl-cap: "Estimaciones para grandes áreas"
+
+tbl_gran_area = df_muestra_final_sv |> 
+  filter(criterio_seleccion == "MUESTRA") |> 
+  filter(estrato_oferta == "CENS" | estrato_oferta == "EPA") |>
+  select(matricula, estrato_oferta, ivse, area) |>
+ tbl_svysummary(
+ by = estrato_oferta,
+  statistic = list(
+   all_continuous() ~ "{mean} ± {sd}",
+   all_categorical() ~ "{p} ({p_unweighted}) deff {deff} se {p.std.error} {n}"))
+
+tbl_gran_area 
+```
+
+#### REGION AGRUPADA
+
+```{r}
+#| label: tbl-analisis_region_agrupada
+#| tbl-cap: "Estimaciones para regiones agrupadas"
+
+tbl_region_agrupada = df_muestra_final_sv |> 
+  filter(criterio_seleccion == "MUESTRA") |> 
+  filter(estrato_oferta == "FINES") |>
+  select(matricula, estrato_oferta, ivse, region_agrupada) |>
+ tbl_svysummary(
+   by = estrato_oferta,
+   statistic = list(
+   all_continuous() ~ "{mean} ± {sd}",
+   all_categorical() ~ "{p} ({p_unweighted}) deff {deff} se {p.std.error} {n}"))
+
+tbl_region_agrupada 
+```
+
+Ahora vamos a empezar a evaluar a los valores de la muestra con respecto a los valores de la población. En una primera instancia esto lo haremos con los valores sin ponderar y luego lo haremos con valores ponderados. La razón de esta distinción es que, en principio, una de las fortalezas del diseño elegido es que la media de los valores de los ponderadores sería menor a la media de los valores de esos ponderadores si se hubiera seleccionado algún diseño muestral estratificado no proporcional.
+
+```{r}
+#| label: fig-mapa_muestra_cubo_poblacion_distritos
+#| fig-cap: "Porcentaje de la matrícual según distritos. Muestra y Población"
+#| eval: !expr knitr::is_html_output()
+#| cache: true
+
+datos_facelas = df_insumo_cubo |>
+  st_drop_geometry() |>
+  group_by(distrito) |>
+  summarise(
+    Poblacion = sum(matricula, na.rm = TRUE),
+    Muestra = sum(matricula[muestra_adultos == 1], na.rm = TRUE)
+  ) |>
+  pivot_longer(
+    cols = c(Poblacion, Muestra), 
+    names_to = "Tipo_Analisis", 
+    values_to = "Matricula_Total"
+  ) |>
+  # Agrupamos por tipo para que el denominador sea el total de su respectivo universo
+  group_by(Tipo_Analisis) |>
+  mutate(
+    matricula_pct = (Matricula_Total / sum(Matricula_Total, na.rm = TRUE)) * 100,
+  ) |>
+  ungroup() |>
+left_join(df_sf_distritos, by = "distrito") |>
+  st_as_sf()
+
+# 2. Mapa coroplético basado en el porcentaje
+fig_mapa_muestra_cubo_poblacion_distritos = tm_shape(datos_facelas) +
+  tm_polygons(
+   fill = "matricula_pct",
+   fill.scale = tm_scale_intervals(style = "quantile", n = 5),       # Los quiebres se calcularán sobre los valores de porcentaje
+   fill.legend = tm_legend(title = "% del Total"),
+   fill.free = FALSE,
+    popup.vars = c("Matricula" = "Matricula_Total", 
+                   "Matrícula %" = "matricula_pct") # Utilidad interactiva
+  ) +
+  tm_facets(by = "Tipo_Analisis", ncol = 2) +
+  tm_layout(
+    legend.outside = TRUE,
+    panel.label.size = 1.2
+  )
+
+fig_mapa_muestra_cubo_poblacion_distritos
+```
+
+Ahora hacemos lo mismo pero a nivel de región agregada. Esperablemente, una buena distribución a nivel de distritos debería producir una todavía más aceptable distribución a nivel de regiones agregadas.
+
+```{r}
+#| label: fig-mapa_muestra_cubo_poblacion_regiones_agrupadas
+#| fig-cap: "Porcentaje de la matrícual según regiones agrupadas. Muestra y Población"
+#| eval: !expr knitr::is_html_output()
+#| cache: true
+
+# 1. Preparación de los datos con cálculo de porcentaje
+datos_facelas = df_insumo_cubo |>
+  st_drop_geometry() |>
+  group_by(region_agrupada) |>
+  summarise(
+    Poblacion = sum(matricula, na.rm = TRUE),
+    Muestra = sum(matricula[muestra_adultos == 1], na.rm = TRUE)
+  ) |>
+  pivot_longer(
+    cols = c(Poblacion, Muestra), 
+    names_to = "Tipo_Analisis", 
+    values_to = "Matricula_Total"
+  ) |>
+  # Agrupamos por tipo para que el denominador sea el total de su respectivo universo
+  group_by(Tipo_Analisis) |>
+  mutate(
+    Porcentaje = (Matricula_Total / sum(Matricula_Total, na.rm = TRUE)) * 100
+  ) |>
+  ungroup() |>
+left_join(df_sf_regiones_agrupadas, by = "region_agrupada") |>
+  st_as_sf()
+
+# 2. Mapa coroplético basado en el porcentaje
+fig_mapa_muestra_cubo_poblacion_regiones_a = tm_shape(datos_facelas) +
+  tm_polygons(
+    fill = "Porcentaje",
+    fill.scale = tm_scale_intervals(style = "quantile", n = 5),       # Los quiebres se calcularán sobre los valores de porcentaje
+    fill.legend = tm_legend(title = "% del Total"),
+    fill.free = FALSE,
+    popup.vars = c("Absoluto" = "Matricula_Total", "Porcentaje" = "Porcentaje") # Utilidad interactiva
+  ) +
+  tm_facets(by = "Tipo_Analisis", ncol = 2) +
+  tm_layout(
+    legend.outside = TRUE,
+    panel.label.size = 1.2
+  )
+
+fig_mapa_muestra_cubo_poblacion_regiones_a
+```
+
+Ahora vamos a testear la distribución (y no sólo su valore central) de la variable IVSE. Esta variable es particularmente importante porque es la variable índice que aspira incluir en la muestra una serie de desigualdades sociales que, de otra forma, se colarían por detrás afectando la utilidad de la misma para diferentes usos.
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra
 #| tbl-cap: Distribución de densidad de evse. Población y muestra adultos.
 
 # 1. Preparación de los datos para la gráfica
@@ -1246,10 +1455,11 @@ pop_data = data.frame(IVSE = df_insumo_cubo$ivse, Grupo = "Población")
 mue_data = data.frame(IVSE = df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
                        Grupo = "Muestra")
 
-plot_data = rbind(pop_data, mue_data)
+insumo_fig_densidad_ivse = rbind(pop_data, mue_data)
 
 # 2. Generación del gráfico de densidades superpuestas
-fig_densidad_ivse = ggplot(plot_data, aes(x = IVSE, fill = Grupo, color = Grupo)) +
+fig_densidad_ivse_poblacion_muestra = insumo_fig_densidad_ivse |>
+ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
   geom_density(alpha = 0.3, size = 1) +
   scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
   scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
@@ -1262,15 +1472,116 @@ fig_densidad_ivse = ggplot(plot_data, aes(x = IVSE, fill = Grupo, color = Grupo)
   theme(legend.position = "bottom",
         text = element_text(family = "serif"))
 
-fig_densidad_ivse
+fig_densidad_ivse_poblacion_muestra
 
+```
+
+En base a los datos de la figura @fig-densidad_ivse_poblacion_muestra, ahora vamos a testear estadísticamente si la diferencia entre ambas distribuciones es significativa.
+
+```{r}
 # Realización del test K-S
 ks_result = ks.test(
   df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
   df_insumo_cubo$ivse
 )
 
-#print(ks_result)
+ks_result
+```
+
+Ahora vamos a realizar la misma operación pero a nivel de cada región agregada.
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra_regiones
+#| tbl-cap: Distribución de densidad de evse según region agregada. Población y muestra adultos.
+# 1. Preparación de los datos incluyendo la variable de faceteo
+# Seleccionamos tanto el IVSE como la Región Agrupada para ambos grupos
+pop_data_reg = df_insumo_cubo |> 
+  select(IVSE = ivse, region_agrupada) |> 
+  mutate(Grupo = "Población")
+
+mue_data_reg = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  select(IVSE = ivse, region_agrupada) |> 
+  mutate(Grupo = "Muestra")
+
+# Unimos ambos datasets
+insumo_fig_densidad_regiones = bind_rows(pop_data_reg, mue_data_reg)
+
+# 2. Generación del gráfico facetado
+fig_densidad_ivse_regiones = insumo_fig_densidad_regiones |> 
+  ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 0.8) +
+  # Facetamos por la variable de región
+  facet_wrap(vars(region_agrupada), scales = "free_y") +
+  scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
+  scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
+  labs(
+    title = "Distribución del IVSE por Región Agrupada",
+    subtitle = "Comparativa de densidad: Población total vs. Muestra",
+    x = "Índice de Vulnerabilidad (IVSE)",
+    y = "Densidad",
+    caption = "Nota: Se utiliza 'free_y' para apreciar la forma de la distribución en cada región."
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    text = element_text(family = "serif"),
+    strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
+  )
+
+fig_densidad_ivse_regiones
+
+```
+
+```{r}
+# Ahora necesitamos comparar, en forma de tabla, los valores de la muestra con los valores poblacionales para chequear los resultados del método del cubo. Para esto, vamos a comparar las medias y los coeficientes de variación de las variables numéricas, así como también las proporciones de las categorías de las variables categóricas.
+# Primero, calculamos las estadísticas descriptivas para la población y la muestra.
+# 
+# 1. Estadísticas para la población
+poblacion_stats = df_insumo_cubo |> 
+  summarise(
+    media_ivse = mean(ivse, na.rm = TRUE),
+    cv_ivse = sd(ivse, na.rm = TRUE) / mean(ivse, na.rm = TRUE),
+    prop_ambito_urbano = mean(ambito == "Urbano", na.rm = TRUE),
+    prop_ambito_rural = mean(ambito == "Rural", na.rm = TRUE),
+    prop_tipo_est_adulto = mean(tipo_est_adulto == "Sí", na.rm = TRUE)
+  )
+
+# 2. Estadísticas para la muestra
+muestra_stats = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  summarise(
+    media_ivse = mean(ivse, na.rm = TRUE),
+    cv_ivse = sd(ivse, na.rm = TRUE) / mean(ivse, na.rm = TRUE),
+    prop_ambito_urbano = mean(ambito == "Urbano", na.rm = TRUE),
+    prop_ambito_rural = mean(ambito == "Rural", na.rm = TRUE),
+    prop_tipo_est_adulto = mean(tipo_est_adulto == "Sí", na.rm = TRUE)
+  )
+# 3. Consolidamos los resultados en una tabla comparativa con la librari gt
+comparativa_stats = bind_rows(
+  poblacion_stats |> mutate(Grupo = "Población"),
+  muestra_stats |> mutate(Grupo = "Muestra")
+) |> 
+  select(Grupo, everything()) |> 
+  gt() |> 
+  tab_header(
+    title = "Comparativa de Estadísticas: Población vs. Muestra",
+    subtitle = "Medias, Coeficientes de Variación y Proporciones para Variables Clave"
+  ) |> 
+  cols_label(
+    Grupo = "Grupo",
+    media_ivse = "Media IVSE",
+    cv_ivse = "CV IVSE",
+    prop_ambito_urbano = "Prop. Ámbito Urbano",
+    prop_ambito_rural = "Prop. Ámbito Rural",
+    prop_tipo_est_adulto = "Prop. Tipo Est. Adulto"
+  ) |> 
+  tab_options(
+    table.font.size = "small",
+    data_row.padding = px(3)
+  )
+comparativa_stats
+   
 ```
 
 ## Cálculo del tamaño de muestra por estrato (`PracTools`)
