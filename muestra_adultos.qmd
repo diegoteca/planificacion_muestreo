@@ -4,55 +4,49 @@ title: "Muestra EJAyAM"
 
 ## Introducción
 
-El objetivo es realizar una muestra representativa de los estudiantes jóvenes, adultos y adultos mayores (EJAyAM) que asisten, en 2026, a establecimientos de dependencia oficial en la provincia de Buenos Aires. Como se verá a lo largo de esta sección, esta aplicación en interesante porque, entre otras cuestiones:
+El objetivo es realizar una muestra de los estudiantes jóvenes, adultos y adultos mayores (EJAyAM) que asisten, en 2026, a establecimientos de dependencia oficial en la provincia de Buenos Aires. Como se verá a continuación, esta aplicación en interesante porque, entre otras cuestiones:
 
 - Tensiona la percepción de los dominios de estimación como sinónimos de los estratos de una muestra.
 
-- En parte relacionado con el punto anterior, es que se verá de forma explícita las virtudes de distinguir entre los objetivos o fines de la muestra con los modos o medios para cumplir con ellos.
+- En parte relacionado con el punto anterior, se verá de forma explícita las virtudes de distinguir entre los objetivos o fines de la muestra con los modos o medios para cumplir con ellos.
 
-- Por último, se verá que, al menos al principio o *a priori*, no queda claro que "medios", dentro de los disponibles para lograr los "fines" propuestos, es/será el más conveniente.
+- Por último, se verá que, al menos al principio o *a priori* (y con las limitaciones propias del que esto escribe) no queda claro que "medios" son los más óptimos para conseguir los "fines" propuestos.
 
-El presente diseño muestral, a diferencia de @sec-muestra_peb_2025, no tiene que ser compatible o mejorar en algunos puntos específicos de un diseño muestral anterior. Por otro lado, en este caso sí hay exigencias o restricciones específicas en cuanto a la precisión estadística del resultado esperado. En otras situaciones relativamente similares, esas exigencias/restricciones se explicitan o se traducen en términos de costo operativo o económico del estilo "Nosotros podemos/queremos una muestra de X casos" o "Recolectar tal tipo de caso nos cuesta más que tal u otro así que, en lo posible, tenga eso en cuenta dentro del diseño".
+El presente diseño muestral, a diferencia de @sec-muestra_peb_2025, no tiene que ser compatible o mejorar en algunos puntos específicos de un diseño muestral anterior. Por otro lado, en este caso sí hay exigencias o restricciones específicas en cuanto a la precisión estadística del resultado esperado sobre diferentes dominios de estimación.
 
-En cualquier caso, siempre es importante distinguir cuáles son los objetivos, cuáles son las restricciones y cuáles son los márgenes de maniobra para obetener una solución relativamente óptima al problema [@valliant2018, cap. 5].
+En otras situaciones relativamente similares, esas exigencias/restricciones se explicitan o se traducen en términos de costo operativo o económico del estilo "Nosotros podemos/queremos una muestra de X casos" o "Recolectar tal tipo de caso nos cuesta más que tal u otro así que, en lo posible, tenga eso en cuenta dentro del diseño". Si bien no se trata de una investigación que se espera realizar de manera virtual (lo que haría que su coste fuera muy marginal) se trata de una investigación en donde la organización posee una capacidad destacable para acceder a los diferentes establecimientos educativos aunque su capacidad para acceder a los estudiantes sea algo menor. Veremos que estos detalles serán importantes para definir algunos puntos particualres del diseño muestral.
 
-## Objetivos
+En cualquier caso, en el diseño de una muestra siempre es importante distinguir cuáles son los objetivos, cuáles son las restricciones y cuáles son los márgenes de maniobra para obetener una solución relativamente óptima al problema [@valliant2018, cap. 5].
 
-Expresado en el lenguaje clásico de los márgenes de error, la precisión de los resultados con la se espera poder realizar inferencias son en general de:
+El orden de presentación será el siguiente. Se comenzará enunciando los objetivos originales de la muestra (@sec-objetivos_muestra_adultos) lo que, a su turno, facilitará el proceso de delimitar la población objetivo (@sec-poblacion_objetivo_muestra_adultos). Posteriormente, se presentará de manera exploratoria algunas características del marco muestral (@sec-marco_muestral_adultos). Todo lo anterior permitirá aportar información para estimar las dimensiones de los dominios de estimación, de manera posterior a una distinción semántica previa entre estos y los estratos (@sec-adultos_dominios_estimacion).
 
-- Nivel de confianza: 90%
+Dado los diferentes objetivos en danza se pasa a una sección en donde se analizan simulaciones que intentan visibilizar los efectos de los cambios de algunos parámetros claves de un diseño polietápico (@sec-alternativas_adultos). Finalmente, en la sección @sec-diseno_muestra_adultos, se detalla el diseño finalmente ejecutado.
 
-- $P$: 50%
+## Objetivos {#sec-objetivos_muestra_adultos}
 
-Sin embargo, la complejidad de esta muestra es que, con estos supuestos de fondo, los márgenes de error que se piden son diversos para diferentes subpoblaciones que surguen o se construyen, muchas veces, mediante el cruce entre otras variables. Para peor, algunos de esos cruces implican variables que podrían considerarse como jerárquicas (p.e. Región y Distrito) lo que plantea problemas particulares. Finalmente, en el pedido original, y bajo la forma del lenguaje de los estratos, se afirma que estos son una combinación de estratos de "oferta" (p.e. FINES, EPA, etc.) y de "zonas" (p.e. regiones, grupo de regiones, etc.). En ese contexto se pide lo siguiente:
+A diferencia de otras investigaciones, en la presente y solamente teniendo como contexto la información que se comunicó para el diseño de la muestra, no se sabe bien cuál es el objetivo de la investigación, aunque si se tienen algunas precisiones para con los objetivos de la muestra. Esta distinción es importante porque algunas decisiones de diseño muestral son más óptimas cuando se tienen algunos objetivos específicos, pero también pueden producir un efecto de sobreadaptación (*overfitting*) si luego se quiere utilizar la muestra para fines diferentes a los originalmente previstos.
 
-- Sobre los establecimientos FINES a nivel regional con un margen de error del 5%.
+Expresado en el lenguaje clásico de los márgenes de error, como regla general se comunicó que la precisión de las inferencias sean con:
 
-- En el resto de los establecimientos (EPA y CENSA) se espera poder hacer inferencias a nivel de Gran Área con un margen de error del 3%.
+- Un nivel de confianza de 90%
 
-- En el caso de los CEBAS, dado su pequeño tamaño poblacional, se espera realizar un relevamiento censal. Por esta razón no habrá márgen de error para esta categoría.
+- Una heterogeneidad para las proporciones de $P=50%$
 
-Si se asume que los diferentes tipos de establecimientos son "Estratos" de la oferta, se podría pensar que se aspira a un margen de error de:
+Sin embargo, la complejidad de esta muestra es que, con estos supuestos de fondo, los márgenes de error que se piden son diversos para diferentes subpoblaciones que surguen o se construyen, en general, mediante un cruce entre otras variables disponibles en el marco muestral. Algunos de esos cruces tienen la particularidad que implican variables que podrían considerarse como jerárquicas (p.e. Región y Distrito) lo que plantea sus problemas particulares (ver @sec-adultos_dominios_estimacion). Finalmente, en el pedido original se pide explícitamente poder hacer inferencias para:
 
-3% por estrato-Gran Área,
+- Establecimientos FINES a nivel de regiones agregadas con un margen de error del 5%.
 
-4% por estrato-región agrupada.
+- Establecimientos EPA y CENS se espera poder hacer inferencias a nivel de Gran Área con un margen de error del 3%.
 
-5% por estrato-región
+Por otro lado, para otra serie de establecimientos se espera, dada su escasa presencia en la población, una recolección censal de los mismos. Por esta razón no habrá márgen de error predeterminado para estos casos. Se incluyen en esta situación a:
 
-La idea que está por detrás de esto último es que, a mayor nivel de agregación geografica o espacial, se espera uan reducción del margen de error.
+- Establecimientos CEBAS
 
-Por ahora no diremos algo más específico con referencia a los medios para lograr ese objetivo. La razón de esto es, justamente, distinguir los objetivos del estudio de los medios para lograrlos. Incluso más adelante vamos a proponer una manera alternativa de proponer los objetivos de la muestra basada en el léxico del coeficiente de variación (*CV*) que puede considerarse como un error estándar relativo [@valliant2018, pág. 3]. El cómo enunciar los objetivos de una muestra no algo banal. En efecto, suele haber diferencias entre las disciplinas a la hora de que pedirle a una muestra. Por ejemplo, en contextos epidemiológicos es usual hablar de *power requirements* aunque lo usual en las ciencias sociales es hablar sobre *precision goals* [@valliant2018, pág. 8].
+- Establecimientos EPA y FINES en situación de encierro.
 
-Para esto se espera realizar un diseño muestral polietápico en donde en una primera etapa seleccione a los establecimeintos y luego a los estudiantes que concurren a ellos.
+Implíctamente, la idea que está por detrás de esto último es que, a para aquellos tipos de establecimientos que tienen una mayor incidencia en la población, se espera una mayor exigencia en cuanto a la precisión de la estimación, especialmente en términos de desagregaciones espaciales.
 
-Los estudiantes pueden pertenecer a los siguientes **tipos de establecimientos**:
-
-- Nivel Primario. Se incluyen solo a los EPA. Se excluyen a los centros de alfabetización y a los CEPA.
-
-- Nivel Secundario de oferta institucional. Estos pueden ser CENS o SEBAS.
-
-- Nivel Secundario por fuera de la oferta institucional. Son los establecimientos FINES.
+Por ahora no diremos algo más específico con referencia a los medios para lograr estos objetivos. La razón de esto es, justamente, distinguir los objetivos del estudio de los medios para lograrlos. Incluso los mismos objetivos se podrían expresar de manera alternativa basándose en el léxico del coeficiente de variación (*CV*) que puede considerarse como un error estándar relativo [@valliant2018, pág. 3]. El cómo enunciar los objetivos de una muestra no algo banal. En efecto, suele haber diferencias entre las disciplinas a la hora de que pedirle a una muestra. Por ejemplo, en contextos epidemiológicos es usual hablar de *power requirements* aunque lo usual en las ciencias sociales es hablar sobre *precision goals* [@valliant2018, pág. 8]. Más adelante veremos que esta distinción será pertinente para esta muestra.
 
 ```{r}
 #| label: setup_libraries
@@ -62,6 +56,7 @@ library(here)
 library(plotly)
 library(PracTools)
 library(tmap)
+library(leafsync)
 library(readxl)
 library(janitor)
 library(gt)
@@ -75,103 +70,21 @@ library(rsamplr)
 
 i_am("muestra_adultos.qmd")
 
+theme_gtsummary_journal(journal = "jama")
+theme_gtsummary_compact()
 theme_gtsummary_language(
 language = "es",
 decimal.mark = ",",
 big.mark = ".")
 ```
 
-```{dot}
-//| label: fig-tipos_establecimientos
-//| fig-cap: "Establecimientos de educación adulta y población objetivo"
-//| fig-width: 5
-digraph G {
-    // Configuración para orientación horizontal (Left to Right)
-    rankdir=LR;
-    // Configuración visual por defecto para que se parezca a las cajitas de Mermaid
-    node [shape=box, style=filled, fillcolor="#f5f5f5", fontname="Arial", fontsize=11];
-    edge [fontname="Arial", fontsize=10];
-    // Nivel 1: Raíz (Con el estilo de color que definiste)
-    nivel [label="Establecimientos educ. adulta y\n depedencia oficial", fillcolor="#ffe6cc", color="#d79b00", penwidth=2];
-    // Nivel 2: Primario y Secundario
-    // (En Mermaid los paréntesis hacen bordes redondeados; en Graphviz usamos Mrecord o simplemente box)
-    primario [label="Nivel Primario"];
-    secundario [label="Nivel Secundario"];
-    nivel -> primario;
-    nivel -> secundario;
-//Nivel Primario
-  
-    alfabetización [label="C. Alfabetización"];
-    
-    primario -> alfabetización[minlen=2];
-    primario -> CEPA[minlen=2];
-    primario -> epa[minlen=2];
-    epa [label="EPA", fillcolor="#ffe6cc"];
-// Nivel Secundario
-    institucional [label="Oferta \nInstitucional"];
-    no_institucional [label="Por fuera de la \nOferta Institucional"];
-    secundario -> institucional;
-    secundario -> no_institucional;
-// Nivel 4: Destinos finales
-    cens [label="CENS", fillcolor="#ffe6cc"];
-    cebas [label="CEBAS", fillcolor="#ffe6cc"];
-    fines [label="FinEs", fillcolor="#ffe6cc"];
-    institucional -> cens;
-    institucional -> cebas;
-    no_institucional -> fines;
-# Enlace invisible en Graphviz (Equivalente al ~~~ de Mermaid)
-    // Mantiene a 'primario' arriba de 'cens', este arriba de 'cebas', etc.
-    primario -> epa -> cebas -> cens -> fines [style=invis, constraint=false];
-}
-```
+## Población objetivo {#sec-poblacion_objetivo_muestra_adultos}
 
-## Resultados esperados
+La población objetivo (*target population*) es la población a la cual se va a intentar realizar, explícitamente, las inferencias (totales o agregadas) con los análisis de los datos de la muestra. Por esta razón, es aconsejable pensarla y mantenerla firme en mente durante el diseño de la muestra, para entre otras cuestiones, anticipar potenciales divergencias con otros tipos de poblaciones como, por ejemplo, el marco muestral o la población efectivamente muestrada [@kish1987, pág. 30].
 
-Encuesta de perfil de lxs estudiantes de la modalidad de EJAyAM
+En este contexto, más allá que se cuente previamente o se construya especialmente para la ocasión, siempre es importante saber el origen del marco muestral. La indagación sobre este punto infroma sobre las posibles divergencias entre la población objetivo y el marco muestral. En este sentido, no es lo mismo que el marco muestral deje afuera algo deseado, pero impráctico de obtener que, por otro lado, algo que si bien desde lejos parecía cercano a la población objetivo, luego se prefirió no incluir. En el primer caso, se mantiene la definición intensiva de la población objetivo, pero se restringue la extensión empírica del marco muestral creando una distancia entre uno y otro (p.e problemas de cobertura). En el segundo caso, lo que se cambia/ajusta es la definición misma de la población objetivo y se evita una distancia entre lo deseado/buscado y lo realizable con el marco muestral disponible.
 
-Población objetivo: Estudiantes EPA (solo sedes) de nivel Primario y de todas las ofertas de nivel Secundario (CENS, CEBAS, FINES) de gestión estatal (oficial).
-
-Diseño de la muestra
-
--Tipo de muestreo: estratificado polietápico y por conglomerados con selección proporcional al tamaño y sistemática
-
--Estratos:
-
-Por oferta (EPA, CENS, CEBAS, FINES) y
-
-por área:
-
-1\) CEBAS: Censal •
-
-2\) EPA y CENS: AMBA (R01 a R11) e Interior (R12 a R25) •
-
-3\) FINES: Por región o agregado de regiones (16, 21, 22 y 23; 15, 17, 24 y 25).
-
--Etapas de selección: •
-
-1° Unidades de servicios / Sedes: Proporcional al tamaño (matrícula), con orden sistemático por IVSE-T. •
-
-2° Secciones: Todas las secciones de los establecimientos seleccionados. •
-
-3° Estudiantes: 5 primeros o últimos de cada sección.
-
-### Tamaño de la muestra
-
-deff=2 para EPA y CENS
-
-deff= 1,5 para FINES y CEBAS.
-
-Se estima la realización de unas 14.000 encuestas (algo más de 7.000 en FINES, cerca de 3.000 en EPA y CENS y 600 en CEBAS) en aproximadamente 2.700 secciones (cerca de 1/4 del total).
-
-El margen de error para el total provincial sería del 1% para FINES, del 2% para EPA y CENS y del 3% para CEBAS, ubicándose en torno al 1,2% para el total del nivel secundario y del total de ambos niveles de la modalidad.
-
-![](images/paste-3.png)
-
-## Afinando la población objetivo
-
-Más allá que se cuente previamente o se construya especialmente para la ocasión, siempre es importante saber el origen del marco muestral. La indagación sobre este punto no solo aclara que entra dentro de él, sino también que queda fuera de él y porque. En este sentido, no es lo mismo que el marco muestral deje afuera algo deseado, pero impráctico de obtener que, por otro lado, algo que si bien desde lejos parecía cercano a la población objetivo, desde el principio se prefirió no incluir. En el primer caso, se mantiene la definición intensiva de la población objetivo, pero se restringue la extensión empírica del marco muestral creando una distancia entre uno y otro. En el segundo caso, lo que se cambia/ajusta es la definición de la población objetivo y se evita una distancia entre lo deseado/buscado y lo realizable con el marco muestral disponible.
-
-Aplicado lo anterior al presente problema, la cuestión es discernir a qué tipo de estudiante se desea alcanzar y a cuáles no. A primera vista se puede suponer que la población objetivo (*target population*) son los estudiantes **adultos** de nivel primario y secundario de la provincia de Buenos Aires.
+Aplicado lo anterior al presente problema, una cuestión a discernir es el nivel de población objetivo. En este caso, más allá que la parte del león de un diseño como el presente se le lleve como seleccionar a los establecimientos, el objetivo (de ahí lo de poblacion objetivo) es obtener una muestra de los estudiantes **adultos** de nivel primario y secundario de la provincia de Buenos Aires.
 
 ```{r}
 #| label: insumos_muestra
@@ -183,17 +96,24 @@ clean_names()
 df_universo = read_xlsx(here("Inputs", "muestra_adultos", "Muestra Encuesta DEJAyAM 2026-260604.xlsx")) |>
 clean_names() |>
 mutate(tipo_est_adulto = case_when(
-tipo_de_organizacion == "CENTRO EDUCATIVO DE NIVEL SECUNDARIO (C.E.N.S.)" ~ "CENS",
-tipo_de_organizacion == "CENTRO DE EDUCACIÓN PRIMARIA DE ADULTOS" ~ "CEPA",
-tipo_de_organizacion == "ESCUELA DE EDUCACIÓN PRIMARIA DE ADULTOS" ~ "EPA",
-tipo_de_organizacion == "CENTRO DE ALFABETIZACIÓN" ~ "ALFABETIZACION",
-tipo_de_organizacion == "ESCUELA DE EDUCACIÓN SECUNDARIA" ~ "ESC. EDU. SECUNDARIA",
-tipo_de_organizacion == "ESCUELA DE EDUCACIÓN MEDIA" ~ "ESC. EDU. MEDIA",
-tipo_de_organizacion == "CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)" ~ "CEBAS",
-tipo_de_organizacion == "SEDE FINES" ~ "FINES",
+str_detect(estrato_oferta, "CENS") ~ "CENS",
+str_detect(estrato_oferta, "CEBAS") ~ "CEBAS",
+str_detect(estrato_oferta, "EPA") ~ "EPA",
+str_detect(estrato_oferta, "FINES") ~ "FINES",
 .default = "NULL")) |>
 rename(population_target = universo) |>
 mutate(population_target = if_else(population_target == 0, "NO", "SI"))
+    
+#tipo_de_organizacion == "CENTRO EDUCATIVO DE NIVEL SECUNDARIO (C.E.N.S.)" ~ "CENS",
+#tipo_de_organizacion == "CENTRO DE EDUCACIÓN PRIMARIA DE ADULTOS" ~ "CEPA",
+#tipo_de_organizacion == "ESCUELA DE EDUCACIÓN PRIMARIA DE ADULTOS" ~ "EPA",
+#tipo_de_organizacion == "CENTRO DE ALFABETIZACIÓN" ~ "ALFABETIZACION",
+#tipo_de_organizacion == "ESCUELA DE EDUCACIÓN SECUNDARIA" ~ "ESC. EDU. SECUNDARIA",
+#tipo_de_organizacion == "ESCUELA DE EDUCACIÓN MEDIA" ~ "ESC. EDU. MEDIA",
+#tipo_de_organizacion == "CENTRO ESPECIALIZADO PARA ADULTOS CON ORIENTACIÓN EN SALUD (CEBAS)" ~ "CEBAS",
+#tipo_de_organizacion == "SEDE FINES" ~ "FINES",
+#.default = "NULL")) |>
+
 
 # Después se agregó la dimensión encierro
 
@@ -244,11 +164,11 @@ TRUE ~ distrito
 
 ```
 
-Sin embargo, como se observa en @tbl-poblacion_objetivo, existen una serie de establecimientos de educacion de jóvenes y adultos que quedan por fuera de la población objetivo de esta muestra. Más concretamente, existe un 19% que no posee todas las características necesarias.
+Sin embargo, como se observa en @tbl-poblacion_objetivo, existen una serie de establecimientos (y por ende, sus estudiantes) de educacion de jóvenes y adultos que, a pesar de ser establecimientos de estudiantes adultos, quedan por fuera de la población objetivo de esta muestra. Más concretamente, existe un 19% que no posee todas las características necesarias.
 
 ```{r}
 #| label: tbl-poblacion_objetivo
-#| tbl-cap: Población objetivo dentro del universo de establecimiento de educación adulta
+#| tbl-cap: Población objetivo dentro del universo de establecimiento de educación adulta de la provincia de Buenos Aires
 
 tbl_poblacion_objetivo = df_universo |>
 select(population_target) |>
@@ -260,9 +180,9 @@ tbl_poblacion_objetivo
 
 ```
 
-Entre las características que se tuvieron en cuenta se encuentran en la confección de la población objetivo se encuentra la dependencia y el tipo de establecimiento. Como se observa en @tbl-poblacion_objetivo_criterios todos los establecimientos de la población objetivo son de dependencia oficial. Dada que la presencia de otros tipos de dependencia en la educación adulta es muy baja, este criterio no es crítico desde el punto de vista empírico.
+Entre las características que se tuvieron en cuenta se encuentran en la confección de la población objetivo se encuentra la dependencia y el tipo de establecimiento. Como se observa en @tbl-poblacion_objetivo_criterios todos los establecimientos de la población objetivo son de dependencia oficial. Dada que la presencia de otros tipos de dependencia en la educación adulta es muy baja, este criterio no parece ser muy crítico desde un punto de vista empírico.
 
-Esto no significa que todos los establecimientos de dependencia oficial pertenecen a la población objetivo. En efecto, existe un 19% de establecimientos de dependencia oficial que no pertenecen a la población objetivo. Dentro del nivel primario, se trata de los establecimientos CEPA (671) y los centros de alfabetización (45) y dentro del nivel secundario de aquellos establecimientos denominados "Escuelas de educación media o secundaria". Los que sí entran a la población objetivo, siempre que sean de dependencia oficial, son los establecimientos FINES, los CENS, los EPA y los CEBAS.
+Sin embargo, esto no significa que todos los establecimientos de dependencia oficial de educación de adutlos pertenecen a la población objetivo. En efecto, existe un 19% de estos que no pertenecen a la población objetivo. Dentro del nivel primario, se trata de los establecimientos CEPA (671) y los centros de alfabetización (45) y dentro del nivel secundario se trata de aquellos establecimientos denominados "Escuelas de educación media o secundaria". Los que sí entran a la población objetivo, siempre que sean de dependencia oficial, son los establecimientos FINES, los CENS, los EPA y los CEBAS.
 
 ```{r}
 #| label: tbl-poblacion_objetivo_criterios
@@ -275,29 +195,73 @@ tbl_summary(by = population_target,
            label = list(tipo_est_adulto = "Tipo de establecimiento",
                         dependencia = "Dependencia"),
            percent = "row") |>
-add_overall() |>
+add_overall(
+col_label = "**Total**  \nN = {style_number(N)}"
+) |>
 modify_spanning_header(c("stat_1", "stat_2") ~ "**Población Objetivo**") 
 
 tbl_poblacion_objetivo_criterios
 ```
 
-Dado que se cuenta con un marco muestral flexible en el cual ya se han detectado que establecimientos podrían entrar en la muestra, lo interesante es ajustar la población objetivo al marco muestral entregado. No se trata de un simple juego de palabras. Si se detectan o sospechan diferencias apreciables entre la población objetivo y el marco muestral, antes o después, será aconsejable realizar alguna intervención para corregir o aminorar esa distancia. En cambio, si el marco muestral se ajusta a la población objetivo algunas de las anteriores intervenciones no serán necesarias o recomendadas.
+En la @fig-diagram_poblacion_objetivo se intenta sintetizar parte de los comentarios anteriores. Esta contiene el agregado, no menor desde lo institucional (pero menos importante para el diseño muestral), de la distinción dentro del nivel secundario entre la oferta instituciaonal (CENS y CBEBAS) y la oferta extrainstitucional (FINES).
 
-Sin embargo, ahora veremos que en realidad se trata de una subpoblación más específica porque la población que finalmente tiene posibilidades de entrar a la muestra es un subconjunto de aquel conjunto. Y dada que contamos con un marco muestral flexible la razón de no inclusión no es por falta de información en el marco.
-
-Esto hace que el investigador concentre las energías en otras partes de la investigación. En
+```{dot}
+//| label: fig-diagram_poblacion_objetivo
+//| fig-cap: "Establecimientos de educación adulta y población objetivo"
+//| fig-width: 4
+digraph G {
+    // Configuración para orientación horizontal (Left to Right)
+    rankdir=LR;
+    // Configuración visual por defecto para que se parezca a las cajitas de Mermaid
+    node [shape=box, style=filled, fillcolor="#f5f5f5", fontname="Arial", fontsize=11];
+    edge [fontname="Arial", fontsize=10];
+    // Nivel 1: Raíz (Con el estilo de color que definiste)
+    nivel [label="Establecimientos educ. adulta y\n depedencia oficial", fillcolor="#ffe6cc", color="#d79b00", penwidth=2];
+    // Nivel 2: Primario y Secundario
+    // (En Mermaid los paréntesis hacen bordes redondeados; en Graphviz usamos Mrecord o simplemente box)
+    primario [label="Nivel Primario"];
+    secundario [label="Nivel Secundario"];
+    nivel -> primario;
+    nivel -> secundario;
+//Nivel Primario
+  
+    alfabetización [label="C. Alfabetización"];
+    
+    primario -> alfabetización[minlen=2];
+    primario -> CEPA[minlen=2];
+    primario -> epa[minlen=2];
+    epa [label="EPA", fillcolor="#ffe6cc"];
+// Nivel Secundario
+    institucional [label="Oferta \nInstitucional"];
+    no_institucional [label="Por fuera de la \nOferta Institucional"];
+    secundario -> institucional;
+    secundario -> no_institucional;
+// Nivel 4: Destinos finales
+    cens [label="CENS", fillcolor="#ffe6cc"];
+    cebas [label="CEBAS", fillcolor="#ffe6cc"];
+    fines [label="FinEs", fillcolor="#ffe6cc"];
+    institucional -> cens;
+    institucional -> cebas;
+    no_institucional -> fines;
+# Enlace invisible en Graphviz (Equivalente al ~~~ de Mermaid)
+    // Mantiene a 'primario' arriba de 'cens', este arriba de 'cebas', etc.
+    primario -> epa -> cebas -> cens -> fines [style=invis, constraint=false];
+}
+```
 
 ## Marco muestral {#sec-marco_muestral_adultos}
 
-Una vez definida la población objetivo comenzamos a mejorar el marco muestral. Decimos que comenzamos a "mejorar" porque, por suerte, ya tenemos un marco muestral básico que nos permite identificar a las unidades de selección primarias (*PSU* en inglés). Decimos "por suerte" porque una característica particularmente interesante de trabajar en grandes organizaciones, que no es lo usual por fuera de ellas, es la posibilidad de trabajar con un marco muestral (*sampling frame*) que se ajuste bastante bien a la población objetivo (*population target*). Por ejemplo, en una universidad o colegio podemos tener un listado de estudiantes relativamente actualizado. En cambio, en otro tipo de investigaciones, los investigadores suelen dedicar un tiempo considerable a conseguir un marco muestral que o bien sobrerrepresente o subrepresente empíricamente a la población objetivo. Cabe recordar que el marco muestral no es solo una lista de elementos a seleccionar sino también alguna información que ayude a su contacto/localización. Tener una lista de DNI para cada uno de los miembros del marco muestral es una ayuda, pero no es muy útil si esa información no viene anexada con algún dato que permita contactar/localizar a los DNI efectivamente seleccionados en la muestra.
+Una vez definida la población objetivo comenzamos a trabajar para mejorar el marco muestral recibido. Decimos que comenzamos a "mejorar" porque, por suerte, ya tenemos un marco muestral básico que nos permite identificar a las unidades de selección primarias (*PSU* en inglés). Decimos "por suerte" porque una característica particularmente interesante de trabajar en grandes organizaciones, que no es lo usual por fuera de ellas, es la posibilidad de trabajar con un marco muestral (*sampling frame*) que se ajuste bastante bien a la población objetivo (*population target*). Por ejemplo, en una universidad o colegio podemos tener un listado de estudiantes relativamente actualizado. En este caso, el marco muestral es a nivel de los establecimientos y está equipado con información auxiliar que se usará explícitamente en el diseño muestral.
 
-Al pasar antes dijimos que el marco muestral básico con el que vamos a trabajar nos permite identificar a las unidades de selección primarias. En otras palabras, vamos a trabajar con un listado de establecimientos y no de estudiantes y vamos a desarrollar un muestreo polietápico en donde en primera instancia (de ahí lo de unidades "primarias") se seleccionan establecimientos y recien luego se seleccioan secciones y/o estudiantes.
+En cambio, en otro tipo de investigaciones, los investigadores suelen dedicar un tiempo considerable a conseguir un marco muestral que o bien sobrerrepresente o subrepresente empíricamente a la población objetivo. Cabe recordar que el marco muestral no es solo una lista de elementos a seleccionar, sino que también debe contar con alguna información que ayude a su contacto/localización. Tener una lista de DNI para cada uno de los miembros del marco muestral de personas es una ayuda, pero no es muy útil si esa información no viene anexada con algún dato que permita contactar/localizar a los DNI efectivamente seleccionados en la muestra.
 
-Para la selección de las unidades de seleccion, existen dos tipos generales de marcos muestrales: directos e indirectos [@valliant2018, pág. 6]. Los marcos muestrales que contienen una lista de las unidades de observación finales se denominan **marcos directos**. Estos marcos facilitan/permiten los diseños de una sola etapa. Por ejemplo, si se tiene una lista de estudiantes y algún contacto virtual (p.e. mail), se puede realizar un diseño en una sola etapa. En ese caso, no será necesario seleccionar primero a unidades de selección primarias como, por ejemplo, los establecimientos educativos.
+Antes anticipamos dijimos el marco muestral básico con el que vamos a trabajar nos permite identificar a las unidades de selección primarias. En otras palabras, vamos a trabajar con un listado de establecimientos y no de estudiantes y vamos a desarrollar un muestreo polietápico en donde en primera instancia (de ahí lo de unidades "primarias") se seleccionan establecimientos y recien luego se seleccionan secciones y/o estudiantes.
 
-Los **marcos indirectos**, en cambio, requieren de mucha menor información, pero permiten realizar la selección de las unidades de selección primarias (*clusters* o conglomerados) y se utilizan en diseños polietápicos. Los marcos indirectos necesariamente se usan en diseños polietápicos, pero los marcos directos se pueden usar tanto en diseños de una sola etapa o, vía agregación de su información, en diseños polietápicos.
+Para la selección de las unidades de seleccion, existen dos tipos generales de marcos muestrales: directos e indirectos [@valliant2018, pág. 6]. Los marcos muestrales que contienen una lista de las unidades de observación finales se denominan **marcos directos**. Estos marcos facilitan/permiten los diseños de una sola etapa. Por ejemplo, si se tiene una lista de estudiantes y algún contacto virtual (p.e. mail), se puede perfectamente realizar un diseño en una sola etapa. En ese caso, no será necesario seleccionar primero a unidades de selección primarias como, por ejemplo, los establecimientos educativos.
 
-Volviendo a nuestro marco muestral el mismo es del tipo indirecto y, suponemos, que es de una muy buena calidad en términos de su ajuste a la población objetivo. Sin embargo, ahora veremos con mayor detalle la información auxiliar que tendremos de las covariables presente en él, para sí poder realizar un mejor diseño muestral.
+Los **marcos indirectos**, en cambio, requieren de mucha menor información, se pueden construir con datos agregados y permiten realizar la selección de las unidades de selección primarias (*clusters* o conglomerados). Este tipo de marcos se utilizan típicamente en diseños polietápicos. En cambio, los marcos directos se pueden usar tanto en diseños de una sola etapa o, vía agregación de su información, en diseños polietápicos.
+
+Volviendo a nuestro marco muestral el mismo es del tipo **indirecto** y, suponemos, que es de una muy buena calidad en términos de su ajuste a la población objetivo. La posibilidad de contar con información auxiliar sobre cada uno de los establecimientos, que a continuación comenzaremos a explorar, permite la realización de una serie de diseños que de otra manera serían inviables de llevar a la práctica.
 
 ```{r}
 #| label: sampling_frame
@@ -373,28 +337,9 @@ write_rds(df_sampling_frame,
 
 ```
 
-```{r}
-#| label: tbl-sampling_frame
-#| tbl-cap: Características del marco muestral
+Como vemos en la @tbl-sampling_frame tenemos información auxiliar a nivel de cada establecimiento tanto de variables discretas como continuas:
 
-tbl_sampling_frame = df_sampling_frame |>
-slice_head(n = 15) |>
-gt() |>
-tab_style(
-    style = cell_text(whitespace = "nowrap"),
-    locations = cells_body()) |>
-tab_options(
-    data_row.padding = px(0.5),    # Reduce el espacio vertical en las filas de datos
-    column_labels.padding = px(2),
-    table.font.size = "small"# También puedes reducir el espacio en los encabezados
-  )
-
-tbl_sampling_frame
-```
-
-Como vemos tenemos información auxiliar a nivel de cada establecimiento tanto de variables discretas como continuas:
-
-Variables discretas:
+Variables **discretas**:
 
 - Distrito
 
@@ -412,7 +357,7 @@ Variables discretas:
 
 - Condición de encierro
 
-Variables continuas:
+Variables **continuas**:
 
 - Matrícula
 
@@ -422,11 +367,29 @@ Variables continuas:
 
 - índice de vulnerabilidad socioecómico - IVSE
 
-Para tener una idea de las distribuciones de estas variables vamos a realizar un análisis exploratorio de datos. Para esto, vamos a realizar un análisis descriptivo de cada una de las variables discretas y continuas tanto a nivel de establecimientos como a nivel de los estudiantes. Para las variables discretas vamos a mostrar su distribución en términos de frecuencias y porcentajes. Para las variables continuas, vamos a mostrar su distribución a través de histogramas o gráficos de densidad.
+```{r}
+#| label: tbl-sampling_frame
+#| tbl-cap: Macro muestral con información auxiliar
+
+tbl_sampling_frame = df_sampling_frame |>
+slice_head(n = 15) |>
+gt() |>
+tab_style(
+    style = cell_text(whitespace = "nowrap"),
+    locations = cells_body()) |>
+tab_options(
+    data_row.padding = px(0.5),    # Reduce el espacio vertical en las filas de datos
+    column_labels.padding = px(2),
+    table.font.size = "small"# También puedes reducir el espacio en los encabezados
+  )
+
+tbl_sampling_frame
+```
+
+Para tener una idea de las distribuciones de estas variables vamos a realizar un análisis exploratorio de las mismas. Para esto, vamos a realizar un análisis descriptivo de cada una de las variables discretas y continuas tanto a nivel de la población de establecimientos como a nivel de la población (sintética) de los estudiantes. Para las variables discretas vamos a mostrar su distribución en términos de tablas de frecuencias y porcentajes. Para las variables continuas, vamos a mostrar su distribución a través de histogramas o gráficos de densidad.
 
 ```{r}
 #| label: tbl_explo_marco_establecimientos
-#| tbl-cap: Análisis exploratorio variables discretas - Nivel establecimientos
 # Las tablas con gtsummary y los gráficos con ggplot y luego ggploly para hacerlo interactivo
 tbl_explo_marco_establecimientos = df_sampling_frame |>
 select(region, region_agrupada, ambito, area, nivel, tipo_est_adulto, matricula, secciones, estudiante_seccion, encierro, ivse) |>
@@ -448,7 +411,6 @@ tbl_summary(
 
 ```{r}
 #| label: fig_explo_marco_establecimientos
-#| fig-cap: Análisis exploratorio variables continuas - Nivel establecimientos
 # graficar con ggplot y ggplotly
 fig_explo_marco_establecimientos = df_sampling_frame |>
 select(matricula, secciones, estudiante_seccion, ivse) |>
@@ -478,7 +440,6 @@ write_rds(df_estudiantes,
 
 ```{r}
 #| label: tbl_explo_marco_estudiantes 
-#| tbl-cap: Análisis exploratorio variables discretas - Nivel estudiantes 
 # Las tablas con gtsummary y los gráficos con ggplot y luego ggploly para hacerlo interactivo 
 
 df_estudiantes = read_rds(here("inputs", "df_estudiantes.rds"))
@@ -500,7 +461,6 @@ tbl_explo_marco_estudiantes = df_estudiantes |>
 
 ```{r}
 #| label: fig_explo_marco_estudiantes
-#| fig-cap: Análisis exploratorio variables continuas - Nivel establecimientos
 # graficar con ggplot y ggplotly
 fig_explo_marco_estudiantes = df_estudiantes |>
 select(matricula, secciones, estudiante_seccion, ivse) |>
@@ -544,8 +504,9 @@ fig_comparacion_establecimientos_estudiantes
 ```
 
 ```{r}
-#| label: fig_mapa_distritos
+#| label: fig-mapa_distritos
 #| fig-cap: Mapa según distrito. Color según matrícula.
+#| eval: !expr knitr::is_html_output()
 # Quiero realizar un mapa con tmap en version "view" con las coordenadas de los distritos (columan geom_depto) y la cantidad de estudiantes por distrito (matricula). Para esto, tengo que agrupar el dataframe por distrito y sumar la cantidad de estudiantes por distrito. Luego, tengo que unir el dataframe con el dataframe espacial de los distritos para poder graficar el mapa.
 tmap_mode("view")
 # Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df_estudiantes
@@ -580,9 +541,9 @@ fig_mapa_distritos
 ```
 
 ```{r}
-#| label: fig_mapa_regiones
+#| label: fig-mapa_regiones
 #| fig-cap: Mapa según regiones. Color según matrícula.
-
+#| eval: !expr knitr::is_html_output()
 # Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df_estudiantes
 
 df_sf_regiones = read_rds(here("Inputs", "insumo_regiones.rds")) |>
@@ -618,9 +579,9 @@ fig_mapa_regiones
 ```
 
 ```{r}
-#| label: fig_mapa_regiones_agrupadas
+#| label: fig-mapa_regiones_agrupadas
 #| fig-cap: Mapa según regiones agrupadas. Color según matrícula.
-
+#| eval: !expr knitr::is_html_output()
 # Quiero agregar las regiones en regiones agrupadas. Para esto, tengo que agrupar el dataframe por región agrupada y sumar la cantidad de estudiantes por región agrupada. Luego, tengo que unir el dataframe con el dataframe espacial de las regiones para poder graficar el mapa.
 # Estas son las reglas para la construccion de las regiones agrupadas. Solo se agrupan las regiones 16, 21, 22 y 23 y las regiones 15, 17, 24 y 25. El resto de las regiones quedan igual a las originales.
 
@@ -664,8 +625,9 @@ fig_mapa_regiones_agrupada
 ```
 
 ```{r}
-#| label: fig_mapa_gran_area
+#| label: fig-mapa_gran_area
 #| fig-cap: Mapa según grandes áreas. Color según matrícula.
+#| eval: !expr knitr::is_html_output()
 # Creo la nueva variable en el objeto espacial
 df_sf_areas = df_sf_regiones |>
   mutate(area = case_when(
@@ -754,31 +716,25 @@ fig_matricula_seccion
 
 ## Dominios de estimación {#sec-adultos_dominios_estimacion}
 
-Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de 2 conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera de la muestra. En otras palabras, el primero es un medio (entre otros) y el segundo un fin (entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación, es un buen medio crear un estrato para cada uno de ellos [@tillé2020, pág. 79]. En efecto, como señala Valliant y cía, una pregunta sumamente legítima es "¿Si los dominios serán importantes para el análisis, por qué no hacer que cada dominio sea un estrato de diseño y que entonces el tamaño muestral de cada uno pueda ser controlado?" [@valliant2018, pág. 70]. La respuesta es que algunas veces el muestreo estratificado no es la mejor respuesta y lo difícil es saber o anticipar cuando hay otras mejores opciones.
+Muchas veces el concepto de **estrato** se confunde con el de **dominio de estimación**. Parte de esta confusión tiene su origen que en muchas investigaciones ambos conceptos son coextensivos. Sin embargo, para parte de la bibliografía, se trata de dos conceptos con significados diferentes. El estrato es más una herramienta, en especial en comparación para con el azar simple, para mejorar la precisión de las estimaciones y/o controlar el tamaño muestral de los dominios de estimación [@kish1965, pág. 76-77]. En cambio, el dominio de estimación tiene más que ver con los objetivos que se espera que la muestra estime de la población. En otras palabras, el primero es un medio (entre otros) y el segundo un fin (entre otros). El problema es que, usualmente, en el contexto de tener como objetivos varios dominios de estimación, es un buen medio crear un estrato para cada uno de ellos [@tillé2020, pág. 79]. En efecto, como señala Valliant y cía, una pregunta sumamente legítima es "¿Si los dominios serán importantes para el análisis, por qué no hacer que cada dominio sea un estrato de diseño y que entonces el tamaño muestral de cada uno pueda ser controlado?" [@valliant2018, pág. 70]. La respuesta es que algunas veces el muestreo estratificado no es la mejor respuesta y lo difícil es saber o anticipar cuando hay otras mejores opciones.
 
 Dado que parte de la confusión tiene que ver por su gran coextensión puede ser útil pensar en situaciones en donde estos conceptos no sean, justamente, coextensivos. Por un lado, puede que el dominio de estimación sea la propia población total (como algo diferente a alguna subpoblación de ella). En ese caso se puede construir estratos para realizar un diseño estratificado simplemente porque este diseño, al menos en comparación con el azar simple, es más eficiente. En este ejemplo hay estratos y no hay dominios de estimación como subpoblaciones. En cualquier caso, lo importante es que en este ejemplo hay más estratos que dominios de estimación y, por lo tanto, en este ejemplo ambos conceptos no serían coextensivos.
 
-Otro ejemplo podría ser donde efectivamente sí haya varios dominios de estimación, esto es, se desea realziar inferencias para diversas subpoblaciones, pero no se realice un diseño estratificado. Para muchos este ejemplo puede resultar forzado porque suponen que se trata de un ejemplo ficticio en donde se asume cierta ignorancia del diseñador de la muestra. El supuesto por detrás de esta opinión es que si bien puede ser realizable la combinación que propone el ejemplo, la misma se encuentra fuera lo óptimo y de ahí que se considere como un caso forzado. Sin embargo, esto no siempre es así. Puede que existan algunos casos en donde se requiera múltiples dominios de estimación y donde el mejor medio para ese fin no sea la construcción de múltiples estratos. Diseños como el balanceado o el bien distribuido (@sec-cubo) no necesitan, explícitamente, la construcción de estratos y puede, en algunos casos, ser más aconsejables que un diseño estratificado.
+Otro ejemplo podría ser donde efectivamente sí haya varios dominios de estimación, esto es, se desea realizar inferencias para diversas subpoblaciones, pero no se realice un diseño estratificado. Para muchos este ejemplo puede resultar forzado porque suponen que se trata de un ejemplo ficticio en donde se asume cierta ignorancia del diseñador de la muestra. El supuesto por detrás de esta opinión es que si bien puede ser realizable la combinación que propone el ejemplo, la misma se encuentra fuera lo óptimo y de ahí que se considere como un caso forzado. Sin embargo, esto no siempre es así. Puede que existan algunos casos en donde se requiera múltiples dominios de estimación y donde el mejor medio para ese fin no sea la construcción de múltiples estratos. Diseños como el balanceado o el bien distribuido (@sec-cubo) no necesitan, explícitamente, la construcción de estratos y puede, en algunos casos, ser más aconsejables que un diseño estratificado.
 
-Dejando las similitudes extensivas y volviendo a las diferencias intensivas o de sentido entre ambos conceptos, los dominios de estimación muchas veces se estipulan en función de criterios administrativos/políticos. Usualmente, este es el caso de los dominios distritales o regionales. Esta distinción, muchas veces (pero no siempre) puede también implicar similitudes y diferencias sociales por detrás. Si esto es así, estamos en presencia de buenos candidatos para que esos dominios también se consideren como estratos, dado que su construcción agrupará casos relativamente más similares entre sí que si se hubieran elegido al azar dentro de toda la población. El punto crítico de la afirmación anterior es el "pero no siempre" que, nuevamente, habilita la distinción entre dominios de estimación y estratos. Para poner un ejemplo, los distritos de General Pueyrredón y Bahía Blanca son distritos que contienen, por poner un ejemplo de caracterítica social, tanto población urbana como rural dentro de sus límites. En efecto, cada uno de ellos contiene una gran ciudad en su interior con su respectivo conurbano. En otras palabras, es clara su utilización como dominio de estimación, pero no es clara su utilización dentro de algún estrato en términos de asegurar una menor heterogeneidad de alguna variable de interés.
+Dejando las similitudes extensivas y volviendo a las diferencias intensivas o de sentido entre ambos conceptos, los dominios de estimación son partes de la población para los cuales diferentes estimaciones son planificadas en el diseño muestral [@kish1965, pág. 77]. Estas suelen tener como referentes a la propia población y no a una muestra de la misma [@kish1987, pág. 34]. Esto no quiere decir que todo dominio de estimación tenga como objetivo estimar un valor de toda la población. Claro que es posible (y usual) tener dominios de estimación que impliquen alguna subdivisión de la población o, de forma más precisa, alguna subpoblación. Lo que quiere afirmar Kish es que esa subpoblación tiene como referente a la población y no a la muestra.
 
-En cualquier caso, la distinción de los dominios de estimación son importantes para calcular el tamaño muestral en conjunción con alguna preferencia sobre los niveles de precisión de las estimaciones (p.e. MOE o CV). En este diseño muestral en particular, los dominios de estimacion son una combinación de variables categóricas o discretas. Más en concreto, se trata de 3 variables, pero con la complejidad que 2 de ellas son variables que se encuentran jerárquicamente relacionadas. Otra complejidad relacionada es que no se espera la misma precisión para todos los dominios. Nos explicamos.
+Muchas veces los dominios de estimación se estipulan en función de criterios administrativos/políticos. Usualmente, este es el caso de los dominios distritales o regionales. Esta distinción, muchas veces (pero no siempre) puede también implicar similitudes y diferencias sociales por detrás. Si esto es así, estamos en presencia de buenos candidatos para que esos dominios también se consideren como estratos, dado que su construcción agrupará casos relativamente más similares entre sí que si se hubieran elegido al azar dentro de toda la población. El punto crítico de la afirmación anterior es el "pero no siempre" que, nuevamente, habilita la distinción entre dominios de estimación y estratos. Para poner un ejemplo, los distritos de General Pueyrredón y Bahía Blanca son distritos que contienen tanto población urbana como rural dentro de sus límites. En efecto, cada uno de ellos contiene una gran ciudad en su interior con su respectivo conurbano. En otras palabras, es clara su utilización como dominio de estimación, pero no es clara la utilización de esos casos, en términos de asegurar una menor heterogeneidad de alguna variable de interés, dentro de un estrato denominado como "Interior" como algo diferente a "AMBA".
 
-Las variables que se han tenido en cuenta en los dominios de estimación son:
+En cualquier caso, la explicitación de los dominios de estimación en conjunción con alguna otra preferencia (en este caso la preferencia sobre determinados niveles de precisión de esas estimaciones), funciona como variables críticas a la hora de decidir sobre el combo de diseño y tamaño muestral [@kish1965, cap. 8]. En muchas situaciones es útil representar estas descripciones como objetivos y restricciones dentro de un problema de optimización multicriterio [@valliant2018, cap. 5].
 
-- El tipo de establecimiento
+### Dominios de estimación originales {#sec-adultos_dominios_originales}
 
-- Condición de encierro
+A continuación, en la @tbl-dominios_comparacion, se explicita los dominios de estimación. En general parecen ser una combinación de cuestiones de tipo de oferta educativa y diferentes agrupaciones espaciales. En total son 26 dominios de estimación que se encuentran ordenadas en función del porcentaje de establecimientos. Como regla general, para los dominios espaciales se espera un margen de error de:
 
-- La Región Agrupada
+- 5 pp. para los análisis a nivel de Región Agregada
 
-- Gran Área
-
-Se puede discutir, quizá de modo bizantino, si estas 4 "variables" son diferentes o algunas son agrupaciones (p.e Gran Área) de otra variable más desagregada (p.e. Regiones Agrupada) o si es mejor entender algunas de ellas (p.e. Condición de encierro) como una condición previa que, luego de cruzarlos con los diferentes tipos de organización (p.e. CENS o EPA), produce una nueva variable que se podría denominar "Tipo de establecimiento" (p.e. ECE-CENSA o ECE-EPA).
-
-Con respecto a la relación entre "Gran Área" y "Regiones Agrupadas" nos inclinamos por afirmar que se tratan de dos variajes jerárquucas jerárquicas porque "Gran Área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^muestra_adultos-1]
-
-[^muestra_adultos-1]: Cabe destacar que algunas construcciones de la variable "Gran Área" no son simplemente una agregación de regiones sino, más específicamente, solo una agregación de distritos. Por ejemplo, a veces se utiliza el criterio que algunos distritos de la Region 5 pertenecen a la categoría AMBA (p.e. Almirante Brown) y otros pertenecen a la categoria "Interior" (p.e. San Vicente). En este caso, como se trata de una agregación explícita de regiones, la variable "Gran Área" puede considerarse como una variable jerárquica de distrito y también de regiones.
+- 3 pp. para los análisis a nivel de Gran Área
 
 ```{r}
 #| label: dominios_estimacion_establecimientos
@@ -791,7 +747,6 @@ tbl_summary(
 
 ```{r}
 #| label: dominios_estimacion_estudiantes
-
 df_estudiantes = read_rds(here("Inputs", "df_estudiantes.rds"))
 tbl_dominio_estudiantes = df_estudiantes |>
 select(dominio) |>
@@ -804,79 +759,173 @@ tbl_summary(
 #| label: tbl-dominios_comparacion
 #| tbl-cap: Comparacion dominios de estimación. Nivel establecimientos y nivel estudiantes.
 tbl_dominios_comparacion = tbl_merge( 
- tbls = list(tbl_dominio_establecimientos, 
-             tbl_dominio_estudiantes),
+  tbls = list(tbl_dominio_establecimientos, 
+              tbl_dominio_estudiantes),
     tab_spanner = c("**Establecimientos**", "**Estudiantes**")
-  )
+  ) |>
+  as_gt()
+
+# Aplicamos el color sobre la misma tabla
+purrr::walk(c("stat_0_1", "stat_0_2"), \(col) {
+  tbl_dominios_comparacion <<- tbl_dominios_comparacion |> 
+    data_color(
+      columns = all_of(col), 
+      palette = "Blues", 
+      na_color = "#FFFFFF",
+      fn = \(x) scales::col_numeric(palette = "Blues", domain = NULL)(readr::parse_number(x))
+    )
+})
 
 tbl_dominios_comparacion
 ```
 
-A continuación vamos a realizar una serie de mapas que para que estos nos ayuden a visualizar las diferentes zonas espaciales en función del tipo de establecimiento. De esta manera, esperamos observar las regiones agrupadas en donde exista un fuerte desbalance de establecimientos y de estudiantes.
+La @tbl-dominios_comparacion está también coloreada en función de la cantidad o porcentaje de cada columna. Esto sirve para percibir, entre otras cuestiones, los cambios de distribuciones a nivel de establecimientos en comparación con el nivel de los estudiantes. Dado que estos dominios son, en principio disyuntos o mutuamente excluyentes (aunque más adelante veremos que esto se puede relajar por la relación jerárquica de algunas variables) es claro que esto tensiona en demasía al diseño muestral. Si todos estos dominios tuvieran un mismo peso en la población estaríamos hablando de dominios que no superarían, en promedio, el 4% (100/26) en la población. En la práctica, a nivel de los establecimientos tenemos más de 18 dominios por debajo del 5%. Ese número sube a más de 20 dominios en el nivel de los estudiantes.
+
+Esto último sucede porque a nivel de los estudiantes existe una mayor variabilidad en la distribución de los dominios. Por ejemplo, los CENS de AMBA concentran el 25% de los estudiantes (con el 10% de los establecimientos) y los EPA de AMBA concentran al 12% (con el 6% de los establecimientos).
+
+También puede observarse que, como regla general, los establecimientos FINES poseen un menor tamaño o matrícula de los establecimientos. Inversamente, los CENS y EPA, incluso los de condición de encierro, poseen una media de estudiantes mayor a los FINES y por eso aumentan su porcentaje a nivel de estudiantes.
+
+### Comentarios sobre los dominios
+
+Más allá de lo expresado explícitamente en la sección anterior, es pertinente realizar las siguientes aclaraciones. En este diseño muestral en particular, los dominios de estimacion se pueden interpretar como una combinación de variables categóricas o discretas, pero con la característica que dos de ellas son variables que se encuentran jerárquicamente relacionadas. Otra complejidad relacionada es que no se espera la misma precisión para todos los dominios (@sec-objetivos_muestra_adultos). Nos explicamos.
+
+Las variables que se han tenido en cuenta en los dominios de estimación son:\
+
+- El tipo de organización (EPA, CEBAS, CENS, FINES)
+
+- Condición de Encierro (SI, NO)
+
+- La Región Agrupada (19 regiones)
+
+- Gran Área (AMBA, INTERIOR)
+
+Se puede discutir, quizá de modo bizantino, si estas 4 "variables" son diferentes o algunas son agrupaciones (p.e Gran Área) de otra variable más desagregada (p.e. Regiones Agrupada) o si es mejor entender algunas de ellas (p.e. Condición de encierro) como una condición previa que, luego de cruzarlos con los diferentes tipos de organización (p.e. CENS o EPA), produce una nueva variable que se podría denominar "Tipo de establecimiento" (p.e. ECE-CENS o ECE-EPA).
+
+Con respecto a la relación entre "Gran Área" y "Regiones Agrupadas" nos inclinamos por afirmar que se tratan de dos variables jerárquicas porque "Gran Área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^muestra_adultos-1]
+
+[^muestra_adultos-1]: Cabe destacar que algunas construcciones de la variable "Gran Área" no son simplemente una agregación de regiones sino, más específicamente, solo una agregación de distritos. Por ejemplo, a veces se utiliza el criterio que algunos distritos de la Region 5 pertenecen a la categoría AMBA (p.e. Almirante Brown) y otros pertenecen a la categoria "Interior" (p.e. San Vicente). En este caso, como se trata de una agregación explícita de regiones, la variable "Gran Área" puede considerarse como una variable jerárquica de distrito y también de regiones.
+
+La cuestión de la **jerarquía de las variables** es importante en el diseño muestral por lo siguiente. En principio, si se obtiene una muestra balanceada a nivel de los distritos, esta también, de forma necesaria, lo será a nivel de las regiones, de las regiones agrupadas y de las grandes áreas. El camino inverso es probable pero nada seguro. Una muestra balanceada a nivel de las grandes áreas tiene chances de serlo para niveles inferiores, pero no existe ninguna seguridad. Pongamos un ejemplo para que se entienda mejor el problema. Supongamos que priorizamos el objetivo de tener una buena estimación a nivel de Gran Área y establecimientos EPA. Podría ser el caso que casi todos los establecimientos seleccionados en la categoría "AMBA" caigan en el distrito de "La Matanza" lo que desbalancea la muestra a nivel región y distrito. Esto no implica que la estimación "Gran Área - EPA" tenga algún problema en particular, pero si implica que en el diseño de la muestra no se hace nada en particualr para evitar los desbalanceso a nivel de region y distrito. Por esta razón, la existencia de variables jerárquicas en los dominios de estimación permite, vía una estrategia "*botton-up*", una selección de establecimientos que, al tiempo que cumple los requisitos que exigen los dominios de estimación, también la hacen robusta a otros niveles y, de manera derivada, para responder otras preguntas de investigación diferentes a las originales.
+
+### Dominios en el espacio
+
+En parte por los comentarios sobre la relación jerarquica de los dominios, a continuación vamos a realizar una serie de mapas para que estos nos ayuden a visualizar las diferentes zonas espaciales en función del tipo de organización. Estricamente, los dominios de estimación anteriores vinieron ya construidos en una columna que se llamaban "estrato_oferta". Ahora nos va a interesar su visualización espacial a un nivel levemente más agregado, ya que se trata de usar otra variable que tiene que con el "tipo de organización".
+
+De esta manera, esperamos observar, de un modo diferente a la @tbl-dominios_comparacion como se distribuyen los diferentes tipos de establecimientos educativos a lo largo de las diferentes agrupaciones espaciales.
 
 ```{r}
 #| label: fig-mapas_dominios_estimacion_region_agrupada
 #| fig-cap: Tipo de establecimiento a nivel de Región Agrupada
-
+#| eval: !expr knitr::is_html_output()
+tmap_mode("view")
 df_mapa_dominios_regiones_facets = insumo_mapa_regiones_agrupada |>
-group_by(region_agrupada, tipo_est_adulto) |>
+group_by(region_agrupada, estrato_oferta) |>
 summarise(matricula = sum(matricula),
          secciones = sum(secciones),
          establecimientos = n()) |>
+group_by(estrato_oferta) |>
 mutate(pct_matricula = matricula / sum(matricula) * 100) |>
 left_join(df_sf_regiones_agrupadas, by = "region_agrupada") |>
 st_as_sf()
 
-fig_mapa_dominios_regiones_facets = tm_shape(df_mapa_dominios_regiones_facets) +
-  tm_polygons(
-    fill = "pct_matricula", 
-    fill.scale = tm_scale_intervals(values = "brewer.blues", 
-                                    style = "quantile"),
-    fill.legend = tm_legend(title = "% matrícula")
-  ) +
-  tm_facets_wrap(by = "tipo_est_adulto", ncol = 3) +
-  tm_title(text ="Porcentaje de matrícula por región agrupada") +
-  tm_view(
-    legend.outside = TRUE
-  )
+# Generamos un mapa por cada tipo de establecimiento y los combinamos con leafsync
+tipos = unique(df_mapa_dominios_regiones_facets$estrato_oferta)
 
-fig_mapa_dominios_regiones_facets
+mapas_regiones = lapply(tipos, \(tipo) {
+  mapa = df_mapa_dominios_regiones_facets |>
+    filter(estrato_oferta == tipo) |>
+    tm_shape() +
+    tm_polygons(
+      fill = "pct_matricula",
+      fill.scale = tm_scale_intervals(values = "brewer.blues", 
+                                      style = "pretty",
+                                      n = 4),
+      fill.legend = tm_legend(title = "% matrícula")
+    ) +
+    tm_title(text = tipo) +
+    tm_view(legend.outside = TRUE)
+  tmap_leaflet(mapa)
+})
+
+leafsync::latticeView(mapas_regiones, 
+                      ncol = 2, 
+                      sync = "all")
 ```
 
 Ahora haremos lo mismo, pero a nivel de "Gran Área".
 
 ```{r}
 #| label: fig-mapas_dominios_estimacion_gran_area
-#| fig-cap: Tipos de establecmientos a nivel de Gran Área
-
+#| fig-cap: Tipos de establecimientos a nivel de Gran Área
+#| eval: !expr knitr::is_html_output()
 df_mapa_dominios_areas_facets = insumo_mapa_areas |>
-group_by(area, tipo_est_adulto) |>
+group_by(area, estrato_oferta) |>
 summarise(matricula = sum(matricula),
          secciones = sum(secciones),
          establecimientos = n()) |>
+group_by(estrato_oferta) |>
 mutate(pct_matricula = matricula / sum(matricula) * 100) |>
 left_join(df_sf_areas, by = "area") |>
 st_as_sf()
 
-fig_mapa_dominios_areas_facets = tm_shape(df_mapa_dominios_areas_facets) +
-  tm_polygons(
-    fill = "pct_matricula", 
-    fill.scale = tm_scale_intervals(values = "brewer.blues", 
-                                    style = "quantile"),
-    fill.legend = tm_legend(title = "% matrícula")
-  ) +
-tm_facets_wrap(by = "tipo_est_adulto", ncol = 3)+
-  tm_title(text ="Porcentaje de matrícula por gran área") +
-  tm_view(
-    legend.outside = TRUE
-  )
+tipos_areas = unique(df_mapa_dominios_areas_facets$estrato_oferta)
 
-fig_mapa_dominios_areas_facets
+mapas_areas = lapply(tipos_areas, \(tipo) {
+  mapa = df_mapa_dominios_areas_facets |>
+    filter(estrato_oferta == tipo) |>
+    tm_shape() +
+    tm_polygons(
+      fill = "pct_matricula",
+      fill.scale = tm_scale_intervals(values = "brewer.blues", 
+                                    style = "pretty",
+                                    n = 4),
+      fill.legend = tm_legend(title = "% matrícula")
+    ) +
+    tm_title(text = tipo) +
+    tm_view(legend.outside = TRUE)
+  tmap_leaflet(mapa)
+})
+
+leafsync::latticeView(mapas_areas, 
+                      ncol = 2, 
+                      sync = "all")
 ```
 
-Por último, entre las especificaciones se indicaba que se debía hacer un muestreo sistemático luego de haber ordenado por la variable IVSE. Claramente, esto parece más un consejo de medios más que de fines, pero invita a pensar el porqué de esa decisión y esto, a su turno, puede aydar a entender algún fin latente. Esta estrategia suele denominarise "estratificación implícita", ya que esa ordenación con la selección posterior sistemática es una manera simple de generar "estratos" como resultado partiendo, o al menos usando en algún momento de su construcción, una variable continua [@cochran1977, pág. 205; @valliant2018, pág. 63].
+Lo importante de los mapas anteriores es la visualización de distribuciones extremase en el espacio. Lo importante es destacar tanto las áreas que acumulen una excesiva porción de los casos como, de manera inversa, aquellas en donde casi no existan casos.
 
-## Tamaño de la muestra
+## Alternativas muestrales {#sec-alternativas_adultos}
+
+Para cumplir con lo anterior, no parece haber muchas dudas de que es necesario la realización de un **muestreo polietápico** en donde en una primera etapa seleccione a los establecimientos y luego a los estudiantes que concurren a ellos. La principal justificación de esta afirmación es que se desea estimar algunas características de los estudiantes y no se tiene un marco muestral de los mismos, aunque sí de sus establecimientos. En algunos diseños específicos podrá quedar la duda sobre como tratar a las secciones de cada establecimiento o si esa acción se debe considerar como una "etapa" más en el diseño muestral.
+
+Por otro lado, dado que seguramente se querrán hacer afirmaciones tanto a nivel de los estudiantes como también, mediante alguna agregación de los resultados, a nivel de los establecimientos, parece conveniente utilizar un muestreo **PPS**. Este tipo de diseño es particularmente robusto cuando se piensa realizar inferencias a ambos niveles [@kish1965, cap. 7; @kish1965, pág. 422].
+
+Tampoco parece haber muchas dudas acerca de la relativa utilidad de evitar la proporcionalidad a ultranza. Esto parece claro dado que, como se observó en la sección @sec-adultos_dominios_estimacion, existen algunos dominios de estimación sumamente pequeños en la población. En esos casos parece razonable la realización de un cuasi censo de sus establecimientos y/o estudiantes según el caso.
+
+Las dudas comienzan a aprecer en otros aspectos del diseño muestral. Por ejemplo:
+
+- ¿Cuánto se prioriza la precisión de los estimadores univariados (p.e. Region) y cuanto la precisión de los dominios de estimación explicitados con todos son cruces de variables (p.e. Región y Tipo de establecimiento)? A igual cantidad de casos totales, un diseño que prioriza la precisión los dominios de estimación pequeños (p.e. *power allocation* [@bankier1988]) reduce la precisión de los estimadores totales porque aumenta la variabildad de los ponderadores. En cambio, si se valoran más los estimadores univaridos, existen diseños que lo logran a cambio de no necesariamente aumentar la cantidad de casos en los dominios más pequeños (p.e. a la Neyman [@neyman1934])
+
+- En palabra de Kish "Antes de decidir sobre un muestreo desproporcionado, deberíamos al menos
+
+- ¿Cuántos establecimientos seleccionar y cuantos estudiantes por cada establecimiento? A igualdad de condiciones es claro que, por ejemplo, para una muestra de 10.000 estudiantes no es lo mismo seleccionar a 5 estudiantes de 2000 establecimientos que 10 de 1000, 15 de 666 o 20 de 500. Sin embargo, la influencia de la varianza intercluster es diferente según el diseño que se seleccione. Por otro lado, dado que se trata de una población de algo más de 3000 establecimientos el impacto del fpc (*finite population correction*) en la primera etapa cambia fuertemente en función de que se elijan 500, 1000 o 2000 establecimientos.
+
+- ¿Se tiene que seleccionar una cantidad fija de estudiantes para todos los establecimientos seleccionados en la primera etapa? Es claro que si nos alejamos de una misma cantidad de estudiantes por establecimiento seleccionado nos alejamos de unos de los beneficios de un muestreo PPS que es la posibilidad de una muestra autoponderada. Dado que algunos dominios de estimación implican un tratamiento censal, es claro que de todas formas para el momento de los análisis se iban a utilizar algunos ponderadores (como algo diferente a los expansores). La duda es ¿Cuánto usar este tipo de mecanismos en las demás situaciones en donde se pensaba hacer una muestra (más que un censo)?
+
+- Por último, entre las especificaciones se indicaba que se debía hacer un muestreo sistemático luego de haber ordenado por la variable IVSE. Claramente, esto parece más un consejo de medios más que de fines, pero invita a pensar el porqué de esa decisión y esto, a su turno, puede aydar a entender algún fin latente. Esta estrategia suele denominarise "estratificación implícita", ya que esa ordenación con la selección posterior sistemática es una manera simple de generar "estratos" como resultado partiendo, o al menos usando en algún momento de su construcción, una variable continua [@cochran1977, pág. 205; @valliant2018, pág. 63].
+
+> –"Antes de decidirnos por un muestreo desproporcionado, deberíamos hacer al menos una estimación aproximada de las varianzas de todos los elementos importantes, o de un subconjunto bien seleccionado. Si las diferentes respuestas apuntan al mismo diseño, no hay mayor problema. Pero si las respuestas son contradictorias, la elección requiere buen criterio y conocimientos teóricos que van más allá de este libro y, en gran medida, de los desarrollos teóricos existentes. Al decidir entre ellos, debemos tener en cuenta no solo la importancia relativa del elemento, sino también la importancia relativa de sus varianzas bajo diferentes diseños" [@kish1965, pág. 97] .
+
+Dada una respuesta clara para las preguntas anteriores, no suele ser un mayor problema a CUALES establecimientos se debe selecionar. Sin embargo, es difícil anticipar una rápida respuesta a estas preguntas porque los niveles de precision finalmente alcanzados por la muestra varían en función de la *efectiva* varianza entre los establecimientos. Aclaramos lo de *efectiva* porque y eso implica no usar un cálculo *DEFF,* sino más bien simular muestras específicas sintéticas. Que se prefiera de forma sinere una muestra de 1000 establecimientos y 5 estudiantes por cada uno o si prefiere una de 5000 establecimientos y 10 estudiantes por cada uno u otra de 1000 estudiantes y 10 estudiantes por cada uno.
+
+Hay diferentes medios disponibles. Si se enfatiza en maximizar los variados dominios de estimación provistos se resienteen los totales. En general cuanta mayor dispersión existe entre los ponderadores menor seguridad en las estiamcion de los totales.
+
+Los estudiantes pueden pertenecer a los siguientes **tipos de establecimientos**:
+
+- Nivel Primario. Se incluyen solo a los EPA. Se excluyen a los centros de alfabetización y a los CEPA.
+
+- Nivel Secundario de oferta institucional. Estos pueden ser CENS o SEBAS.
+
+- Nivel Secundario por fuera de la oferta institucional. Son los establecimientos FINES.
 
 El tamaño de una muestra no suele ser algo fácil de responder en un diseño con múltiples objetivos y estimadores [@valliant2018, pág. 26]. Una situación similar es cuando no se sabe bien para qué finalmente se va a usar la muestra, pero no se duda que diferentes investigadores van a intentar contestar diversas preguntas de investigación con ella. Esto último es una de las razones por las cuales muchas veces es preferible expresar los objetivos estadísticos en términos de un coeficiente de variación (*CV*). Este es adimensional (no posee unidades) y puede usarse para comparar la relativa precisión de las estimaciones de diferentes tipos de cantidades o variables [@valliant2018, pág. 27]. En otras palabras, nos permite comparar la precisión de las categorías de las variables discretas (como las categorías de género) con variables cuantitativas continuas (como la edad promedio).
 
@@ -920,8 +969,8 @@ convertir_moe_a_cv = function(moe,
 
 # Calculamos los coeficientes de variación objetivo para cada nivel de precisión
 cv_o_te_area = convertir_moe_a_cv(moe = 0.03)    # Para EPA y CENS (3% MdE)
-cv_o_te_region_agrupada = convertir_moe_a_cv(moe = 0.04)  # Para FINES individual (5% MdE)
-cv_o_te_region = convertir_moe_a_cv(moe = 0.05)   # Para FINES grupo de regiones (4% MdE)
+cv_o_te_region_agrupada = convertir_moe_a_cv(moe = 0.04)  # Para FINES grupo de regiones (4% MdE) 
+cv_o_te_region = convertir_moe_a_cv(moe = 0.05)   # Para FINES con regiones individual (5% MdE)
 
 
 # Presentamos los resultados formateados
@@ -954,7 +1003,7 @@ tbl_traduccion_moe_cv = resultados_precision |>
 tbl_traduccion_moe_cv
 ```
 
-## Cálculo del DEFF y del ESS
+### Cálculo del DEFF y del ESS
 
 La existencia de *clusters* o conglomerados espaciales permite reducir los costos logísticos tanto en términos de transporte (especialmente en diseños presenciales) y reduce el costo de elaborar listas de direcciones/contactos de las unidades de selección finales (especialmente en diseños polietápicos). Mediante la combinación de ambos mecansmos, se reduce el costo unitario de realizar encuestas. A cambio, suele generar mayores varianzas para un tamaño de muestra determinado en comparación con una muestra de azar simple [@valliant2018, pág. 4].
 
@@ -968,7 +1017,7 @@ Expresado de modo alternativo, el *DEFF* permite comprender los pros y contras d
 
 La definición típica del *DEFF*, debido a su creador Leslie Kish, es que el mismo es la razón de la varianza de un estimador en una muestra compleja sobre la varianza de ese mismo estimador en una muestra de muestreo simple [@kish1965, pág. 75]. Una vez calculado el DEFF, es posible calcular el ESS. Este significa a cuántas personas de un muestreo aleatorio simple (perfecto e ideal) equivale realmente tu muestra actual realizada con un diseño complejo. Este es útil, entre otras razones, porque los cálculos necesarios para una muestra aleatoria simple son relativamente fáciles de construir.
 
-## El Efecto del Diseño (*deff*) y la Correlación Intracluster ($\rho$)
+### El Efecto del Diseño (*deff*) y la Correlación Intracluster ($\rho$)
 
 Como se ha analizado en la sección anterior, si los *clusters* (acá establecimientos) son muy homogéneos en su interior, no tiene sentido seleccionar muchos estudiantes por establecimiento porque nos aportarán información redundante. Esta homogeneidad interna se modela formalmente mediante la **Correlación Intracluster** ($\rho$ o *ICC*) [@lumley2010, pág. 51]:
 
@@ -1070,13 +1119,13 @@ Por ejemplo, si asumiéramos el escenario tradicional de relevar todas las secci
 
 Aunque concentrar más estudiantes por escuela reduce la cantidad de sedes físicas a visitar (pasa de $50$ a $27$ sedes), la cantidad de cuestionarios a procesar es más del doble. Por ende, nuestro diseño con $b=5$ representa un equilibrio óptimo entre viabilidad logística de campo y economía de recursos analíticos.
 
-## Simulación por el método del cubo
+## Diseño muestra {#sec-diseno_muestra_adultos}
 
-Teniendo en mente, por un lado, la distribución poblacional, esto es, la distribución del marco muetsral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o sus coeficientes de variación, serán mayores a los aceptables en los objetivos. Esta situación también se expresaría a través de un muestreo estratitificado proporcional.
+Teniendo en mente, por un lado, la distribución poblacional, esto es, la distribución del marco muestral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o sus coeficientes de variación, serán mayores a los aceptables en los objetivos. Esta situación también se expresaría a través de un muestreo estratitificado proporcional.
 
-Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación óptima (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificación proporcional. También es posible pensar en un diseño basado en la asignación de potencia (*power allocation*) [@bankier1988].
+Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación que óptimiza la reducción de la varianza total (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificación proporcional. También es posible pensar en un diseño basado en la asignación de potencia (*power allocation*) [@bankier1988]. Algo más alejados, porque implicaría romper fuertemente con la lógica de los dominios de estimación antes presentados, sería usar estratos muestrales que surgan de un análisis multivariado previo para crear *clusters* que minimicen la intra-varianza y maximicen la extra-varianza [@dalenius1950; @dalenius1957; @dalenius1959].
 
-Cuáles son los pros y contras de este movimiento? Se recuerda que el contexto son:
+¿Cuáles son los pros y contras de este movimiento? Se recuerda que el contexto son:
 
 - Múltiples dominios de estimación explícitos
 
@@ -1084,23 +1133,11 @@ Cuáles son los pros y contras de este movimiento? Se recuerda que el contexto s
 
 - El uso y los estimadores a estimar todavía son desconocidos
 
-La realización de diseño estratificado no proporcional tiene el riesgo que su resultado es muy dependiente de cual sea la variable objetivo [@tillé2020, pág. 75]. En contextos en donde exista más de una variable de interés (lo usual en muchas investigaciones sociales) y/o en casos en donde se presuma que determinada fuente primaria luego será utilizada como fuente secundaria por otros investigadores con objetivos que todavía se desconocen, se debe analizar los pros y contras de esta elección. Por ejemplo, algunos análisis estadísticos complejos (todavía) no permiten incorporar los valores de los ponderadores/expansores en sus cálculos.
+La realización de un diseño estratificado no proporcional tiene el riesgo que su resultado es muy dependiente de cuál sea la variable objetivo [@tillé2020, pág. 75]. En contextos en donde exista más de una variable de interés (lo usual en muchas investigaciones sociales) y/o en casos en donde se presuma que determinada fuente primaria luego será utilizada como fuente secundaria por otros investigadores con objetivos que todavía se desconocen, se debe analizar los pros y contras de esta elección. Por ejemplo, algunos análisis estadísticos complejos (todavía) no permiten incorporar los valores de los ponderadores/expansores en sus cálculos.
 
-Por otro lado, cuanto más estratos se construyan, más preciso será el estimador. Sin embargo, cabe advertir que un caso por cada estrato no es un buen diseño muestral [@tillé2020, pág. 77]. La razónde esto es que, usualmente, el estimador de la varianza se convierte cada vez más inestable como el número de estatos se acrecienta por la pérdida de grados de libertad derivada de la estimación de la media de los estratos.
+Por otro lado, cuanto más estratos se construyan, más preciso será el estimador. Sin embargo, cabe advertir que un caso por cada estrato no es un buen diseño muestral [@tillé2020, pág. 77]. La razón de esto es que, usualmente, el estimador de la varianza se convierte cada vez más inestable como el número de estatos se acrecienta por la pérdida de grados de libertad derivada de la estimación de la media de los estratos.
 
 Si se compararan 2 muestras. Ambas con la misma cantidad de casos. Ambas con un ponderador para cada caso.
-
-+---------------+----------------------------+---------------+
-| Col1          | Estratificado proporcional | Estratificado |
-|               |                            |               |
-|               |                            | óptimo        |
-+===============+============================+===============+
-| Eficiencia    |                            |               |
-+---------------+----------------------------+---------------+
-|               |                            |               |
-+---------------+----------------------------+---------------+
-|               |                            |               |
-+---------------+----------------------------+---------------+
 
 Los dominios de estimación que parecen cumplir ese criterio son:
 
@@ -1231,6 +1268,8 @@ df_insumo_cubo$muestra_adultos[indices_muestra] = 1
 
 ```
 
+## Construcción de ponderadores
+
 ```{r}
 #| label: ponderadores
 #| code-summary: "Cálculo de expansores y creación del objeto de diseño complejo"
@@ -1289,6 +1328,16 @@ message(paste0("Estudiantes Marco: ", round(N_estud_pob, 0),
                " | Estimados: ", round(res_verificacion$estud_estimados, 0)))
 ```
 
+## Testeo Muestra
+
+Si se asume que los diferentes tipos de establecimientos son "Estratos" de la oferta, se podría pensar que se aspira a un margen de error de:
+
+3% por estrato-Gran Área,
+
+4% por estrato-región agrupada.
+
+5% por estrato-región
+
 Ahora voy probando los resultados de la muestra con la precisión esperada para cda dominio de estimación
 
 #### CENSALES
@@ -1309,7 +1358,7 @@ tbl_censales = df_muestra_final_sv |>
 tbl_censales
 ```
 
-#### GRAN AREA
+#### GRAN ÁREA
 
 ```{r}
 #| label: tbl-analisis_gran_area
@@ -1329,6 +1378,28 @@ tbl_gran_area
 ```
 
 #### REGION AGRUPADA
+
+```{r}
+tbl_region_agrupada_matricula = df_muestra_final_sv |> 
+  filter(criterio_seleccion == "MUESTRA") |> 
+  filter(estrato_oferta == "FINES") |>
+ select(matricula, estrato_oferta, ivse, region_agrupada) |>
+group_by(region_agrupada) |>
+summarise(
+matricula = survey_mean(matricula, vartype = c("cv", "ci","se", "var"), deff = TRUE, level = 0.90),
+n = n()) |>
+gt()
+
+tbl_region_agrupada_ivse = df_muestra_final_sv |> 
+  filter(criterio_seleccion == "MUESTRA") |> 
+  filter(estrato_oferta == "FINES") |>
+ select(matricula, estrato_oferta, ivse, region_agrupada) |>
+group_by(region_agrupada) |>
+summarise(
+ivse = survey_mean(ivse, vartype = c("cv", "ci","se", "var"), deff = TRUE, level = 0.90))
+
+
+```
 
 ```{r}
 #| label: tbl-analisis_region_agrupada
@@ -1376,23 +1447,24 @@ datos_facelas = df_insumo_cubo |>
 left_join(df_sf_distritos, by = "distrito") |>
   st_as_sf()
 
-# 2. Mapa coroplético basado en el porcentaje
-fig_mapa_muestra_cubo_poblacion_distritos = tm_shape(datos_facelas) +
-  tm_polygons(
-   fill = "matricula_pct",
-   fill.scale = tm_scale_intervals(style = "quantile", n = 5),       # Los quiebres se calcularán sobre los valores de porcentaje
-   fill.legend = tm_legend(title = "% del Total"),
-   fill.free = FALSE,
-    popup.vars = c("Matricula" = "Matricula_Total", 
-                   "Matrícula %" = "matricula_pct") # Utilidad interactiva
-  ) +
-  tm_facets(by = "Tipo_Analisis", ncol = 2) +
-  tm_layout(
-    legend.outside = TRUE,
-    panel.label.size = 1.2
-  )
+tipos_analisis = unique(datos_facelas$Tipo_Analisis)
 
-fig_mapa_muestra_cubo_poblacion_distritos
+mapas_distritos = lapply(tipos_analisis, \(tipo) {
+  mapa = datos_facelas |>
+    filter(Tipo_Analisis == tipo) |>
+    tm_shape() +
+    tm_polygons(
+      fill = "matricula_pct",
+      fill.scale = tm_scale_intervals(style = "quantile", n = 5),
+      fill.legend = tm_legend(title = "% del Total"),
+      fill.free = FALSE,
+      popup.vars = c("Matricula" = "Matricula_Total", "Matrícula %" = "matricula_pct")
+    ) +
+    tm_title(text = tipo)
+  tmap_leaflet(mapa)
+})
+
+leafsync::latticeView(mapas_distritos, ncol = 2, sync = "none")
 ```
 
 Ahora hacemos lo mismo pero a nivel de región agregada. Esperablemente, una buena distribución a nivel de distritos debería producir una todavía más aceptable distribución a nivel de regiones agregadas.
@@ -1426,24 +1498,27 @@ left_join(df_sf_regiones_agrupadas, by = "region_agrupada") |>
   st_as_sf()
 
 # 2. Mapa coroplético basado en el porcentaje
-fig_mapa_muestra_cubo_poblacion_regiones_a = tm_shape(datos_facelas) +
-  tm_polygons(
-    fill = "Porcentaje",
-    fill.scale = tm_scale_intervals(style = "quantile", n = 5),       # Los quiebres se calcularán sobre los valores de porcentaje
-    fill.legend = tm_legend(title = "% del Total"),
-    fill.free = FALSE,
-    popup.vars = c("Absoluto" = "Matricula_Total", "Porcentaje" = "Porcentaje") # Utilidad interactiva
-  ) +
-  tm_facets(by = "Tipo_Analisis", ncol = 2) +
-  tm_layout(
-    legend.outside = TRUE,
-    panel.label.size = 1.2
-  )
+mapas_regiones_a = lapply(tipos_analisis, \(tipo) {
+  mapa = datos_facelas |>
+    filter(Tipo_Analisis == tipo) |>
+    tm_shape() +
+    tm_polygons(
+      fill = "Porcentaje",
+      fill.scale = tm_scale_intervals(style = "quantile", n = 5),
+      fill.legend = tm_legend(title = "% del Total"),
+      fill.free = FALSE,
+      popup.vars = c("Absoluto" = "Matricula_Total", "Porcentaje" = "Porcentaje")
+    ) +
+    tm_title(text = tipo)
+  tmap_leaflet(mapa)
+})
 
-fig_mapa_muestra_cubo_poblacion_regiones_a
+leafsync::latticeView(mapas_regiones_a, ncol = 2, sync = "none")
+
+mapas_regiones_a
 ```
 
-Ahora vamos a testear la distribución (y no sólo su valore central) de la variable IVSE. Esta variable es particularmente importante porque es la variable índice que aspira incluir en la muestra una serie de desigualdades sociales que, de otra forma, se colarían por detrás afectando la utilidad de la misma para diferentes usos.
+Ahora vamos a testear la distribución (y no solo sus valores centrales) de la variable IVSE. Esta variable es particularmente importante porque es la variable índice que aspira incluir en la muestra una serie de desigualdades sociales que, de otra forma, se colarían por detrás afectando la utilidad de la misma para diferentes usos.
 
 ```{r}
 #| label: fig-densidad_ivse_poblacion_muestra
@@ -1476,7 +1551,7 @@ fig_densidad_ivse_poblacion_muestra
 
 ```
 
-En base a los datos de la figura @fig-densidad_ivse_poblacion_muestra, ahora vamos a testear estadísticamente si la diferencia entre ambas distribuciones es significativa.
+Basándonos en los datos de la figura @fig-densidad_ivse_poblacion_muestra, ahora vamos a testear estadísticamente si la diferencia entre ambas distribuciones es significativa.
 
 ```{r}
 # Realización del test K-S
@@ -1582,357 +1657,4 @@ comparativa_stats = bind_rows(
   )
 comparativa_stats
    
-```
-
-## Cálculo del tamaño de muestra por estrato (`PracTools`)
-
-Una vez que hemos determinado los coeficientes de variación ($CV$) como objetivos de precisión para cada cruce de tipo de establecimiento y división geográfica, y habiendo modelado el efecto de diseño empírico ($deff = 1,4$) derivado de la selección de la sección anterior y 5 estudiantes por establecimiento, pasamos a calcular el tamaño de muestra teórico. Siempre cabe recordar que este tamaño es téorico en el sentido que es razonable basado en suposiciones y evidencia anterior, pero solo luego de haber realizado la muestra se sabrá, a ciencia cierta, el valor del coeficiente de variación (o margen de error en su defecto).
-
-Para esto, utilizaremos la función `nProp` de la librería `PracTools`. Esta función estima el tamaño mínimo de muestra en un diseño de Muestreo Aleatorio Simple (*MAS*) para una proporción en un escenario de máxima varianza ($p=0,5$). Luego, multiplicaremos ese tamaño por nuestro $deff = 1,4$ para obtener el tamaño final de estudiantes. Ese tamaño total luego se divide por la cantidad de estudiantes a seleccionar por cada establecimiento (5) y ese valor es la cantidad de sedes a seleccionar en el primer paso del diseño muestral:
-
-```{r}
-#| label: calculo_tamano_muestra
-
-# 1. Definimos los parámetros base del cálculo muestral
-deff_real = 1.4       # Deff estimado ex_ante (1 + 4 * 0.1)
-p_estimada = 0.5      # Escenario de máxima varianza
-confianza_z = qnorm(0.95) # ~ 1.645 para 90% de confianza
-
-# 2. Creamos una función personalizada para estimar la cantidad de alumnos y sedes por estrato
-estimar_tamano_estrato = function(moe_objetivo, 
-                                  deff = deff_real, 
-                                  p = p_estimada) {
-  # Calculamos el CV correspondiente a ese MdE
-  cv_objetivo = (moe_objetivo / confianza_z) / p
-  
- # Calculamos el tamaño MAS teórico con nProp de PracTools
-  n_mas = nProp(CV0 = cv_objetivo, 
-                p = p)
-  
-  # Corregimos por el Deff real
-  n_complejo = ceiling(n_mas * deff)
-  
-  # Calculamos la cantidad de sedes a seleccionar (5 alumnos por sede)
-  n_sedes = ceiling(n_complejo / 5)
-  
-  return(list(
-    n_estudiantes = n_complejo,
-    n_sedes = n_sedes
-  ))
-}
-
-# 3. Calculamos la muestra teórica necesaria por cada tipo de dominio
-muestra_te_area = estimar_tamano_estrato(moe_objetivo = 0.03)   # 3% MdE
-muestra_fines_grupo = estimar_tamano_estrato(moe_objetivo = 0.04) # 4% MdE
-muestra_fines_individual = estimar_tamano_estrato(moe_objetivo = 0.05) # 5% MdE
-
-# 4. Consolidamos en una tabla informativa los requerimientos teóricos
-tabla_requerimientos = tibble(
-  Dominio = c("CENS/EPA por Área (AMBA/Interior)", 
-              "FINES por Región Individual", 
-              "FINES por Región Agrupada"),
-  MOE = c("3.0%", "5.0%", "4.0%"),
-  CV_Objetivo = paste0(round(c(cv_o_te_area, cv_o_te_region, cv_o_te_region_agrupada) * 100, 2), "%"),
-  Deff = deff_real,
-  Alumnos_por_Dominio = c(muestra_te_area$n_estudiantes, 
-                           muestra_fines_individual$n_estudiantes, 
-                           muestra_fines_grupo$n_estudiantes),
-  Sedes_por_Dominio = c(muestra_te_area$n_sedes, 
-                         muestra_fines_individual$n_sedes, 
-                         muestra_fines_grupo$n_sedes)
-)
-
-tabla_requerimientos |> 
-  gt() |> 
-  tab_header(
-    title = "Tamaños de Muestra Requeridos por Dominio de Inferencia",
-    subtitle = "Cálculo de alumnos y sedes físicas a seleccionar (5 estudiantes por establecimiento)"
-  ) |> 
-  cols_label(
-    Dominio = "Dominio de Estimación",
-    MOE = "Margen de Error (MOE)",
-    CV_Objetivo = "CV Objetivo",
-    Deff = "Deff",
-    Alumnos_por_Dominio = "Estudiantes Requeridos (n)",
-    Sedes_por_Dominio = "Sedes a Seleccionar"
-  )
-```
-
-En la siguiente sección, procederemos a segmentar nuestro marco muestral (`df_sampling_frame`) real por cada estrato de diseño e identificar cuántos alumnos y sedes le corresponden empíricamente en la muestra física.
-
-## Asignación empírica de la muestra y corrección por población finita (FPC)
-
-Una vez calculados los tamaños muestrales teóricos bajo el supuesto de universos infinitos o muy grandes, el paso metodológico fundamental es confrontar estos requerimientos con el tamaño real de la población objetivo estimado a través de nuestro marco muestral (@sec-marco_muestral_adultos).
-
-En este diseño polietápico, la primera etapa de selección se realizará utilizando **Probabilidad Proporcional al Tamaño (PPS)** en función de la matrícula de cada establecimiento. La selección PPS tiene la caracterísitca de otorgar mayor probabilidad de inclusión a las escuelas grandes (que concentran a la mayor cantidad de estudiantes del universo). En la segunda etapa, al sortear exactamente una sección y seleccionar un número fijo de 5 estudiantes, logramos que la muestra sea estrictamente **autoponderada** a nivel de estudiante.
-
-Sin embargo, al analizar el marco muestral real, nos enfrentamos a dos particularidades del universo que exigen una intervención metodológica:
-
-1\. **La Corrección por Población Finita (FPC):** Cuando el tamaño de muestra de sedes calculado ($n_0$) representa una fracción significativa del total de sedes disponibles en el universo de ese estrato ($N_0$, por ejemplo, más del $5\%$), la varianza del estimador disminuye porque conocemos a una porción relativamente grande de esa población. Para evitar un sobremuestreo innecesario y costoso, corregimos el tamaño muestral aplicando el factor de población finita: $$n_{\text{corregido}, 0} = \frac{n_0}{1 + \frac{n_0}{N_0}}$$ 2. **Estratos pequeños e inferencia regional:** En ofertas como FINES en regiones del interior muy pequeñas, el requerimiento teórico de precisión regional (5% MdE, que exige unas 76 sedes por región) puede superar la cantidad física de sedes disponibles en el universo de esa región. En esos casos, el estrato se vuelve automáticamente **censal** (se seleccionan todas las sedes del estrato, asignándoles probabilidad de inclusión $\pi_i = 1$).
-
-A continuación, se calcula los estratos en nuestro marco real, calcular los tamaños finales corregidos de estudiantes y sedes, y preparar la asignación empírica:
-
-```{r}
-#| label: asignacion_muestra_real
-
-# 1. Definimos los estratos de diseño en nuestro marco real
-df_marco_estratificado = df_sampling_frame |> 
-  mutate(
-    # Construimos el estrato de diseño
-    estrato_diseno = case_when(
-      tipo_est_adulto == "CEBAS" ~ "CEBAS - Censal",
-      tipo_est_adulto == "FINES" ~ paste0("FINES - Región ", region),
-      tipo_est_adulto %in% c("CENS", "EPA") ~ paste0(tipo_est_adulto, " - ", area),
-      .default = "Otros"
-    )
-  )
-
-# 2. Obtenemos el tamaño del universo (N de sedes y matrícula total) por estrato
-resumen_universo = df_marco_estratificado |> 
-  group_by(estrato_diseno, tipo_est_adulto, region, area) |> 
-  summarise(
-    N_sedes_universo = n(),
-    Matricula_universo = sum(matricula, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# 3. Asignamos los requerimientos teóricos de alumnos y sedes a cada estrato
-# CENS/EPA = 3% MdE, FINES individual = 5% MdE
-resumen_asignacion = resumen_universo |> 
-  mutate(
-    # Asignamos el tamaño de muestra teórico de sedes (antes de FPC)
-    sedes_teoricas_n = case_when(
-      tipo_est_adulto == "CEBAS" ~ N_sedes_universo, # Censal
-      tipo_est_adulto %in% c("CENS", "EPA") ~ muestra_te_area$n_sedes,
-      tipo_est_adulto == "FINES" ~ muestra_fines_individual$n_sedes,
-      .default = 0
-    ),
-    # Aplicamos la Corrección por Población Finita (FPC)
-    sedes_corregidas_n = case_when(
-      tipo_est_adulto == "CEBAS" ~ N_sedes_universo,
-      # Si el tamaño requerido supera o iguala al universo, se vuelve censal
-      sedes_teoricas_n >= N_sedes_universo ~ N_sedes_universo,
-      # De lo contrario, aplicamos la fórmula del FPC
-      .default = ceiling(sedes_teoricas_n / (1 + (sedes_teoricas_n / N_sedes_universo)))
-    ),
-    # Calculamos la muestra de estudiantes correspondiente (5 por sede)
-    estudiantes_muestra_n = if_else(tipo_est_adulto == "CEBAS", 
-                                    sedes_corregidas_n * 5, # Asumiendo 5 para simular
-                                    sedes_corregidas_n * 5)
-  )
-
-# 4. Formateamos y presentamos los primeros estratos para análisis
-resumen_asignacion |> 
-  filter(tipo_est_adulto != "CEBAS") |> # Excluimos CEBAS para visualizar los muestreables
-  arrange(tipo_est_adulto, region) |> 
-  slice_head(n = 15) |> 
-  select(estrato_diseno, N_sedes_universo, Matricula_universo, sedes_teoricas_n, sedes_corregidas_n, estudiantes_muestra_n) |> 
-  gt() |> 
-  tab_header(
-    title = "Asignación de Muestra por Estrato y Corrección FPC (Primeras 15 celdas)",
-    subtitle = "Comparación entre requerimiento teórico inicial y tamaño corregido por población finita"
-  ) |> 
-  cols_label(
-    estrato_diseno = "Estrato de Diseño",
-    N_sedes_universo = "Sedes Universo (N)",
-    Matricula_universo = "Matrícula Universo",
-    sedes_teoricas_n = "Sedes Teóricas (n)",
-    sedes_corregidas_n = "Sedes Corregidas (FPC)",
-    estudiantes_muestra_n = "Alumnos Muestra"
-  )
-```
-
-Como se observará en los resultados de la simulación empírica en el marco real, la aplicación de la **Corrección por Población Finita (FPC)** es una herramienta de optimización de recursos fundamental en este tipo de investigaciones. En estratos donde el universo de sedes es acotado, la corrección reduce sustancialmente el número de establecimientos físicos a visitar, manteniendo exactamente la misma precisión estadística exigida.
-
-### Próximos pasos metodológicos: Hacia muestras balanceadas y el Método del Cubo
-
-Una vez que hemos asignado de forma clásica la muestra por estratos y sabemos cuántas sedes necesitamos de cada uno, el gran desafío es la **estrategia de selección física de los establecimientos**.
-
-Si bien podríamos optar por una selección sistemática clásica PPS ordenada unidimensionalmente por el IVSE-T, este enfoque presenta limitaciones para asegurar que la muestra represente adecuadamente la riqueza y heterogeneidad territorial de la provincia. Por ello, en la siguiente sección evaluaremos una alternativa de vanguardia: **El Método del Cubo (`lcube`)** para la selección de muestras balanceadas y bien distribuidas espacialmente.
-
-El método del cubo nos permitirá forzar a que la muestra de sedes seleccionada represente de forma óptima tanto a las variables categóricas de oferta y región, como a la distribución continua de latitud, longitud e Índice de Vulnerabilidad Territorial simultáneamente.
-
-## Selección de la Primera Etapa: Método del Cubo (`lcube`) y Probabilidad Proporcional al Tamaño (PPS)
-
-Dada la ausencia de coordenadas geográficas precisas (latitud y longitud) en este marco muestral, se propone una estrategia metodológica adaptada que explota al máximo la variable continua del **Índice de Vulnerabilidad Territorial (IVT/IVSE)** (`ivse` en nuestro dataset).
-
-El **Método del Cubo** se implementará bajo la siguiente estructura lógica de dos dimensiones:
-
-1.  **Balanceo (Tendencia Central en `Xba`):** Obligamos al algoritmo a que los valores medios estimados de la muestra coincidan de forma exacta con los parámetros conocidos del universo. Balancearemos por:
-    - **Ámbito** (Urbano/Rural).
-    - **Tipo de Establecimiento** (CENS / EPA / FINES).
-    - **Área** (AMBA / Interior).
-    - **La media del IVT (IVSE):** Garantizando que el promedio de vulnerabilidad de las sedes de la muestra represente fielmente al promedio provincial.
-2.  **Esparcimiento y Dispersión (`Xsp` usando el IVT):** Para asegurar que la muestra esté **bien distribuida** a lo largo de todo el espectro socioeducativo (y no concentrada únicamente en escuelas de vulnerabilidad "promedio"), utilizaremos el **IVT estandarizado** como variable continua de esparcimiento en `Xsp`. Esto obligará al algoritmo a dispersar la selección cubriendo de forma óptima desde las sedes con vulnerabilidad muy baja hasta aquellas con vulnerabilidad crítica.
-
-### Probabilidades de Inclusión PPS y Sedes Autorepresentadas
-
-En un muestreo PPS, la probabilidad de selección de la sede $i$ en el estrato $h$ se define como: $$\pi_{ih} = n_{\text{corregida}, h} \cdot \frac{\text{Matricula}_{ih}}{\text{Matricula Total}_h}$$
-
-Sin embargo, en escuelas sumamente grandes, esta probabilidad teórica puede resultar mayor a $1$. Estos casos se denominan metodológicamente **sedes autorepresentadas** (o de selección forzosa). Debemos identificarlas de forma iterativa, asignarles una probabilidad de inclusión fija de exactamente $1$, y recalcular las probabilidades de inclusión del resto de las sedes con la matrícula remanente para que la suma final de las probabilidades coincida exactamente con nuestro tamaño de muestra asignado.
-
-A continuación, he escrito el código en R para realizar el ajuste iterativo de probabilidades PPS y ejecutar la selección definitiva utilizando el Método del Cubo:
-
-```{r}
-#| label: seleccion_primera_etapa_cubo
-
-# 1. Limpieza y preparación de variables continuas y estandarización del IVT (IVSE)
-df_marco_seleccion = df_marco_estratificado |> 
-  # Eliminamos sedes que no tengan cargada la matrícula (universo real)
-  filter(!is.na(matricula), matricula > 0) |> 
-  mutate(
-    # Estandarizamos el IVT (media 0, desviación 1) para un esparcimiento estable
-    ivse_std = scale(ivse)[, 1]
-  )
-
-# 2. Función iterativa para calcular y ajustar las probabilidades de inclusión PPS
-calcular_pi_pps = function(matricula_vector, 
-                           n_sedes_muestra) {
-N = length(matricula_vector)
-  
-  # Si la cantidad de sedes requeridas supera o iguala al universo del estrato, todos tienen pi = 1
-  if(n_sedes_muestra >= N) {
-    return(rep(1, N))
-  }
-  
-  # Inicializamos las probabilidades PPS iniciales
-  pi = n_sedes_muestra * (matricula_vector / sum(matricula_vector))
-  
-  # Ajustamos de manera iterativa para las escuelas auto-representadas (pi >= 1)
-  while (any(pi > 1)) {
-    forzosos = pi >= 1
-    pi[forzosos] = 1
-    
-    n_restante = n_sedes_muestra - sum(pi[forzosos])
-    if(n_restante <= 0) {
-      pi[!forzosos] = 0
-      break
-    }
-    
-    pi[!forzosos] = n_restante * (matricula_vector[!forzosos] / sum(matricula_vector[!forzosos]))
-  }
-  return(pi)
-}
-
-# 3. Calculamos la probabilidad de inclusión (pi) para cada sede en su estrato correspondiente
-df_marco_seleccion = df_marco_seleccion |> 
-  left_join(resumen_asignacion |> 
- select(estrato_diseno, sedes_corregidas_n), by = "estrato_diseno") |> 
-  group_by(estrato_diseno) |> 
-  mutate(pi_pps = calcular_pi_pps(matricula, first(sedes_corregidas_n))) |> 
-  ungroup()
-
-# 4. Construcción de Matrices para el Algoritmo del Cubo (lcube)
-# Creamos la matriz de balanceo categórico y continuo
-X_balanceo = model.matrix(~ tipo_est_adulto + ambito + area + ivse - 1, 
-                          data = df_marco_seleccion)
-
-# Agregamos la probabilidad de inclusión como la primera columna para fijar el n muestral
-Xba_final = cbind(df_marco_seleccion$pi_pps, X_balanceo)
-
-# Matriz de Esparcimiento basada en la dispersión continua del IVT (IVSE estandarizado)
-Xsp_esparcimiento = as.matrix(df_marco_seleccion$ivse_std)
-
-# 5. Ejecución del Algoritmo del Cubo (lcube)
-set.seed(123) # Fijamos semilla para reproducibilidad
-
-# Seleccionamos la muestra física
-indices_muestra_cubo = lcube(
-  prob = df_marco_seleccion$pi_pps, 
-  Xba = Xba_final, 
-  Xsp = Xsp_esparcimiento
-)
-
-# Registramos la selección en nuestro dataset del marco
-df_marco_seleccion$seleccionada_primera_etapa = 0
-df_marco_seleccion$seleccionada_primera_etapa[indices_muestra_cubo] = 1
-
-# 6. Tabla resumen de las escuelas efectivamente seleccionadas en la muestra
-resumen_muestra_final = df_marco_seleccion |> 
-  filter(seleccionada_primera_etapa == 1) |> 
-  group_by(tipo_est_adulto, area) |> 
-  summarise(
-    Sedes_Seleccionadas = n(),
-    Matricula_Promedio = round(mean(matricula)),
-    IVSE_Promedio = round(mean(ivse, na.rm = TRUE), 2),
-    .groups = "drop"
-  )
-
-resumen_muestra_final |> 
-  gt() |> 
-  tab_header(
-    title = "Sedes Seleccionadas en la Primera Etapa (Muestra del Cubo)",
-    subtitle = "Consolidado por Tipo de Establecimiento y Área Geográfica"
-  ) |> 
-  cols_label(
-    tipo_est_adulto = "Tipo de Establecimiento",
-    area = "Área Geográfica",
-    Sedes_Seleccionadas = "Sedes en Muestra",
-    Matricula_Promedio = "Matrícula Promedio",
-    IVSE_Promedio = "IVT Promedio"
-  )
-```
-
-Este algoritmo garantiza que nuestra muestra no solo cumple perfectamente con el tamaño físico establecido tras las correcciones de población finita, sino que está excepcionalmente balanceada y bien esparcida a lo largo de toda la vulnerabilidad socioeducativa de la provincia.
-
-## Ponderadores
-
-El objetivo general de la creación de ponderadores es encontrar una lista de ponderadores que puedan ser utilizados virtualmente en todos los análisis para producir estimadores de la población objetivo del estudio [@valliant2018, pág. 322].
-
-Dentro de los ponderadores es útil distinguir entre 2 grandes tipos. Los **ponderadores** propiamente dichos y los **expansores**. Ambos se encargan de corregir sesgos (*bias*) para producir estimaciones insesgadas (*unbiased*). En otras palabras, los ponderadores tienen el objetivo de ayudar a construir buenos estimadores [@valliant2018, pág. 323]. Sin embargo, existe una diferencia fundamental entre ambos.
-
-```{r}
-#| eval: false
-n = nrow(muestra_azar_simple)
-N = nrow(base)
-
-muestra_azar_simple = muestra_azar_simple |>
-mutate(pw = N/n,
-       fpc = sqrt((N-n)/(N-1)))
-
-muestra_azar_simple_sv = muestra_azar_simple |>
-as_survey_design(ids = id,
-                 weights = pw,
-                 fpc = fpc)
-
-tbl_azar_simple = muestra_azar_simple_sv |>
-tbl_svysummary(
-include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
-statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
-               all_categorical() ~ "{p}% (n={n_unweighted})"),
-digits = list(all_continuous() ~ c(1),
-              all_categorical() ~ c(1,0))) |>
-add_ci()
-
-write_rds(tbl_azar_simple,
-          here("Outputs", "tbl_azar_simple.rds"))
-
-tbl_merge(
-  tbls = list(tbl_azar_simple, tbl_pob_param),
-  tab_spanner = c("**Azar simple**", "**Parámetro Pob.**")
-)
-```
-
-```{r}
-#| label: pps
-#| eval: false
-base_toy_pps = base_toy |>
-filter(!is.na(matricula)) |>
-arrange(desc(matricula))
-
-N = nrow(base_toy_pps)
-n = 300
-pi = inclusionprobabilities(base_toy_pps$matricula, n)
-
-set.seed(314)
-
-muestra_pps = UPrandompivotal(pik = pi) |>
-              as_tibble() |>
-rename(muestra_pps = value) |>
-bind_cols(base_toy_pps) |>
-bind_cols(as.data.frame(pi)) |>
-filter(muestra_pps > 0) |>
-mutate(fpc = sqrt((N-n)/(N-1)),
-       pi = pi,
-       pw = N/n)
 ```

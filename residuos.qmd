@@ -1,0 +1,400 @@
+---
+title: "Untitled"
+format: html
+---
+
+## Resultados esperados
+
+Encuesta de perfil de lxs estudiantes de la modalidad de EJAyAM
+
+Población objetivo: Estudiantes EPA (solo sedes) de nivel Primario y de todas las ofertas de nivel Secundario (CENS, CEBAS, FINES) de gestión estatal (oficial).
+
+Diseño de la muestra
+
+-Tipo de muestreo: estratificado polietápico y por conglomerados con selección proporcional al tamaño y sistemática
+
+-Estratos:
+
+Por oferta (EPA, CENS, CEBAS, FINES) y
+
+por área:
+
+1\) CEBAS: Censal •
+
+2\) EPA y CENS: AMBA (R01 a R11) e Interior (R12 a R25) •
+
+3\) FINES: Por región o agregado de regiones (16, 21, 22 y 23; 15, 17, 24 y 25).
+
+-Etapas de selección: •
+
+1° Unidades de servicios / Sedes: Proporcional al tamaño (matrícula), con orden sistemático por IVSE-T. •
+
+2° Secciones: Todas las secciones de los establecimientos seleccionados. •
+
+3° Estudiantes: 5 primeros o últimos de cada sección.
+
+### Tamaño de la muestra
+
+deff=2 para EPA y CENS
+
+deff= 1,5 para FINES y CEBAS.
+
+Se estima la realización de unas 14.000 encuestas (algo más de 7.000 en FINES, cerca de 3.000 en EPA y CENS y 600 en CEBAS) en aproximadamente 2.700 secciones (cerca de 1/4 del total).
+
+El margen de error para el total provincial sería del 1% para FINES, del 2% para EPA y CENS y del 3% para CEBAS, ubicándose en torno al 1,2% para el total del nivel secundario y del total de ambos niveles de la modalidad.
+
+![](images/paste-3.png)
+
+## Cálculo del tamaño de muestra por estrato (`PracTools`)
+
+Una vez que hemos determinado los coeficientes de variación ($CV$) como objetivos de precisión para cada cruce de tipo de establecimiento y división geográfica, y habiendo modelado el efecto de diseño empírico ($deff = 1,4$) derivado de la selección de la sección anterior y 5 estudiantes por establecimiento, pasamos a calcular el tamaño de muestra teórico. Siempre cabe recordar que este tamaño es téorico en el sentido que es razonable basado en suposiciones y evidencia anterior, pero solo luego de haber realizado la muestra se sabrá, a ciencia cierta, el valor del coeficiente de variación (o margen de error en su defecto).
+
+Para esto, utilizaremos la función `nProp` de la librería `PracTools`. Esta función estima el tamaño mínimo de muestra en un diseño de Muestreo Aleatorio Simple (*MAS*) para una proporción en un escenario de máxima varianza ($p=0,5$). Luego, multiplicaremos ese tamaño por nuestro $deff = 1,4$ para obtener el tamaño final de estudiantes. Ese tamaño total luego se divide por la cantidad de estudiantes a seleccionar por cada establecimiento (5) y ese valor es la cantidad de sedes a seleccionar en el primer paso del diseño muestral:
+
+```{r}
+#| label: calculo_tamano_muestra
+ library(PracTools)
+ library(tidyverse)
+# 1. Definimos los parámetros base del cálculo muestral
+deff_real = 1.4       # Deff estimado ex_ante (1 + 4 * 0.1)
+p_estimada = 0.5      # Escenario de máxima varianza
+confianza_z = qnorm(0.95) # ~ 1.645 para 90% de confianza
+
+# 2. Creamos una función personalizada para estimar la cantidad de alumnos y sedes por estrato
+estimar_tamano_estrato = function(moe_objetivo, 
+                                  deff = deff_real, 
+                                  p = p_estimada) {
+  # Calculamos el CV correspondiente a ese MdE
+  cv_objetivo = (moe_objetivo / confianza_z) / p
+  
+ # Calculamos el tamaño MAS teórico con nProp de PracTools
+  n_mas = nProp(CV0 = cv_objetivo, 
+                p = p)
+  
+  # Corregimos por el Deff real
+  n_complejo = ceiling(n_mas * deff)
+  
+  # Calculamos la cantidad de sedes a seleccionar (5 alumnos por sede)
+  n_sedes = ceiling(n_complejo / 5)
+  
+  return(list(
+    n_estudiantes = n_complejo,
+    n_sedes = n_sedes
+  ))
+}
+
+# 3. Calculamos la muestra teórica necesaria por cada tipo de dominio
+muestra_te_area = estimar_tamano_estrato(moe_objetivo = 0.03)   # 3% MdE
+muestra_fines_grupo = estimar_tamano_estrato(moe_objetivo = 0.04) # 4% MdE
+muestra_fines_individual = estimar_tamano_estrato(moe_objetivo = 0.05) # 5% MdE
+
+# 4. Consolidamos en una tabla informativa los requerimientos teóricos
+tabla_requerimientos = tibble(
+  Dominio = c("CENS/EPA por Área (AMBA/Interior)", 
+              "FINES por Región Individual", 
+              "FINES por Región Agrupada"),
+  MOE = c("3.0%", "5.0%", "4.0%"),
+  CV_Objetivo = paste0(round(c(cv_o_te_area, cv_o_te_region, cv_o_te_region_agrupada) * 100, 2), "%"),
+  Deff = deff_real,
+  Alumnos_por_Dominio = c(muestra_te_area$n_estudiantes, 
+                           muestra_fines_individual$n_estudiantes, 
+                           muestra_fines_grupo$n_estudiantes),
+  Sedes_por_Dominio = c(muestra_te_area$n_sedes, 
+                         muestra_fines_individual$n_sedes, 
+                         muestra_fines_grupo$n_sedes)
+)
+
+tabla_requerimientos |> 
+  gt() |> 
+  tab_header(
+    title = "Tamaños de Muestra Requeridos por Dominio de Inferencia",
+    subtitle = "Cálculo de alumnos y sedes físicas a seleccionar (5 estudiantes por establecimiento)"
+  ) |> 
+  cols_label(
+    Dominio = "Dominio de Estimación",
+    MOE = "Margen de Error (MOE)",
+    CV_Objetivo = "CV Objetivo",
+    Deff = "Deff",
+    Alumnos_por_Dominio = "Estudiantes Requeridos (n)",
+    Sedes_por_Dominio = "Sedes a Seleccionar"
+  )
+```
+
+En la siguiente sección, procederemos a segmentar nuestro marco muestral (`df_sampling_frame`) real por cada estrato de diseño e identificar cuántos alumnos y sedes le corresponden empíricamente en la muestra física.
+
+## Asignación empírica de la muestra y corrección por población finita (FPC)
+
+Una vez calculados los tamaños muestrales teóricos bajo el supuesto de universos infinitos o muy grandes, el paso metodológico fundamental es confrontar estos requerimientos con el tamaño real de la población objetivo estimado a través de nuestro marco muestral (@sec-marco_muestral_adultos).
+
+En este diseño polietápico, la primera etapa de selección se realizará utilizando **Probabilidad Proporcional al Tamaño (PPS)** en función de la matrícula de cada establecimiento. La selección PPS tiene la caracterísitca de otorgar mayor probabilidad de inclusión a las escuelas grandes (que concentran a la mayor cantidad de estudiantes del universo). En la segunda etapa, al sortear exactamente una sección y seleccionar un número fijo de 5 estudiantes, logramos que la muestra sea estrictamente **autoponderada** a nivel de estudiante.
+
+Sin embargo, al analizar el marco muestral real, nos enfrentamos a dos particularidades del universo que exigen una intervención metodológica:
+
+1\. **La Corrección por Población Finita (FPC):** Cuando el tamaño de muestra de sedes calculado ($n_0$) representa una fracción significativa del total de sedes disponibles en el universo de ese estrato ($N_0$, por ejemplo, más del $5\%$), la varianza del estimador disminuye porque conocemos a una porción relativamente grande de esa población. Para evitar un sobremuestreo innecesario y costoso, corregimos el tamaño muestral aplicando el factor de población finita: $$n_{\text{corregido}, 0} = \frac{n_0}{1 + \frac{n_0}{N_0}}$$ 2. **Estratos pequeños e inferencia regional:** En ofertas como FINES en regiones del interior muy pequeñas, el requerimiento teórico de precisión regional (5% MdE, que exige unas 76 sedes por región) puede superar la cantidad física de sedes disponibles en el universo de esa región. En esos casos, el estrato se vuelve automáticamente **censal** (se seleccionan todas las sedes del estrato, asignándoles probabilidad de inclusión $\pi_i = 1$).
+
+A continuación, se calcula los estratos en nuestro marco real, calcular los tamaños finales corregidos de estudiantes y sedes, y preparar la asignación empírica:
+
+```{r}
+#| label: asignacion_muestra_real
+
+# 1. Definimos los estratos de diseño en nuestro marco real
+df_marco_estratificado = df_sampling_frame |> 
+  mutate(
+    # Construimos el estrato de diseño
+    estrato_diseno = case_when(
+      tipo_est_adulto == "CEBAS" ~ "CEBAS - Censal",
+      tipo_est_adulto == "FINES" ~ paste0("FINES - Región ", region),
+      tipo_est_adulto %in% c("CENS", "EPA") ~ paste0(tipo_est_adulto, " - ", area),
+      .default = "Otros"
+    )
+  )
+
+# 2. Obtenemos el tamaño del universo (N de sedes y matrícula total) por estrato
+resumen_universo = df_marco_estratificado |> 
+  group_by(estrato_diseno, tipo_est_adulto, region, area) |> 
+  summarise(
+    N_sedes_universo = n(),
+    Matricula_universo = sum(matricula, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# 3. Asignamos los requerimientos teóricos de alumnos y sedes a cada estrato
+# CENS/EPA = 3% MdE, FINES individual = 5% MdE
+resumen_asignacion = resumen_universo |> 
+  mutate(
+    # Asignamos el tamaño de muestra teórico de sedes (antes de FPC)
+    sedes_teoricas_n = case_when(
+      tipo_est_adulto == "CEBAS" ~ N_sedes_universo, # Censal
+      tipo_est_adulto %in% c("CENS", "EPA") ~ muestra_te_area$n_sedes,
+      tipo_est_adulto == "FINES" ~ muestra_fines_individual$n_sedes,
+      .default = 0
+    ),
+    # Aplicamos la Corrección por Población Finita (FPC)
+    sedes_corregidas_n = case_when(
+      tipo_est_adulto == "CEBAS" ~ N_sedes_universo,
+      # Si el tamaño requerido supera o iguala al universo, se vuelve censal
+      sedes_teoricas_n >= N_sedes_universo ~ N_sedes_universo,
+      # De lo contrario, aplicamos la fórmula del FPC
+      .default = ceiling(sedes_teoricas_n / (1 + (sedes_teoricas_n / N_sedes_universo)))
+    ),
+    # Calculamos la muestra de estudiantes correspondiente (5 por sede)
+    estudiantes_muestra_n = if_else(tipo_est_adulto == "CEBAS", 
+                                    sedes_corregidas_n * 5, # Asumiendo 5 para simular
+                                    sedes_corregidas_n * 5)
+  )
+
+# 4. Formateamos y presentamos los primeros estratos para análisis
+resumen_asignacion |> 
+  filter(tipo_est_adulto != "CEBAS") |> # Excluimos CEBAS para visualizar los muestreables
+  arrange(tipo_est_adulto, region) |> 
+  slice_head(n = 15) |> 
+  select(estrato_diseno, N_sedes_universo, Matricula_universo, sedes_teoricas_n, sedes_corregidas_n, estudiantes_muestra_n) |> 
+  gt() |> 
+  tab_header(
+    title = "Asignación de Muestra por Estrato y Corrección FPC (Primeras 15 celdas)",
+    subtitle = "Comparación entre requerimiento teórico inicial y tamaño corregido por población finita"
+  ) |> 
+  cols_label(
+    estrato_diseno = "Estrato de Diseño",
+    N_sedes_universo = "Sedes Universo (N)",
+    Matricula_universo = "Matrícula Universo",
+    sedes_teoricas_n = "Sedes Teóricas (n)",
+    sedes_corregidas_n = "Sedes Corregidas (FPC)",
+    estudiantes_muestra_n = "Alumnos Muestra"
+  )
+```
+
+Como se observará en los resultados de la simulación empírica en el marco real, la aplicación de la **Corrección por Población Finita (FPC)** es una herramienta de optimización de recursos fundamental en este tipo de investigaciones. En estratos donde el universo de sedes es acotado, la corrección reduce sustancialmente el número de establecimientos físicos a visitar, manteniendo exactamente la misma precisión estadística exigida.
+
+### Próximos pasos metodológicos: Hacia muestras balanceadas y el Método del Cubo
+
+Una vez que hemos asignado de forma clásica la muestra por estratos y sabemos cuántas sedes necesitamos de cada uno, el gran desafío es la **estrategia de selección física de los establecimientos**.
+
+Si bien podríamos optar por una selección sistemática clásica PPS ordenada unidimensionalmente por el IVSE-T, este enfoque presenta limitaciones para asegurar que la muestra represente adecuadamente la riqueza y heterogeneidad territorial de la provincia. Por ello, en la siguiente sección evaluaremos una alternativa de vanguardia: **El Método del Cubo (`lcube`)** para la selección de muestras balanceadas y bien distribuidas espacialmente.
+
+El método del cubo nos permitirá forzar a que la muestra de sedes seleccionada represente de forma óptima tanto a las variables categóricas de oferta y región, como a la distribución continua de latitud, longitud e Índice de Vulnerabilidad Territorial simultáneamente.
+
+## Selección de la Primera Etapa: Método del Cubo (`lcube`) y Probabilidad Proporcional al Tamaño (PPS)
+
+Dada la ausencia de coordenadas geográficas precisas (latitud y longitud) en este marco muestral, se propone una estrategia metodológica adaptada que explota al máximo la variable continua del **Índice de Vulnerabilidad Territorial (IVT/IVSE)** (`ivse` en nuestro dataset).
+
+El **Método del Cubo** se implementará bajo la siguiente estructura lógica de dos dimensiones:
+
+1.  **Balanceo (Tendencia Central en `Xba`):** Obligamos al algoritmo a que los valores medios estimados de la muestra coincidan de forma exacta con los parámetros conocidos del universo. Balancearemos por:
+    - **Ámbito** (Urbano/Rural).
+    - **Tipo de Establecimiento** (CENS / EPA / FINES).
+    - **Área** (AMBA / Interior).
+    - **La media del IVT (IVSE):** Garantizando que el promedio de vulnerabilidad de las sedes de la muestra represente fielmente al promedio provincial.
+2.  **Esparcimiento y Dispersión (`Xsp` usando el IVT):** Para asegurar que la muestra esté **bien distribuida** a lo largo de todo el espectro socioeducativo (y no concentrada únicamente en escuelas de vulnerabilidad "promedio"), utilizaremos el **IVT estandarizado** como variable continua de esparcimiento en `Xsp`. Esto obligará al algoritmo a dispersar la selección cubriendo de forma óptima desde las sedes con vulnerabilidad muy baja hasta aquellas con vulnerabilidad crítica.
+
+### Probabilidades de Inclusión PPS y Sedes Autorepresentadas
+
+En un muestreo PPS, la probabilidad de selección de la sede $i$ en el estrato $h$ se define como: $$\pi_{ih} = n_{\text{corregida}, h} \cdot \frac{\text{Matricula}_{ih}}{\text{Matricula Total}_h}$$
+
+Sin embargo, en escuelas sumamente grandes, esta probabilidad teórica puede resultar mayor a $1$. Estos casos se denominan metodológicamente **sedes autorepresentadas** (o de selección forzosa). Debemos identificarlas de forma iterativa, asignarles una probabilidad de inclusión fija de exactamente $1$, y recalcular las probabilidades de inclusión del resto de las sedes con la matrícula remanente para que la suma final de las probabilidades coincida exactamente con nuestro tamaño de muestra asignado.
+
+A continuación, he escrito el código en R para realizar el ajuste iterativo de probabilidades PPS y ejecutar la selección definitiva utilizando el Método del Cubo:
+
+```{r}
+#| label: seleccion_primera_etapa_cubo
+
+# 1. Limpieza y preparación de variables continuas y estandarización del IVT (IVSE)
+df_marco_seleccion = df_marco_estratificado |> 
+  # Eliminamos sedes que no tengan cargada la matrícula (universo real)
+  filter(!is.na(matricula), matricula > 0) |> 
+  mutate(
+    # Estandarizamos el IVT (media 0, desviación 1) para un esparcimiento estable
+    ivse_std = scale(ivse)[, 1]
+  )
+
+# 2. Función iterativa para calcular y ajustar las probabilidades de inclusión PPS
+calcular_pi_pps = function(matricula_vector, 
+                           n_sedes_muestra) {
+N = length(matricula_vector)
+  
+  # Si la cantidad de sedes requeridas supera o iguala al universo del estrato, todos tienen pi = 1
+  if(n_sedes_muestra >= N) {
+    return(rep(1, N))
+  }
+  
+  # Inicializamos las probabilidades PPS iniciales
+  pi = n_sedes_muestra * (matricula_vector / sum(matricula_vector))
+  
+  # Ajustamos de manera iterativa para las escuelas auto-representadas (pi >= 1)
+  while (any(pi > 1)) {
+    forzosos = pi >= 1
+    pi[forzosos] = 1
+    
+    n_restante = n_sedes_muestra - sum(pi[forzosos])
+    if(n_restante <= 0) {
+      pi[!forzosos] = 0
+      break
+    }
+    
+    pi[!forzosos] = n_restante * (matricula_vector[!forzosos] / sum(matricula_vector[!forzosos]))
+  }
+  return(pi)
+}
+
+# 3. Calculamos la probabilidad de inclusión (pi) para cada sede en su estrato correspondiente
+df_marco_seleccion = df_marco_seleccion |> 
+  left_join(resumen_asignacion |> 
+ select(estrato_diseno, sedes_corregidas_n), by = "estrato_diseno") |> 
+  group_by(estrato_diseno) |> 
+  mutate(pi_pps = calcular_pi_pps(matricula, first(sedes_corregidas_n))) |> 
+  ungroup()
+
+# 4. Construcción de Matrices para el Algoritmo del Cubo (lcube)
+# Creamos la matriz de balanceo categórico y continuo
+X_balanceo = model.matrix(~ tipo_est_adulto + ambito + area + ivse - 1, 
+                          data = df_marco_seleccion)
+
+# Agregamos la probabilidad de inclusión como la primera columna para fijar el n muestral
+Xba_final = cbind(df_marco_seleccion$pi_pps, X_balanceo)
+
+# Matriz de Esparcimiento basada en la dispersión continua del IVT (IVSE estandarizado)
+Xsp_esparcimiento = as.matrix(df_marco_seleccion$ivse_std)
+
+# 5. Ejecución del Algoritmo del Cubo (lcube)
+set.seed(123) # Fijamos semilla para reproducibilidad
+
+# Seleccionamos la muestra física
+indices_muestra_cubo = lcube(
+  prob = df_marco_seleccion$pi_pps, 
+  Xba = Xba_final, 
+  Xsp = Xsp_esparcimiento
+)
+
+# Registramos la selección en nuestro dataset del marco
+df_marco_seleccion$seleccionada_primera_etapa = 0
+df_marco_seleccion$seleccionada_primera_etapa[indices_muestra_cubo] = 1
+
+# 6. Tabla resumen de las escuelas efectivamente seleccionadas en la muestra
+resumen_muestra_final = df_marco_seleccion |> 
+  filter(seleccionada_primera_etapa == 1) |> 
+  group_by(tipo_est_adulto, area) |> 
+  summarise(
+    Sedes_Seleccionadas = n(),
+    Matricula_Promedio = round(mean(matricula)),
+    IVSE_Promedio = round(mean(ivse, na.rm = TRUE), 2),
+    .groups = "drop"
+  )
+
+resumen_muestra_final |> 
+  gt() |> 
+  tab_header(
+    title = "Sedes Seleccionadas en la Primera Etapa (Muestra del Cubo)",
+    subtitle = "Consolidado por Tipo de Establecimiento y Área Geográfica"
+  ) |> 
+  cols_label(
+    tipo_est_adulto = "Tipo de Establecimiento",
+    area = "Área Geográfica",
+    Sedes_Seleccionadas = "Sedes en Muestra",
+    Matricula_Promedio = "Matrícula Promedio",
+    IVSE_Promedio = "IVT Promedio"
+  )
+```
+
+Este algoritmo garantiza que nuestra muestra no solo cumple perfectamente con el tamaño físico establecido tras las correcciones de población finita, sino que está excepcionalmente balanceada y bien esparcida a lo largo de toda la vulnerabilidad socioeducativa de la provincia.
+
+## Ponderadores
+
+El objetivo general de la creación de ponderadores es encontrar una lista de ponderadores que puedan ser utilizados virtualmente en todos los análisis para producir estimadores de la población objetivo del estudio [@valliant2018, pág. 322].
+
+Dentro de los ponderadores es útil distinguir entre 2 grandes tipos. Los **ponderadores** propiamente dichos y los **expansores**. Ambos se encargan de corregir sesgos (*bias*) para producir estimaciones insesgadas (*unbiased*). En otras palabras, los ponderadores tienen el objetivo de ayudar a construir buenos estimadores [@valliant2018, pág. 323]. Sin embargo, existe una diferencia fundamental entre ambos.
+
+```{r}
+#| eval: false
+n = nrow(muestra_azar_simple)
+N = nrow(base)
+
+muestra_azar_simple = muestra_azar_simple |>
+mutate(pw = N/n,
+       fpc = sqrt((N-n)/(N-1)))
+
+muestra_azar_simple_sv = muestra_azar_simple |>
+as_survey_design(ids = id,
+                 weights = pw,
+                 fpc = fpc)
+
+tbl_azar_simple = muestra_azar_simple_sv |>
+tbl_svysummary(
+include = c(matricula, secciones, sondeo_primero, sondeo_segundo, region, ambito),
+statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+               all_categorical() ~ "{p}% (n={n_unweighted})"),
+digits = list(all_continuous() ~ c(1),
+              all_categorical() ~ c(1,0))) |>
+add_ci()
+
+write_rds(tbl_azar_simple,
+          here("Outputs", "tbl_azar_simple.rds"))
+
+tbl_merge(
+  tbls = list(tbl_azar_simple, tbl_pob_param),
+  tab_spanner = c("**Azar simple**", "**Parámetro Pob.**")
+)
+```
+
+```{r}
+#| label: pps
+#| eval: false
+base_toy_pps = base_toy |>
+filter(!is.na(matricula)) |>
+arrange(desc(matricula))
+
+N = nrow(base_toy_pps)
+n = 300
+pi = inclusionprobabilities(base_toy_pps$matricula, n)
+
+set.seed(314)
+
+muestra_pps = UPrandompivotal(pik = pi) |>
+              as_tibble() |>
+rename(muestra_pps = value) |>
+bind_cols(base_toy_pps) |>
+bind_cols(as.data.frame(pi)) |>
+filter(muestra_pps > 0) |>
+mutate(fpc = sqrt((N-n)/(N-1)),
+       pi = pi,
+       pw = N/n)
+```
