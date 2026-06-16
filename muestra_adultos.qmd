@@ -1667,3 +1667,16 @@ comparativa_stats = bind_rows(
 comparativa_stats
    
 ```
+
+```{r}
+#| label: exportacion_muestra
+library(writexl)
+df_muestra = df_muestra_final |>
+select(codigo, censal, ivse_std, pi_corregido, nudge_multiplier, expansor_establecimiento, ponderador_establecimiento, muestra_adultos)
+
+muestra_DEJAyAM = df_universo |>
+left_join(df_muestra, by = "codigo")
+
+write_xlsx(muestra_DEJAyAM,
+           here("Inputs", "muestra_adultos", "muestra_DEJAyAM.xlsx"))
+```
