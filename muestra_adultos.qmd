@@ -421,7 +421,9 @@ facet_wrap(~ variable, scales = "free_x", ncol = 4) +
 theme_minimal() +
 labs(title = "Establecimientos",
 x = "Valor",
-y = "Frecuencia")   
+y = "Frecuencia")
+
+fig_explo_marco_establecimientos_i = ggplotly(fig_explo_marco_establecimientos)
 ```
 
 ```{r}
@@ -430,6 +432,11 @@ df_estudiantes = df_sampling_frame |>
 uncount(weights = matricula, 
         .remove = FALSE,
         .id = "id_estudiante_establecimiento")
+
+# Elimino las columnas matricula y secciones porque son engañosas a nivel de los estudiantes
+
+df_estudiantes = df_estudiantes |>
+select(-matricula, -secciones)
 
 N_estudiantes = nrow(df_estudiantes)
 
@@ -444,7 +451,7 @@ write_rds(df_estudiantes,
 
 df_estudiantes = read_rds(here("inputs", "df_estudiantes.rds"))
 tbl_explo_marco_estudiantes = df_estudiantes |> 
-  select(region, region_agrupada, ambito, area, nivel, tipo_est_adulto, matricula, secciones, estudiante_seccion, encierro, ivse) |> 
+  select(region, region_agrupada, ambito, area, nivel, tipo_est_adulto, estudiante_seccion, encierro, ivse) |> 
   tbl_summary(sort = all_categorical() ~ "frequency", 
   label = list(region = "Región", 
   region_agrupada = "Región Agrupada", 
@@ -452,8 +459,8 @@ tbl_explo_marco_estudiantes = df_estudiantes |>
   area = "Gran Área", 
   nivel = "Nivel", 
   encierro = "Condición de encierro", 
-  secciones = "Secciones", 
-  matricula = "Matrícula", 
+ # secciones = "Secciones", 
+ # matricula = "Matrícula", 
   tipo_est_adulto = "Tipo de establecimiento", 
   estudiante_seccion = "Estudiante por sección", 
   ivse = "IVSE"))
@@ -463,7 +470,7 @@ tbl_explo_marco_estudiantes = df_estudiantes |>
 #| label: fig_explo_marco_estudiantes
 # graficar con ggplot y ggplotly
 fig_explo_marco_estudiantes = df_estudiantes |>
-select(matricula, secciones, estudiante_seccion, ivse) |>
+select(estudiante_seccion, ivse) |>
 pivot_longer(cols = everything(), names_to = "variable", values_to = "valor") |>
 ggplot(aes(x = valor)) +
 geom_histogram(bins = 30, fill = "#69b3a2", color = "#e9ecef", alpha = 0.9) +
@@ -472,6 +479,8 @@ theme_minimal() +
 labs(title = "Estudiantes",
 x = "Valor",
 y = "Frecuencia")
+
+fig_explo_marco_estudiantes_i = ggplotly(fig_explo_marco_estudiantes)
 ```
 
 Como puede observarse en @tbl-comparacion, de las 25 regiones, algunas poseen menos del 1% de los estudiantes (p.e. 16, 17, 21, 23). Estas regiones son buenas candidatas para agruparse con otras regiones para facilitar la estimación en subpoblaciones espaciales. Eso es lo que se hace con la variable "Región agrupada" que logra el modesto avance de que las regiones más pequeñas en términos de estudiantes sean la 13 (1.4%) y la 20 (1.6%).
@@ -496,17 +505,19 @@ tbl_comparacion_establecimientos_estudiantes
 
 ```{r}
 #| label: fig-comparacion
-#| fig-cap: Comparación exploratorio del marco muestral. Nivel establecimieno y nivel estudiantes
+#| fig-cap: Comparación exploratorio del marco muestral. Nivel establecimiento (1 fila) y nivel estudiantes (2 fila)
+# Con subplot se puede hacer con plotly
+#fig_comparacion_establecimientos_estudiantes = fig_explo_marco_establecimientos / fig_explo_marco_estudiantes
+subplot(fig_explo_marco_establecimientos_i,
+        fig_explo_marco_estudiantes_i,
+       nrows = 2) |>
+layout(title = '')
 
-fig_comparacion_establecimientos_estudiantes = fig_explo_marco_establecimientos / fig_explo_marco_estudiantes
-
-fig_comparacion_establecimientos_estudiantes
 ```
 
 ```{r}
 #| label: fig-mapa_distritos
 #| fig-cap: Mapa según distrito. Color según matrícula.
-#| eval: !expr knitr::is_html_output()
 # Quiero realizar un mapa con tmap en version "view" con las coordenadas de los distritos (columan geom_depto) y la cantidad de estudiantes por distrito (matricula). Para esto, tengo que agrupar el dataframe por distrito y sumar la cantidad de estudiantes por distrito. Luego, tengo que unir el dataframe con el dataframe espacial de los distritos para poder graficar el mapa.
 tmap_mode("view")
 # Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df_estudiantes
@@ -543,7 +554,7 @@ fig_mapa_distritos
 ```{r}
 #| label: fig-mapa_regiones
 #| fig-cap: Mapa según regiones. Color según matrícula.
-#| eval: !expr knitr::is_html_output()
+## eval: !expr knitr::is_html_output()
 # Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df_estudiantes
 
 df_sf_regiones = read_rds(here("Inputs", "insumo_regiones.rds")) |>
@@ -801,9 +812,9 @@ Las variables que se han tenido en cuenta en los dominios de estimación son:\
 
 Se puede discutir, quizá de modo bizantino, si estas 4 "variables" son diferentes o algunas son agrupaciones (p.e Gran Área) de otra variable más desagregada (p.e. Regiones Agrupada) o si es mejor entender algunas de ellas (p.e. Condición de encierro) como una condición previa que, luego de cruzarlos con los diferentes tipos de organización (p.e. CENS o EPA), produce una nueva variable que se podría denominar "Tipo de establecimiento" (p.e. ECE-CENS o ECE-EPA).
 
-Con respecto a la relación entre "Gran Área" y "Regiones Agrupadas" nos inclinamos por afirmar que se tratan de dos variables jerárquicas porque "Gran Área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^muestra_adultos-1]
+Con respecto a la relación entre "Gran Área" y "Regiones Agrupadas" nos inclinamos por afirmar que se tratan de dos variables jerárquicas porque "Gran Área" se puede considerar como una mayor agregación de la propia agrupación de regiones. Claramente, más allá de su posible relación con un centro de decisión política/administrativa, ambas se relacionan con cuestiones espaciales y, por lo tanto, también pueden suponerse como una agrupación particular de las 25 regiones y estas, a su turno, como una agregación de los distritos. Esta situación jerárquica no es menor porque la variable distrito también se encuentra disponible en el marco muestral.[^1]
 
-[^muestra_adultos-1]: Cabe destacar que algunas construcciones de la variable "Gran Área" no son simplemente una agregación de regiones sino, más específicamente, solo una agregación de distritos. Por ejemplo, a veces se utiliza el criterio que algunos distritos de la Region 5 pertenecen a la categoría AMBA (p.e. Almirante Brown) y otros pertenecen a la categoria "Interior" (p.e. San Vicente). En este caso, como se trata de una agregación explícita de regiones, la variable "Gran Área" puede considerarse como una variable jerárquica de distrito y también de regiones.
+[^1]: Cabe destacar que algunas construcciones de la variable "Gran Área" no son simplemente una agregación de regiones sino, más específicamente, solo una agregación de distritos. Por ejemplo, a veces se utiliza el criterio que algunos distritos de la Region 5 pertenecen a la categoría AMBA (p.e. Almirante Brown) y otros pertenecen a la categoria "Interior" (p.e. San Vicente). En este caso, como se trata de una agregación explícita de regiones, la variable "Gran Área" puede considerarse como una variable jerárquica de distrito y también de regiones.
 
 La cuestión de la **jerarquía de las variables** es importante en el diseño muestral por lo siguiente. En principio, si se obtiene una muestra balanceada a nivel de los distritos, esta también, de forma necesaria, lo será a nivel de las regiones, de las regiones agrupadas y de las grandes áreas. El camino inverso es probable pero nada seguro. Una muestra balanceada a nivel de las grandes áreas tiene chances de serlo para niveles inferiores, pero no existe ninguna seguridad. Pongamos un ejemplo para que se entienda mejor el problema. Supongamos que priorizamos el objetivo de tener una buena estimación a nivel de Gran Área y establecimientos EPA. Podría ser el caso que casi todos los establecimientos seleccionados en la categoría "AMBA" caigan en el distrito de "La Matanza" lo que desbalancea la muestra a nivel región y distrito. Esto no implica que la estimación "Gran Área - EPA" tenga algún problema en particular, pero si implica que en el diseño de la muestra no se hace nada en particualr para evitar los desbalanceso a nivel de region y distrito. Por esta razón, la existencia de variables jerárquicas en los dominios de estimación permite, vía una estrategia "*botton-up*", una selección de establecimientos que, al tiempo que cumple los requisitos que exigen los dominios de estimación, también la hacen robusta a otros niveles y, de manera derivada, para responder otras preguntas de investigación diferentes a las originales.
 
@@ -899,49 +910,45 @@ Para cumplir con lo anterior, no parece haber muchas dudas de que es necesario l
 
 Por otro lado, dado que seguramente se querrán hacer afirmaciones tanto a nivel de los estudiantes como también, mediante alguna agregación de los resultados, a nivel de los establecimientos, parece conveniente utilizar un muestreo **PPS**. Este tipo de diseño es particularmente robusto cuando se piensa realizar inferencias a ambos niveles [@kish1965, cap. 7; @kish1965, pág. 422].
 
-Tampoco parece haber muchas dudas acerca de la relativa utilidad de evitar la proporcionalidad a ultranza. Esto parece claro dado que, como se observó en la sección @sec-adultos_dominios_estimacion, existen algunos dominios de estimación sumamente pequeños en la población. En esos casos parece razonable la realización de un cuasi censo de sus establecimientos y/o estudiantes según el caso.
+Tampoco parece haber muchas dudas acerca de la relativa utilidad de evitar la proporcionalidad a ultranza. Esto parece claro dado que, como se observó en la sección @sec-adultos_dominios_estimacion, existen algunos dominios de estimación sumamente pequeños en la población. En esos casos parece razonable la realización de un cuasi censo de algunos tipos de establecimientos y/o estudiantes según el caso y de no respetar una proporcionalidad exacta para el resto.
 
-Las dudas comienzan a aprecer en otros aspectos del diseño muestral. Por ejemplo:
+Sin embargo, las dudas comienzan a aprecer en otros aspectos del diseño muestral. Por ejemplo:
 
-- ¿Cuánto se prioriza la precisión de los estimadores univariados (p.e. Region) y cuanto la precisión de los dominios de estimación explicitados con todos son cruces de variables (p.e. Región y Tipo de establecimiento)? A igual cantidad de casos totales, un diseño que prioriza la precisión los dominios de estimación pequeños (p.e. *power allocation* [@bankier1988]) reduce la precisión de los estimadores totales porque aumenta la variabildad de los ponderadores. En cambio, si se valoran más los estimadores univaridos, existen diseños que lo logran a cambio de no necesariamente aumentar la cantidad de casos en los dominios más pequeños (p.e. a la Neyman [@neyman1934])
+- ¿Cuánto se prioriza la precisión de los estimadores totales (p.e. media provincial del IVSE) y cuanto la precisión de los dominios de estimación explicitados con todos son cruces de variables (p.e. Región y Tipo de establecimiento)? A igual cantidad de casos totales, un diseño que prioriza la precisión los dominios de estimación pequeños (p.e. *power allocation* [@bankier1988]) reduce la precisión de los estimadores totales porque aumenta la variabilidad de los ponderadores. En cambio, si se valoran más los estimadores totales, existen diseños que lo logran a cambio de no necesariamente aumentar la cantidad de casos en los dominios más pequeños (p.e. a la Neyman [@neyman1934]). En palabras de Kish:
 
-- En palabra de Kish "Antes de decidir sobre un muestreo desproporcionado, deberíamos al menos
+  > "Un muestreo proporcional es usualmente preferido para las medias generales...cuando los tamaños de los dominios $N_h$ son aproximadamente iguales, no existe conflicto entre los objetivos de diseñar para la población y para los dominios" [@kish1965, pág.97]
 
-- ¿Cuántos establecimientos seleccionar y cuantos estudiantes por cada establecimiento? A igualdad de condiciones es claro que, por ejemplo, para una muestra de 10.000 estudiantes no es lo mismo seleccionar a 5 estudiantes de 2000 establecimientos que 10 de 1000, 15 de 666 o 20 de 500. Sin embargo, la influencia de la varianza intercluster es diferente según el diseño que se seleccione. Por otro lado, dado que se trata de una población de algo más de 3000 establecimientos el impacto del fpc (*finite population correction*) en la primera etapa cambia fuertemente en función de que se elijan 500, 1000 o 2000 establecimientos.
+  Un consejo que señala Kish para aminorar este problema es rectificar los dominios en tamaños aproximadamente similares. Esto es lo que precisamente parece haber hecho la Secretaría de Planeamiento previamente al trabajar con regiones agrupadas o, en su defecto, con grandes áreas. Sin embargo, el problema está lejos de resolverse porque las regiones agrupadas siguen siendo muchas y la proporción de los tipos de establecimeintos también están lejos de ser similares en tamaños.
 
-- ¿Se tiene que seleccionar una cantidad fija de estudiantes para todos los establecimientos seleccionados en la primera etapa? Es claro que si nos alejamos de una misma cantidad de estudiantes por establecimiento seleccionado nos alejamos de unos de los beneficios de un muestreo PPS que es la posibilidad de una muestra autoponderada. Dado que algunos dominios de estimación implican un tratamiento censal, es claro que de todas formas para el momento de los análisis se iban a utilizar algunos ponderadores (como algo diferente a los expansores). La duda es ¿Cuánto usar este tipo de mecanismos en las demás situaciones en donde se pensaba hacer una muestra (más que un censo)?
+- ¿Cuántos establecimientos seleccionar y cuantos estudiantes por cada establecimiento? A igualdad de condiciones es claro que, por ejemplo, para una muestra de 10.000 estudiantes no es lo mismo seleccionar a 5 estudiantes de 2000 establecimientos que 10 de 1000, 15 de 666 o 20 de 500. En cada situación de las anteriores, aun sin haberse medido de forma empírica, se puede anticipar que la influencia de la varianza intercluster ($R_{ho}$) será diferente. Por otro lado, dado que se trata de una población de algo más de 3000 establecimientos el impacto del $fpc$ (*finite population correction*) en la primera etapa cambia fuertemente en función de que se elijan 500, 1000 o 2000 establecimientos.
 
-- Por último, entre las especificaciones se indicaba que se debía hacer un muestreo sistemático luego de haber ordenado por la variable IVSE. Claramente, esto parece más un consejo de medios más que de fines, pero invita a pensar el porqué de esa decisión y esto, a su turno, puede aydar a entender algún fin latente. Esta estrategia suele denominarise "estratificación implícita", ya que esa ordenación con la selección posterior sistemática es una manera simple de generar "estratos" como resultado partiendo, o al menos usando en algún momento de su construcción, una variable continua [@cochran1977, pág. 205; @valliant2018, pág. 63].
+- ¿Se tiene que seleccionar una cantidad fija de estudiantes para todos los establecimientos seleccionados en la primera etapa? Si nos alejamos de una misma cantidad de estudiantes por establecimiento seleccionado nos alejamos de unos de los beneficios más preciados de un muestreo PPS que es la posibilidad de una muestra autoponderada y su robustez para hacer inferencias al nivel de los establecimientos y al nivel de los estudiantes. Dado que algunos dominios de estimación ya implican, sin mucha duda, un tratamiento casi censal, es claro que de todas formas para el momento de los análisis se iban a utilizar algunos ponderadores (como algo diferente a los expansores). La duda es ¿Cuánto usar este tipo de mecanismos en las demás situaciones en donde se pensaba hacer una muestra (más que un censo)?. Se aclara que, si los establecimientos se consideran las unidades primarias de selección, seleccionar $x$ cantidad de estudiantes en todas las secciones de los establecimientos seleccionados rompe automáticamente la autoponderación del PPS.
 
-> –"Antes de decidirnos por un muestreo desproporcionado, deberíamos hacer al menos una estimación aproximada de las varianzas de todos los elementos importantes, o de un subconjunto bien seleccionado. Si las diferentes respuestas apuntan al mismo diseño, no hay mayor problema. Pero si las respuestas son contradictorias, la elección requiere buen criterio y conocimientos teóricos que van más allá de este libro y, en gran medida, de los desarrollos teóricos existentes. Al decidir entre ellos, debemos tener en cuenta no solo la importancia relativa del elemento, sino también la importancia relativa de sus varianzas bajo diferentes diseños" [@kish1965, pág. 97] .
+- Por último, entre las especificaciones se indicaba que se debía hacer un muestreo sistemático luego de haber ordenado por la variable IVSE. Esto parece más un consejo de medios más que de fines, pero invita a pensar el porqué de esa decisión y esto, a su turno, puede ayudar a entender algún fin latente no explicitado. Dentro de la bibliografía, esta estrategia suele denominarise "estratificación implícita", ya que esa ordenación previa con la respectiva selección posterior sistemática es una manera simple de generar "estratos" como resultado, usando información contenida en una variable continua [@cochran1977, pág. 205; @valliant2018, pág. 63]. Creemos que existen en la actualidad medios más explícitos y eficientes para incorporar información cuantitativa en el diseño con el fin de aumentar la precisión de las estimaciones que es uno de los objetivos típicos de la estratificación.
 
-Dada una respuesta clara para las preguntas anteriores, no suele ser un mayor problema a CUALES establecimientos se debe selecionar. Sin embargo, es difícil anticipar una rápida respuesta a estas preguntas porque los niveles de precision finalmente alcanzados por la muestra varían en función de la *efectiva* varianza entre los establecimientos. Aclaramos lo de *efectiva* porque y eso implica no usar un cálculo *DEFF,* sino más bien simular muestras específicas sintéticas. Que se prefiera de forma sinere una muestra de 1000 establecimientos y 5 estudiantes por cada uno o si prefiere una de 5000 establecimientos y 10 estudiantes por cada uno u otra de 1000 estudiantes y 10 estudiantes por cada uno.
+Dada una respuesta clara para las preguntas anteriores, no suele ser un mayor problema a cuales establecimientos se debe selecionar. Sin embargo, es difícil anticipar una rápida respuesta a estas preguntas porque los niveles de precision finalmente alcanzados por las diferentes alternativas varían, entre otros factores, por la *efectiva* varianza entre los establecimientos ($R_{ho}$) y por el efecto $fpc$. Esto, a su turno, modifican las precisiones de las estimaciones para un tamaño dado o, de manera alternativa, modifica los tamaños necesarios para así alcanzar la precisión deseada. Esta tensión se ve claramente ejemplificada en la siguiente afirmación de Kish:
 
-Hay diferentes medios disponibles. Si se enfatiza en maximizar los variados dominios de estimación provistos se resienteen los totales. En general cuanta mayor dispersión existe entre los ponderadores menor seguridad en las estiamcion de los totales.
+> "Antes de decidirnos por un muestreo desproporcionado, deberíamos hacer al menos una estimación aproximada de las varianzas de todos los elementos importantes, o de un subconjunto bien seleccionado. Si las diferentes respuestas apuntan al mismo diseño, no hay mayor problema. Pero si las respuestas son contradictorias, la elección requiere buen criterio y conocimientos teóricos que van más allá de este libro y, en gran medida, de los desarrollos teóricos existentes. Al decidir entre ellos, debemos tener en cuenta no solo la importancia relativa del elemento, sino también la importancia relativa de sus varianzas bajo diferentes diseños" [@kish1965, pág. 97].
 
-Los estudiantes pueden pertenecer a los siguientes **tipos de establecimientos**:
+Por estas razones, a las siguientes secciones vamos a realizar algunas simulaciones con el objetivo de poder decidir que diseño muestral es más idóneo para nuestro objetivo. Lamentablemente, al carecer de un marco muestral de estudiantes y no tener muy claro el objetivo sustantivo de la investigación, es difícil estimar algún componente de la varianza dentro de cada establecimiento. Sin embargo, sí será posible, con el marco muestral a nivel de los establecimientos, calcular la varianza para cada dominio de estimación. Dentro de las limitaciones/posibilidades de los datos disponibles surgue un candidato como es el IVSE. El mismo sintetiza una serie de dimensiones sociales, está expresado de manera continua y no está presente en la definición de los dominios. En otras palabras, esperamos que este indicador nos ayude a decidir que diseño muestral realizar. La otra operación complementaria que vamos a realizar para facilitar la comparación de las simulaciones es trabajar con coeficientes de variación (CV) en vez de los márgenes de error (MOE).
 
-- Nivel Primario. Se incluyen solo a los EPA. Se excluyen a los centros de alfabetización y a los CEPA.
+### Traducción de Margen de Error (MOE) a Coeficiente de Variación (CV)
 
-- Nivel Secundario de oferta institucional. Estos pueden ser CENS o SEBAS.
+El tamaño de una muestra no suele ser algo fácil de responder en un diseño con múltiples objetivos y estimadores [@valliant2018, pág. 26]. Una situación similar es cuando no se sabe bien para qué finalmente se va a usar la muestra, pero no se duda que diferentes investigadores van a intentar contestar diversas preguntas de investigación con ella. Esto último es una de las razones por las cuales muchas veces es preferible expresar los objetivos estadísticos en términos de un coeficiente de variación ($CV$). Este es adimensional (no posee unidades) y puede usarse para comparar la relativa precisión de las estimaciones de diferentes tipos de cantidades o variables [@valliant2018, pág. 27]. En otras palabras, nos permite comparar la precisión de las categorías de las variables discretas (como las categorías de género) con variables cuantitativas continuas (como la media de edad).
 
-- Nivel Secundario por fuera de la oferta institucional. Son los establecimientos FINES.
+Las principales agencias oficiales de estadística (como el INDEC en Argentina, INEGI en México o Eurostat) suelen evaluar la calidad y la factibilidad de publicación de sus estimaciones a partir de los límites de sus $CV$: un $CV \le 10\%$ se cataloga como una estimación de excelente precisión, mientras que estimaciones con un $CV > 20\%$ se consideran no publicables por su alta variabilidad. Más allá de lo estipulado convencionalmente aquí se va a intentar traducir los niveles de precisión expresados en $MOE$ a $CV$.
 
-El tamaño de una muestra no suele ser algo fácil de responder en un diseño con múltiples objetivos y estimadores [@valliant2018, pág. 26]. Una situación similar es cuando no se sabe bien para qué finalmente se va a usar la muestra, pero no se duda que diferentes investigadores van a intentar contestar diversas preguntas de investigación con ella. Esto último es una de las razones por las cuales muchas veces es preferible expresar los objetivos estadísticos en términos de un coeficiente de variación (*CV*). Este es adimensional (no posee unidades) y puede usarse para comparar la relativa precisión de las estimaciones de diferentes tipos de cantidades o variables [@valliant2018, pág. 27]. En otras palabras, nos permite comparar la precisión de las categorías de las variables discretas (como las categorías de género) con variables cuantitativas continuas (como la edad promedio).
+Muchas veces suele solicitarse un determinado **Margen de Error absoluto** ($MdE$), asumiendo un escenario de máxima varianza para una proporción teórica ($p = 50\%$). Sin embargo, en comparación con el CV presenta **el peligro del error absoluto en proporciones pequeñas.** Si fijamos un margen de error absoluto del $3\%$ (0,03) para medir un fenómeno de alta prevalencia en torno al $50\%$, el intervalo resultante ($47\% - 53\%$) es sumamente preciso. Pero si queremos estimar un fenómeno de baja prevalencia (por ejemplo, estudiantes de la modalidad con alguna condición socioeducativa o de salud particular que represente un $5\%$), un margen absoluto del $3\%$ nos daría un intervalo de estimación de $[2\%, 8\%]$. En esos casos, el **error relativo** aumenta a niveles que suele afectar severamente la utilidad de esas estimaciones y esto es algo que suele visibilizar el CV. Al fijar un objetivo de $CV$, el error estándar se evalúa siempre en términos relativos ($CV = SE(\hat{p}) / p$), lo que permite comunicar la calidad y precisión de la estimación sea robusta tanto para proporciones mayoritarias como para minoritarias.
 
-Las principales agencias oficiales de estadística (como el INDEC en Argentina, INEGI en México o Eurostat) suelen evaluar la calidad y la factibilidad de publicación de sus estimaciones a partir de los límites de sus $CV$: un $CV \le 10\%$ se cataloga como una estimación de excelente precisión, mientras que estimaciones con un $CV > 20\%$ se consideran no publicables por su alta variabilidad.
+Cabe recordar algo trivial que a veces pasa desapercibido. Cuando se especifica $P = 0.5$ se está pensando en algo más especiífico que una simple variable categórica o discreta. En efecto, a nivel de variables sería una variable binomial con solo dos valores: 1 y 0. A nivel de la categoría se trata de la vieja noción de atributo que se tiene o no se tiene. Las proporciones son las medias de los binomios [@kish1965, pág. 45]. Una de las razones del uso extendido del $P = 0.5$ es que permite capturar el caso de mayor heterogeneidad de una manera sencilla. En cambio, cuando se trata de una variable continua, no hay tal convención acerca de como representar esa máxima hetereogeneidad.
 
-Muchas veces suele solicitarse un determinado **Margen de Error absoluto** ($MdE$), asumiendo un escenario de máxima varianza para una proporción teórica ($p = 50\%$). Sin embargo, en comparación con el CV presenta **el peligro del error absoluto en proporciones pequeñas.** Si fijamos un margen de error absoluto del $3\%$ (0,03) para medir un fenómeno de alta prevalencia en torno al $50\%$, el intervalo resultante ($47\% - 53\%$) es sumamente preciso. Pero si queremos estimar un fenómeno de baja prevalencia (por ejemplo, estudiantes de la modalidad con alguna condición socioeducativa o de salud particular que represente un $5\%$), un margen absoluto del $3\%$ nos daría un intervalo de estimación de $[2\%, 8\%]$. En esos casos, el **error relativo** aumenta a niveles que suele afectar severamente la utilidad de esas estimaciones. Al fijar un objetivo de $CV$, el error estándar se evalúa siempre en términos relativos ($CV = SE(\hat{p}) / p$), lo que garantiza que la calidad y precisión de la estimación sea robusta tanto para proporciones mayoritarias como para minoritarias.
+Para ser consistente con el pedido de precisión original (Nivel de confianza del $90\%$, $p=50\%$ y márgenes de error de $3\%$, $4\%$ y $5\%$) podemos establecer la siguiente equivalencia teórica.
 
-### Traducción de Margen de Error a Coeficiente de Variación
-
-Para ser consistente tanto con el pedido de precisión original (Nivel de confianza del $90\%$, $p=50\%$ y márgenes de error de $3\%$, $4\%$ y $5\%$) como con el supuesto de la superioridad de los CV, podemos establecer la siguiente equivalencia teórica.
-
-El margen de error absoluto se relaciona con el error estándar de la siguiente manera:
+El margen de error absoluto ($MOE$) se relaciona con el error estándar ($e$) de la siguiente manera:
 
 $MOE = e = z_{1-\alpha/2} \cdot SE(\hat{p})$
 
-y, por otro lado, el CV es:
+y, por otro lado, el $CV$ es:
 
 $CV = \frac{SE}{Media}$
 
@@ -950,7 +957,7 @@ bajo un diseño de máxima varianza donde $p = 0,5$ y un nivel de confianza del 
 $$CV(\hat{p}) = \frac{SE(\hat{p})}{p} = \frac{MOE}{p \cdot z_{1-\alpha/2}} = \frac{MOE}{0,5 \cdot 1,645} \approx \frac{MOE}{0,8225}$$ {#eq-margen-cv}
 
 ```{r}
-#| label: traduccion_mde_a_cv
+#| label: traduccion_moe_a_cv
 
 # Definimos los parámetros teóricos del diseño
 #para un nivel de confianza del 90% bilateral, qnorm(0.95) es el cálculo matemáticamente correcto en R para obtener el valor crítico de 1,645.
@@ -968,18 +975,17 @@ convertir_moe_a_cv = function(moe,
 }
 
 # Calculamos los coeficientes de variación objetivo para cada nivel de precisión
-cv_o_te_area = convertir_moe_a_cv(moe = 0.03)    # Para EPA y CENS (3% MdE)
-cv_o_te_region_agrupada = convertir_moe_a_cv(moe = 0.04)  # Para FINES grupo de regiones (4% MdE) 
-cv_o_te_region = convertir_moe_a_cv(moe = 0.05)   # Para FINES con regiones individual (5% MdE)
+cv_o_te_area = convertir_moe_a_cv(moe = 0.03)    # Para EPA y CENS (3% MOE)
+cv_o_te_region_agrupada = convertir_moe_a_cv(moe = 0.05)  # Para FINES grupo de regiones (5% MOE) 
+#cv_o_te_region = convertir_moe_a_cv(moe = 0.05)   # Para FINES con regiones individual (5% MOE)
 
 
 # Presentamos los resultados formateados
 resultados_precision = tibble(
-  Objetivo = c("TE/Área", "TE/Región", "TE/Región agrup."),
-  MOE_Original = c("3.0%", "4.0%", "5.0%"),
+  Objetivo = c("Gran Área", "Región Agrup."),
+  MOE_Original = c("3.0%", "5.0%"),
   CV_Objetivo = c(cv_o_te_area, 
-                  cv_o_te_region_agrupada,
-                  cv_o_te_region)
+                  cv_o_te_region_agrupada)
 ) |> 
   mutate(CV_Objetivo_Pct = paste0(round(CV_Objetivo * 100, 2), "%"))
 
@@ -1003,60 +1009,58 @@ tbl_traduccion_moe_cv = resultados_precision |>
 tbl_traduccion_moe_cv
 ```
 
-### Cálculo del DEFF y del ESS
+### Cálculo del $Deff$ y del $Ess$
 
-La existencia de *clusters* o conglomerados espaciales permite reducir los costos logísticos tanto en términos de transporte (especialmente en diseños presenciales) y reduce el costo de elaborar listas de direcciones/contactos de las unidades de selección finales (especialmente en diseños polietápicos). Mediante la combinación de ambos mecansmos, se reduce el costo unitario de realizar encuestas. A cambio, suele generar mayores varianzas para un tamaño de muestra determinado en comparación con una muestra de azar simple [@valliant2018, pág. 4].
+Hecha las traducciones anteriores ahora vamos a pasar a estimar diferentes escenarios y su impacto en el $Deff$ (*design effect*) y en el $Ess$ (*effective size sample*)*.* Estas son dos medidas sencillas, pero extremadamente útiles para expresar el efecto de usar *clusters* o conglomerados en las estimaciones de la encuesta [@kish1965]. La existencia de *clusters* o conglomerados espaciales permite reducir los costos logísticos tanto en términos de transporte (especialmente en diseños presenciales) y reduce el costo de elaborar listas de direcciones/contactos de las unidades de selección finales (especialmente en diseños polietápicos). Mediante la combinación de ambos mecanismos, se reduce el costo unitario de realizar encuestas. A cambio, suele generar mayores varianzas para un tamaño de muestra determinado en comparación con una muestra de azar simple [@valliant2018, pág. 4].
 
-Dos medidas sencillas, pero extremadamente útiles para expresar el efecto de usar *clusters* o conglomerados en las estimaciones de la encuesta, son el **efecto del diseño** (*deff o design effect*) y el **tamaño efectivo de la muestra** (*ess o effective size sample*) [@kish1965].
+Con base en la estrategia anterior de convertir los márgenes de error ($MOE$) en coeficientes de variación ($CV$), ahora vamos a pasar a modelar el $Deff$ a partir de diferentes supuestos y escenarios. Si bien se hará un esfuerzo por utilizar información del marco muestral (p.e. IVSE), cabe recordar que el $Deff$ real solo podrá ser calculado al final de la investigación. Su cálculo tiene la función instrumental de ayudar a decidir el diseño muestral *ex-ante* salida a campo [@kish1965, pág. 258]. Zipf y Valliant afirman que se trata de un atajo (*shorcut*) [@zipf]. La razón es que el $Deff$ es **específico para cada estimador** que se quiera calcular por lo que, salvo que se quiera realizar un diseño complejo para estimar una sola variable del cual ya se sabe con certeza su varianza, desde un punto de vista estrictamente estadístico, solo de manera *ex-post* a la salida a campo se deberían calcular un $Deff$ para cada estimación. Cuando decimos específico queremos decir que su valor es variable para diferentes estimadores dentro de un mismo diseño muestral. Esto último puede parecer algo no muy intuitivo dado que rara vez se publica esta información.
 
-Con base en la estrategia anterior de convertir los márgenes de error (*MdE*) en coeficientes de variación (*CV*), ahora vamos a pasar a modelar el efecto del diseño ($DEFF$) a partir de diferentes supuestos y escenarios. Esto tendrá una función más pedagógica que instrumental en el diseño de la muestra. La razón es que el $DEFF$ es **específico para cada estimador** que se quiera calcular por lo que, salvo que se quiera realizar un diseño complejo para estimar una sola variable, desde un punto de vista estrictamente estadístico, se deberían calcular un $DEFF$ para cada estimación. Cuando decimos específico queremos decir que su valor es variable para diferentes estimadores dentro de un mismo diseño muestral. En este caso, podría haber un *DEFF* para la matrícula y un DEFF diferente para el índice de vulnerabilidad territorial. Otro punto negativo del *DEFF* es que no siempre es relevante en muestras en donde las varianzas difieren a través de los estratos, en donde los subgrupos son seleccionados intencionalmente a diferentes porcentajes o donde diferentes subgrupos poseen diferentes tasas de respuesta [@zipf].
+En este contexto, es pertinenente recordar que el $Deff$ posee algunas limitaciones. Si se calcula un $Deff$ general para toda la muestra este puede ser algo diferentes en los casos en donde las varianzas difieren a través de los estratos, o en donde los subgrupos son seleccionados intencionalmente a diferentes porcentajes o donde diferentes subgrupos poseen diferentes tasas de respuesta. Hechas estas aclaraciones sobre el $Deff$, cable aclarar que se trata de un concepto muy intuitivo para captar que se pierde y que se gana con un diseño polietápido (versus un aleatorio simple), pero también sirve para comparar entre diferentes diseños polietápicos alternativos. Gracias a él, se entiende cuanto se gana en la **estratificación** cuando los elementos de cada estrato son homogéneos dentro de cada estrato, pero diferentes entre estratos [@kish1965, pág. 76]. Del mismo modo, también es intuitivo para comprender que a mayor homogeneidad dentro de un **cluster o conglomerado** mayor aumento del $Deff$ dado que los casos llegan a su saturación teórica más rápidamente. En otras palabras, se llega más rápido a la situación en donde cada nuevo caso marginal aporta información cada menos nueva y cada vez más redundante. Por esta razón, si se asume que los *cluster* son muy homogéneos en su interior, no es buena idea seleccionar muchos casos en cada uno de ellos, porque rápidamente parte de ellos se repetiran y comenzaran a aportar información redundante. De la misma manera, en una muestra polietápica por timbreo, y a igualdad de cantidad de casos totales, la precisión de las estimaciones mejora si se usan más puntos muestras y se encuestan menos personas en cada uno de ellos.
 
-Dicho estos puntos negativos sobre el *DEFF*, cable aclarar que se trata de un concepto muy intuitivo para captar que se pierde y que se gana con un diseño polietápido (versus un aleatorio simple), pero también sirve para comparar entre diferentes diseños polietápicos. Gracias a él, se entiende cuanto se gana en la **estratificación** cuando los elementos de cada estrato son homogéneos dentro de cada estrato, pero diferente entre estratos [@kish1965, pág. 76]. Del mismo modo, también es intuitivo para comprender que a mayor homogeneidad dentro de un **cluster o conglomerado** mayor aumento del *DEFF* dado que los casos llegan a su saturación teórica más rápidamente. En otras palabras, se llega más rápido a la situación en donde cada nuevo caso marginal aporta información cada menos nueva y cada vez más redundante. Por esta razón, si se asume que los *cluster* son muy homogéneos en su interior, no es buena idea seleccionar muchos casos en cada uno de ellos, porque rápidamente parte de ellos se repetiran y comenzaran a aportar información redundante. De la misma manera, en una muestra polietápica por timbreo, y a igualdad de cantidad de casos totales, la precisión de las estimaciones mejora si se usan más puntos muestras con menos personas en cada uno de ellos.
+Expresado de modo alternativo, el $Deff$ permite comprender los pros y contras de jugar el juego de cuantos casos más baratos (por estar más juntos espacialmente) estoy dispuesto a agregar para compensar, casi con seguridad, su peor eficiencia estadística (por ser más homogéneos entre sí). Lo anterior se complementa con cuanto se mejora por la estratificación. En este contexto, el $Deff$ permite optimizar el tipo de diseño polietápico a seguir.
 
-Expresado de modo alternativo, el *DEFF* permite comprender los pros y contras de jugar el juego de cuantos casos más baratos (por estar más juntos espacialmente) estoy dispuesto a agregar para compensar, casi con seguridad, su peor eficiencia estadística (por ser más homogéneos entre sí). Lo anterior se complementa con cuanto se mejora por la estratificación. En este contexto, el *DEFF* permite optimizar el tipo de diseño polietápico a seguir.
+La definición típica del $Deff$ es que el mismo es la razón de la varianza de un estimador en una muestra compleja sobre la varianza de ese mismo estimador en una muestra de muestreo simple [@kish1965, pág. 75]. Una vez calculado el $Deff$, es posible calcular el $Ess$. Este último significa a cuántas personas de un muestreo aleatorio simple (perfecto e ideal) equivale realmente la muestra actual realizada con un diseño complejo. Este es útil, entre otras razones y especialmente en la década del 60', porque los cálculos necesarios para una muestra aleatoria simple son relativamente más fáciles de construir que los de una muestra compleja.
 
-La definición típica del *DEFF*, debido a su creador Leslie Kish, es que el mismo es la razón de la varianza de un estimador en una muestra compleja sobre la varianza de ese mismo estimador en una muestra de muestreo simple [@kish1965, pág. 75]. Una vez calculado el DEFF, es posible calcular el ESS. Este significa a cuántas personas de un muestreo aleatorio simple (perfecto e ideal) equivale realmente tu muestra actual realizada con un diseño complejo. Este es útil, entre otras razones, porque los cálculos necesarios para una muestra aleatoria simple son relativamente fáciles de construir.
+### El Efecto del Diseño ($Deff$) y la Correlación Intracluster ($\rho$)
 
-### El Efecto del Diseño (*deff*) y la Correlación Intracluster ($\rho$)
-
-Como se ha analizado en la sección anterior, si los *clusters* (acá establecimientos) son muy homogéneos en su interior, no tiene sentido seleccionar muchos estudiantes por establecimiento porque nos aportarán información redundante. Esta homogeneidad interna se modela formalmente mediante la **Correlación Intracluster** ($\rho$ o *ICC*) [@lumley2010, pág. 51]:
+Como se ha analizado en la sección anterior, si los *clusters* (acá establecimientos) son muy homogéneos en su interior, no tiene sentido seleccionar muchos estudiantes por establecimiento porque estos nos aportarán información redundante. Esta homogeneidad interna se modela formalmente mediante la **Correlación Intracluster** ($\rho$ o *ICC*) [@lumley2010, pág. 51]:
 
 - **Si** $\rho = 0$: Los estudiantes dentro de una misma escuela son tan heterogéneos como si los hubiéramos seleccionado al azar en toda la provincia. No hay "efecto de pertenencia escolar". Cada encuesta adicional nos aporta mucha información nueva.
 - **Si** $\rho = 1$: Todos los estudiantes de una escuela son idénticos. Ir a encuestar al segundo, tercero o quinto estudiante de la misma escuela no nos aporta nada de información nueva.
 
 En encuestas socioeducativas de perfil estudiantil en América Latina, el valor empírico de $\rho$ suele oscilar entre $0,02$ y $0,10$ [@valliant2018, pág. 247; @grosh1996, pág. 58-59]. Para nuestro diseño, utilizaremos un valor de $\rho = 0,1$, el cual representa una hipótesis conservadora, pero sumamente realista que nos protege de subestimar el error muestral.
 
-Para estimar formalmente este incremento en la varianza (el $deff$), utilizamos la ecuación clásica de Kish:
+Para estimar formalmente este incremento en la varianza del $Deff$, utilizamos la ecuación clásica de Kish [@kish1965, pág. 266]:
 
-$$deff = 1 + (b - 1) \rho$$
+$$deff = 1 + (b - 1) \rho$$ {#eq-deff_rho}
 
-Donde $b$ representa el tamaño del cluster. En este caso sería la cantidad de estudiantes seleccionados por escuela.
+Donde $b$ representa el tamaño del cluster. En este caso sería la cantidad de estudiantes seleccionados por escuela. Una opción que se puede tener en cuenta a la hora de indagar la diferencia intracluster es el valor del IVSE de cada establecimiento. Como cada establecimiento tiene un valor sería posible calcular esa diferencia intracluster con esa variable.
 
-### Rediseño de la segunda etapa para garantizar la autoponderación y reducir el *DEFF*
+### Rediseño de la segunda etapa para reducir el *DEFF*
 
-El requerimiento sugería relevar **todas las secciones** de cada escuela seleccionada. A pesar de que en este tipo de establecimientos parece haber pocos con muchas secciones (@fig-comparacion), esto puede generar que el número de estudiantes encuestados por escuela variara drásticamente. Esto tendría el efecto de afectar la preciada **autoponderación** de una muestra PPS, creando la necesidad tanto de construir ponderadores como de utilizarlos al momento del análisis. Por otro lado, incrementaría el tamaño medio de los estudiantes por cada cluster/establecimiento aumentado el parámetro ($b$) y, de ese modo, también aumentando el $deff$ y requiriendo un tamaño de muestra total mayor.
+El pedido original sugería relevar **todas las secciones** de cada escuela seleccionada. A pesar de que en este tipo de establecimientos de educación adulta parece haber pocos establecimientos con muchas secciones (@fig-comparacion), esto puede generar que el número de estudiantes encuestados por escuela variara drásticamente. Esto tendría el efecto de afectar la preciada **autoponderación** de una muestra PPS, creando la necesidad tanto de construir ponderadores como de utilizarlos al momento del análisis. Por otro lado, esto incrementaría el tamaño medio de los estudiantes por cada cluster/establecimiento aumentado el parámetro ($b$) y, de ese modo, también aumentando el $deff$ y requiriendo un tamaño de muestra total mayor (@eq-deff_rho).
 
 Para solucionar esto, se propone rediseñar la segunda etapa del muestreo de la siguiente manera:
 
-1\. En cada escuela seleccionada en la primera etapa, **se sortea de manera estrictamente aleatoria una única (1) sección** (con probabilidad $1 / B_i$, donde $B_i$ es la cantidad de secciones de la sede $i$).
+1\. En cada escuela seleccionada en la primera etapa, **se sortea, en primera instancia, una (1) sección** (con probabilidad $1 / B_i$, donde $B_i$ es la cantidad de secciones de la sede $i$.
 
-2\. Dentro de esa sección sorteada, **se seleccionan exactamente 5 estudiantes** ($b = 5$).
+2\. Dentro de esa sección sorteada, **se seleccionan exactamente 7 estudiantes** ($b = 7$). En algunos establecimientos se especificará que serán los primeros y en otros los últimos. En caso de que el tamaño de la sección sea igual o menor a 7 puede que se seleccione a todos los miembros de la sección y luego se complete los casos restantes con miembros de otra sección.
 
-Al mantener el tamaño de cluster fijo y constante en $b = 5$ estudiantes para todas las escuelas, se logran dos ventajas metodológicas:
+Al mantener el tamaño de cluster fijo y constante en $b = 7$ estudiantes para todas las escuelas, se logran dos ventajas metodológicas:
 
-- Se **garantiza una muestra estrictamente autoponderada.** La razón es queal multiplicar la probabilidad de la primera etapa (PPS proporcional a la matrícula) con el sorteo de una sección en la segunda etapa ($1/B_i$), la probabilidad final de selección del estudiante se vuelve constante. Podremos analizar los datos directamente sin necesidad de ponderadores complejos.
+- Se evita aumentar la dispersión de los ponderadores
 
-- **Minimizamos el Efecto del Diseño:** Al reducir el cluster a solo 5 alumnos, el $deff$ se reduce drásticamente: $$deff = 1 + (5 - 1) \cdot 0,1 = 1 + 4 \cdot 0,1 = 1,4$$
+- **Minimizamos el Efecto del Diseño:** Al reducir el cluster a solo 7 alumnos, el $deff$ se reduce drásticamente: $$deff = 1 + (7 - 1) \cdot 0,1 = 1 + 6 \cdot 0,1 = 1,6$$
 
-Un $deff$ de $1,4$ significa que se necesitan un $40\%$ más de casos que un muestreo aleatorio simple, reduciendo el tamaño de muestra total necesario en campo en comparación con el supuesto inicial de $deff = 2,0$.
+Un $deff$ de 1,6 significa que se necesitan un $60\%$ más de casos que un muestreo aleatorio simple, reduciendo el tamaño de muestra total necesario en campo en comparación con el supuesto inicial de $deff = 2,0$.
 
 ### Simulación del impacto de la Correlación Intracluster ($\rho$) y el tamaño del cluster ($b$)
 
-Para comprender de manera intuitiva y didáctica cómo interactúan el tamaño del cluster por escuela ($b$) y la homogeneidad de las instituciones ($\rho$), se realiza una simulación que calcula el $deff$ y evalúa el tamaño de muestra teórico final requerido bajo escenarios alternativos de diseño para estimar una proporción con $CV = 3,65\%$ que era la estipulada para el cruce tipo de establecimiento y área (@tbl-traduccion_moe_cv).
+Para comprender de manera intuitiva cómo interactúan el tamaño del cluster por establecimiento ($b$) y la homogeneidad de ellas ($\rho$), se realiza una simulación que calcula el $deff$ y evalúa el tamaño de muestra teórico final requerido bajo escenarios alternativos de diseño para estimar una proporción con $CV = 3,65\%$ que era la estipulada para el cruce tipo de establecimiento y Gran Área (@tbl-traduccion_moe_cv).
 
 ```{r}
 #| label: tbl-simulacion_deff
-#| tbl-cap: Simulación del impacto de la correlación intracluster (rho) y el tamaño del cluster por escuela (b) en la cantidad de casos finales
+#| tbl-cap: Simulación del impacto de la correlación intracluster (rho) y el tamaño del cluster por establecimiento (b) en la cantidad de casos finales
 
 # 1. Defino los escenarios alternativos
 escenarios = expand_grid(
@@ -1064,48 +1068,56 @@ escenarios = expand_grid(
   rho = c(0.02, 0.1, 0.18) # Correlación intracluster (desde baja a alta)
 )
 
-# 2. Defino los parámetros base para el cálculo de tamaño muestral MAS
-cv_objetivo = 0.0365  # CV objetivo de 3.65% para 3% de MdE
+# 2. Defino los parámetros base para el cálculo de tamaño muestral SRS (Simple random sample)
+cv_objetivo_3 = 0.0365  # CV objetivo de 3.65% para 3% de MOE
+cv_objetivo_6 = 0.0608  # CV objetivo de 3.65% para 3% de MOE
 p_base = 0.5          # Varianza máxima
 
-# Tamaño muestral MAS base (sin deff)
-n_mas = (1 / cv_objetivo^2) * p_base * (1 - p_base) # ~ 188 estudiantes
+# Tamaño muestral SRS base (sin deff)
+n_srs_3 = (1 / cv_objetivo_3^2) * p_base * (1 - p_base) # ~ 188 estudiantes
+n_srs_6 = (1 / cv_objetivo_6^2) * p_base * (1 - p_base) 
 
 # 3. Calculo deff, n_total, ess (tamaño efectivo de la muestra) y n_sedes para cada escenario
 simulacion_resultados = escenarios |> 
   mutate(
     deff = 1 + (b - 1) * rho,
-    n_estudiantes_total = round(n_mas * deff),
-    ess = round(n_estudiantes_total / deff),
-    n_sedes_total = round(n_estudiantes_total / b)
+    n_estudiantes_total_3 = round(n_srs_3 * deff),
+    ess_3 = round(n_estudiantes_total_3 / deff),
+    n_sedes_total_3 = round(n_estudiantes_total_3 / b),
+    n_estudiantes_total_6 = round(n_srs_6 * deff),
+    ess_6 = round(n_estudiantes_total_6 / deff),
+    n_sedes_total_6 = round(n_estudiantes_total_6 / b)
   )
 
 # 4. Formateo el resultado en una hermosa tabla comparativa
 simulacion_resultados |> 
   mutate(
     Escenario = case_when(
-      b == 5 ~ "Diseño 1 sección (b=5)",
-      b == 10 ~ "Diseño 2 secciones (b=10)",
-      b == 15 ~ "Diseño 3 secciones (b=15)"
+      b == 5 ~ "Diseño 5 estudiantes por Estab. (b=5)",
+      b == 10 ~ "Diseño 10 estudiantes por Estab. (b=10)",
+      b == 15 ~ "Diseño 15 estudiantes por Estab. (b=15)"
     ),
     b = as.integer(b),
     rho = paste0(rho * 100, "%"),
     deff = round(deff, 2)
   ) |> 
-  select(Escenario, b, rho, deff, n_estudiantes_total, ess, n_sedes_total) |> 
+  select(Escenario, b, rho, deff, n_estudiantes_total_3, ess_3, n_sedes_total_3, n_estudiantes_total_6, ess_6, n_sedes_total_6) |> 
   gt() |> 
   tab_header(
     title = "Simulación Comparativa de Escenarios de Diseño Muestral",
-    subtitle = "Impacto en el tamaño muestral requerido para una precisión de CV = 3,65% (MdE = 3%)"
+    subtitle = "Impacto en el tamaño muestral requerido para una precisión de CV = 3,65% (1) y CV = 6.08% (2)"
   ) |> 
   cols_label(
     Escenario = "Estrategia de Selección",
-    b = "Estudiantes por Sede (b)",
-    rho = "Homogeneidad Escolar (Rho)",
+    b = "Estudiantes por Estab. (b)",
+    rho = "Homogeneidad Estab (Rho)",
     deff = "Efecto de Diseño (Deff)",
-    n_estudiantes_total = "Total Estudiantes (n)",
-    ess = "Tamaño Efectivo (ESS)",
-    n_sedes_total = "Total Sedes a Visitar"
+    n_estudiantes_total_3 = "Total Estudiantes (n)(1)",
+    ess_3 = "Tamaño Efectivo (ESS)(1)",
+    n_sedes_total_3 = "Total Estab. a Visitar(1)",
+    n_estudiantes_total_6 = "Total Estudiantes (n)(2)",
+    ess_6 = "Tamaño Efectivo (ESS)(2)",
+    n_sedes_total_6 = "Total Estab. a Visitar(2)"
   ) |> 
   tab_options(
     table.font.size = "small",
@@ -1113,66 +1125,50 @@ simulacion_resultados |>
   )
 ```
 
-Como se observa claramente en la tabla simulada, a medida que aumentamos el número de estudiantes por escuela ($b$), el $deff$ aumenta drásticamente. Esto es especialmente cierto cuando se acompaña de altos valores de correlaciones intraclusters ($\rho$).
+Como se observa en la tabla simulada, a medida que aumentamos el número de estudiantes por escuela ($b$), el $deff$ aumenta. Lo mismo ocurre, aunque con efectos más marcados, cuando sube el $Rho$ de las correlaciones intraclusters ($\rho$).
 
-Por ejemplo, si asumiéramos el escenario tradicional de relevar todas las secciones con un promedio de $b=15$ encuestas por escuela (3 secciones y 5 estudiantes por cada una de ellas) y una homogeneidad escolar del $8\%$, el $deff$ se dispararía a $2,12$, exigiéndonos encuestar a $398$ estudiantes para lograr la misma precisión que con $248$ estudiantes usando el diseño propuesto de $b=5$ ($deff = 1,32$).
+Por ejemplo, si asumiéramos el escenario de relevar todas las secciones con un promedio de $b=15$ encuestas por escuela y una homogeneidad escolar del $10\%$, el $deff$ se dispararía a $2,40$, exigiéndonos encuestar un mínimo de $450$ estudiantes por dominio de estimación para lograr la misma precisión ($CV = 6,08%)$) que con $263$ estudiantes usando el diseño propuesto de $b=5$ y $Rho = 10%$ ($deff = 1,40$). El contrapunto es que en el primer caso se debería ir a solo 11 establecimientos y en el segundo a 19.
 
-Aunque concentrar más estudiantes por escuela reduce la cantidad de sedes físicas a visitar (pasa de $50$ a $27$ sedes), la cantidad de cuestionarios a procesar es más del doble. Por ende, nuestro diseño con $b=5$ representa un equilibrio óptimo entre viabilidad logística de campo y economía de recursos analíticos.
+Por las razones anteriores preferimos, como regla general, ir a más establecimientos y seleccionar a menos casos dentro de cada uno de ellos. Esto implica un mayor costo de control por parte del centro (hay que contactar y seguir a más establecimientos), pero una mayor descentralización de la tarea a realizar (cada establecimiento seleccionado posee una pequeña carga de trabajo). Si la Secretaría tuviera que enviar físicamente un encuestador a cada establecimiento seleccionado quizá el diseño elegiso hubiera sido otro.
 
 ## Diseño muestra {#sec-diseno_muestra_adultos}
 
-Teniendo en mente, por un lado, la distribución poblacional, esto es, la distribución del marco muestral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o sus coeficientes de variación, serán mayores a los aceptables en los objetivos. Esta situación también se expresaría a través de un muestreo estratitificado proporcional.
+Teniendo en mente, por un lado, la distribución poblacional, representada por la distribución del marco muestral y, por otro lado, los objetivos de estimación, es claro que, para algunos dominios de estimación no es una buena estrategia hacer una muestra al azar simple de toda la población. La razón es que algunos dominios de estimación implican pocos casos y estos tendrán pocas chances de estar incluidos en la muestra final. De manera derivada, *ceteris paribus,* sus márgenes de error o sus coeficientes de variación, serán mayores a los aceptables en los objetivos. Esta situación, aunque con menor intensidad, también se expresaría a través de un muestreo estratitificado proporcional.
 
-Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna versión de asignación que óptimiza la reducción de la varianza total (p.e. a la Neyman [@neyman1934]) y nos alejaríamos de una estratificación proporcional. También es posible pensar en un diseño basado en la asignación de potencia (*power allocation*) [@bankier1988]. Algo más alejados, porque implicaría romper fuertemente con la lógica de los dominios de estimación antes presentados, sería usar estratos muestrales que surgan de un análisis multivariado previo para crear *clusters* que minimicen la intra-varianza y maximicen la extra-varianza [@dalenius1950; @dalenius1957; @dalenius1959].
+Por esta razón es esperable que esos dominios de estimación pequeños obtengan un trato diferencial en el proceso de selección para asegurar una cantidad de casos mínima que permita realizar las inferencias con los niveles de precisión requeridos. Si se sigue dentro de las opciones de los diseños estratificados es posible pensar en alguna sde las siguientes versiones más o menos clásicas:
 
-¿Cuáles son los pros y contras de este movimiento? Se recuerda que el contexto son:
+- Una asignación que óptimiza la reducción de la varianza total [@neyman1934] y nos alejaríamos de una estratificación proporcional.
 
-- Múltiples dominios de estimación explícitos
+- También es posible pensar en un diseño basado en la asignación de potencia (*power allocation*) [@bankier1988] que es óptimo si se prefiere la detección de diferencias en estratos pequeños. También nos alejaríamos de una estratificación proporcional.
 
-- Algunos de ellos incluyen variables jerárquicas
-
-- El uso y los estimadores a estimar todavía son desconocidos
+- Usar estratos muestrales que surgan de un análisis multivariado previo para crear *clusters* que minimicen la intra-varianza y maximicen la extra-varianza [@dalenius1950; @dalenius1957; @dalenius1959]. Dado que se prefiere optimizar las estimaciones para los dominios ya construidos esta estrategia se descarta porque implicaría romper fuertemente con la lógica de ellos.
 
 La realización de un diseño estratificado no proporcional tiene el riesgo que su resultado es muy dependiente de cuál sea la variable objetivo [@tillé2020, pág. 75]. En contextos en donde exista más de una variable de interés (lo usual en muchas investigaciones sociales) y/o en casos en donde se presuma que determinada fuente primaria luego será utilizada como fuente secundaria por otros investigadores con objetivos que todavía se desconocen, se debe analizar los pros y contras de esta elección. Por ejemplo, algunos análisis estadísticos complejos (todavía) no permiten incorporar los valores de los ponderadores/expansores en sus cálculos.
 
 Por otro lado, cuanto más estratos se construyan, más preciso será el estimador. Sin embargo, cabe advertir que un caso por cada estrato no es un buen diseño muestral [@tillé2020, pág. 77]. La razón de esto es que, usualmente, el estimador de la varianza se convierte cada vez más inestable como el número de estatos se acrecienta por la pérdida de grados de libertad derivada de la estimación de la media de los estratos.
 
-Si se compararan 2 muestras. Ambas con la misma cantidad de casos. Ambas con un ponderador para cada caso.
+Los dominios de estimación que se seleccionaran de forma censal en la primera etapa de la muestra son:
 
-Los dominios de estimación que parecen cumplir ese criterio son:
+Los CEBAS
 
-CEBAS
+Los ECE-CENS
 
-ECE-CENS
+Los ECE-EPA
 
-ECE-EPA
+El resto de los establecimientos tendrá una probabilidad de inclusión en función de la matrícula (PPS) pero con una correción del tipo "power allocation" que permitirá sobrerrepresentar en la muestra a los establecimeintos de los dominios más pequeños. Esta sobrerepresentación luego será corregida con ponderadores específicos.
 
-El objetivo de esta sección es ver cuanto de un diseño eficiente a nivel pobacional nos acerca a los objetivos de precisión de los dominios de estimación más intermedios como, por ejemplo:
+Estríctamente el diseño muestral será uno de probabilidades de inclusión desiguales basado en el método del cubo para generar una muestra balanceada y bien distribuida. El balanceo se hace en función de algunas variables categóricas como el tipo de establecimiento, el distrito, el ámbito y variables continuas como el IVSE. La buena distribución se espera lograr con a través de la dispersión de la variable IVSE. Dado que se trata de un muetreo no porporcional luego se calcularan los respectivos ponderadores.
 
-CENS-AMBA
-
-CENS-INTERIOR
-
-EPA-AMBA
-
-EPA-INTERIOR
-
-Por poner un ejemplo si se logra obtener una muestra que se ajuste a los parámetros conocidos de los distritos, esta deberá acercarse también a las de las regiones, así como también a las regiones agrupadas y, en última instancia, a nivel de Gran Área. En cambio, el camino inverso está lejos de garantizarce. Por ejemplo podría ser que, por azar, los casos de AMBA se seleccionen todos dentro de La Matanza, o que los de INTERIOR se seleccionen mayoriamente dentro de Bahía Blanca o General Pueyerredón. Es claro que en estos casos, una buena muestra a nivel de Gran Área no asegura una buena muestra a niveles inferiores.
-
-Salvo la excepción de las CEBAS, que por su baja cantidad de casos de forma necesaria se necesitará una encuesta casi censal, la situación parece diferente en los otros tipos de establecimientos. En este contexto, la duda es que tan lejos se está de lograr los objetivos de los dominios de estimación con sus niveles de precisión si se realiza una muestra que solo se preocupe por ser representativa del resto de los establecimientos educativos a nivel de las regiones agrupadas.
-
-Para eso vamos a probar con una muestra balanceada y bien distribuida por el método del cubo. La idea de estos es que la muestra (de estudiantes y no de establecimientos) se acerque a los valores de tendencia central de esas variables. En otras palabras, que la muestra se encuentra **balanceada** en un punto óptimo que reduzca las distancias con las diferentes medidas de **tendencia central** de las variables anteriores.
-
-Dado que algunas variables numéricas se encuentran disponibles como marco muestral para cada establecimeinto también se va a implementar una muestra **bien distribuida**. En otras palabras, el objetivo es también exigir una convergencia con la **distribución** (esto es, no solo con sus valores de tendencia central) de las siguientes variables:
+Quizá pueda llamar la atención que, dados que los dominios se encontraban expresados a nivel de Región Agrupada o Gran Área, el balanceo se realice a nivel de distrito. La raón es la siguiente. Si se logra obtener una muestra que se ajuste a los parámetros conocidos de los distritos, esta deberá acercarse también a las de las regiones, así como también a las regiones agrupadas y, en última instancia, a nivel de Gran Área. En cambio, el camino inverso está lejos de garantizarce. Por ejemplo podría ser que, por azar, los casos de AMBA se seleccionen todos dentro de La Matanza, o que los de INTERIOR se seleccionen mayoriamente dentro de Bahía Blanca o General Pueyerredón. Es claro que en estos casos, una buena muestra a nivel de Gran Área no asegura una buena muestra a niveles inferiores.
 
 ```{r}
-#| label: pps_cube
+#| label: design_pps_cube
 
 # 1.Arreglos generales al objeto
 
 df_sampling_frame = read_rds(here("Inputs", "df_sampling_frame.rds"))
 df_insumo_cubo = df_sampling_frame |>
-drop_na(matricula, secciones, ambito, distrito, region, tipo_est_adulto, ivse, criterio_seleccion, encierro) |> 
+drop_na(matricula, secciones, ambito, distrito, region, tipo_est_adulto, ivse, criterio_seleccion, encierro, dominio) |> 
 mutate(censal = if_else(criterio_seleccion == "CENSO", 1, 0),  # dummy censal
      # lat_std = scale(latitud), #Escalamiento para well distribution
      # lon_std = scale(longitud),
@@ -1180,12 +1176,13 @@ mutate(censal = if_else(criterio_seleccion == "CENSO", 1, 0),  # dummy censal
 
 # 2. Definición de Probabilidades de Inclusión (pi) de establecimientos
 
-n = 1200
+n = 1500
 
 # 3. Calculo de las probabilidades de inclusion
 
 # Función para ajustar pi de manera que sum(pi) == n. Esto es importante porque ningún caso puede tener más de 1 como probabilidad de inclusión pero, a su vez, si solo se ajusta para que aquellos con más de 1 pasen a tener 1, la cantidad de casos deseada pasa a ser diferente al número de casos seleccionados mediante el cálculo. Es necesario no sólo corregir sino también distribuir esa corrección en las probabilidades de inclusión para que la suma o la masa de todas las probabilidades de inclusión de como resultado el respectivo número muestral deseado.
 
+# Función
 ajustar_pi = function(weight, n) {
   N = length(weight)
   pi = n * weight / sum(weight)
@@ -1213,8 +1210,8 @@ regional_shares = df_insumo_cubo |>
   summarise(matricula_region_agrupada = sum(matricula, na.rm = TRUE), .groups = "drop") |>
   mutate(
     share_real = matricula_region_agrupada / sum(matricula_region_agrupada),
-    # Aplicamos potencia 0.9: esto "infla" suavemente a las regiones pequeñas
-    share_nudge = (share_real^0.2) / sum(share_real^0.2),
+    # Aplicamos potencia 0.1: esto "infla" a las regiones pequeñas
+    share_nudge = (share_real^0.1) / sum(share_real^0.1),
     # Factor de corrección para aplicar a cada establecimiento
     nudge_multiplier = share_nudge / share_real
   )
@@ -1237,7 +1234,7 @@ pi_corregido = ajustar_pi(df_insumo_cubo$weight, n)
 # 4. Matriz de Variables Auxiliares (Balanced)
 
 # Convierto las variables (y sus categorías) a dummies con model.matrix
-X = model.matrix(~ tipo_est_adulto + ambito + ivse_std + distrito - 1, 
+X = model.matrix(~ tipo_est_adulto + distrito + encierro + ambito + ivse_std +  - 1, 
                  data = df_insumo_cubo)
 
 # Aseguramos que pi_corregido sea parte de las restricciones de balanceo
@@ -1268,162 +1265,220 @@ df_insumo_cubo$muestra_adultos[indices_muestra] = 1
 
 ```
 
-## Construcción de ponderadores
+## Construcción de ponderadores y expansores
+
+Si bien la construcción final de los ponderadores casi con seguridad implique un proceso de calibración por la no respuesta, de modo provisorio se han construido algunos ponderadores y expansores básicos para chequear algunos resultados de control de la muestra. Por esta razón no se justificará el detalle de este proceso porque tiene un carácter más instrumental y de control que de análisis.
 
 ```{r}
 #| label: ponderadores
-#| code-summary: "Cálculo de expansores y creación del objeto de diseño complejo"
-# Utilizando alguna de librerias de R para este fin (survey, srvyr, surveycore, surveytidy o surveywts, etc.) se deber;ian poder crear los expansores y ponderadores de la muestra que se calculó anteriormente con las probabilidades de inclusión diferenciales (algunos con valor = 1, otros con la alocación de potencia) y luego con el método del cubo. Esto es importante porque, aunque el método del cubo intenta balancear la muestra, no garantiza que se logre exactamente el mismo resultado que con una muestra estratificada proporcional. Por lo tanto, es necesario calcular los ponderadores para corregir cualquier desviación que pueda haber entre la muestra obtenida y la población objetivo. Estos ponderadores permitirán ajustar las estimaciones de la muestra para que sean representativas de la población, teniendo en cuenta las probabilidades de inclusión y las características de los casos seleccionados.
-# Entiendo que esto sólo se realiza para los casos que salieron efectivamente ne la muestra, es decir, para los casos con muestra_adultos == 1. Para los casos que no salieron en la muestra, el ponderador sería 0 porque no contribuyen a las estimaciones.
+#| code-summary: "Cálculo de expansores y ponderadores a nivel de establecimiento y estudiantes"
+
 # 1. Definimos los totales del marco (Universo)
 N_estabs_pob = nrow(df_insumo_cubo)
 N_estud_pob = sum(df_insumo_cubo$matricula, na.rm = TRUE)
+n_muestra_estabs = sum(df_insumo_cubo$muestra_adultos) # Establecimientos seleccionados (n = 1300)
 
-#Aseguramos que pi_corregido esté en el dataframe original ANTES de filtrar
-# para que los valores correspondan a las escuelas correctas.
+# Aseguramos que pi_corregido esté en el dataframe original
 df_insumo_cubo$pi_corregido = pi_corregido
 
-# 1. Cálculo de pesos de diseño (Design Weights
-
-# 2. Filtrado de la muestra analítica
-# Como se sugirió en la revisión, extraemos solo los casos seleccionados.
-# Mantener casos con peso 0 en el mismo dataframe puede sesgar errores estándar.
-# 2. Preparamos el dataset de la muestra
+# 2. Filtrado y cálculo de pesos en la muestra seleccionada
 df_muestra_final = df_insumo_cubo |> 
   filter(muestra_adultos == 1) |> 
   mutate(
-    # FPC: Se basa en la cantidad de unidades de muestreo (escuelas)
+    # FPC a nivel de escuelas (UPU)
     fpc_escuelas = N_estabs_pob,
-    peso_diseno = 1 / pi_corregido) |>
-mutate(ponderador_final = peso_diseno * (N_estabs_pob / sum(peso_diseno)))
-   #Ajuste por ratio: para que la suma de pesos sea exactamente 3211
-    # Este sum() ahora sí se hace sobre las 1200 filas de la muestr
-
-# 3. Creación del objeto de diseño con srvyr
-# Esto permite que todos los cálculos posteriores (medias, proporciones) 
-# incorporen automáticamente los pesos y el diseño complejo.
-df_muestra_final_sv = df_muestra_final |> 
-  as_survey_design(
-    weights = ponderador_final,
-    fpc = fpc_escuelas,
-    variables = everything()
+    
+    # === NIVEL ESTABLECIMIENTO ===
+    # Expansor: Factor de expansión que indica a cuántas escuelas representa cada fila seleccionada
+    expansor_establecimiento = 1 / pi_corregido,
+    
+    # Ponderador: Peso estandarizado (normalizado) cuya media es exactamente 1 en la muestra
+    ponderador_establecimiento = expansor_establecimiento * (n_muestra_estabs / sum(expansor_establecimiento)),
+    
+    # === NIVEL ESTUDIANTE ===
+    # En la 2da etapa seleccionamos 1 sección al azar (probabilidad: 1 / secciones)
+    # En la 3ra etapa tomamos 5 o 7 estudiantes (probabilidad: 5 / (matricula / secciones) = 5 * secciones / matricula)
+    # Multiplicando las etapas, la probabilidad del estudiante es: pi_estudiante = pi_corregido * (5 / matricula)
+    # Por ende, el factor de expansión de estudiantes es: 1 / pi_estudiante = (1 / pi_corregido) * (matricula / 5)
+    expansor_estudiante = (1 / pi_corregido) * (matricula / 7),
+    
+    # Ponderador: Peso normalizado del estudiante cuya media en la muestra es exactamente 1
+    # Para que tenga media 1 en la base de escuelas, la suma de pesos de estudiantes debe ser igual a n_muestra_estabs
+    ponderador_estudiante = expansor_estudiante * (n_muestra_estabs / sum(expansor_estudiante))
   )
 
-# 4. Verificación de la expansión
-# La suma de los expansores debe ser igual al total de establecimientos del marco (N)
-total_universo_N = nrow(df_insumo_cubo)
-total_expandido_n = sum(df_muestra_final$expansor)
+# 3. Creación del objeto de diseño con srvyr a nivel de establecimientos
+# Usamos el expansor del establecimiento para asegurar la correcta estimación de totales poblacionales
+# Weight no es la probabilidad de inclusio sino su inversa
+df_muestra_final_sv = df_muestra_final |> 
+  as_survey_design(
+    id = codigo,
+    strata = c(tipo_est_adulto, distrito, encierro, ambito),
+    #weights = expansor_establecimiento,
+    probs = pi_corregido,
+    fpc = fpc_escuelas,
+    variables = everything(),
+    nest = FALSE
+  )
 
-# Mensaje de control
-# 5. Verificación de expansión
+# 4. Verificaciones de control y expansión en la consola
+message("=== VERIFICACIONES DE EXPANSIÓN ===")
+message(paste0("Establecimientos en Universo: ", N_estabs_pob, 
+               " | Estimados (Suma Expansores): ", round(sum(df_muestra_final$expansor_establecimiento), 1)))
+message(paste0("Estudiantes en Universo: ", round(N_estud_pob, 0), 
+               " | Estimados (Suma Expansores de Alumnos * 7): ", round(sum(df_muestra_final$expansor_estudiante * 7), 0)))
+message(paste0("Media del Ponderador de Establecimientos: ", round(mean(df_muestra_final$ponderador_establecimiento), 4)))
+message(paste0("Media del Ponderador de Estudiantes: ", round(mean(df_muestra_final$ponderador_estudiante), 4)))
+```
+
+# 4. Verificación de la expansión ponderada
+
+# Comparamos la estimación obtenida mediante el diseño muestral con los parámetros del universo.
+
+```{r}
 res_verificacion = df_muestra_final_sv |> 
   summarise(
     estabs_estimados = survey_total(),
     estud_estimados = survey_total(matricula)
   )
 
+message("=== VERIFICACIÓN DEL OBJETO DE DISEÑO ===")
 message(paste0("Establecimientos Marco: ", N_estabs_pob, 
-               " | Estimados: ", round(res_verificacion$estabs_estimados, 1)))
+               " | Estimados con ponderador_establecimiento: ", round(res_verificacion$estabs_estimados, 1)))
 message(paste0("Estudiantes Marco: ", round(N_estud_pob, 0), 
-               " | Estimados: ", round(res_verificacion$estud_estimados, 0)))
+               " | Estimados con ponderador_establecimiento: ", round(res_verificacion$estud_estimados, 0)))
 ```
 
 ## Testeo Muestra
 
-Si se asume que los diferentes tipos de establecimientos son "Estratos" de la oferta, se podría pensar que se aspira a un margen de error de:
-
-3% por estrato-Gran Área,
-
-4% por estrato-región agrupada.
-
-5% por estrato-región
-
-Ahora voy probando los resultados de la muestra con la precisión esperada para cda dominio de estimación
-
-#### CENSALES
+El primer chequeo que se realizará tendra que ver con los porcentajes de establecimientos seleccionados por dominio de estimación. La función básica de esto es observar el efecto de la "power allocation" que permitió que aumentar la participación porcentual de los dominios más pequeños y aumentar la participación porcentual de los dominios más grandes. Para visualizar este efecto, en la siguiente tabla se muewtran los resultados porcentuales con y sin ponderar. La idea es que, sin ponderar, el porcentaje de los dominios pequeños sea mayor por efecto de una sobrerepreentación y que con ponderar, el porcentaje de los dominios pequeños se acerque al porcentaje real que tienen en la población.
 
 ```{r}
-#| label: tbl-analisis_censales
-#| tbl-cap: "Estimaciones para casos censales"
+#| label: tbl-analisis_dominios
+#| tbl-cap: "Porcentaje de establecimientos seleccionados para dominios. Valores ponderados y sin ponderarar (entre paréntesis)"
 
-tbl_censales = df_muestra_final_sv |> 
-  filter(criterio_seleccion == "CENSO") |> 
-  select(matricula, estrato_oferta, ivse, area) |>
+tbl_dominios= df_muestra_final_sv |> 
+  select(dominio, region_agrupada, tipo_est_adulto) |>
  tbl_svysummary(
-  by = estrato_oferta,
-  statistic = list(
-   all_continuous() ~ "{mean} ± {sd}",
-   all_categorical() ~ "{p} ({p_unweighted}) deff {deff} se {p.std.error} {n}"))
-
-tbl_censales
-```
-
-#### GRAN ÁREA
-
-```{r}
-#| label: tbl-analisis_gran_area
-#| tbl-cap: "Estimaciones para grandes áreas"
-
-tbl_gran_area = df_muestra_final_sv |> 
-  filter(criterio_seleccion == "MUESTRA") |> 
-  filter(estrato_oferta == "CENS" | estrato_oferta == "EPA") |>
-  select(matricula, estrato_oferta, ivse, area) |>
- tbl_svysummary(
- by = estrato_oferta,
-  statistic = list(
-   all_continuous() ~ "{mean} ± {sd}",
-   all_categorical() ~ "{p} ({p_unweighted}) deff {deff} se {p.std.error} {n}"))
-
-tbl_gran_area 
-```
-
-#### REGION AGRUPADA
-
-```{r}
-tbl_region_agrupada_matricula = df_muestra_final_sv |> 
-  filter(criterio_seleccion == "MUESTRA") |> 
-  filter(estrato_oferta == "FINES") |>
- select(matricula, estrato_oferta, ivse, region_agrupada) |>
-group_by(region_agrupada) |>
-summarise(
-matricula = survey_mean(matricula, vartype = c("cv", "ci","se", "var"), deff = TRUE, level = 0.90),
-n = n()) |>
-gt()
-
-tbl_region_agrupada_ivse = df_muestra_final_sv |> 
-  filter(criterio_seleccion == "MUESTRA") |> 
-  filter(estrato_oferta == "FINES") |>
- select(matricula, estrato_oferta, ivse, region_agrupada) |>
-group_by(region_agrupada) |>
-summarise(
-ivse = survey_mean(ivse, vartype = c("cv", "ci","se", "var"), deff = TRUE, level = 0.90))
-
-
-```
-
-```{r}
-#| label: tbl-analisis_region_agrupada
-#| tbl-cap: "Estimaciones para regiones agrupadas"
-
-tbl_region_agrupada = df_muestra_final_sv |> 
-  filter(criterio_seleccion == "MUESTRA") |> 
-  filter(estrato_oferta == "FINES") |>
-  select(matricula, estrato_oferta, ivse, region_agrupada) |>
- tbl_svysummary(
-   by = estrato_oferta,
    statistic = list(
    all_continuous() ~ "{mean} ± {sd}",
-   all_categorical() ~ "{p} ({p_unweighted}) deff {deff} se {p.std.error} {n}"))
+   all_categorical() ~ "{p} ({p_unweighted})"))
 
-tbl_region_agrupada 
+tbl_dominios 
 ```
 
-Ahora vamos a empezar a evaluar a los valores de la muestra con respecto a los valores de la población. En una primera instancia esto lo haremos con los valores sin ponderar y luego lo haremos con valores ponderados. La razón de esta distinción es que, en principio, una de las fortalezas del diseño elegido es que la media de los valores de los ponderadores sería menor a la media de los valores de esos ponderadores si se hubiera seleccionado algún diseño muestral estratificado no proporcional.
+Ahora pasaremos a evaluar las bondades de la muestra con respecto a la precisión de los estimadores. Lo probaremos con el IVSE a nivel de cada dominio de estimación con su respectivo CV, su límite inferior, superior, el error estándar y la varianza y la cantidad de casos de establecimientos efectivamente seleccionados.
+
+```{r}
+#| label: tbl-analisis_dominios_precision_IVSE
+#| tbl-cap: "Precisión de la estimaciones IVSE para los dominios"
+tbl_dominios_ivse = df_muestra_final_sv |> 
+ select(dominio, ivse) |>
+group_by(dominio) |>
+summarise(
+matricula = survey_mean(ivse, vartype = c("cv", "ci","se", "var"), level = 0.90),
+n = n()) |>
+gt()
+tbl_dominios_ivse
+
+```
+
+Ahora vamos a empezar a evaluar a los valores del IVSE de la muestra con respecto a los valores de la población. Especialmente nos interesa indagar acerca de su distribución. Esto es particularmente importante porque el IVSE se trata de una variable índice que aspira incluir en la muestra una serie de desigualdades sociales que, de otra forma, se colarían por detrás afectando la utilidad de la misma para diferentes usos. Estos datos se presentan sin correción alguna de ponderación para observar el grado de balanceo y de distribución que se logró con el método del cubo sin ningún tipo de corrección adicional.
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra
+#| tbl-cap: Distribución de densidad del IVSE. Población y muestra.
+
+# 1. Preparación de los datos para la gráfica
+# Creamos un dataframe que combine población y muestra
+pop_data = data.frame(IVSE = df_insumo_cubo$ivse, Grupo = "Población")
+mue_data = data.frame(IVSE = df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
+                       Grupo = "Muestra")
+
+insumo_fig_densidad_ivse = rbind(pop_data, mue_data)
+
+# 2. Generación del gráfico de densidades superpuestas
+fig_densidad_ivse_poblacion_muestra = insumo_fig_densidad_ivse |>
+ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 1) +
+  scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
+  scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
+  labs(title = "Comparativa de Densidad: IVSE",
+       subtitle = "Población total vs. Muestra balanceada y dispersa",
+       x = "Porcentaje de Estudiantes con IVSE",
+       y = "Densidad") +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+        text = element_text(family = "serif"))
+
+
+fig_densidad_ivse_poblacion_muestra
+
+#Despues se podría hacer un ggplotly
+
+```
+
+Finalmente, vamos a repetir la operación anterior pero a nivel de cada dominio de estimación.
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra_dominios
+#| tbl-cap: Distribución de densidad de evse según dominios. Población y muestra adultos.
+# 1. Preparación de los datos incluyendo la variable de faceteo
+# Seleccionamos tanto el IVSE como la Región Agrupada para ambos grupos
+pop_data_reg = df_insumo_cubo |> 
+  select(IVSE = ivse, dominio) |> 
+  mutate(Grupo = "Población")
+
+mue_data_reg = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  select(IVSE = ivse, dominio) |> 
+  mutate(Grupo = "Muestra")
+
+# Unimos ambos datasets
+insumo_fig_densidad_dominios = bind_rows(pop_data_reg, mue_data_reg)
+
+# 2. Generación del gráfico facetado
+fig_densidad_ivse_dominios = insumo_fig_densidad_dominios |> 
+  ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 0.8) +
+  # Facetamos por la variable de región
+  facet_wrap(vars(dominio), scales = "free_y") +
+  scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
+  scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
+  labs(
+    title = "Distribución del IVSE por Dominio",
+    subtitle = "Comparativa de densidad: Población total vs. Muestra",
+    x = "Índice de Vulnerabilidad (IVSE)",
+    y = "Densidad",
+    caption = "Nota: Se utiliza 'free_y' para apreciar la forma de la distribución en cada región."
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    text = element_text(family = "serif"),
+    strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
+  )
+
+fig_densidad_ivse_dominios
+```
+
+```{r}
+#| label: test_ks_ivse
+#| eval: false
+# Realización del test K-S
+# Basándonos en los datos de la figura @fig-densidad_ivse_poblacion_muestra, ahora vamos a testear estadísticamente si la diferencia entre ambas distribuciones es significativa.
+ks_result = ks.test(
+  df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
+  df_insumo_cubo$ivse
+)
+
+ks_result
+```
 
 ```{r}
 #| label: fig-mapa_muestra_cubo_poblacion_distritos
 #| fig-cap: "Porcentaje de la matrícual según distritos. Muestra y Población"
-#| eval: !expr knitr::is_html_output()
+#| eval: false
 #| cache: true
 
 datos_facelas = df_insumo_cubo |>
@@ -1467,14 +1522,12 @@ mapas_distritos = lapply(tipos_analisis, \(tipo) {
 leafsync::latticeView(mapas_distritos, ncol = 2, sync = "none")
 ```
 
-Ahora hacemos lo mismo pero a nivel de región agregada. Esperablemente, una buena distribución a nivel de distritos debería producir una todavía más aceptable distribución a nivel de regiones agregadas.
-
 ```{r}
 #| label: fig-mapa_muestra_cubo_poblacion_regiones_agrupadas
 #| fig-cap: "Porcentaje de la matrícual según regiones agrupadas. Muestra y Población"
-#| eval: !expr knitr::is_html_output()
+#| eval: false
 #| cache: true
-
+#Ahora hacemos lo mismo pero a nivel de región agregada. Esperablemente, una buena distribución a nivel de distritos debería producir una todavía más aceptable distribución a nivel de regiones agregadas.
 # 1. Preparación de los datos con cálculo de porcentaje
 datos_facelas = df_insumo_cubo |>
   st_drop_geometry() |>
@@ -1518,56 +1571,10 @@ leafsync::latticeView(mapas_regiones_a, ncol = 2, sync = "none")
 mapas_regiones_a
 ```
 
-Ahora vamos a testear la distribución (y no solo sus valores centrales) de la variable IVSE. Esta variable es particularmente importante porque es la variable índice que aspira incluir en la muestra una serie de desigualdades sociales que, de otra forma, se colarían por detrás afectando la utilidad de la misma para diferentes usos.
-
-```{r}
-#| label: fig-densidad_ivse_poblacion_muestra
-#| tbl-cap: Distribución de densidad de evse. Población y muestra adultos.
-
-# 1. Preparación de los datos para la gráfica
-# Creamos un dataframe que combine población y muestra
-pop_data = data.frame(IVSE = df_insumo_cubo$ivse, Grupo = "Población")
-mue_data = data.frame(IVSE = df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
-                       Grupo = "Muestra")
-
-insumo_fig_densidad_ivse = rbind(pop_data, mue_data)
-
-# 2. Generación del gráfico de densidades superpuestas
-fig_densidad_ivse_poblacion_muestra = insumo_fig_densidad_ivse |>
-ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
-  geom_density(alpha = 0.3, size = 1) +
-  scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
-  scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
-  labs(title = "Comparativa de Densidad: IVSE",
-       subtitle = "Población total vs. Muestra balanceada y dispersa",
-       x = "Porcentaje de Estudiantes con IVSE",
-       y = "Densidad",
-       caption = "Nota: El solapamiento indica la calidad del 'spreading' multivariado.") +
-  theme_minimal() +
-  theme(legend.position = "bottom",
-        text = element_text(family = "serif"))
-
-fig_densidad_ivse_poblacion_muestra
-
-```
-
-Basándonos en los datos de la figura @fig-densidad_ivse_poblacion_muestra, ahora vamos a testear estadísticamente si la diferencia entre ambas distribuciones es significativa.
-
-```{r}
-# Realización del test K-S
-ks_result = ks.test(
-  df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
-  df_insumo_cubo$ivse
-)
-
-ks_result
-```
-
-Ahora vamos a realizar la misma operación pero a nivel de cada región agregada.
-
 ```{r}
 #| label: fig-densidad_ivse_poblacion_muestra_regiones
 #| tbl-cap: Distribución de densidad de evse según region agregada. Población y muestra adultos.
+#| eval: false
 # 1. Preparación de los datos incluyendo la variable de faceteo
 # Seleccionamos tanto el IVSE como la Región Agrupada para ambos grupos
 pop_data_reg = df_insumo_cubo |> 
@@ -1609,6 +1616,8 @@ fig_densidad_ivse_regiones
 ```
 
 ```{r}
+#| label: last
+#| eval: false
 # Ahora necesitamos comparar, en forma de tabla, los valores de la muestra con los valores poblacionales para chequear los resultados del método del cubo. Para esto, vamos a comparar las medias y los coeficientes de variación de las variables numéricas, así como también las proporciones de las categorías de las variables categóricas.
 # Primero, calculamos las estadísticas descriptivas para la población y la muestra.
 # 
