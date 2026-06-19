@@ -1416,7 +1416,7 @@ Ahora vamos a empezar a evaluar a los valores del IVSE de la muestra con respect
 
 ```{r}
 #| label: fig-densidad_ivse_poblacion_muestra
-#| tbl-cap: Distribución de densidad del IVSE. Población y muestra.
+#| fig-cap: Distribución de densidad del IVSE. Población y muestra.
 
 # 1. Preparación de los datos para la gráfica
 # Creamos un dataframe que combine población y muestra
@@ -1449,7 +1449,7 @@ Finalmente, vamos a repetir la operación anterior pero a nivel de cada dominio 
 
 ```{r}
 #| label: fig-densidad_ivse_poblacion_muestra_dominios
-#| tbl-cap: Distribución de densidad de evse según dominios. Población y muestra adultos.
+#| fig-cap: Distribución de densidad de evse según dominios. Población y muestra adultos.
 #| fig-height: 8
 #| fig-width: 10
 # 1. Preparación de los datos incluyendo la variable de faceteo
