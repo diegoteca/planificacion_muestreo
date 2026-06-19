@@ -325,7 +325,8 @@ mutate(distrito = str_replace_all(distrito, "Ú", "U"))
 # La regla es: Hast 6 secciones se seleccionan 5 estudiantes por sección. Si es más de 6 secciones se selecciona 3 estudiantes por sección.
 
 df_sampling_frame = df_sampling_frame |>
-mutate(n_estudiantes_muestra = if_else(secciones <= 6, secciones * 5, secciones * 3))
+mutate(n_estudiantes_muestra = if_else(secciones <= 6, secciones * 5, secciones * 3),
+       n_estudiantes_por_seccion = if_else(secciones <= 6, 5, 3))
 
 levels_region = c("01", "02", "03", "04", "05", "06", "07", "08", "09","10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25")
 levels_area = c("AMBA", "INTERIOR")
@@ -1048,7 +1049,7 @@ El pedido original sugería relevar **todas las secciones** de cada escuela sele
 
 Para solucionar esto, una alternativa es rediseñar la segunda etapa del muestreo de la siguiente manera:
 
-1\. En cada escuela seleccionada en la primera etapa, **se sortea, en primera instancia, una (1) sección** (con probabilidad $1 / B_i$, donde $B_i$ es la cantidad de secciones de la sede $i$.
+1\. En cada escuela seleccionada en la primera etapa, **se sortea, en primera instancia, una (1) sección** con probabilidad $1 / B_i$, donde $B_i$ es la cantidad de secciones de la sede $i$.
 
 2\. Dentro de esa sección sorteada, **se seleccionan exactamente 7 estudiantes** ($b = 7$). En algunos establecimientos se especificará que serán los primeros y en otros los últimos. En caso de que el tamaño de la sección sea igual o menor a 7 puede que se seleccione a todos los miembros de la sección y luego se complete los casos restantes con miembros de otra sección.
 
@@ -1059,6 +1060,12 @@ Al mantener el tamaño de cluster fijo y constante en $b = 7$ estudiantes para t
 - **Minimizamos el Efecto del Diseño:** Al reducir el tamaño del- cluster a solo 7 alumnos, el $deff$ se reduce drásticamente: $$deff = 1 + (7 - 1) \cdot 0,1 = 1 + 6 \cdot 0,1 = 1,6$$
 
 Un $deff$ de 1,6 significa que se necesitan un $60\%$ más de casos que un muestreo aleatorio simple, reduciendo el tamaño de muestra total necesario en campo en comparación con el supuesto inicial de $deff = 2,0$.
+
+Finalmente, dado el costo operativo que implicaba en la práctica una propuesta como lo anterior (p.e. 1500 establecimientos y 10.000 estudiantes) se prefirió una estrategia más tradicional de menos establecimientos (+- 800) aunque con una cantidad variable de estudiantes por establecimientos en función de la cantidad de secciones. Más concretamente, para establecimientos de hasta 6 secciones se seleccionaron 5 estudiantes por cada sección y para aquellos establecimientos con más de 6 secciones se seleccionó 3 de cada una de ellas. Esto produce, como media, una gran cantidad de estudiantes por establecimientos especialmente si se seleccionan establecimientos con una gran matrícula y con muchas secciones.
+
+Un punto a notar de esta estrategia es que la cantidad final de estudiantes no es lineal ni a la matrícula ni a la cantidad de secciones. Por ejemplo, en un establecimiento con 6 secciones se terminan seleccionando 30 estudiantes (6\*5) y en otro establecimiento de 7 secciones se termina seleccionando 21 estudiantes (7\*3). Esto será a tener en cuenta al momento de construir un ponderador de estudiantes en ausencia de una base de secciones. Finalmente (porque al ser un número variable es difícil de estimar) con los establecimientos seleccionados se obtuvo una media de estudiantes de aprox. +- 20 estudiantes por cada establecimiento. Esto permite calcular un $deff$ aproximado de:
+
+$$deff = 1 + (20 - 1) \cdot 0,1 = 1 + 19 \cdot 0,1 = 2.9$$
 
 ### Simulación del impacto de la Correlación Intracluster ($\rho$) y el tamaño del cluster ($b$)
 
@@ -1383,7 +1390,7 @@ El primer chequeo que se realizará tendra que ver con los porcentajes de establ
 #| label: tbl-analisis_dominios
 #| tbl-cap: "Porcentaje de establecimientos seleccionados según dominios. Valores ponderados y sin ponderar (entre paréntesis)"
 
-tbl_dominios= df_muestra_final_sv |> 
+tbl_dominios = df_muestra_final_sv |> 
   select(dominio, region_agrupada, tipo_est_adulto) |>
  tbl_svysummary(
    statistic = list(
@@ -1509,9 +1516,11 @@ ks_result
 #| label: exportacion_muestra 
 library(writexl) 
 
-df_muestra = df_muestra_final |> select(codigo, censal, ivse_std, pi_corregido, nudge_power, factor_ajuste_CENS_EPA, expansor_establecimiento, ponderador_establecimiento, muestra_adultos, n_estudiantes_muestra)
+df_muestra = df_muestra_final |> 
+  select(codigo, censal, ivse_std, pi_corregido, nudge_power, factor_ajuste_CENS_EPA, expansor_establecimiento, ponderador_establecimiento, muestra_adultos, n_estudiantes_muestra, n_estudiantes_por_seccion)
 
-muestra_DEJAyAM = df_universo |> left_join(df_muestra, by = "codigo")
+muestra_DEJAyAM = df_universo |> 
+  left_join(df_muestra, by = "codigo")
 
 write_xlsx(muestra_DEJAyAM, here("Inputs", "muestra_adultos", "muestra_DEJAyAM.xlsx"))
 ```
