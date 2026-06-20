@@ -13,7 +13,7 @@ execute:
   #pero no es tan buena para el desarrollo porque no se renderizan los cambios en los documentos relacionados. 
   #Por ejemplo, si se cambia algo en metodología.qmd, no se van a ver los cambios en calculo.qmd. 
   # Con auto se renderizan los documentos que cambiaron y los relacionados.
-  cache: true
+  cache: false
 
 number-depth: 3  
 toc-depth: 3

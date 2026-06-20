@@ -281,7 +281,7 @@ mutate(estudiante_seccion = matricula / secciones,
        region_n = as.numeric(region),
        distrito_n = as.numeric(distrito_n),
        area = case_when(
-region_n == 1 ~ "INTERIOR",
+region_n == 1 ~ "CONURBANO", # Antes estaba como AMBA
 region_n == 2 ~ "CONURBANO",
 region_n == 3 ~ "CONURBANO",
 region_n == 4 ~ "CONURBANO",
@@ -295,7 +295,9 @@ region_n == 6 ~ "CONURBANO",
 region_n == 7 ~ "CONURBANO",
 region_n == 8 ~ "CONURBANO",
 region_n == 9 ~ "CONURBANO",
-region_n >= 10 ~ "INTERIOR",
+region_n == 10 ~ "CONURBANO",
+region_n == 11 ~ "CONURBANO",
+region_n >= 12 ~ "INTERIOR",
 .default = "NA")) |>
 mutate(area = if_else(area == "CONURBANO", "AMBA", "INTERIOR"),
 region_agrupada = case_when(
@@ -649,8 +651,8 @@ fig_mapa_regiones_agrupada
 # Creo la nueva variable en el objeto espacial
 df_sf_areas = df_sf_regiones |>
   mutate(area = case_when(
-    region %in% c("02", "03",  "04", "05", "06", "07", "08", "09") ~ "AMBA",
-    region %in% c("01", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25") ~ "INTERIOR",
+    region %in% c("01", "02", "03",  "04", "05", "06", "07", "08", "09","10", "11") ~ "AMBA",
+    region %in% c("12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25") ~ "INTERIOR",
     .default = region)) |>
   # Al usar group_by + summarise en un objeto sf, 
   # las geometrías se fusionan (dissolve) automáticamente
@@ -1083,12 +1085,12 @@ escenarios = expand_grid(
 
 # 2. Defino los parámetros base para el cálculo de tamaño muestral SRS (Simple random sample)
 cv_objetivo_3 = 0.0365  # CV objetivo de 3.65% para 3% de MOE
-cv_objetivo_6 = 0.0608  # CV objetivo de 3.65% para 3% de MOE
+cv_objetivo_6 = 0.0608  # CV objetivo de 6.08% para 5% de MOE
 p_base = 0.5          # Varianza máxima
 
 # Tamaño muestral SRS base (sin deff)
-n_srs_3 = (1 / cv_objetivo_3^2) * p_base * (1 - p_base) # ~ 188 estudiantes
-n_srs_6 = (1 / cv_objetivo_6^2) * p_base * (1 - p_base) 
+n_srs_3 = (1 - p_base) / (p_base * cv_objetivo_3^2) # ~ 751 estudiantes
+n_srs_6 = (1 - p_base) / (p_base * cv_objetivo_6^2) # ~ 271 estudiantes
 
 # 3. Calculo deff, n_total, ess (tamaño efectivo de la muestra) y n_sedes para cada escenario
 simulacion_resultados = escenarios |> 
@@ -1140,7 +1142,7 @@ simulacion_resultados |>
 
 Como se observa en la tabla simulada, a medida que aumentamos el número de estudiantes por escuela ($b$), el $deff$ aumenta. Lo mismo ocurre, aunque con efectos más marcados, cuando sube el $Rho$ de las correlaciones intraclusters ($\rho$).
 
-Por ejemplo, si asumiéramos el escenario de relevar todas las secciones con un promedio de $b=15$ encuestas por escuela y una homogeneidad escolar del $10\%$, el $deff$ se dispararía a $2,40$, exigiéndonos encuestar un mínimo de $450$ estudiantes por dominio de estimación para lograr la misma precisión ($CV = 6,08%)$) que con $263$ estudiantes usando el diseño propuesto de $b=5$ y $Rho = 10%$ ($deff = 1,40$). El contrapunto es que en el primer caso se debería ir a solo 11 establecimientos y en el segundo a 19.
+Por ejemplo, si asumiéramos el escenario de relevar todas las secciones con un promedio de $b=15$ encuestas por escuela y una homogeneidad escolar del $10\%$, el $deff$ se dispararía a $2,40$, exigiéndonos encuestar un mínimo de $649$ estudiantes por dominio de estimación para lograr la misma precisión ($CV = 6,08\%$) que con $379$ estudiantes usando el diseño propuesto de $b=5$ y $Rho = 10\%$ ($deff = 1,40$). El contrapunto es que en el primer caso se debería ir a solo 43 establecimientos y en el segundo a 76.
 
 Por las razones anteriores preferimos, como regla general, ir a más establecimientos y seleccionar a menos casos dentro de cada uno de ellos. Esto implica un mayor costo de control por parte del centro (hay que contactar y seguir a más establecimientos), pero una mayor descentralización de la tarea a realizar (cada establecimiento seleccionado posee una pequeña carga de trabajo). Si la Secretaría tuviera que enviar físicamente un encuestador a cada establecimiento seleccionado quizá el diseño elegiso hubiera sido otro.
 
@@ -1184,7 +1186,6 @@ Quizá pueda llamar la atención que, dados que los dominios se encontraban expr
 #| label: design_pps_cube
 
 # 1.Arreglos generales al objeto
-
 df_sampling_frame = read_rds(here("Inputs", "df_sampling_frame.rds"))
 df_insumo_cubo = df_sampling_frame |>
 drop_na(matricula, secciones, ambito, distrito, region, tipo_est_adulto, ivse, criterio_seleccion, encierro, dominio) |> 
@@ -1193,9 +1194,16 @@ mutate(censal = if_else(criterio_seleccion == "CENSO", 1, 0),  # dummy censal
      # lon_std = scale(longitud),
       ivse_std = scale(ivse))
 
+# Los establecimientos de encierro tienen una media de matricula bastante alta por lo que con el criterio actual de ir a todas las secciones se consiguen muchos estudiantes rápidamente. No hace falta hacer censal
+
+df_insumo_cubo = df_insumo_cubo |>
+mutate(censal = case_when(
+encierro == "SI" ~ 0, 
+TRUE ~ censal))
+
 # 2. Definición de Probabilidades de Inclusión (pi) de establecimientos
 
-n = 800 # Esto es 500 menos que la primera versión
+n = 1050 # Esto es 500 menos que la primera versión
 
 # 3. Calculo de las probabilidades de inclusion
 
@@ -1220,17 +1228,17 @@ ajustar_pi = function(weight, n) {
 # Aplicación la función. Acá no hay alpha porque no hay renovación como en peb2025
 #df_insumo_cubo$weight = df_insumo_cubo$matricula * (1 + df_insumo_cubo$censal)
 # Si es censal, le asignamos un peso masivo (ej. 99 millones). Si no, su matrícula.
-# En lo posible, para las regiones con menor porcentaje se esperaría que sus establecimientos tuvieran una pequena mayor probabildiad de inclusión con respecto a los establecimientos de las regiones más grandes. Funcionaría con casi como un desempate a favor de las regiones más chicas. No se espera una gran difrencia pero, por ejemlo, lo que se quiere evitar es que si una region en la poblacion posee el 4.5%  se indica que es preferible que esa region termine teniendo 5.5% antes que 3.5%.
+# En lo posible, para las regiones con menor porcentaje se esperaría que sus establecimientos tuvieran una pequena mayor probabilidad de inclusión con respecto a los establecimientos de los dominios más grandes. Funcionaría con casi como un desempate a favor de los dominios más chicas. No se espera una gran diferencia pero, por ejemlo, lo que se quiere evitar es que si un dominio en la poblacion posee el 4.5%  se indica que es preferible que esa region termine teniendo 5.5% antes que 3.5%.
 
-# 1. Calculamos la participación (share) de cada región en la matrícula total (solo sorteables)
-regional_shares = df_insumo_cubo |>
+# 1. Calculamos la participación (share) de cada dominio (antes era por region) en la matrícula total (solo sorteables)
+dominio_shares = df_insumo_cubo |>
   filter(censal == 0) |>
-  group_by(region_agrupada) |>
-  summarise(matricula_region_agrupada = sum(matricula, na.rm = TRUE), .groups = "drop") |>
+  group_by(dominio) |>
+  summarise(matricula_dominio = sum(matricula, na.rm = TRUE), .groups = "drop") |>
   mutate(
-    share_real = matricula_region_agrupada / sum(matricula_region_agrupada),
-    # Aplicamos potencia 0.1: esto "infla" a las regiones pequeñas
-    share_nudge = (share_real^0.1) / sum(share_real^0.1),
+    share_real = matricula_dominio / sum(matricula_dominio),
+    # Aplicamos potencia 0.1: esto "infla" a las regiones pequeñas. 1 es el valor original. 0.1 ya es bajo.
+    share_nudge = (share_real^0.03) / sum(share_real^0.03),
     # Factor de corrección para aplicar a cada establecimiento
     nudge_power = share_nudge / share_real
   )
@@ -1238,23 +1246,44 @@ regional_shares = df_insumo_cubo |>
 # Defino los parámetros de sintonía fina para reducir el peso de CENS y EPA
 # y aumentar proporcionalmente la participación de FINES y otros más pequeños.
 # 1 sería igual a antes
-reductor_cens = 0.3
-reductor_epa = 0.3
+# Esto se hace porque cuesta mas ir a los cens y los epa que a los fines. por otro lado sin esta restricción, como los epa y los cens son mas populosos en matrícula son atraido por el pps.
+reductor_cens_encierro = 0.4
+
+reductor_cens_no_encierro_amba = 0.4
+reductor_cens_no_encierro_interior = 0.6
+
+reductor_epa_encierro = 0.3
+
+reductor_epa_no_encierro_amba = 0.5
+reductor_epa_no_encierro_interior = 0.7
+
+reductor_fines_r03 = 0.9
+reductor_fines_r04 = 0.8
+reductor_fines_r05 = 0.6
+
+#reductor_AMBA = 0.9
 
 # 2. Unimos y calculamos el peso final con el "desempate" y la penalización por tipo
 df_insumo_cubo = df_insumo_cubo |>
-  left_join(regional_shares |> select(region_agrupada, nudge_power), by = "region_agrupada") |>
+  left_join(dominio_shares |> select(dominio, nudge_power), by = "dominio") |>
   mutate(
     # Calculo el factor de ajuste según el tipo de establecimiento para penalizar los más grandes
-    factor_ajuste_CENS_EPA = case_when(
-      tipo_est_adulto == "CENS" ~ reductor_cens,
-      tipo_est_adulto == "EPA" ~ reductor_epa,
-      .default = 1.0
+  factor_ajuste = case_when(
+   tipo_est_adulto == "CENS" & encierro == "SI" ~ reductor_cens_encierro,
+   tipo_est_adulto == "CENS" & encierro == "NO"  & area == "AMBA" ~ reductor_cens_no_encierro_amba,
+   tipo_est_adulto == "CENS" & encierro == "NO"  & area == "INTERIOR" ~ reductor_cens_no_encierro_interior,
+   tipo_est_adulto == "EPA" & encierro == "SI" ~ reductor_epa_encierro,
+   tipo_est_adulto == "EPA" & encierro == "NO" & area == "AMBA" ~ reductor_epa_no_encierro_amba,
+   tipo_est_adulto == "EPA" & encierro == "NO" & area == "INTERIOR" ~ reductor_epa_no_encierro_interior,
+   tipo_est_adulto == "FINES" & region_agrupada == "03" ~ reductor_fines_r05,
+   tipo_est_adulto == "FINES" & region_agrupada == "04" ~ reductor_fines_r05,
+   tipo_est_adulto == "FINES" & region_agrupada == "05" ~ reductor_fines_r05,
+   .default = 1.0
     ),
-    # Si es censal va al 100%, si no, se ajusta por tamaño de la matrícula (pps), el "nudge" regional y el factor por tipo
+    # Si es censal va al 100%, si no, se ajusta por tamaño de la matrícula (pps), el "nudge" del tamaÖo del dominio y el factor por
     weight = if_else(censal == 1, 
                      99999999, 
-                     matricula * coalesce(nudge_power, 1) * factor_ajuste_CENS_EPA)
+                     matricula * coalesce(nudge_power, 1) * factor_ajuste)
   )
 
 pi_corregido = ajustar_pi(df_insumo_cubo$weight, n)
@@ -1266,7 +1295,7 @@ pi_corregido = ajustar_pi(df_insumo_cubo$weight, n)
 # 4. Matriz de Variables Auxiliares (Balanced)
 
 # Convierto las variables (y sus categorías) a dummies con model.matrix
-X = model.matrix(~ tipo_est_adulto + distrito + encierro + ambito + ivse_std +  - 1, 
+X = model.matrix(~ dominio + distrito + ambito + ivse_std + - 1, 
                  data = df_insumo_cubo)
 
 # Aseguramos que pi_corregido sea parte de las restricciones de balanceo
@@ -1299,7 +1328,7 @@ df_insumo_cubo$muestra_adultos[indices_muestra] = 1
 
 ## Construcción de ponderadores y expansores
 
-Si bien la construcción final de los ponderadores casi con seguridad implique un proceso de calibración por la no respuesta, de modo provisorio se han construido algunos ponderadores y expansores básicos para chequear algunos resultados de control de la muestra. Por esta razón no se justificará el detalle de este proceso porque tiene un carácter más instrumental y de control que de análisis.
+Si bien la construcción final de los ponderadores casi con seguridad implique un proceso de calibración por la no respuesta, de modo provisorio se han construido algunos ponderadores y expansores básicos para chequear algunos resultados de control de la muestra. Por esta razón, por ahora no se justificará el detalle de este proceso porque tiene un carácter más instrumental y de control que de análisis.
 
 ```{r}
 #| label: ponderadores
@@ -1382,9 +1411,27 @@ message(paste0("Estudiantes Marco: ", round(N_estud_pob, 0),
                " | Estimados con ponderador_estudiantes: ", round(res_verificacion$estud_estimados, 0)))
 ```
 
-## Testeo Muestra
+## Testeo de la muestra seleccionada
 
-El primer chequeo que se realizará tendra que ver con los porcentajes de establecimientos seleccionados por dominio de estimación. La función básica de esto es observar el efecto del "*power allocation*" que permitió que aumentar la participación porcentual de los dominios más pequeños y reducir la participación porcentual de los dominios más grandes. Para visualizar este efecto, en la siguiente tabla se muestran los resultados porcentuales con y sin ponderar. La idea es que, sin ponderar, el porcentaje de los dominios pequeños sea mayor por efecto de una sobrerepreentación y que con la ponderación, el porcentaje de los dominios pequeños se acerque al porcentaje real que tienen en la población.
+Existen muchas maneras alternativas de evaluar la bondad de una muestra. Una básica, siempre que existan dominios explícitos de estimación e información auxiliar disponible en el marco muestral, es comparar las estimaciones de la muestra con los parámetros del marco muestral. También se puede evaluar aspectos de la muestra que exceden a los dominios de estimación y, justamente, nos informan sobre la robustez de la misma para exigerle responder preguntas diferentes a las originales explicitadas en los dominios de estimación. Comenzaremos por el primer punto y luego seguiremos con el segundo.
+
+Un cuadro importante en este contexto es recordar que esta muestra, si bien consta de una primera etapa de selección de estableciminetos, esta selección se ejecuta con el objetivo de realizar una muestra de estudiantes. Por esta razón a continuación se muestra la distribución de estudiantes para cada dominio de estimación.
+
+```{r}
+#| label: tbl-analisis_dominios_estudiantes
+#| tbl-cap: Cantidad de estudiantes seleccionados según dominios. Valores absolutos sin ponderar.
+# Esta parte que es una suma se puede hacer con tblsummary porque no hay que ponderar. El insumo es el dataframe y #no el objeto survey
+tbl_dominios_estudiantes = df_muestra_final |> 
+  select(dominio, region_agrupada, area, tipo_est_adulto, n_estudiantes_muestra) |>
+ tbl_continuous(
+   variable = n_estudiantes_muestra,
+   statistic = list(
+   everything() ~ "{sum}"))
+
+tbl_dominios_estudiantes
+```
+
+Otro chequeo que se realizará tendra que ver con los porcentajes de establecimientos seleccionados por dominio de estimación. La función básica de esto es observar el efecto del "*power allocation*" que permitió aumentar la participación porcentual de los dominios más pequeños y reducir la participación porcentual de los dominios más grandes. Se recuerda que esto se usó para cambiar las probabilidades de inclusión para que luego se aplique el método del cubo a toda la muestra. En otras palabras, no se trata de un diseño estratificado no proporcional en donde se realizan "x" cantidad de muestras independientes. Para visualizar este efecto, en la siguiente tabla se muestran los resultados porcentuales con y sin ponderar (el primero sin paréntesis y el segundo con). La idea es que, sin ponderar, el porcentaje de los dominios pequeños sea mayor al porcentaje encontrado en la población por efecto de una sobrerepreentación. De manera complementaria, se espera que con la ponderación, el porcentaje de los dominios pequeños se acerque al porcentaje real que tienen en la población.
 
 ```{r}
 #| label: tbl-analisis_dominios
@@ -1400,7 +1447,7 @@ tbl_dominios = df_muestra_final_sv |>
 tbl_dominios 
 ```
 
-Ahora pasaremos a evaluar las bondades de la muestra con respecto a la precisión de los estimadores. Lo probaremos con el IVSE a nivel de cada dominio de estimación con su respectivo CV, su límite inferior, superior, el error estándar y la varianza y la cantidad de casos de establecimientos efectivamente seleccionados.
+Ahora pasaremos a evaluar las bondades de la muestra con respecto a la precisión de los estimadores con respecto a parte de la información auxiliar disponible en el marco muestral. Lo probaremos con el IVSE a nivel de cada dominio de estimación con su respectivo CV, su límite inferior, superior, el error estándar y la varianza y la cantidad de casos de establecimientos efectivamente seleccionados.
 
 ```{r}
 #| label: tbl-analisis_dominios_precision_IVSE
@@ -1419,7 +1466,11 @@ tbl_dominios_ivse
 
 ```
 
-Ahora vamos a empezar a evaluar a los valores del IVSE de la muestra con respecto a los valores de la población. Especialmente nos interesa indagar acerca de su distribución. Esto es particularmente importante porque el IVSE se trata de una variable índice que aspira incluir en la muestra una serie de desigualdades sociales que, de otra forma, se colarían por detrás afectando la utilidad de la misma para diferentes usos. Estos datos se presentan sin correción alguna de ponderación para observar el grado de balanceo y de distribución que se logró con el método del cubo sin ningún tipo de corrección adicional.
+### Análisis de robustez o sensibilidad de la muestra
+
+Ahora vamos a empezar a evaluar a los valores del IVSE de la muestra con respecto a los valores de la población. Especialmente nos interesa indagar acerca su distribución más que su valor central. Esto es particularmente importante porque el IVSE se trata de una variable índice que aspira incluir en la muestra una serie de desigualdades sociales que, de otra forma, se colarían por detrás afectando la utilidad de la misma para diferentes usos. Todos los datos que se presentan de acá en adelante no tienen correción alguna de ponderación para así poder observar el grado de balanceo y de distribución que se logró con el diseño del método del cubo sin ningún tipo de corrección adicional.
+
+El orden será el siguiente. Comenzaremos con una visualización de la distribución del IVSE a nivel de toda la población y de toda la muestra. Luego, se repetirá esta operación, pero a nivel de cada dominio de estimación y los niveles de Grán Área como de Región Agrupada. Finalmente, se hará lo propio a nivel de tipo de establecimiento. Cabe recordar que este tipo de análisis no formaban parte de los objetivos de estimación, pero, justamente, se realizan para evaluar la robustez de la muestra para responder preguntas que exceden a los objetivos explícitos. En principio, si se hubiera seguido una estrategia de mazimizar únicamente la precisión de los dominios de estimación explicitados, se hubiera corrido el riesgo de sobreajsutar (overfitting) a los esos objetivos haciendo a la muestra excesivamente sensible o poco robusta a usos posteriores diferentes a los inicialmente explicitados.
 
 ```{r}
 #| label: fig-densidad_ivse_poblacion_muestra
@@ -1452,11 +1503,11 @@ fig_densidad_ivse_poblacion_muestra_i
 
 ```
 
-Finalmente, vamos a repetir la operación anterior pero a nivel de cada dominio de estimación.
+Ahora vamos a repetir la operación anterior pero a nivel de cada dominio de estimación.
 
 ```{r}
 #| label: fig-densidad_ivse_poblacion_muestra_dominios
-#| fig-cap: Distribución de densidad de evse según dominios. Población y muestra adultos.
+#| fig-cap: Distribución de densidad del IVSE según dominios. Población y muestra adultos.
 #| fig-height: 8
 #| fig-width: 10
 # 1. Preparación de los datos incluyendo la variable de faceteo
@@ -1499,6 +1550,194 @@ fig_densidad_ivse_dominios_i = ggplotly(fig_densidad_ivse_dominios)
 fig_densidad_ivse_dominios_i
 ```
 
+Ahora volvemos a repetir la operación anterior pero a nivel de Región Agrupada
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra_region
+#| fig-cap: Distribución de densidad del IVSE según Región Agrupada. Población y muestra adultos.
+#| fig-height: 8
+#| fig-width: 10
+# 1. Preparación de los datos incluyendo la variable de faceteo
+# Seleccionamos tanto el IVSE como la gran área para ambos grupos
+pop_data_reg = df_insumo_cubo |> 
+  select(IVSE = ivse, region_agrupada) |> 
+  mutate(Grupo = "Población")
+
+mue_data_reg = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  select(IVSE = ivse, region_agrupada) |> 
+  mutate(Grupo = "Muestra")
+
+# Unimos ambos datasets
+insumo_fig_densidad_region = bind_rows(pop_data_reg, mue_data_reg)
+
+# 2. Generación del gráfico facetado
+fig_densidad_ivse_region = insumo_fig_densidad_region |> 
+  ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 0.8) +
+  # Facetamos por la variable de región
+  facet_wrap(vars(region_agrupada), scales = "free_y", ncol = 4) +
+  scale_fill_manual(values = c("Población" = "#A3D8F5", "Muestra" = "#2C3E50")) +
+  scale_color_manual(values = c("Población" = "#2C7BB6", "Muestra" = "#1A2A3A")) +
+  labs(
+    title = "Distribución del IVSE por Región Agrupada",
+    subtitle = "Comparativa de densidad: Población total vs. Muestra",
+    x = "Índice de Vulnerabilidad (IVSE)",
+    y = "Densidad",
+    caption = "Nota: Se utiliza libre o sin escala el eje Y para apreciar la forma de la distribución en cada región."
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    text = element_text(family = "serif"),
+    strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
+  )
+
+fig_densidad_ivse_region_i = ggplotly(fig_densidad_ivse_region)
+fig_densidad_ivse_region_i
+```
+
+Ahora volvemos a repetir la operación anterior pero a nivel de cada Gran Área
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra_area
+#| fig-cap: Distribución de densidad del IVSE según gran área. Población y muestra adultos.
+#| fig-height: 8
+#| fig-width: 10
+# 1. Preparación de los datos incluyendo la variable de faceteo
+# Seleccionamos tanto el IVSE como la gran área para ambos grupos
+pop_data_reg = df_insumo_cubo |> 
+  select(IVSE = ivse, area) |> 
+  mutate(Grupo = "Población")
+
+mue_data_reg = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  select(IVSE = ivse, area) |> 
+  mutate(Grupo = "Muestra")
+
+# Unimos ambos datasets
+insumo_fig_densidad_area = bind_rows(pop_data_reg, mue_data_reg)
+
+# 2. Generación del gráfico facetado
+fig_densidad_ivse_area = insumo_fig_densidad_area |> 
+  ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 0.8) +
+  # Facetamos por la variable de región
+  facet_wrap(vars(area), scales = "free_y", ncol = 4) +
+  scale_fill_manual(values = c("Población" = "#A3D8F5", "Muestra" = "#2C3E50")) +
+  scale_color_manual(values = c("Población" = "#2C7BB6", "Muestra" = "#1A2A3A")) +
+  labs(
+    title = "Distribución del IVSE por Gran Área",
+    subtitle = "Comparativa de densidad: Población total vs. Muestra",
+    x = "Índice de Vulnerabilidad (IVSE)",
+    y = "Densidad",
+    caption = "Nota: Se utiliza libre o sin escala el eje Y para apreciar la forma de la distribución en cada región."
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    text = element_text(family = "serif"),
+    strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
+  )
+
+fig_densidad_ivse_area_i = ggplotly(fig_densidad_ivse_area)
+fig_densidad_ivse_area_i
+```
+
+Volvemos a repetir la operación anterior pero a nivel de tipo de establecimiento.
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra_tipo_establecimiento
+#| fig-cap: Distribución de densidad de IVSE según tipo de establecimiento. Población y muestra adultos.
+#| fig-height: 8
+#| fig-width: 10
+# 1. Preparación de los datos incluyendo la variable de faceteo
+# Seleccionamos tanto el IVSE como el tipo de establecimiento para ambos grupos
+pop_data_reg = df_insumo_cubo |> 
+  select(IVSE = ivse, tipo_est_adulto ) |> 
+  mutate(Grupo = "Población")
+
+mue_data_reg = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  select(IVSE = ivse, tipo_est_adulto) |> 
+  mutate(Grupo = "Muestra")
+
+# Unimos ambos datasets
+insumo_fig_densidad_tipo_est_adulto = bind_rows(pop_data_reg, mue_data_reg)
+
+# 2. Generación del gráfico facetado
+fig_densidad_ivse_tipo_est_adulto = insumo_fig_densidad_tipo_est_adulto |> 
+  ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 0.8) +
+  # Facetamos por la variable de región
+  facet_wrap(vars(tipo_est_adulto), scales = "free_y", ncol = 4) +
+  scale_fill_manual(values = c("Población" = "#A3D8F5", "Muestra" = "#2C3E50")) +
+  scale_color_manual(values = c("Población" = "#2C7BB6", "Muestra" = "#1A2A3A")) +
+  labs(
+    title = "Distribución del IVSE por Tipo de Establecimiento ",
+    subtitle = "Comparativa de densidad: Población total vs. Muestra",
+    x = "Índice de Vulnerabilidad (IVSE)",
+    y = "Densidad",
+    caption = "Nota: Se utiliza libre o sin escala el eje Y para apreciar la forma de la distribución en cada región."
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    text = element_text(family = "serif"),
+    strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
+  )
+
+fig_densidad_ivse_tipo_est_adulto_i = ggplotly(fig_densidad_ivse_tipo_est_adulto)
+fig_densidad_ivse_tipo_est_adulto_i
+```
+
+Por último, volvemos a repetir la operación anterior pero a nivel de nivel del establecimiento.
+
+```{r}
+#| label: fig-densidad_ivse_poblacion_muestra_nivel_establecimiento
+#| fig-cap: Distribución de densidad de IVSE según nivel de establecimiento. Población y muestra adultos.
+#| fig-height: 8
+#| fig-width: 10
+# 1. Preparación de los datos incluyendo la variable de faceteo
+# Seleccionamos tanto el IVSE como el tipo de establecimiento para ambos grupos
+pop_data_reg = df_insumo_cubo |> 
+  select(IVSE = ivse, nivel) |> 
+  mutate(Grupo = "Población")
+
+mue_data_reg = df_insumo_cubo |> 
+  filter(muestra_adultos == 1) |> 
+  select(IVSE = ivse, nivel) |> 
+  mutate(Grupo = "Muestra")
+
+# Unimos ambos datasets
+insumo_fig_densidad_nivel = bind_rows(pop_data_reg, mue_data_reg)
+
+# 2. Generación del gráfico facetado
+fig_densidad_ivse_nivel = insumo_fig_densidad_nivel |> 
+  ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
+  geom_density(alpha = 0.3, size = 0.8) +
+  # Facetamos por la variable de región
+  facet_wrap(vars(nivel), scales = "free_y", ncol = 4) +
+  scale_fill_manual(values = c("Población" = "#A3D8F5", "Muestra" = "#2C3E50")) +
+  scale_color_manual(values = c("Población" = "#2C7BB6", "Muestra" = "#1A2A3A")) +
+  labs(
+    title = "Distribución del IVSE por Nivel de Establecimiento ",
+    subtitle = "Comparativa de densidad: Población total vs. Muestra",
+    x = "Índice de Vulnerabilidad (IVSE)",
+    y = "Densidad",
+    caption = "Nota: Se utiliza libre o sin escala el eje Y para apreciar la forma de la distribución en cada región."
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "bottom",
+    text = element_text(family = "serif"),
+    strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
+  )
+
+fig_densidad_ivse_nivel_i = ggplotly(fig_densidad_ivse_nivel)
+fig_densidad_ivse_nivel_i
+```
+
 ```{r}
 #| label: test_ks_ivse
 #| eval: false
@@ -1508,7 +1747,6 @@ ks_result = ks.test(
   df_insumo_cubo$ivse[df_insumo_cubo$muestra_adultos == 1], 
   df_insumo_cubo$ivse
 )
-
 ks_result
 ```
 
@@ -1517,7 +1755,7 @@ ks_result
 library(writexl) 
 
 df_muestra = df_muestra_final |> 
-  select(codigo, censal, ivse_std, pi_corregido, nudge_power, factor_ajuste_CENS_EPA, expansor_establecimiento, ponderador_establecimiento, muestra_adultos, n_estudiantes_muestra, n_estudiantes_por_seccion)
+  select(codigo, censal, ivse_std, pi_corregido, nudge_power, factor_ajuste, expansor_establecimiento, ponderador_establecimiento, muestra_adultos, n_estudiantes_muestra, n_estudiantes_por_seccion)
 
 muestra_DEJAyAM = df_universo |> 
   left_join(df_muestra, by = "codigo")
