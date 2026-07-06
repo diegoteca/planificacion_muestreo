@@ -232,7 +232,7 @@ div.csl-indent {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introducción</span></span></a>
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">IntroduccióEn este curso/taller vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Generalmente, vamos a trabajar con insumoa empíricos que provengan del mundo educativo. Típicamnete con bases de datos de establecimientos educativos con alguna información agregada de sus estudiantes. Con base en este tipo de insumo en una primera instancia nos vamos a focalizar en una serie de <em>diseños</em> clásicos de muestreo y en la construcción de ponderadores simples. En una segunda instancia vamos a ver diseños que implican:</span></span></a>
   </div>
 </li>
         <li class="sidebar-item sidebar-item-section">
@@ -331,6 +331,7 @@ div.csl-indent {
   <li><a href="#distribución-a-nivel-de-establecimientos" id="toc-distribución-a-nivel-de-establecimientos" class="nav-link" data-scroll-target="#distribución-a-nivel-de-establecimientos"><span class="header-section-number">6.4</span> Distribución a nivel de establecimientos</a></li>
   <li><a href="#simulación-a-nivel-de-estudiantes" id="toc-simulación-a-nivel-de-estudiantes" class="nav-link" data-scroll-target="#simulación-a-nivel-de-estudiantes"><span class="header-section-number">6.5</span> Simulación a nivel de estudiantes</a></li>
   <li><a href="#segunda-etapa" id="toc-segunda-etapa" class="nav-link" data-scroll-target="#segunda-etapa"><span class="header-section-number">6.6</span> Segunda etapa</a></li>
+  <li><a href="#calibración" id="toc-calibración" class="nav-link" data-scroll-target="#calibración"><span class="header-section-number">6.7</span> Calibración</a></li>
   </ul>
 <div class="quarto-other-links"><h2>Otros Enlaces</h2><ul><li><a href="https://github.com/diegoteca/planificacion_muestreo"><i class="bi bi-github"></i>Repositorio del taller</a></li></ul></div></nav>
     </div>
@@ -430,23 +431,23 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
 </figcaption>
 <div aria-describedby="tbl-matricula_size_seccion-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="gecxgymkyl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gecxgymkyl table {
+<div id="qesqxbimbn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qesqxbimbn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gecxgymkyl thead, #gecxgymkyl tbody, #gecxgymkyl tfoot, #gecxgymkyl tr, #gecxgymkyl td, #gecxgymkyl th {
+#qesqxbimbn thead, #qesqxbimbn tbody, #qesqxbimbn tfoot, #qesqxbimbn tr, #qesqxbimbn td, #qesqxbimbn th {
   border-style: none;
 }
 
-#gecxgymkyl p {
+#qesqxbimbn p {
   margin: 0;
   padding: 0;
 }
 
-#gecxgymkyl .gt_table {
+#qesqxbimbn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -472,12 +473,12 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-left-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_caption {
+#qesqxbimbn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gecxgymkyl .gt_title {
+#qesqxbimbn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -489,7 +490,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-bottom-width: 0;
 }
 
-#gecxgymkyl .gt_subtitle {
+#qesqxbimbn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -501,7 +502,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-top-width: 0;
 }
 
-#gecxgymkyl .gt_heading {
+#qesqxbimbn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -513,13 +514,13 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-right-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_bottom_border {
+#qesqxbimbn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_col_headings {
+#qesqxbimbn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -534,7 +535,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-right-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_col_heading {
+#qesqxbimbn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -554,7 +555,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   overflow-x: hidden;
 }
 
-#gecxgymkyl .gt_column_spanner_outer {
+#qesqxbimbn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -566,15 +567,15 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   padding-right: 4px;
 }
 
-#gecxgymkyl .gt_column_spanner_outer:first-child {
+#qesqxbimbn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gecxgymkyl .gt_column_spanner_outer:last-child {
+#qesqxbimbn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gecxgymkyl .gt_column_spanner {
+#qesqxbimbn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -586,11 +587,11 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   width: 100%;
 }
 
-#gecxgymkyl .gt_spanner_row {
+#qesqxbimbn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gecxgymkyl .gt_group_heading {
+#qesqxbimbn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -616,7 +617,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   text-align: left;
 }
 
-#gecxgymkyl .gt_empty_group_heading {
+#qesqxbimbn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -631,15 +632,15 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   vertical-align: middle;
 }
 
-#gecxgymkyl .gt_from_md > :first-child {
+#qesqxbimbn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gecxgymkyl .gt_from_md > :last-child {
+#qesqxbimbn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gecxgymkyl .gt_row {
+#qesqxbimbn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -658,7 +659,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   overflow-x: hidden;
 }
 
-#gecxgymkyl .gt_stub {
+#qesqxbimbn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -671,7 +672,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   padding-right: 5px;
 }
 
-#gecxgymkyl .gt_stub_row_group {
+#qesqxbimbn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -685,15 +686,15 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   vertical-align: top;
 }
 
-#gecxgymkyl .gt_row_group_first td {
+#qesqxbimbn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gecxgymkyl .gt_row_group_first th {
+#qesqxbimbn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gecxgymkyl .gt_summary_row {
+#qesqxbimbn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -703,16 +704,16 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   padding-right: 5px;
 }
 
-#gecxgymkyl .gt_first_summary_row {
+#qesqxbimbn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_first_summary_row.thick {
+#qesqxbimbn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gecxgymkyl .gt_last_summary_row {
+#qesqxbimbn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -722,7 +723,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-bottom-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_grand_summary_row {
+#qesqxbimbn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -732,7 +733,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   padding-right: 5px;
 }
 
-#gecxgymkyl .gt_first_grand_summary_row {
+#qesqxbimbn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -742,7 +743,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-top-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_last_grand_summary_row_top {
+#qesqxbimbn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -752,11 +753,11 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-bottom-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_striped {
+#qesqxbimbn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gecxgymkyl .gt_table_body {
+#qesqxbimbn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -765,7 +766,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-bottom-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_footnotes {
+#qesqxbimbn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -779,7 +780,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-right-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_footnote {
+#qesqxbimbn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -788,7 +789,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   padding-right: 5px;
 }
 
-#gecxgymkyl .gt_sourcenotes {
+#qesqxbimbn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -802,7 +803,7 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   border-right-color: #D3D3D3;
 }
 
-#gecxgymkyl .gt_sourcenote {
+#qesqxbimbn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -810,72 +811,72 @@ Tabla&nbsp;6.1: Comparación de la media y mediana de los establecimientos en fu
   padding-right: 5px;
 }
 
-#gecxgymkyl .gt_left {
+#qesqxbimbn .gt_left {
   text-align: left;
 }
 
-#gecxgymkyl .gt_center {
+#qesqxbimbn .gt_center {
   text-align: center;
 }
 
-#gecxgymkyl .gt_right {
+#qesqxbimbn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gecxgymkyl .gt_font_normal {
+#qesqxbimbn .gt_font_normal {
   font-weight: normal;
 }
 
-#gecxgymkyl .gt_font_bold {
+#qesqxbimbn .gt_font_bold {
   font-weight: bold;
 }
 
-#gecxgymkyl .gt_font_italic {
+#qesqxbimbn .gt_font_italic {
   font-style: italic;
 }
 
-#gecxgymkyl .gt_super {
+#qesqxbimbn .gt_super {
   font-size: 65%;
 }
 
-#gecxgymkyl .gt_footnote_marks {
+#qesqxbimbn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gecxgymkyl .gt_asterisk {
+#qesqxbimbn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gecxgymkyl .gt_indent_1 {
+#qesqxbimbn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gecxgymkyl .gt_indent_2 {
+#qesqxbimbn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gecxgymkyl .gt_indent_3 {
+#qesqxbimbn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gecxgymkyl .gt_indent_4 {
+#qesqxbimbn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gecxgymkyl .gt_indent_5 {
+#qesqxbimbn .gt_indent_5 {
   text-indent: 25px;
 }
 
-#gecxgymkyl .katex-display {
+#qesqxbimbn .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#gecxgymkyl div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#qesqxbimbn div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -936,23 +937,23 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
 </figcaption>
 <div aria-describedby="tbl-poblacion_muestra_2024-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="zrwojhjkzv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zrwojhjkzv table {
+<div id="ripzerflqs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ripzerflqs table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zrwojhjkzv thead, #zrwojhjkzv tbody, #zrwojhjkzv tfoot, #zrwojhjkzv tr, #zrwojhjkzv td, #zrwojhjkzv th {
+#ripzerflqs thead, #ripzerflqs tbody, #ripzerflqs tfoot, #ripzerflqs tr, #ripzerflqs td, #ripzerflqs th {
   border-style: none;
 }
 
-#zrwojhjkzv p {
+#ripzerflqs p {
   margin: 0;
   padding: 0;
 }
 
-#zrwojhjkzv .gt_table {
+#ripzerflqs .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -978,12 +979,12 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-left-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_caption {
+#ripzerflqs .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zrwojhjkzv .gt_title {
+#ripzerflqs .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -995,7 +996,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-bottom-width: 0;
 }
 
-#zrwojhjkzv .gt_subtitle {
+#ripzerflqs .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1007,7 +1008,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-top-width: 0;
 }
 
-#zrwojhjkzv .gt_heading {
+#ripzerflqs .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1019,13 +1020,13 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-right-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_bottom_border {
+#ripzerflqs .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_col_headings {
+#ripzerflqs .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1040,7 +1041,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-right-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_col_heading {
+#ripzerflqs .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1060,7 +1061,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   overflow-x: hidden;
 }
 
-#zrwojhjkzv .gt_column_spanner_outer {
+#ripzerflqs .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1072,15 +1073,15 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   padding-right: 4px;
 }
 
-#zrwojhjkzv .gt_column_spanner_outer:first-child {
+#ripzerflqs .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zrwojhjkzv .gt_column_spanner_outer:last-child {
+#ripzerflqs .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zrwojhjkzv .gt_column_spanner {
+#ripzerflqs .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1092,11 +1093,11 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   width: 100%;
 }
 
-#zrwojhjkzv .gt_spanner_row {
+#ripzerflqs .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zrwojhjkzv .gt_group_heading {
+#ripzerflqs .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1122,7 +1123,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   text-align: left;
 }
 
-#zrwojhjkzv .gt_empty_group_heading {
+#ripzerflqs .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1137,15 +1138,15 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   vertical-align: middle;
 }
 
-#zrwojhjkzv .gt_from_md > :first-child {
+#ripzerflqs .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zrwojhjkzv .gt_from_md > :last-child {
+#ripzerflqs .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zrwojhjkzv .gt_row {
+#ripzerflqs .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1164,7 +1165,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   overflow-x: hidden;
 }
 
-#zrwojhjkzv .gt_stub {
+#ripzerflqs .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1177,7 +1178,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   padding-right: 5px;
 }
 
-#zrwojhjkzv .gt_stub_row_group {
+#ripzerflqs .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1191,15 +1192,15 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   vertical-align: top;
 }
 
-#zrwojhjkzv .gt_row_group_first td {
+#ripzerflqs .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zrwojhjkzv .gt_row_group_first th {
+#ripzerflqs .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zrwojhjkzv .gt_summary_row {
+#ripzerflqs .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1209,16 +1210,16 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   padding-right: 5px;
 }
 
-#zrwojhjkzv .gt_first_summary_row {
+#ripzerflqs .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_first_summary_row.thick {
+#ripzerflqs .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zrwojhjkzv .gt_last_summary_row {
+#ripzerflqs .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1228,7 +1229,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-bottom-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_grand_summary_row {
+#ripzerflqs .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1238,7 +1239,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   padding-right: 5px;
 }
 
-#zrwojhjkzv .gt_first_grand_summary_row {
+#ripzerflqs .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1248,7 +1249,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-top-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_last_grand_summary_row_top {
+#ripzerflqs .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1258,11 +1259,11 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-bottom-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_striped {
+#ripzerflqs .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zrwojhjkzv .gt_table_body {
+#ripzerflqs .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1271,7 +1272,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-bottom-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_footnotes {
+#ripzerflqs .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1285,7 +1286,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-right-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_footnote {
+#ripzerflqs .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1294,7 +1295,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   padding-right: 5px;
 }
 
-#zrwojhjkzv .gt_sourcenotes {
+#ripzerflqs .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1308,7 +1309,7 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   border-right-color: #D3D3D3;
 }
 
-#zrwojhjkzv .gt_sourcenote {
+#ripzerflqs .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1316,72 +1317,72 @@ Tabla&nbsp;6.2: Comparación parámetros poblacionales de establecimientos vs mu
   padding-right: 5px;
 }
 
-#zrwojhjkzv .gt_left {
+#ripzerflqs .gt_left {
   text-align: left;
 }
 
-#zrwojhjkzv .gt_center {
+#ripzerflqs .gt_center {
   text-align: center;
 }
 
-#zrwojhjkzv .gt_right {
+#ripzerflqs .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zrwojhjkzv .gt_font_normal {
+#ripzerflqs .gt_font_normal {
   font-weight: normal;
 }
 
-#zrwojhjkzv .gt_font_bold {
+#ripzerflqs .gt_font_bold {
   font-weight: bold;
 }
 
-#zrwojhjkzv .gt_font_italic {
+#ripzerflqs .gt_font_italic {
   font-style: italic;
 }
 
-#zrwojhjkzv .gt_super {
+#ripzerflqs .gt_super {
   font-size: 65%;
 }
 
-#zrwojhjkzv .gt_footnote_marks {
+#ripzerflqs .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zrwojhjkzv .gt_asterisk {
+#ripzerflqs .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zrwojhjkzv .gt_indent_1 {
+#ripzerflqs .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zrwojhjkzv .gt_indent_2 {
+#ripzerflqs .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zrwojhjkzv .gt_indent_3 {
+#ripzerflqs .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zrwojhjkzv .gt_indent_4 {
+#ripzerflqs .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zrwojhjkzv .gt_indent_5 {
+#ripzerflqs .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zrwojhjkzv .katex-display {
+#ripzerflqs .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zrwojhjkzv div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#ripzerflqs div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -2118,7 +2119,7 @@ Tabla&nbsp;6.3: Comparación parámetros poblacionales de establecimientos vs mu
 </section>
 <section id="distribución-a-nivel-de-establecimientos" class="level2" data-number="6.4">
 <h2 data-number="6.4" class="anchored" data-anchor-id="distribución-a-nivel-de-establecimientos"><span class="header-section-number">6.4</span> Distribución a nivel de establecimientos</h2>
-<p>Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere, en las variables latitud, longitud (<a href="#fig-mapa_muestra_2025" class="quarto-xref">Figura&nbsp;<span>6.2</span></a>) y porcentaje de AUH (<a href="#fig-densidad_auh" class="quarto-xref">Figura&nbsp;<span>6.4</span></a>), de la distribución de las mismas a nivel del marco muestral.</p>
+<p>Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere, en las variables latitud, longitud (<a href="#fig-mapa_muestra_2025" class="quarto-xref">Figura&nbsp;<span>6.2</span></a> y <a href="#fig-mapa_calor_poblacion_muestra" class="quarto-xref">Figura&nbsp;<span>6.3</span></a>) y porcentaje de AUH (<a href="#fig-densidad_auh" class="quarto-xref">Figura&nbsp;<span>6.4</span></a>), de la distribución de las mismas a nivel del marco muestral.</p>
 <div class="cell">
 <div id="fig-mapa_muestra_2025" class="cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2146,15 +2147,15 @@ Figura&nbsp;6.3: Mapa de calor sobre la distribución de los casos. Población y
 </div>
 </div>
 </div>
-<div class="cell" data-tbl-cap="Distribución de densidad de poercentaje de AUH. Población y muestra 2025.">
+<div class="cell">
 <div class="cell-output-display">
-<div id="fig-densidad_auh" class="quarto-float quarto-figure quarto-figure-center anchored" width="672">
+<div id="fig-densidad_auh" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig quarto-uncaptioned" id="fig-densidad_auh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figura&nbsp;6.4
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-fig" id="fig-densidad_auh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;6.4: Distribución de densidad de porcentaje de AUH. Población y muestra 2025.
 </figcaption>
 <div aria-describedby="fig-densidad_auh-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="muestra_peb_2025_files/figure-html/fig-densidad_auh-1.png" id="fig-densidad_auh" class="img-fluid figure-img" width="672">
+<img src="muestra_peb_2025_files/figure-html/fig-densidad_auh-1.png" class="img-fluid figure-img" width="672">
 </div>
 </figure>
 </div>
@@ -2765,7 +2766,7 @@ Figura&nbsp;6.5
 <h2 data-number="6.6" class="anchored" data-anchor-id="segunda-etapa"><span class="header-section-number">6.6</span> Segunda etapa</h2>
 <p>En esta segunda etapa aparece una cuestión particular a considerar. Se trata del tamaño de las secciones de los establecimientos como algo diferente a la cantidad de secciones del mismo. Con respecto a la muestra de 2024, esto es un problema algo nuevo porque el diseño de la muestra 2025 aspira a, efectivamente, seleccionar <em>algunas</em> secciones dentro de los establecimientos en vez de ir a <em>todas</em>.</p>
 <p>Antes vimos que si la probabilidad de inclusión de un establecimiento en la primera etapa de la muestra depende del tamaño de la matrícula eso permite que la cantidad de estudiantes a seleccionar en la segunda etapa pueda ser única para todos los establecimientos. Dado que en la mayoría de los establecimientos existe más de una sección para cada año (3<sup>ro</sup> y 6<sup>to</sup>) nos encontramos con el problema de como seleccionar a las propias secciones. Expresado en léxico muestral, ahora las secciones se convierten en una segunda etapa de selección. En este sentido, el problema del tamaño de los establecimientos en la primera etapa se traduce al problema del tamaño de cada sección en la segunda etapa. Si solo se realiza un sorteo por azar simple dentro de cada establecimiento para seleccionar a las secciones, los estudiantes de las secciones más grandes van a tener una menor chance de salir en la muestra que los estudiantes de secciones chicas. En funcion de esto podría ser pertinente que, a la hora de realizar el sorteo de las secciones, se incluya en la probabilidad de inclusión el tamaño de la sección (Punto 3.3). Para tener de referencia, los establecimientos seleccionados en 2025 poseen, en promedio, más secciones que los seleccionados en 2024. Si se cuenta los diferentes turnos ahora hay que seleccionar entre 2,8 secciones en cada establecimiento para cada año. En cambio, este valor para la muestra de 2024 fue de alrededor de 2,2 secciones por cada establecimiento/año seleccionado en su respectiva primera etapa.</p>
-<p>Sin embargo, el problema no se trata solo de que antes se iba a <em>todas</em> las secciones <em>entre las pocas</em> del establecimiento elegido y ahora a se vaya a <em>algunas entre muchas</em>. Un problema adicional es el siguiente. Supongamos que se tenga en mente la hipótesis que la relación en cuanto al ratio estudiantes/docente sea importante con respecto a los aprendizajes. En ese caso, una regla simple como la de “seleccione siempre a la sección más grande del establecimiento” sería, en presencia de la hipótesis anterior, una regla que, artificialmente, bajaría el promedio de las notas PEB por cenirse a las secciones en donde ese ratio es mayor. La regla anterior se podría mantener si, dentro de cada establecimiento y dentro de cada año seleccionado, hubiera muy poca diferencia de tamaño entre sus diferentes secciones. Esta hipótesis, si bien razonable dentro de ciertos parámetros, es extrema. Por otro lado, asumir que sea usual la situación en donde un establecimiento tenga 3 secciones en 6<sup>to</sup> grado, de las cuales una tenga un tamaño de 10 estudiantes, otra de 20 y otra de 30, también parece ser algo extremo. Podría ser algo más probable esta situación en los establecimientos de jornada simple en donde habría que seleccionar secciones tanto de la tarde como de la mañana. También puede ser algo más probable de encontrarse esta situación en 6<sup>to</sup> más que en 3<sup>ro</sup>. Sin embargo, aun asumiendo que estos últimos casos pueden ser más probables en jornada simple y en 6<sup>to</sup> es difícil anticipar su peso en el conjunto de las secciones.</p>
+<p>Sin embargo, el problema no se trata solo de que antes se iba a <em>todas</em> las secciones <em>entre las pocas</em> del establecimiento elegido y ahora a se vaya a <em>algunas entre muchas</em>. Un problema adicional es el siguiente. Supongamos que se tenga en mente la hipótesis que la relación en cuanto al ratio estudiantes/docente sea importante con respecto a los aprendizajes. En ese caso, una regla simple como la de “seleccione siempre a la sección más grande del establecimiento” sería, en presencia de la hipótesis anterior, una regla que, artificialmente, bajaría el promedio de las notas PEB por cenirse a las secciones en donde ese ratio es mayor. La regla anterior se podría mantener si, dentro de cada establecimiento y dentro de cada año seleccionado, hubiera muy poca diferencia de tamaño entre sus diferentes secciones. Esta hipótesis, si bien razonable dentro de ciertos parámetros, es algo arriesgada. Por otro lado, asumir que sea usual la situación en donde un establecimiento tenga 3 secciones en 6<sup>to</sup> grado, de las cuales una tenga un tamaño de 10 estudiantes, otra de 20 y otra de 30, también parece ser algo arriesgada. Podría ser algo más probable esta situación en los establecimientos de jornada simple en donde habría que seleccionar secciones tanto de la tarde como de la mañana. También puede ser algo más probable de encontrarse esta situación en 6<sup>to</sup> más que en 3<sup>ro</sup>. Sin embargo, aun asumiendo que estos últimos casos pueden ser más probables en jornada simple y en 6<sup>to</sup> es difícil anticipar su peso en el conjunto de las secciones.</p>
 <p>Lo anterior puede analizarce de modo empírico de dos modos diferentes. Primero analizaremos la distribución, medida a través de la desviación estándar, de todas las secciones con respecto a su respectiva media de tamaño para su mismo establecimiento y año. Esto nos va a permitir captar la heterogeneridad en función de la misma unidad que se utiliza para calcular la media que, en este caso, es la cantidad de estudiantes. En la <a href="#fig-sd_size_secciones_intra_establecimiento" class="quarto-xref">Figura&nbsp;<span>6.6</span></a> se observa como, si bien con una distribución normal, existen divergencias con respecto a la media. Esto asegura que, si se seleccionara siempre a las secciones más grandes del tandem establecimiento/año, efectivamente la muestra estaría compuesta casi exclusivamente por secciones que se encuentran por encima de su respectiva media. Claro está que la mayoría de ellas estaría compuesta por secciones que sobrepasan por pocos estudiantes (2 estudiantes) a su respectiva media.</p>
 <div class="cell">
 <div class="cell-output-display">
@@ -3310,6 +3311,11 @@ N = 1.346<span class="gt_footnote_marks" style="white-space:nowrap;font-style:it
 </figure>
 </div>
 </div>
+</section>
+<section id="calibración" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="calibración"><span class="header-section-number">6.7</span> Calibración</h2>
+<p>En la sección <a href="calibracion.html" class="quarto-xref"><span>Cap. 5</span></a> se comentaron algunas cuestiones generales sobre la calibración. La principal diferencia de lo allá realizado con lo que se realizará a continuación es la siguiente. En aquella sección, la calibración se hacía sobre una muestra de establecimientos y se comparaba la diferencias en los valores entre una muestra realizada por azar simple o vía balanceo bien distribuido. Sin embargo, algunos puntos importantes del proceso de calibración no estaban presente. Quizá el más notorio sea el de la falta de corrección de la no respuesta porque en ambas muestras todos los establecimientos “respondian” la muestra. En esta ocasión, dado que se trata de una muestra de estudiantes, vamos a tener casos sin respuesta, por lo que los ponderadores usuales (<em>base_weights</em>), por definición, van a contener algún error que hay que corregir.</p>
+<p>Un punto importante en este proceso de calibración es que en esta investigación en particular no tenemos que dudar de la calidad del marco muestral. Esto rara vez sucede en muchos tipos de muestras, aunque es algo más usual en diseños muestrales realizados dentro de grandes organizaciones <span class="citation" data-cites="valliant2018a">(<a href="references.html#ref-valliant2018a" role="doc-biblioref">Valliant &amp; Dever, 2018, Capítulo 1</a>)</span>. El presente marco muestra no parece tener problemas de subcobertura (<em>undervoverage</em>) o sobrecobertura (<em>overcoverage</em>). En el primer caso, existirían estudiantes o establecimientos en la población objetivo que no están presente en el marco muestral. En el segundo caso, existirían estudiantes o establecimientos en el marco muestral que no están presentes en la población objetivo.</p>
 
 
 <!-- -->
@@ -3323,6 +3329,9 @@ Neyman, J. (1934). On the Two Different Aspects of the Representative Method: Th
 </div>
 <div id="ref-subsecretaría2025" class="csl-entry" role="listitem">
 <span class="nocase">Subsecretaría, de planeamiento</span>. (2025). <em>Qué son las pruebas escolares bonaerenses? Evaluación formativa para la mejora de la enseñanza y de los aprendizajes</em>. Subsecretaría de Planeamiento, Dirección Provincial de Evaluación e Investigación.
+</div>
+<div id="ref-valliant2018a" class="csl-entry" role="listitem">
+Valliant, R., &amp; Dever, J. (2018). <em>Survey Weights. A step by step guide to calculation</em>. Stata Press.
 </div>
 </div>
 </section>
@@ -4330,7 +4339,7 @@ Neyman, J. (1934). On the Two Different Aspects of the Representative Method: Th
 <span id="cb1-559"><a href="#cb1-559" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-560"><a href="#cb1-560" aria-hidden="true" tabindex="-1"></a><span class="fu">## Distribución a nivel de establecimientos</span></span>
 <span id="cb1-561"><a href="#cb1-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a>Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere, en las variables latitud, longitud (@fig-mapa_muestra_2025) y porcentaje de AUH (@fig-densidad_auh), de la distribución de las mismas a nivel del marco muestral.</span>
+<span id="cb1-562"><a href="#cb1-562" aria-hidden="true" tabindex="-1"></a>Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere, en las variables latitud, longitud (@fig-mapa_muestra_2025 y @fig-mapa_calor_poblacion_muestra) y porcentaje de AUH (@fig-densidad_auh), de la distribución de las mismas a nivel del marco muestral.</span>
 <span id="cb1-563"><a href="#cb1-563" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-566"><a href="#cb1-566" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-567"><a href="#cb1-567" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-mapa_muestra_2025</span></span>
@@ -4411,7 +4420,7 @@ Neyman, J. (1934). On the Two Different Aspects of the Representative Method: Th
 <span id="cb1-644"><a href="#cb1-644" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-647"><a href="#cb1-647" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb1-648"><a href="#cb1-648" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-densidad_auh</span></span>
-<span id="cb1-649"><a href="#cb1-649" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Distribución de densidad de poercentaje de AUH. Población y muestra 2025.</span></span>
+<span id="cb1-649"><a href="#cb1-649" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Distribución de densidad de porcentaje de AUH. Población y muestra 2025.</span></span>
 <span id="cb1-650"><a href="#cb1-650" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-651"><a href="#cb1-651" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Preparación de los datos para la gráfica</span></span>
 <span id="cb1-652"><a href="#cb1-652" aria-hidden="true" tabindex="-1"></a><span class="co"># Creamos un dataframe que combine población y muestra</span></span>
@@ -4426,248 +4435,263 @@ Neyman, J. (1934). On the Two Different Aspects of the Representative Method: Th
 <span id="cb1-661"><a href="#cb1-661" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb1-662"><a href="#cb1-662" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Población"</span> <span class="ot">=</span> <span class="st">"grey70"</span>, <span class="st">"Muestra"</span> <span class="ot">=</span> <span class="st">"#2c3e50"</span>)) <span class="sc">+</span></span>
 <span id="cb1-663"><a href="#cb1-663" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Población"</span> <span class="ot">=</span> <span class="st">"grey50"</span>, <span class="st">"Muestra"</span> <span class="ot">=</span> <span class="st">"#2c3e50"</span>)) <span class="sc">+</span></span>
-<span id="cb1-664"><a href="#cb1-664" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Comparativa de Densidad: Porcentaje de AUH"</span>,</span>
-<span id="cb1-665"><a href="#cb1-665" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Población total vs. Muestra balanceada y dispersa"</span>,</span>
-<span id="cb1-666"><a href="#cb1-666" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Porcentaje de Estudiantes con AUH"</span>,</span>
-<span id="cb1-667"><a href="#cb1-667" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Densidad"</span>,</span>
-<span id="cb1-668"><a href="#cb1-668" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Nota: El solapamiento indica la calidad del 'spreading' multivariado."</span>) <span class="sc">+</span></span>
-<span id="cb1-669"><a href="#cb1-669" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb1-670"><a href="#cb1-670" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb1-671"><a href="#cb1-671" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"serif"</span>))</span>
-<span id="cb1-672"><a href="#cb1-672" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-673"><a href="#cb1-673" aria-hidden="true" tabindex="-1"></a>fig_densidad_auh</span>
-<span id="cb1-674"><a href="#cb1-674" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-675"><a href="#cb1-675" aria-hidden="true" tabindex="-1"></a><span class="co"># Realización del test K-S</span></span>
-<span id="cb1-676"><a href="#cb1-676" aria-hidden="true" tabindex="-1"></a>ks_result <span class="ot">=</span> <span class="fu">ks.test</span>(</span>
-<span id="cb1-677"><a href="#cb1-677" aria-hidden="true" tabindex="-1"></a>  marco_muestra<span class="sc">$</span>auh_pct[marco_muestra<span class="sc">$</span>muestra_2025 <span class="sc">==</span> <span class="dv">1</span>], </span>
-<span id="cb1-678"><a href="#cb1-678" aria-hidden="true" tabindex="-1"></a>  marco_muestra<span class="sc">$</span>auh_pct</span>
-<span id="cb1-679"><a href="#cb1-679" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-680"><a href="#cb1-680" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-681"><a href="#cb1-681" aria-hidden="true" tabindex="-1"></a><span class="co">#print(ks_result)</span></span>
-<span id="cb1-682"><a href="#cb1-682" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-683"><a href="#cb1-683" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-684"><a href="#cb1-684" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulación a nivel de estudiantes</span></span>
-<span id="cb1-685"><a href="#cb1-685" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-686"><a href="#cb1-686" aria-hidden="true" tabindex="-1"></a>Dado que en el actual diseño se emplea una muestra en donde la probabilidad de inclusión deviene en parte del tamaño del establecimiento es esperable, como se anticipó más arriba, encontrar diferencias entre las tendencias centrales de algunas variables consideradas importantes entre la muestra de establecimientos y la población de los mismos. Por esta razón, partiendo del marco muestral de los establecimientos vamos a crear una población sintética de estudiantes en función de la matrícula de cada uno de ellos. Luego vamos a comparar esa población con otra población de estudiantes asumiendo que se seleccionan "x" estudiantes por cada establecimiento seleccionado (10 en este caso).</span>
-<span id="cb1-687"><a href="#cb1-687" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-690"><a href="#cb1-690" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-691"><a href="#cb1-691" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tb-estudiantes_10</span></span>
-<span id="cb1-692"><a href="#cb1-692" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Crear el universo de estudiantes (Simulado)</span></span>
-<span id="cb1-693"><a href="#cb1-693" aria-hidden="true" tabindex="-1"></a><span class="co"># Repetimos cada fila del marco según su variable 'size' (matrícula)</span></span>
-<span id="cb1-694"><a href="#cb1-694" aria-hidden="true" tabindex="-1"></a>estudiantes_poblacion <span class="ot">=</span> marco_muestra[<span class="fu">rep</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(marco_muestra)), </span>
-<span id="cb1-695"><a href="#cb1-695" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">times =</span> marco_muestra<span class="sc">$</span>matricula_inicial_2025), ]</span>
-<span id="cb1-696"><a href="#cb1-696" aria-hidden="true" tabindex="-1"></a>estudiantes_poblacion<span class="sc">$</span>Origen <span class="ot">=</span> <span class="st">"Población de Estudiantes"</span></span>
-<span id="cb1-697"><a href="#cb1-697" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-698"><a href="#cb1-698" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Crear la muestra de estudiantes (Simulada)</span></span>
-<span id="cb1-699"><a href="#cb1-699" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos las escuelas de la muestra y repetimos cada una 10 veces</span></span>
-<span id="cb1-700"><a href="#cb1-700" aria-hidden="true" tabindex="-1"></a>escuelas_seleccionadas <span class="ot">=</span> <span class="fu">subset</span>(marco_muestra, muestra_2025 <span class="sc">==</span> <span class="dv">1</span>)</span>
-<span id="cb1-701"><a href="#cb1-701" aria-hidden="true" tabindex="-1"></a>estudiantes_muestra <span class="ot">=</span> escuelas_seleccionadas[<span class="fu">rep</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(escuelas_seleccionadas)), </span>
-<span id="cb1-702"><a href="#cb1-702" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">each =</span> <span class="dv">10</span>), ] <span class="co"># Solo 10 en vez de la matricula</span></span>
-<span id="cb1-703"><a href="#cb1-703" aria-hidden="true" tabindex="-1"></a>estudiantes_muestra<span class="sc">$</span>Origen <span class="ot">=</span> <span class="st">"Muestra de Estudiantes (k=10)"</span></span>
-<span id="cb1-704"><a href="#cb1-704" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-705"><a href="#cb1-705" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Consolidar para la comparación</span></span>
-<span id="cb1-706"><a href="#cb1-706" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-707"><a href="#cb1-707" aria-hidden="true" tabindex="-1"></a>comparativo_estudiantes <span class="ot">=</span> <span class="fu">rbind</span>(</span>
-<span id="cb1-708"><a href="#cb1-708" aria-hidden="true" tabindex="-1"></a>  estudiantes_poblacion,</span>
-<span id="cb1-709"><a href="#cb1-709" aria-hidden="true" tabindex="-1"></a>  estudiantes_muestra</span>
-<span id="cb1-710"><a href="#cb1-710" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-711"><a href="#cb1-711" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-712"><a href="#cb1-712" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-713"><a href="#cb1-713" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-716"><a href="#cb1-716" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-717"><a href="#cb1-717" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-poblacion_estudiantes_vs_muestra_estudiantes</span></span>
-<span id="cb1-718"><a href="#cb1-718" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Comparación entre poblaciónes sintéticas de estudiantes</span></span>
-<span id="cb1-719"><a href="#cb1-719" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Generamos la tabla para la Población Total</span></span>
-<span id="cb1-720"><a href="#cb1-720" aria-hidden="true" tabindex="-1"></a>tbl_muestra_estudiantes <span class="ot">=</span> comparativo_estudiantes <span class="sc">|&gt;</span></span>
-<span id="cb1-721"><a href="#cb1-721" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sector, ambito, matricula_inicial_2025, jornada_completa, latitud, longitud, auh_pct, muestra_2024, Origen) <span class="sc">|&gt;</span> <span class="co"># Excluimos la columna de la muestra para no sesgar el resumen</span></span>
-<span id="cb1-722"><a href="#cb1-722" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> Origen) <span class="sc">|&gt;</span></span>
-<span id="cb1-723"><a href="#cb1-723" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(<span class="at">label =</span> <span class="st">"**Variable**"</span>)</span>
-<span id="cb1-724"><a href="#cb1-724" aria-hidden="true" tabindex="-1"></a>tbl_muestra_estudiantes</span>
-<span id="cb1-725"><a href="#cb1-725" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-726"><a href="#cb1-726" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-729"><a href="#cb1-729" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-730"><a href="#cb1-730" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-poblacion_estudiantes_vs_muestra_estudiantes</span></span>
-<span id="cb1-731"><a href="#cb1-731" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-732"><a href="#cb1-732" aria-hidden="true" tabindex="-1"></a>comparativo_estudiantes <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
-<span id="cb1-733"><a href="#cb1-733" aria-hidden="true" tabindex="-1"></a>  estudiantes_poblacion[, <span class="fu">c</span>(<span class="st">"auh_pct"</span>, <span class="st">"Origen"</span>)],</span>
-<span id="cb1-734"><a href="#cb1-734" aria-hidden="true" tabindex="-1"></a>  estudiantes_muestra[, <span class="fu">c</span>(<span class="st">"auh_pct"</span>, <span class="st">"Origen"</span>)]</span>
-<span id="cb1-735"><a href="#cb1-735" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-736"><a href="#cb1-736" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comparativo_estudiantes, <span class="fu">aes</span>(<span class="at">x =</span> auh_pct, <span class="at">fill =</span> Origen, <span class="at">color =</span> Origen)) <span class="sc">+</span></span>
-<span id="cb1-737"><a href="#cb1-737" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb1-738"><a href="#cb1-738" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Población de Estudiantes"</span> <span class="ot">=</span> <span class="st">"#bdc3c7"</span>, </span>
-<span id="cb1-739"><a href="#cb1-739" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Muestra de Estudiantes (k=10)"</span> <span class="ot">=</span> <span class="st">"#e67e22"</span>)) <span class="sc">+</span></span>
-<span id="cb1-740"><a href="#cb1-740" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Población de Estudiantes"</span> <span class="ot">=</span> <span class="st">"#7f8c8d"</span>, </span>
-<span id="cb1-741"><a href="#cb1-741" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Muestra de Estudiantes (k=10)"</span> <span class="ot">=</span> <span class="st">"#d35400"</span>)) <span class="sc">+</span></span>
-<span id="cb1-742"><a href="#cb1-742" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simulación del Perfil de Estudiantes"</span>,</span>
-<span id="cb1-743"><a href="#cb1-743" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Comparación bajo diseño PPS y cuota fija por establecimiento"</span>,</span>
-<span id="cb1-744"><a href="#cb1-744" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Porcentaje de AUH (Variable del Establecimiento)"</span>,</span>
-<span id="cb1-745"><a href="#cb1-745" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Densidad de Estudiantes"</span>,</span>
-<span id="cb1-746"><a href="#cb1-746" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Nota: La coincidencia de las curvas valida la propiedad de autoponderación."</span>) <span class="sc">+</span></span>
-<span id="cb1-747"><a href="#cb1-747" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb1-748"><a href="#cb1-748" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb1-664"><a href="#cb1-664" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">subtitle =</span> <span class="st">"Población total vs. Muestra balanceada y dispersa"</span>,</span>
+<span id="cb1-665"><a href="#cb1-665" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Porcentaje de Estudiantes con AUH"</span>,</span>
+<span id="cb1-666"><a href="#cb1-666" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Densidad"</span>,</span>
+<span id="cb1-667"><a href="#cb1-667" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Nota: El solapamiento indica la calidad del 'spreading' multivariado."</span>) <span class="sc">+</span></span>
+<span id="cb1-668"><a href="#cb1-668" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-669"><a href="#cb1-669" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb1-670"><a href="#cb1-670" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">family =</span> <span class="st">"serif"</span>))</span>
+<span id="cb1-671"><a href="#cb1-671" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-672"><a href="#cb1-672" aria-hidden="true" tabindex="-1"></a>fig_densidad_auh</span>
+<span id="cb1-673"><a href="#cb1-673" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-674"><a href="#cb1-674" aria-hidden="true" tabindex="-1"></a><span class="co"># Realización del test K-S</span></span>
+<span id="cb1-675"><a href="#cb1-675" aria-hidden="true" tabindex="-1"></a>ks_result <span class="ot">=</span> <span class="fu">ks.test</span>(</span>
+<span id="cb1-676"><a href="#cb1-676" aria-hidden="true" tabindex="-1"></a>  marco_muestra<span class="sc">$</span>auh_pct[marco_muestra<span class="sc">$</span>muestra_2025 <span class="sc">==</span> <span class="dv">1</span>], </span>
+<span id="cb1-677"><a href="#cb1-677" aria-hidden="true" tabindex="-1"></a>  marco_muestra<span class="sc">$</span>auh_pct</span>
+<span id="cb1-678"><a href="#cb1-678" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-679"><a href="#cb1-679" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-680"><a href="#cb1-680" aria-hidden="true" tabindex="-1"></a><span class="co">#print(ks_result)</span></span>
+<span id="cb1-681"><a href="#cb1-681" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-682"><a href="#cb1-682" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-683"><a href="#cb1-683" aria-hidden="true" tabindex="-1"></a><span class="fu">## Simulación a nivel de estudiantes</span></span>
+<span id="cb1-684"><a href="#cb1-684" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-685"><a href="#cb1-685" aria-hidden="true" tabindex="-1"></a>Dado que en el actual diseño se emplea una muestra en donde la probabilidad de inclusión deviene en parte del tamaño del establecimiento es esperable, como se anticipó más arriba, encontrar diferencias entre las tendencias centrales de algunas variables consideradas importantes entre la muestra de establecimientos y la población de los mismos. Por esta razón, partiendo del marco muestral de los establecimientos vamos a crear una población sintética de estudiantes en función de la matrícula de cada uno de ellos. Luego vamos a comparar esa población con otra población de estudiantes asumiendo que se seleccionan "x" estudiantes por cada establecimiento seleccionado (10 en este caso).</span>
+<span id="cb1-686"><a href="#cb1-686" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-689"><a href="#cb1-689" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-690"><a href="#cb1-690" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tb-estudiantes_10</span></span>
+<span id="cb1-691"><a href="#cb1-691" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Crear el universo de estudiantes (Simulado)</span></span>
+<span id="cb1-692"><a href="#cb1-692" aria-hidden="true" tabindex="-1"></a><span class="co"># Repetimos cada fila del marco según su variable 'size' (matrícula)</span></span>
+<span id="cb1-693"><a href="#cb1-693" aria-hidden="true" tabindex="-1"></a>estudiantes_poblacion <span class="ot">=</span> marco_muestra[<span class="fu">rep</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(marco_muestra)), </span>
+<span id="cb1-694"><a href="#cb1-694" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">times =</span> marco_muestra<span class="sc">$</span>matricula_inicial_2025), ]</span>
+<span id="cb1-695"><a href="#cb1-695" aria-hidden="true" tabindex="-1"></a>estudiantes_poblacion<span class="sc">$</span>Origen <span class="ot">=</span> <span class="st">"Población de Estudiantes"</span></span>
+<span id="cb1-696"><a href="#cb1-696" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-697"><a href="#cb1-697" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Crear la muestra de estudiantes (Simulada)</span></span>
+<span id="cb1-698"><a href="#cb1-698" aria-hidden="true" tabindex="-1"></a><span class="co"># Seleccionamos las escuelas de la muestra y repetimos cada una 10 veces</span></span>
+<span id="cb1-699"><a href="#cb1-699" aria-hidden="true" tabindex="-1"></a>escuelas_seleccionadas <span class="ot">=</span> <span class="fu">subset</span>(marco_muestra, muestra_2025 <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb1-700"><a href="#cb1-700" aria-hidden="true" tabindex="-1"></a>estudiantes_muestra <span class="ot">=</span> escuelas_seleccionadas[<span class="fu">rep</span>(<span class="fu">seq_len</span>(<span class="fu">nrow</span>(escuelas_seleccionadas)), </span>
+<span id="cb1-701"><a href="#cb1-701" aria-hidden="true" tabindex="-1"></a>                                                  <span class="at">each =</span> <span class="dv">10</span>), ] <span class="co"># Solo 10 en vez de la matricula</span></span>
+<span id="cb1-702"><a href="#cb1-702" aria-hidden="true" tabindex="-1"></a>estudiantes_muestra<span class="sc">$</span>Origen <span class="ot">=</span> <span class="st">"Muestra de Estudiantes (k=10)"</span></span>
+<span id="cb1-703"><a href="#cb1-703" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-704"><a href="#cb1-704" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Consolidar para la comparación</span></span>
+<span id="cb1-705"><a href="#cb1-705" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-706"><a href="#cb1-706" aria-hidden="true" tabindex="-1"></a>comparativo_estudiantes <span class="ot">=</span> <span class="fu">rbind</span>(</span>
+<span id="cb1-707"><a href="#cb1-707" aria-hidden="true" tabindex="-1"></a>  estudiantes_poblacion,</span>
+<span id="cb1-708"><a href="#cb1-708" aria-hidden="true" tabindex="-1"></a>  estudiantes_muestra</span>
+<span id="cb1-709"><a href="#cb1-709" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-710"><a href="#cb1-710" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-711"><a href="#cb1-711" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-712"><a href="#cb1-712" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-715"><a href="#cb1-715" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-716"><a href="#cb1-716" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-poblacion_estudiantes_vs_muestra_estudiantes</span></span>
+<span id="cb1-717"><a href="#cb1-717" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Comparación entre poblaciónes sintéticas de estudiantes</span></span>
+<span id="cb1-718"><a href="#cb1-718" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Generamos la tabla para la Población Total</span></span>
+<span id="cb1-719"><a href="#cb1-719" aria-hidden="true" tabindex="-1"></a>tbl_muestra_estudiantes <span class="ot">=</span> comparativo_estudiantes <span class="sc">|&gt;</span></span>
+<span id="cb1-720"><a href="#cb1-720" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(sector, ambito, matricula_inicial_2025, jornada_completa, latitud, longitud, auh_pct, muestra_2024, Origen) <span class="sc">|&gt;</span> <span class="co"># Excluimos la columna de la muestra para no sesgar el resumen</span></span>
+<span id="cb1-721"><a href="#cb1-721" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>(<span class="at">by =</span> Origen) <span class="sc">|&gt;</span></span>
+<span id="cb1-722"><a href="#cb1-722" aria-hidden="true" tabindex="-1"></a>  <span class="fu">modify_header</span>(<span class="at">label =</span> <span class="st">"**Variable**"</span>)</span>
+<span id="cb1-723"><a href="#cb1-723" aria-hidden="true" tabindex="-1"></a>tbl_muestra_estudiantes</span>
+<span id="cb1-724"><a href="#cb1-724" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-725"><a href="#cb1-725" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-728"><a href="#cb1-728" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-729"><a href="#cb1-729" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-poblacion_estudiantes_vs_muestra_estudiantes</span></span>
+<span id="cb1-730"><a href="#cb1-730" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-731"><a href="#cb1-731" aria-hidden="true" tabindex="-1"></a>comparativo_estudiantes <span class="ot">&lt;-</span> <span class="fu">rbind</span>(</span>
+<span id="cb1-732"><a href="#cb1-732" aria-hidden="true" tabindex="-1"></a>  estudiantes_poblacion[, <span class="fu">c</span>(<span class="st">"auh_pct"</span>, <span class="st">"Origen"</span>)],</span>
+<span id="cb1-733"><a href="#cb1-733" aria-hidden="true" tabindex="-1"></a>  estudiantes_muestra[, <span class="fu">c</span>(<span class="st">"auh_pct"</span>, <span class="st">"Origen"</span>)]</span>
+<span id="cb1-734"><a href="#cb1-734" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-735"><a href="#cb1-735" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(comparativo_estudiantes, <span class="fu">aes</span>(<span class="at">x =</span> auh_pct, <span class="at">fill =</span> Origen, <span class="at">color =</span> Origen)) <span class="sc">+</span></span>
+<span id="cb1-736"><a href="#cb1-736" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">alpha =</span> <span class="fl">0.35</span>, <span class="at">size =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb1-737"><a href="#cb1-737" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Población de Estudiantes"</span> <span class="ot">=</span> <span class="st">"#bdc3c7"</span>, </span>
+<span id="cb1-738"><a href="#cb1-738" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Muestra de Estudiantes (k=10)"</span> <span class="ot">=</span> <span class="st">"#e67e22"</span>)) <span class="sc">+</span></span>
+<span id="cb1-739"><a href="#cb1-739" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Población de Estudiantes"</span> <span class="ot">=</span> <span class="st">"#7f8c8d"</span>, </span>
+<span id="cb1-740"><a href="#cb1-740" aria-hidden="true" tabindex="-1"></a>                                <span class="st">"Muestra de Estudiantes (k=10)"</span> <span class="ot">=</span> <span class="st">"#d35400"</span>)) <span class="sc">+</span></span>
+<span id="cb1-741"><a href="#cb1-741" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Simulación del Perfil de Estudiantes"</span>,</span>
+<span id="cb1-742"><a href="#cb1-742" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">"Comparación bajo diseño PPS y cuota fija por establecimiento"</span>,</span>
+<span id="cb1-743"><a href="#cb1-743" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Porcentaje de AUH (Variable del Establecimiento)"</span>,</span>
+<span id="cb1-744"><a href="#cb1-744" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Densidad de Estudiantes"</span>,</span>
+<span id="cb1-745"><a href="#cb1-745" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">"Nota: La coincidencia de las curvas valida la propiedad de autoponderación."</span>) <span class="sc">+</span></span>
+<span id="cb1-746"><a href="#cb1-746" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb1-747"><a href="#cb1-747" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"bottom"</span>)</span>
+<span id="cb1-748"><a href="#cb1-748" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-749"><a href="#cb1-749" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-750"><a href="#cb1-750" aria-hidden="true" tabindex="-1"></a><span class="co"># Realización del test K-S</span></span>
-<span id="cb1-751"><a href="#cb1-751" aria-hidden="true" tabindex="-1"></a>ks_result_estudiantes <span class="ot">=</span> <span class="fu">ks.test</span>(</span>
-<span id="cb1-752"><a href="#cb1-752" aria-hidden="true" tabindex="-1"></a>  comparativo_estudiantes<span class="sc">$</span>auh_pct[comparativo_estudiantes<span class="sc">$</span>Origen <span class="sc">==</span> <span class="st">"Muestra de Estudiantes (k=10)"</span>], </span>
-<span id="cb1-753"><a href="#cb1-753" aria-hidden="true" tabindex="-1"></a>  comparativo_estudiantes<span class="sc">$</span>auh_pct[comparativo_estudiantes<span class="sc">$</span>Origen <span class="sc">==</span> <span class="st">"Población de Estudiantes"</span>]</span>
-<span id="cb1-754"><a href="#cb1-754" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-755"><a href="#cb1-755" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-756"><a href="#cb1-756" aria-hidden="true" tabindex="-1"></a><span class="co"># print(ks_result_estudiantes)</span></span>
-<span id="cb1-757"><a href="#cb1-757" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-758"><a href="#cb1-758" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-759"><a href="#cb1-759" aria-hidden="true" tabindex="-1"></a>Cabe destacar que si se realiza algún test estadístico entre ambas distribuciones (p.e. Kolmogorov-Smirnov) se observa un aceptable ajuste entre ambas distribuciones lo que sugiere que la muestra logra "copiar" aceptablemente la distribución (y no solo la tendencia central) poblacional de la variable posesión de AUH.</span>
-<span id="cb1-760"><a href="#cb1-760" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-761"><a href="#cb1-761" aria-hidden="true" tabindex="-1"></a><span class="fu">## Segunda etapa</span></span>
-<span id="cb1-762"><a href="#cb1-762" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-763"><a href="#cb1-763" aria-hidden="true" tabindex="-1"></a>En esta segunda etapa aparece una cuestión particular a considerar. Se trata del tamaño de las secciones de los establecimientos como algo diferente a la cantidad de secciones del mismo. Con respecto a la muestra de 2024, esto es un problema algo nuevo porque el diseño de la muestra 2025 aspira a, efectivamente, seleccionar *algunas* secciones dentro de los establecimientos en vez de ir a *todas*.</span>
+<span id="cb1-750"><a href="#cb1-750" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-751"><a href="#cb1-751" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-754"><a href="#cb1-754" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-755"><a href="#cb1-755" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: kolmogorov-estudiantes_poblacion</span></span>
+<span id="cb1-756"><a href="#cb1-756" aria-hidden="true" tabindex="-1"></a><span class="co"># Realización del test K-S</span></span>
+<span id="cb1-757"><a href="#cb1-757" aria-hidden="true" tabindex="-1"></a>ks_result_estudiantes <span class="ot">=</span> <span class="fu">ks.test</span>(</span>
+<span id="cb1-758"><a href="#cb1-758" aria-hidden="true" tabindex="-1"></a>  comparativo_estudiantes<span class="sc">$</span>auh_pct[comparativo_estudiantes<span class="sc">$</span>Origen <span class="sc">==</span> <span class="st">"Muestra de Estudiantes (k=10)"</span>], </span>
+<span id="cb1-759"><a href="#cb1-759" aria-hidden="true" tabindex="-1"></a>  comparativo_estudiantes<span class="sc">$</span>auh_pct[comparativo_estudiantes<span class="sc">$</span>Origen <span class="sc">==</span> <span class="st">"Población de Estudiantes"</span>]</span>
+<span id="cb1-760"><a href="#cb1-760" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-761"><a href="#cb1-761" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-762"><a href="#cb1-762" aria-hidden="true" tabindex="-1"></a><span class="co"># print(ks_result_estudiantes)</span></span>
+<span id="cb1-763"><a href="#cb1-763" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-764"><a href="#cb1-764" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-765"><a href="#cb1-765" aria-hidden="true" tabindex="-1"></a>Antes vimos que si la probabilidad de inclusión de un establecimiento en la primera etapa de la muestra depende del tamaño de la matrícula eso permite que la cantidad de estudiantes a seleccionar en la segunda etapa pueda ser única para todos los establecimientos. Dado que en la mayoría de los establecimientos existe más de una sección para cada año (3^ro^ y 6^to^) nos encontramos con el problema de como seleccionar a las propias secciones. Expresado en léxico muestral, ahora las secciones se convierten en una segunda etapa de selección. En este sentido, el problema del tamaño de los establecimientos en la primera etapa se traduce al problema del tamaño de cada sección en la segunda etapa. Si solo se realiza un sorteo por azar simple dentro de cada establecimiento para seleccionar a las secciones, los estudiantes de las secciones más grandes van a tener una menor chance de salir en la muestra que los estudiantes de secciones chicas. En funcion de esto podría ser pertinente que, a la hora de realizar el sorteo de las secciones, se incluya en la probabilidad de inclusión el tamaño de la sección (Punto 3.3). Para tener de referencia, los establecimientos seleccionados en 2025 poseen, en promedio, más secciones que los seleccionados en 2024. Si se cuenta los diferentes turnos ahora hay que seleccionar entre 2,8 secciones en cada establecimiento para cada año. En cambio, este valor para la muestra de 2024 fue de alrededor de 2,2 secciones por cada establecimiento/año seleccionado en su respectiva primera etapa.</span>
+<span id="cb1-765"><a href="#cb1-765" aria-hidden="true" tabindex="-1"></a>Cabe destacar que si se realiza algún test estadístico entre ambas distribuciones (p.e. Kolmogorov-Smirnov) se observa un aceptable ajuste entre ambas distribuciones lo que sugiere que la muestra logra "copiar" aceptablemente la distribución (y no solo la tendencia central) poblacional de la variable posesión de AUH.</span>
 <span id="cb1-766"><a href="#cb1-766" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-767"><a href="#cb1-767" aria-hidden="true" tabindex="-1"></a>Sin embargo, el problema no se trata solo de que antes se iba a *todas* las secciones *entre las pocas* del establecimiento elegido y ahora a se vaya a *algunas entre muchas*. Un problema adicional es el siguiente. Supongamos que se tenga en mente la hipótesis que la relación en cuanto al ratio estudiantes/docente sea importante con respecto a los aprendizajes. En ese caso, una regla simple como la de "seleccione siempre a la sección más grande del establecimiento" sería, en presencia de la hipótesis anterior, una regla que, artificialmente, bajaría el promedio de las notas PEB por cenirse a las secciones en donde ese ratio es mayor. La regla anterior se podría mantener si, dentro de cada establecimiento y dentro de cada año seleccionado, hubiera muy poca diferencia de tamaño entre sus diferentes secciones. Esta hipótesis, si bien razonable dentro de ciertos parámetros, es extrema. Por otro lado, asumir que sea usual la situación en donde un establecimiento tenga 3 secciones en 6^to^ grado, de las cuales una tenga un tamaño de 10 estudiantes, otra de 20 y otra de 30, también parece ser algo extremo. Podría ser algo más probable esta situación en los establecimientos de jornada simple en donde habría que seleccionar secciones tanto de la tarde como de la mañana. También puede ser algo más probable de encontrarse esta situación en 6^to^ más que en 3^ro^. Sin embargo, aun asumiendo que estos últimos casos pueden ser más probables en jornada simple y en 6^to^ es difícil anticipar su peso en el conjunto de las secciones.</span>
+<span id="cb1-767"><a href="#cb1-767" aria-hidden="true" tabindex="-1"></a><span class="fu">## Segunda etapa</span></span>
 <span id="cb1-768"><a href="#cb1-768" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-769"><a href="#cb1-769" aria-hidden="true" tabindex="-1"></a>Lo anterior puede analizarce de modo empírico de dos modos diferentes. Primero analizaremos la distribución, medida a través de la desviación estándar, de todas las secciones con respecto a su respectiva media de tamaño para su mismo establecimiento y año. Esto nos va a permitir captar la heterogeneridad en función de la misma unidad que se utiliza para calcular la media que, en este caso, es la cantidad de estudiantes. En la @fig-sd_size_secciones_intra_establecimiento se observa como, si bien con una distribución normal, existen divergencias con respecto a la media. Esto asegura que, si se seleccionara siempre a las secciones más grandes del tandem establecimiento/año, efectivamente la muestra estaría compuesta casi exclusivamente por secciones que se encuentran por encima de su respectiva media. Claro está que la mayoría de ellas estaría compuesta por secciones que sobrepasan por pocos estudiantes (2 estudiantes) a su respectiva media.</span>
+<span id="cb1-769"><a href="#cb1-769" aria-hidden="true" tabindex="-1"></a>En esta segunda etapa aparece una cuestión particular a considerar. Se trata del tamaño de las secciones de los establecimientos como algo diferente a la cantidad de secciones del mismo. Con respecto a la muestra de 2024, esto es un problema algo nuevo porque el diseño de la muestra 2025 aspira a, efectivamente, seleccionar *algunas* secciones dentro de los establecimientos en vez de ir a *todas*.</span>
 <span id="cb1-770"><a href="#cb1-770" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-773"><a href="#cb1-773" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-774"><a href="#cb1-774" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: insumo_segunda_etapa</span></span>
-<span id="cb1-775"><a href="#cb1-775" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-776"><a href="#cb1-776" aria-hidden="true" tabindex="-1"></a><span class="co"># Comienzo filtrando las secciones.</span></span>
-<span id="cb1-777"><a href="#cb1-777" aria-hidden="true" tabindex="-1"></a><span class="co"># Le pego los establecimientos de la primera etapa</span></span>
-<span id="cb1-778"><a href="#cb1-778" aria-hidden="true" tabindex="-1"></a><span class="co"># Algunos filtros son redundantes pero están por seguridad. Por ejemplo algunas secciones de primaria pueden ser de jardin.</span></span>
-<span id="cb1-779"><a href="#cb1-779" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtro por primaria</span></span>
-<span id="cb1-780"><a href="#cb1-780" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtro por año</span></span>
-<span id="cb1-781"><a href="#cb1-781" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtro por muestra_2025</span></span>
-<span id="cb1-782"><a href="#cb1-782" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-783"><a href="#cb1-783" aria-hidden="true" tabindex="-1"></a><span class="co"># Primero me tengo que quedar con sólo los establecimientos que entraron en la primera etapa</span></span>
-<span id="cb1-784"><a href="#cb1-784" aria-hidden="true" tabindex="-1"></a><span class="co"># También me tengo que quedar con sólo los anios que entran en ls PEB (3 y 6)</span></span>
-<span id="cb1-785"><a href="#cb1-785" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-786"><a href="#cb1-786" aria-hidden="true" tabindex="-1"></a>establecimientos_primera_etapa <span class="ot">=</span> marco_muestra <span class="sc">|&gt;</span></span>
-<span id="cb1-787"><a href="#cb1-787" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, muestra_2025) <span class="sc">|&gt;</span></span>
-<span id="cb1-788"><a href="#cb1-788" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(muestra_2025 <span class="sc">==</span> <span class="dv">1</span>) </span>
-<span id="cb1-789"><a href="#cb1-789" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-790"><a href="#cb1-790" aria-hidden="true" tabindex="-1"></a>insumo_segunda_etapa <span class="ot">=</span> tb_secciones_2025 <span class="sc">|&gt;</span></span>
-<span id="cb1-791"><a href="#cb1-791" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(establecimientos_primera_etapa, <span class="at">by =</span> <span class="st">"clave"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-792"><a href="#cb1-792" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(muestra_2025 <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-793"><a href="#cb1-793" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(anio <span class="sc">==</span> <span class="dv">3</span> <span class="sc">|</span> anio <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-794"><a href="#cb1-794" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(descripcionofertaeducativa <span class="sc">==</span> <span class="st">"Primaria (1° Y 2° ciclo)"</span>)</span>
-<span id="cb1-795"><a href="#cb1-795" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-796"><a href="#cb1-796" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-799"><a href="#cb1-799" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-800"><a href="#cb1-800" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-sd_size_secciones_intra_establecimiento</span></span>
-<span id="cb1-801"><a href="#cb1-801" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Diferencias de tamaño de las secciones para igual establecimiento y año. Media estandarizada en 0 y desvío estándar en cantidad de estudiantes.</span></span>
+<span id="cb1-771"><a href="#cb1-771" aria-hidden="true" tabindex="-1"></a>Antes vimos que si la probabilidad de inclusión de un establecimiento en la primera etapa de la muestra depende del tamaño de la matrícula eso permite que la cantidad de estudiantes a seleccionar en la segunda etapa pueda ser única para todos los establecimientos. Dado que en la mayoría de los establecimientos existe más de una sección para cada año (3^ro^ y 6^to^) nos encontramos con el problema de como seleccionar a las propias secciones. Expresado en léxico muestral, ahora las secciones se convierten en una segunda etapa de selección. En este sentido, el problema del tamaño de los establecimientos en la primera etapa se traduce al problema del tamaño de cada sección en la segunda etapa. Si solo se realiza un sorteo por azar simple dentro de cada establecimiento para seleccionar a las secciones, los estudiantes de las secciones más grandes van a tener una menor chance de salir en la muestra que los estudiantes de secciones chicas. En funcion de esto podría ser pertinente que, a la hora de realizar el sorteo de las secciones, se incluya en la probabilidad de inclusión el tamaño de la sección (Punto 3.3). Para tener de referencia, los establecimientos seleccionados en 2025 poseen, en promedio, más secciones que los seleccionados en 2024. Si se cuenta los diferentes turnos ahora hay que seleccionar entre 2,8 secciones en cada establecimiento para cada año. En cambio, este valor para la muestra de 2024 fue de alrededor de 2,2 secciones por cada establecimiento/año seleccionado en su respectiva primera etapa.</span>
+<span id="cb1-772"><a href="#cb1-772" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-773"><a href="#cb1-773" aria-hidden="true" tabindex="-1"></a>Sin embargo, el problema no se trata solo de que antes se iba a *todas* las secciones *entre las pocas* del establecimiento elegido y ahora a se vaya a *algunas entre muchas*. Un problema adicional es el siguiente. Supongamos que se tenga en mente la hipótesis que la relación en cuanto al ratio estudiantes/docente sea importante con respecto a los aprendizajes. En ese caso, una regla simple como la de "seleccione siempre a la sección más grande del establecimiento" sería, en presencia de la hipótesis anterior, una regla que, artificialmente, bajaría el promedio de las notas PEB por cenirse a las secciones en donde ese ratio es mayor. La regla anterior se podría mantener si, dentro de cada establecimiento y dentro de cada año seleccionado, hubiera muy poca diferencia de tamaño entre sus diferentes secciones. Esta hipótesis, si bien razonable dentro de ciertos parámetros, es algo arriesgada. Por otro lado, asumir que sea usual la situación en donde un establecimiento tenga 3 secciones en 6^to^ grado, de las cuales una tenga un tamaño de 10 estudiantes, otra de 20 y otra de 30, también parece ser algo arriesgada. Podría ser algo más probable esta situación en los establecimientos de jornada simple en donde habría que seleccionar secciones tanto de la tarde como de la mañana. También puede ser algo más probable de encontrarse esta situación en 6^to^ más que en 3^ro^. Sin embargo, aun asumiendo que estos últimos casos pueden ser más probables en jornada simple y en 6^to^ es difícil anticipar su peso en el conjunto de las secciones.</span>
+<span id="cb1-774"><a href="#cb1-774" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-775"><a href="#cb1-775" aria-hidden="true" tabindex="-1"></a>Lo anterior puede analizarce de modo empírico de dos modos diferentes. Primero analizaremos la distribución, medida a través de la desviación estándar, de todas las secciones con respecto a su respectiva media de tamaño para su mismo establecimiento y año. Esto nos va a permitir captar la heterogeneridad en función de la misma unidad que se utiliza para calcular la media que, en este caso, es la cantidad de estudiantes. En la @fig-sd_size_secciones_intra_establecimiento se observa como, si bien con una distribución normal, existen divergencias con respecto a la media. Esto asegura que, si se seleccionara siempre a las secciones más grandes del tandem establecimiento/año, efectivamente la muestra estaría compuesta casi exclusivamente por secciones que se encuentran por encima de su respectiva media. Claro está que la mayoría de ellas estaría compuesta por secciones que sobrepasan por pocos estudiantes (2 estudiantes) a su respectiva media.</span>
+<span id="cb1-776"><a href="#cb1-776" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-779"><a href="#cb1-779" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-780"><a href="#cb1-780" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: insumo_segunda_etapa</span></span>
+<span id="cb1-781"><a href="#cb1-781" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-782"><a href="#cb1-782" aria-hidden="true" tabindex="-1"></a><span class="co"># Comienzo filtrando las secciones.</span></span>
+<span id="cb1-783"><a href="#cb1-783" aria-hidden="true" tabindex="-1"></a><span class="co"># Le pego los establecimientos de la primera etapa</span></span>
+<span id="cb1-784"><a href="#cb1-784" aria-hidden="true" tabindex="-1"></a><span class="co"># Algunos filtros son redundantes pero están por seguridad. Por ejemplo algunas secciones de primaria pueden ser de jardin.</span></span>
+<span id="cb1-785"><a href="#cb1-785" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtro por primaria</span></span>
+<span id="cb1-786"><a href="#cb1-786" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtro por año</span></span>
+<span id="cb1-787"><a href="#cb1-787" aria-hidden="true" tabindex="-1"></a><span class="co"># Filtro por muestra_2025</span></span>
+<span id="cb1-788"><a href="#cb1-788" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-789"><a href="#cb1-789" aria-hidden="true" tabindex="-1"></a><span class="co"># Primero me tengo que quedar con sólo los establecimientos que entraron en la primera etapa</span></span>
+<span id="cb1-790"><a href="#cb1-790" aria-hidden="true" tabindex="-1"></a><span class="co"># También me tengo que quedar con sólo los anios que entran en ls PEB (3 y 6)</span></span>
+<span id="cb1-791"><a href="#cb1-791" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-792"><a href="#cb1-792" aria-hidden="true" tabindex="-1"></a>establecimientos_primera_etapa <span class="ot">=</span> marco_muestra <span class="sc">|&gt;</span></span>
+<span id="cb1-793"><a href="#cb1-793" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, muestra_2025) <span class="sc">|&gt;</span></span>
+<span id="cb1-794"><a href="#cb1-794" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(muestra_2025 <span class="sc">==</span> <span class="dv">1</span>) </span>
+<span id="cb1-795"><a href="#cb1-795" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-796"><a href="#cb1-796" aria-hidden="true" tabindex="-1"></a>insumo_segunda_etapa <span class="ot">=</span> tb_secciones_2025 <span class="sc">|&gt;</span></span>
+<span id="cb1-797"><a href="#cb1-797" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(establecimientos_primera_etapa, <span class="at">by =</span> <span class="st">"clave"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-798"><a href="#cb1-798" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(muestra_2025 <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-799"><a href="#cb1-799" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(anio <span class="sc">==</span> <span class="dv">3</span> <span class="sc">|</span> anio <span class="sc">==</span> <span class="dv">6</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-800"><a href="#cb1-800" aria-hidden="true" tabindex="-1"></a><span class="fu">filter</span>(descripcionofertaeducativa <span class="sc">==</span> <span class="st">"Primaria (1° Y 2° ciclo)"</span>)</span>
+<span id="cb1-801"><a href="#cb1-801" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb1-802"><a href="#cb1-802" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-803"><a href="#cb1-803" aria-hidden="true" tabindex="-1"></a><span class="co">#tb_secciones_2025_segunda_etapa = tb_secciones_2025 |&gt;</span></span>
-<span id="cb1-804"><a href="#cb1-804" aria-hidden="true" tabindex="-1"></a><span class="co">#left_join(tb_establecimientos_matricula_2025, by = "clave") |&gt;</span></span>
-<span id="cb1-805"><a href="#cb1-805" aria-hidden="true" tabindex="-1"></a><span class="co">#filter(nivel_modalidad == "Primaria") |&gt;</span></span>
-<span id="cb1-806"><a href="#cb1-806" aria-hidden="true" tabindex="-1"></a><span class="co">#filter(anio == 3 | anio == 6)</span></span>
-<span id="cb1-807"><a href="#cb1-807" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-808"><a href="#cb1-808" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Preparación y Métricas de Dispersión ---</span></span>
-<span id="cb1-809"><a href="#cb1-809" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-810"><a href="#cb1-810" aria-hidden="true" tabindex="-1"></a>analisis_variabilidad <span class="ot">=</span> insumo_segunda_etapa <span class="sc">|&gt;</span></span>
-<span id="cb1-811"><a href="#cb1-811" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(clave, anio) <span class="sc">|&gt;</span></span>
-<span id="cb1-812"><a href="#cb1-812" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filtramos grupos con más de una sección para analizar la variabilidad interna</span></span>
-<span id="cb1-813"><a href="#cb1-813" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Esto es solo para este analisis no para la muestra </span></span>
-<span id="cb1-814"><a href="#cb1-814" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-815"><a href="#cb1-815" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-816"><a href="#cb1-816" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_grupo =</span> <span class="fu">mean</span>(total, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-817"><a href="#cb1-817" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_grupo =</span> <span class="fu">sd</span>(total, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb1-818"><a href="#cb1-818" aria-hidden="true" tabindex="-1"></a>    <span class="co"># El Coeficiente de Variación nos da la magnitud relativa del error</span></span>
-<span id="cb1-819"><a href="#cb1-819" aria-hidden="true" tabindex="-1"></a>    <span class="at">cv_grupo =</span> (sd_grupo <span class="sc">/</span> mean_grupo) <span class="sc">*</span> <span class="dv">100</span>,</span>
-<span id="cb1-820"><a href="#cb1-820" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Diferencia entre la sección y su promedio grupal</span></span>
-<span id="cb1-821"><a href="#cb1-821" aria-hidden="true" tabindex="-1"></a>    <span class="at">distancia_media =</span> total <span class="sc">-</span> mean_grupo</span>
-<span id="cb1-822"><a href="#cb1-822" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-823"><a href="#cb1-823" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-824"><a href="#cb1-824" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, anio, total, mean_grupo, sd_grupo, cv_grupo, distancia_media) <span class="sc">|&gt;</span></span>
-<span id="cb1-825"><a href="#cb1-825" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(clave, anio)</span>
-<span id="cb1-826"><a href="#cb1-826" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-827"><a href="#cb1-827" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Visualización: Distribución de la Variabilidad ---</span></span>
-<span id="cb1-828"><a href="#cb1-828" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-829"><a href="#cb1-829" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico A: ¿Qué tan diferentes son las secciones dentro de un mismo colegio?</span></span>
-<span id="cb1-830"><a href="#cb1-830" aria-hidden="true" tabindex="-1"></a><span class="co"># Si la "regla simple" fuera válida, este histograma debería estar muy concentrado en 0.</span></span>
-<span id="cb1-831"><a href="#cb1-831" aria-hidden="true" tabindex="-1"></a>fig_sd_size_secciones_intra_establecimiento <span class="ot">=</span> <span class="fu">ggplot</span>(analisis_variabilidad, <span class="fu">aes</span>(<span class="at">x =</span> distancia_media)) <span class="sc">+</span></span>
-<span id="cb1-832"><a href="#cb1-832" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb1-833"><a href="#cb1-833" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb1-834"><a href="#cb1-834" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb1-835"><a href="#cb1-835" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Desviación estándar respecto a la media de las secciones (en n estudiantes)"</span>,</span>
-<span id="cb1-836"><a href="#cb1-836" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia de secciones"</span></span>
-<span id="cb1-837"><a href="#cb1-837" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb1-838"><a href="#cb1-838" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>, <span class="dv">15</span>),                <span class="co"># Establece el rango visible</span></span>
-<span id="cb1-839"><a href="#cb1-839" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">15</span>, <span class="at">to =</span> <span class="dv">15</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span> <span class="co"># Define etiquetas cada 5 unidades+</span></span>
-<span id="cb1-840"><a href="#cb1-840" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb1-841"><a href="#cb1-841" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-842"><a href="#cb1-842" aria-hidden="true" tabindex="-1"></a>fig_sd_size_secciones_intra_establecimiento</span>
-<span id="cb1-843"><a href="#cb1-843" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-844"><a href="#cb1-844" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-845"><a href="#cb1-845" aria-hidden="true" tabindex="-1"></a>De todos modos, para evitar que la muestra de secciones se pueble exclusivamente de las secciones más mayoritarias, más que implementar la regla simple de "seleccionar la sección más grande" vamos a implementar, como se había anticipado anteriormente, un criterio probabilístico en función del tamaño de la sección. De este modo, a nivel agregado sí se van a seleccionar con mayor probabilidad las secciones más grandes, pero también, en una menor probabilidad, se van a incluir como primera opción algunas secciones que no cumplan ese criterio.</span>
-<span id="cb1-846"><a href="#cb1-846" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-849"><a href="#cb1-849" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-850"><a href="#cb1-850" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: muestra_2025_segunda_etapa</span></span>
-<span id="cb1-851"><a href="#cb1-851" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-852"><a href="#cb1-852" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
-<span id="cb1-853"><a href="#cb1-853" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-854"><a href="#cb1-854" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que ver que se hace con los turnos (MANANA/TARDE)</span></span>
-<span id="cb1-855"><a href="#cb1-855" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-856"><a href="#cb1-856" aria-hidden="true" tabindex="-1"></a>resultado_segunda_etapa <span class="ot">=</span> insumo_segunda_etapa <span class="sc">|&gt;</span></span>
-<span id="cb1-857"><a href="#cb1-857" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(clave, anio) <span class="sc">|&gt;</span></span>
-<span id="cb1-858"><a href="#cb1-858" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Barajamos las secciones internamente para neutralizar órdenes preexistentes</span></span>
-<span id="cb1-859"><a href="#cb1-859" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_frac</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
-<span id="cb1-860"><a href="#cb1-860" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-861"><a href="#cb1-861" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Calculamos la probabilidad proporcional al tamaño de la sección</span></span>
-<span id="cb1-862"><a href="#cb1-862" aria-hidden="true" tabindex="-1"></a>    <span class="at">prob_seleccion =</span> total <span class="sc">/</span> <span class="fu">sum</span>(total),</span>
-<span id="cb1-863"><a href="#cb1-863" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-864"><a href="#cb1-864" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Generamos un ranking basado en un sorteo con pesos en función del tamaño</span></span>
-<span id="cb1-865"><a href="#cb1-865" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Esto asegura que las más grandes tengan más chance de quedar en 1er lugar,</span></span>
-<span id="cb1-866"><a href="#cb1-866" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pero permite que las pequeñas también ocupen ese puesto ocasionalmente.</span></span>
-<span id="cb1-867"><a href="#cb1-867" aria-hidden="true" tabindex="-1"></a>  <span class="at">orden =</span> <span class="fu">rank</span>(<span class="sc">-</span> (prob_seleccion <span class="sc">*</span> <span class="fu">runif</span>(<span class="fu">n</span>())))</span>
-<span id="cb1-868"><a href="#cb1-868" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Nota: El uso de runif^(1/p) es una técnica para sorteo PPT</span></span>
-<span id="cb1-869"><a href="#cb1-869" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-870"><a href="#cb1-870" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(clave, anio, orden) <span class="sc">|&gt;</span></span>
-<span id="cb1-871"><a href="#cb1-871" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb1-872"><a href="#cb1-872" aria-hidden="true" tabindex="-1"></a>    <span class="at">rol =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-873"><a href="#cb1-873" aria-hidden="true" tabindex="-1"></a>      orden <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Principal"</span>,</span>
-<span id="cb1-874"><a href="#cb1-874" aria-hidden="true" tabindex="-1"></a>      orden <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Suplente/Complementaria"</span>,</span>
-<span id="cb1-875"><a href="#cb1-875" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Reserva"</span></span>
-<span id="cb1-876"><a href="#cb1-876" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-877"><a href="#cb1-877" aria-hidden="true" tabindex="-1"></a>   <span class="at">seccion_mas_grande =</span> <span class="fu">if_else</span>(orden <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> prob_seleccion <span class="sc">==</span> <span class="fu">max</span>(prob_seleccion), <span class="st">"SI"</span>, <span class="st">"NO"</span>)</span>
-<span id="cb1-878"><a href="#cb1-878" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-879"><a href="#cb1-879" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(clave) <span class="sc">|&gt;</span></span>
-<span id="cb1-880"><a href="#cb1-880" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">establecimiento_numero =</span> <span class="fu">cur_group_id</span>()) <span class="sc">|&gt;</span></span>
-<span id="cb1-881"><a href="#cb1-881" aria-hidden="true" tabindex="-1"></a><span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
-<span id="cb1-882"><a href="#cb1-882" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">instruccion_muestreo =</span> <span class="fu">if_else</span>(</span>
-<span id="cb1-883"><a href="#cb1-883" aria-hidden="true" tabindex="-1"></a>      establecimiento_numero <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>, </span>
-<span id="cb1-884"><a href="#cb1-884" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Pruebas de Matemática y Prácticas del Lenguaje de lxs 10 primerxs estudiantes de la lista (por orden alfabético) que realizaron las pruebas PEB"</span>,</span>
-<span id="cb1-885"><a href="#cb1-885" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Pruebas de Matemática y Prácticas del Lenguaje de lxs 10 últimos estudiantes de la lista (por orden alfabético) que realizaron las pruebas PEB"</span></span>
-<span id="cb1-886"><a href="#cb1-886" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb1-887"><a href="#cb1-887" aria-hidden="true" tabindex="-1"></a>      <span class="at">muestra_2025_seccion =</span> <span class="fu">if_else</span>(orden <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"SI"</span>, <span class="st">"NO"</span>)</span>
-<span id="cb1-888"><a href="#cb1-888" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
-<span id="cb1-889"><a href="#cb1-889" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(idseccion, clave, anio, turno, total, muestra_2025, prob_seleccion, orden, rol, seccion_mas_grande, nombre_seccion, establecimiento_numero, instruccion_muestreo, muestra_2025_seccion)</span>
-<span id="cb1-890"><a href="#cb1-890" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-891"><a href="#cb1-891" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-892"><a href="#cb1-892" aria-hidden="true" tabindex="-1"></a>En la @tbl-poblacion_muestra_secciones puede observarse como al tiempo que se respeta la tendencia central del tamaño de las secciones, la mayoría de las veces (60%) se ha seleccionado a la sección más numerosa aunque, justamente, no siempre. De este modo se respeta el principio que las secciones más numerosas sean más seleccionadas (y de ese modo se equiparan las probabilidades de los estudiantes que están en ellas) pero también se seleccionan secciones no numerosas para de ese modo evitar el sesgo de seleccionar las secciones con mayor ratio de estudiantes/docentes.</span>
-<span id="cb1-893"><a href="#cb1-893" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-896"><a href="#cb1-896" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-897"><a href="#cb1-897" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-poblacion_muestra_secciones</span></span>
-<span id="cb1-898"><a href="#cb1-898" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Población y muestra de secciones</span></span>
-<span id="cb1-899"><a href="#cb1-899" aria-hidden="true" tabindex="-1"></a>tbl_poblacion_muestra_secciones <span class="ot">=</span> resultado_segunda_etapa <span class="sc">|&gt;</span></span>
-<span id="cb1-900"><a href="#cb1-900" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(total, anio, muestra_2025_seccion, seccion_mas_grande) <span class="sc">|&gt;</span></span>
-<span id="cb1-901"><a href="#cb1-901" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="st">"tamaño"</span> <span class="ot">=</span> total) <span class="sc">|&gt;</span></span>
-<span id="cb1-902"><a href="#cb1-902" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">by =</span> muestra_2025_seccion,</span>
-<span id="cb1-903"><a href="#cb1-903" aria-hidden="true" tabindex="-1"></a>           <span class="at">statistic =</span> <span class="fu">list</span>(</span>
-<span id="cb1-904"><a href="#cb1-904" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({sd})}"</span>))</span>
-<span id="cb1-905"><a href="#cb1-905" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-906"><a href="#cb1-906" aria-hidden="true" tabindex="-1"></a>tbl_poblacion_muestra_secciones</span>
-<span id="cb1-907"><a href="#cb1-907" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-908"><a href="#cb1-908" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb1-909"><a href="#cb1-909" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-912"><a href="#cb1-912" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb1-913"><a href="#cb1-913" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: entrega_final</span></span>
-<span id="cb1-914"><a href="#cb1-914" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-915"><a href="#cb1-915" aria-hidden="true" tabindex="-1"></a>muestra_2025 <span class="ot">=</span> resultado_segunda_etapa <span class="sc">|&gt;</span></span>
-<span id="cb1-916"><a href="#cb1-916" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(idseccion, clave, anio, total, orden, rol, nombre_seccion, establecimiento_numero, instruccion_muestreo)</span>
-<span id="cb1-917"><a href="#cb1-917" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-918"><a href="#cb1-918" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
-<span id="cb1-919"><a href="#cb1-919" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(muestra_2025,</span>
-<span id="cb1-920"><a href="#cb1-920" aria-hidden="true" tabindex="-1"></a>           <span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_2025.xlsx"</span>))</span>
-<span id="cb1-921"><a href="#cb1-921" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-805"><a href="#cb1-805" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-806"><a href="#cb1-806" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-sd_size_secciones_intra_establecimiento</span></span>
+<span id="cb1-807"><a href="#cb1-807" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: Diferencias de tamaño de las secciones para igual establecimiento y año. Media estandarizada en 0 y desvío estándar en cantidad de estudiantes.</span></span>
+<span id="cb1-808"><a href="#cb1-808" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-809"><a href="#cb1-809" aria-hidden="true" tabindex="-1"></a><span class="co">#tb_secciones_2025_segunda_etapa = tb_secciones_2025 |&gt;</span></span>
+<span id="cb1-810"><a href="#cb1-810" aria-hidden="true" tabindex="-1"></a><span class="co">#left_join(tb_establecimientos_matricula_2025, by = "clave") |&gt;</span></span>
+<span id="cb1-811"><a href="#cb1-811" aria-hidden="true" tabindex="-1"></a><span class="co">#filter(nivel_modalidad == "Primaria") |&gt;</span></span>
+<span id="cb1-812"><a href="#cb1-812" aria-hidden="true" tabindex="-1"></a><span class="co">#filter(anio == 3 | anio == 6)</span></span>
+<span id="cb1-813"><a href="#cb1-813" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-814"><a href="#cb1-814" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 1. Preparación y Métricas de Dispersión ---</span></span>
+<span id="cb1-815"><a href="#cb1-815" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-816"><a href="#cb1-816" aria-hidden="true" tabindex="-1"></a>analisis_variabilidad <span class="ot">=</span> insumo_segunda_etapa <span class="sc">|&gt;</span></span>
+<span id="cb1-817"><a href="#cb1-817" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(clave, anio) <span class="sc">|&gt;</span></span>
+<span id="cb1-818"><a href="#cb1-818" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Filtramos grupos con más de una sección para analizar la variabilidad interna</span></span>
+<span id="cb1-819"><a href="#cb1-819" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Esto es solo para este analisis no para la muestra </span></span>
+<span id="cb1-820"><a href="#cb1-820" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">n</span>() <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-821"><a href="#cb1-821" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-822"><a href="#cb1-822" aria-hidden="true" tabindex="-1"></a>    <span class="at">mean_grupo =</span> <span class="fu">mean</span>(total, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-823"><a href="#cb1-823" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_grupo =</span> <span class="fu">sd</span>(total, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb1-824"><a href="#cb1-824" aria-hidden="true" tabindex="-1"></a>    <span class="co"># El Coeficiente de Variación nos da la magnitud relativa del error</span></span>
+<span id="cb1-825"><a href="#cb1-825" aria-hidden="true" tabindex="-1"></a>    <span class="at">cv_grupo =</span> (sd_grupo <span class="sc">/</span> mean_grupo) <span class="sc">*</span> <span class="dv">100</span>,</span>
+<span id="cb1-826"><a href="#cb1-826" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Diferencia entre la sección y su promedio grupal</span></span>
+<span id="cb1-827"><a href="#cb1-827" aria-hidden="true" tabindex="-1"></a>    <span class="at">distancia_media =</span> total <span class="sc">-</span> mean_grupo</span>
+<span id="cb1-828"><a href="#cb1-828" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-829"><a href="#cb1-829" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-830"><a href="#cb1-830" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(clave, anio, total, mean_grupo, sd_grupo, cv_grupo, distancia_media) <span class="sc">|&gt;</span></span>
+<span id="cb1-831"><a href="#cb1-831" aria-hidden="true" tabindex="-1"></a><span class="fu">arrange</span>(clave, anio)</span>
+<span id="cb1-832"><a href="#cb1-832" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-833"><a href="#cb1-833" aria-hidden="true" tabindex="-1"></a><span class="co"># --- 2. Visualización: Distribución de la Variabilidad ---</span></span>
+<span id="cb1-834"><a href="#cb1-834" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-835"><a href="#cb1-835" aria-hidden="true" tabindex="-1"></a><span class="co"># Gráfico A: ¿Qué tan diferentes son las secciones dentro de un mismo colegio?</span></span>
+<span id="cb1-836"><a href="#cb1-836" aria-hidden="true" tabindex="-1"></a><span class="co"># Si la "regla simple" fuera válida, este histograma debería estar muy concentrado en 0.</span></span>
+<span id="cb1-837"><a href="#cb1-837" aria-hidden="true" tabindex="-1"></a>fig_sd_size_secciones_intra_establecimiento <span class="ot">=</span> <span class="fu">ggplot</span>(analisis_variabilidad, <span class="fu">aes</span>(<span class="at">x =</span> distancia_media)) <span class="sc">+</span></span>
+<span id="cb1-838"><a href="#cb1-838" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">30</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>, <span class="at">color =</span> <span class="st">"white"</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb1-839"><a href="#cb1-839" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb1-840"><a href="#cb1-840" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb1-841"><a href="#cb1-841" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Desviación estándar respecto a la media de las secciones (en n estudiantes)"</span>,</span>
+<span id="cb1-842"><a href="#cb1-842" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Frecuencia de secciones"</span></span>
+<span id="cb1-843"><a href="#cb1-843" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-844"><a href="#cb1-844" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_x_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">15</span>, <span class="dv">15</span>),                <span class="co"># Establece el rango visible</span></span>
+<span id="cb1-845"><a href="#cb1-845" aria-hidden="true" tabindex="-1"></a>    <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="sc">-</span><span class="dv">15</span>, <span class="at">to =</span> <span class="dv">15</span>, <span class="at">by =</span> <span class="dv">2</span>)) <span class="sc">+</span> <span class="co"># Define etiquetas cada 5 unidades+</span></span>
+<span id="cb1-846"><a href="#cb1-846" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb1-847"><a href="#cb1-847" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-848"><a href="#cb1-848" aria-hidden="true" tabindex="-1"></a>fig_sd_size_secciones_intra_establecimiento</span>
+<span id="cb1-849"><a href="#cb1-849" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-850"><a href="#cb1-850" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-851"><a href="#cb1-851" aria-hidden="true" tabindex="-1"></a>De todos modos, para evitar que la muestra de secciones se pueble exclusivamente de las secciones más mayoritarias, más que implementar la regla simple de "seleccionar la sección más grande" vamos a implementar, como se había anticipado anteriormente, un criterio probabilístico en función del tamaño de la sección. De este modo, a nivel agregado sí se van a seleccionar con mayor probabilidad las secciones más grandes, pero también, en una menor probabilidad, se van a incluir como primera opción algunas secciones que no cumplan ese criterio.</span>
+<span id="cb1-852"><a href="#cb1-852" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-855"><a href="#cb1-855" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-856"><a href="#cb1-856" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: muestra_2025_segunda_etapa</span></span>
+<span id="cb1-857"><a href="#cb1-857" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-858"><a href="#cb1-858" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) </span>
+<span id="cb1-859"><a href="#cb1-859" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-860"><a href="#cb1-860" aria-hidden="true" tabindex="-1"></a><span class="co"># Hay que ver que se hace con los turnos (MANANA/TARDE)</span></span>
+<span id="cb1-861"><a href="#cb1-861" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-862"><a href="#cb1-862" aria-hidden="true" tabindex="-1"></a>resultado_segunda_etapa <span class="ot">=</span> insumo_segunda_etapa <span class="sc">|&gt;</span></span>
+<span id="cb1-863"><a href="#cb1-863" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(clave, anio) <span class="sc">|&gt;</span></span>
+<span id="cb1-864"><a href="#cb1-864" aria-hidden="true" tabindex="-1"></a>  <span class="co"># 1. Barajamos las secciones internamente para neutralizar órdenes preexistentes</span></span>
+<span id="cb1-865"><a href="#cb1-865" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_frac</span>(<span class="dv">1</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-866"><a href="#cb1-866" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-867"><a href="#cb1-867" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 2. Calculamos la probabilidad proporcional al tamaño de la sección</span></span>
+<span id="cb1-868"><a href="#cb1-868" aria-hidden="true" tabindex="-1"></a>    <span class="at">prob_seleccion =</span> total <span class="sc">/</span> <span class="fu">sum</span>(total),</span>
+<span id="cb1-869"><a href="#cb1-869" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-870"><a href="#cb1-870" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 3. Generamos un ranking basado en un sorteo con pesos en función del tamaño</span></span>
+<span id="cb1-871"><a href="#cb1-871" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Esto asegura que las más grandes tengan más chance de quedar en 1er lugar,</span></span>
+<span id="cb1-872"><a href="#cb1-872" aria-hidden="true" tabindex="-1"></a>    <span class="co"># pero permite que las pequeñas también ocupen ese puesto ocasionalmente.</span></span>
+<span id="cb1-873"><a href="#cb1-873" aria-hidden="true" tabindex="-1"></a>  <span class="at">orden =</span> <span class="fu">rank</span>(<span class="sc">-</span> (prob_seleccion <span class="sc">*</span> <span class="fu">runif</span>(<span class="fu">n</span>())))</span>
+<span id="cb1-874"><a href="#cb1-874" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Nota: El uso de runif^(1/p) es una técnica para sorteo PPT</span></span>
+<span id="cb1-875"><a href="#cb1-875" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-876"><a href="#cb1-876" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(clave, anio, orden) <span class="sc">|&gt;</span></span>
+<span id="cb1-877"><a href="#cb1-877" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb1-878"><a href="#cb1-878" aria-hidden="true" tabindex="-1"></a>    <span class="at">rol =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-879"><a href="#cb1-879" aria-hidden="true" tabindex="-1"></a>      orden <span class="sc">==</span> <span class="dv">1</span> <span class="sc">~</span> <span class="st">"Principal"</span>,</span>
+<span id="cb1-880"><a href="#cb1-880" aria-hidden="true" tabindex="-1"></a>      orden <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="st">"Suplente/Complementaria"</span>,</span>
+<span id="cb1-881"><a href="#cb1-881" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Reserva"</span></span>
+<span id="cb1-882"><a href="#cb1-882" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-883"><a href="#cb1-883" aria-hidden="true" tabindex="-1"></a>   <span class="at">seccion_mas_grande =</span> <span class="fu">if_else</span>(orden <span class="sc">==</span> <span class="dv">1</span> <span class="sc">&amp;</span> prob_seleccion <span class="sc">==</span> <span class="fu">max</span>(prob_seleccion), <span class="st">"SI"</span>, <span class="st">"NO"</span>)</span>
+<span id="cb1-884"><a href="#cb1-884" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-885"><a href="#cb1-885" aria-hidden="true" tabindex="-1"></a><span class="fu">group_by</span>(clave) <span class="sc">|&gt;</span></span>
+<span id="cb1-886"><a href="#cb1-886" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">establecimiento_numero =</span> <span class="fu">cur_group_id</span>()) <span class="sc">|&gt;</span></span>
+<span id="cb1-887"><a href="#cb1-887" aria-hidden="true" tabindex="-1"></a><span class="fu">ungroup</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-888"><a href="#cb1-888" aria-hidden="true" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">instruccion_muestreo =</span> <span class="fu">if_else</span>(</span>
+<span id="cb1-889"><a href="#cb1-889" aria-hidden="true" tabindex="-1"></a>      establecimiento_numero <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>, </span>
+<span id="cb1-890"><a href="#cb1-890" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Pruebas de Matemática y Prácticas del Lenguaje de lxs 10 primerxs estudiantes de la lista (por orden alfabético) que realizaron las pruebas PEB"</span>,</span>
+<span id="cb1-891"><a href="#cb1-891" aria-hidden="true" tabindex="-1"></a>      <span class="st">"Pruebas de Matemática y Prácticas del Lenguaje de lxs 10 últimos estudiantes de la lista (por orden alfabético) que realizaron las pruebas PEB"</span></span>
+<span id="cb1-892"><a href="#cb1-892" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb1-893"><a href="#cb1-893" aria-hidden="true" tabindex="-1"></a>      <span class="at">muestra_2025_seccion =</span> <span class="fu">if_else</span>(orden <span class="sc">==</span> <span class="dv">1</span>, <span class="st">"SI"</span>, <span class="st">"NO"</span>)</span>
+<span id="cb1-894"><a href="#cb1-894" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">|&gt;</span></span>
+<span id="cb1-895"><a href="#cb1-895" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(idseccion, clave, anio, turno, total, muestra_2025, prob_seleccion, orden, rol, seccion_mas_grande, nombre_seccion, establecimiento_numero, instruccion_muestreo, muestra_2025_seccion)</span>
+<span id="cb1-896"><a href="#cb1-896" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-897"><a href="#cb1-897" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-898"><a href="#cb1-898" aria-hidden="true" tabindex="-1"></a>En la @tbl-poblacion_muestra_secciones puede observarse como al tiempo que se respeta la tendencia central del tamaño de las secciones, la mayoría de las veces (60%) se ha seleccionado a la sección más numerosa aunque, justamente, no siempre. De este modo se respeta el principio que las secciones más numerosas sean más seleccionadas (y de ese modo se equiparan las probabilidades de los estudiantes que están en ellas) pero también se seleccionan secciones no numerosas para de ese modo evitar el sesgo de seleccionar las secciones con mayor ratio de estudiantes/docentes.</span>
+<span id="cb1-899"><a href="#cb1-899" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-902"><a href="#cb1-902" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-903"><a href="#cb1-903" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: tbl-poblacion_muestra_secciones</span></span>
+<span id="cb1-904"><a href="#cb1-904" aria-hidden="true" tabindex="-1"></a><span class="co">#| tbl-cap: Población y muestra de secciones</span></span>
+<span id="cb1-905"><a href="#cb1-905" aria-hidden="true" tabindex="-1"></a>tbl_poblacion_muestra_secciones <span class="ot">=</span> resultado_segunda_etapa <span class="sc">|&gt;</span></span>
+<span id="cb1-906"><a href="#cb1-906" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(total, anio, muestra_2025_seccion, seccion_mas_grande) <span class="sc">|&gt;</span></span>
+<span id="cb1-907"><a href="#cb1-907" aria-hidden="true" tabindex="-1"></a><span class="fu">rename</span>(<span class="st">"tamaño"</span> <span class="ot">=</span> total) <span class="sc">|&gt;</span></span>
+<span id="cb1-908"><a href="#cb1-908" aria-hidden="true" tabindex="-1"></a><span class="fu">tbl_summary</span>(<span class="at">by =</span> muestra_2025_seccion,</span>
+<span id="cb1-909"><a href="#cb1-909" aria-hidden="true" tabindex="-1"></a>           <span class="at">statistic =</span> <span class="fu">list</span>(</span>
+<span id="cb1-910"><a href="#cb1-910" aria-hidden="true" tabindex="-1"></a>      <span class="fu">all_continuous</span>() <span class="sc">~</span> <span class="st">"{mean} ({sd})}"</span>))</span>
+<span id="cb1-911"><a href="#cb1-911" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-912"><a href="#cb1-912" aria-hidden="true" tabindex="-1"></a>tbl_poblacion_muestra_secciones</span>
+<span id="cb1-913"><a href="#cb1-913" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-914"><a href="#cb1-914" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-915"><a href="#cb1-915" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-918"><a href="#cb1-918" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-919"><a href="#cb1-919" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: entrega_final</span></span>
+<span id="cb1-920"><a href="#cb1-920" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-921"><a href="#cb1-921" aria-hidden="true" tabindex="-1"></a>muestra_2025 <span class="ot">=</span> resultado_segunda_etapa <span class="sc">|&gt;</span></span>
+<span id="cb1-922"><a href="#cb1-922" aria-hidden="true" tabindex="-1"></a><span class="fu">select</span>(idseccion, clave, anio, total, orden, rol, nombre_seccion, establecimiento_numero, instruccion_muestreo)</span>
+<span id="cb1-923"><a href="#cb1-923" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-924"><a href="#cb1-924" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(writexl)</span>
+<span id="cb1-925"><a href="#cb1-925" aria-hidden="true" tabindex="-1"></a><span class="fu">write_xlsx</span>(muestra_2025,</span>
+<span id="cb1-926"><a href="#cb1-926" aria-hidden="true" tabindex="-1"></a>           <span class="fu">here</span>(<span class="st">"Outputs"</span>, <span class="st">"muestra_2025.xlsx"</span>))</span>
+<span id="cb1-927"><a href="#cb1-927" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb1-928"><a href="#cb1-928" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-929"><a href="#cb1-929" aria-hidden="true" tabindex="-1"></a><span class="fu">## Calibración</span></span>
+<span id="cb1-930"><a href="#cb1-930" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-931"><a href="#cb1-931" aria-hidden="true" tabindex="-1"></a>En la sección @sec-calibracion se comentaron algunas cuestiones generales sobre la calibración. La principal diferencia de lo allá realizado con lo que se realizará a continuación es la siguiente. En aquella sección, la calibración se hacía sobre una muestra de establecimientos y se comparaba la diferencias en los valores entre una muestra realizada por azar simple o vía balanceo bien distribuido. Sin embargo, algunos puntos importantes del proceso de calibración no estaban presente. Quizá el más notorio sea el de la falta de corrección de la no respuesta porque en ambas muestras todos los establecimientos "respondian" la muestra. En esta ocasión, dado que se trata de una muestra de estudiantes, vamos a tener casos sin respuesta, por lo que los ponderadores usuales (*base_weights*), por definición, van a contener algún error que hay que corregir.</span>
+<span id="cb1-932"><a href="#cb1-932" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-933"><a href="#cb1-933" aria-hidden="true" tabindex="-1"></a>Un punto importante en este proceso de calibración es que en esta investigación en particular no tenemos que dudar de la calidad del marco muestral. Esto rara vez sucede en muchos tipos de muestras, aunque es algo más usual en diseños muestrales realizados dentro de grandes organizaciones <span class="co">[</span><span class="ot">@valliant2018a, cap. 1</span><span class="co">]</span>. El presente marco muestra no parece tener problemas de subcobertura (*undervoverage*) o sobrecobertura (*overcoverage*). En el primer caso, existirían estudiantes o establecimientos en la población objetivo que no están presente en el marco muestral. En el segundo caso, existirían estudiantes o establecimientos en el marco muestral que no están presentes en la población objetivo.</span>
+<span id="cb1-934"><a href="#cb1-934" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-937"><a href="#cb1-937" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-938"><a href="#cb1-938" aria-hidden="true" tabindex="-1"></a><span class="co"># marco_muestra</span></span>
+<span id="cb1-939"><a href="#cb1-939" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-940"><a href="#cb1-940" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code></pre></div><button title="Copiar al portapapeles" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

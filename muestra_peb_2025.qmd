@@ -531,7 +531,7 @@ tbl_comparativa_2025
 
 ## Distribución a nivel de establecimientos
 
-Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere, en las variables latitud, longitud (@fig-mapa_muestra_2025) y porcentaje de AUH (@fig-densidad_auh), de la distribución de las mismas a nivel del marco muestral.
+Dado que la muestra no es solo balanceada en sus medidas de tendencia central, sino también en la distribución de otras covariables ahora veremos justamente como la distribución de la muestra difiere, en las variables latitud, longitud (@fig-mapa_muestra_2025 y @fig-mapa_calor_poblacion_muestra) y porcentaje de AUH (@fig-densidad_auh), de la distribución de las mismas a nivel del marco muestral.
 
 ```{r}
 #| label: fig-mapa_muestra_2025
@@ -612,7 +612,7 @@ mapa_poblacion + mapa_muestra
 
 ```{r}
 #| label: fig-densidad_auh
-#| tbl-cap: Distribución de densidad de poercentaje de AUH. Población y muestra 2025.
+#| fig-cap: Distribución de densidad de porcentaje de AUH. Población y muestra 2025.
 
 # 1. Preparación de los datos para la gráfica
 # Creamos un dataframe que combine población y muestra
@@ -627,8 +627,7 @@ fig_densidad_auh = ggplot(plot_data, aes(x = AUH, fill = Grupo, color = Grupo)) 
   geom_density(alpha = 0.3, size = 1) +
   scale_fill_manual(values = c("Población" = "grey70", "Muestra" = "#2c3e50")) +
   scale_color_manual(values = c("Población" = "grey50", "Muestra" = "#2c3e50")) +
-  labs(title = "Comparativa de Densidad: Porcentaje de AUH",
-       subtitle = "Población total vs. Muestra balanceada y dispersa",
+  labs(subtitle = "Población total vs. Muestra balanceada y dispersa",
        x = "Porcentaje de Estudiantes con AUH",
        y = "Densidad",
        caption = "Nota: El solapamiento indica la calidad del 'spreading' multivariado.") +
@@ -707,6 +706,11 @@ ggplot(comparativo_estudiantes, aes(x = auh_pct, fill = Origen, color = Origen))
   theme_minimal() +
   theme(legend.position = "bottom")
 
+
+```
+
+```{r}
+#| label: kolmogorov-estudiantes_poblacion
 # Realización del test K-S
 ks_result_estudiantes = ks.test(
   comparativo_estudiantes$auh_pct[comparativo_estudiantes$Origen == "Muestra de Estudiantes (k=10)"], 
@@ -724,7 +728,7 @@ En esta segunda etapa aparece una cuestión particular a considerar. Se trata de
 
 Antes vimos que si la probabilidad de inclusión de un establecimiento en la primera etapa de la muestra depende del tamaño de la matrícula eso permite que la cantidad de estudiantes a seleccionar en la segunda etapa pueda ser única para todos los establecimientos. Dado que en la mayoría de los establecimientos existe más de una sección para cada año (3^ro^ y 6^to^) nos encontramos con el problema de como seleccionar a las propias secciones. Expresado en léxico muestral, ahora las secciones se convierten en una segunda etapa de selección. En este sentido, el problema del tamaño de los establecimientos en la primera etapa se traduce al problema del tamaño de cada sección en la segunda etapa. Si solo se realiza un sorteo por azar simple dentro de cada establecimiento para seleccionar a las secciones, los estudiantes de las secciones más grandes van a tener una menor chance de salir en la muestra que los estudiantes de secciones chicas. En funcion de esto podría ser pertinente que, a la hora de realizar el sorteo de las secciones, se incluya en la probabilidad de inclusión el tamaño de la sección (Punto 3.3). Para tener de referencia, los establecimientos seleccionados en 2025 poseen, en promedio, más secciones que los seleccionados en 2024. Si se cuenta los diferentes turnos ahora hay que seleccionar entre 2,8 secciones en cada establecimiento para cada año. En cambio, este valor para la muestra de 2024 fue de alrededor de 2,2 secciones por cada establecimiento/año seleccionado en su respectiva primera etapa.
 
-Sin embargo, el problema no se trata solo de que antes se iba a *todas* las secciones *entre las pocas* del establecimiento elegido y ahora a se vaya a *algunas entre muchas*. Un problema adicional es el siguiente. Supongamos que se tenga en mente la hipótesis que la relación en cuanto al ratio estudiantes/docente sea importante con respecto a los aprendizajes. En ese caso, una regla simple como la de "seleccione siempre a la sección más grande del establecimiento" sería, en presencia de la hipótesis anterior, una regla que, artificialmente, bajaría el promedio de las notas PEB por cenirse a las secciones en donde ese ratio es mayor. La regla anterior se podría mantener si, dentro de cada establecimiento y dentro de cada año seleccionado, hubiera muy poca diferencia de tamaño entre sus diferentes secciones. Esta hipótesis, si bien razonable dentro de ciertos parámetros, es extrema. Por otro lado, asumir que sea usual la situación en donde un establecimiento tenga 3 secciones en 6^to^ grado, de las cuales una tenga un tamaño de 10 estudiantes, otra de 20 y otra de 30, también parece ser algo extremo. Podría ser algo más probable esta situación en los establecimientos de jornada simple en donde habría que seleccionar secciones tanto de la tarde como de la mañana. También puede ser algo más probable de encontrarse esta situación en 6^to^ más que en 3^ro^. Sin embargo, aun asumiendo que estos últimos casos pueden ser más probables en jornada simple y en 6^to^ es difícil anticipar su peso en el conjunto de las secciones.
+Sin embargo, el problema no se trata solo de que antes se iba a *todas* las secciones *entre las pocas* del establecimiento elegido y ahora a se vaya a *algunas entre muchas*. Un problema adicional es el siguiente. Supongamos que se tenga en mente la hipótesis que la relación en cuanto al ratio estudiantes/docente sea importante con respecto a los aprendizajes. En ese caso, una regla simple como la de "seleccione siempre a la sección más grande del establecimiento" sería, en presencia de la hipótesis anterior, una regla que, artificialmente, bajaría el promedio de las notas PEB por cenirse a las secciones en donde ese ratio es mayor. La regla anterior se podría mantener si, dentro de cada establecimiento y dentro de cada año seleccionado, hubiera muy poca diferencia de tamaño entre sus diferentes secciones. Esta hipótesis, si bien razonable dentro de ciertos parámetros, es algo arriesgada. Por otro lado, asumir que sea usual la situación en donde un establecimiento tenga 3 secciones en 6^to^ grado, de las cuales una tenga un tamaño de 10 estudiantes, otra de 20 y otra de 30, también parece ser algo arriesgada. Podría ser algo más probable esta situación en los establecimientos de jornada simple en donde habría que seleccionar secciones tanto de la tarde como de la mañana. También puede ser algo más probable de encontrarse esta situación en 6^to^ más que en 3^ro^. Sin embargo, aun asumiendo que estos últimos casos pueden ser más probables en jornada simple y en 6^to^ es difícil anticipar su peso en el conjunto de las secciones.
 
 Lo anterior puede analizarce de modo empírico de dos modos diferentes. Primero analizaremos la distribución, medida a través de la desviación estándar, de todas las secciones con respecto a su respectiva media de tamaño para su mismo establecimiento y año. Esto nos va a permitir captar la heterogeneridad en función de la misma unidad que se utiliza para calcular la media que, en este caso, es la cantidad de estudiantes. En la @fig-sd_size_secciones_intra_establecimiento se observa como, si bien con una distribución normal, existen divergencias con respecto a la media. Esto asegura que, si se seleccionara siempre a las secciones más grandes del tandem establecimiento/año, efectivamente la muestra estaría compuesta casi exclusivamente por secciones que se encuentran por encima de su respectiva media. Claro está que la mayoría de ellas estaría compuesta por secciones que sobrepasan por pocos estudiantes (2 estudiantes) a su respectiva media.
 
@@ -868,4 +872,15 @@ select(idseccion, clave, anio, total, orden, rol, nombre_seccion, establecimient
 library(writexl)
 write_xlsx(muestra_2025,
            here("Outputs", "muestra_2025.xlsx"))
+```
+
+## Calibración
+
+En la sección @sec-calibracion se comentaron algunas cuestiones generales sobre la calibración. La principal diferencia de lo allá realizado con lo que se realizará a continuación es la siguiente. En aquella sección, la calibración se hacía sobre una muestra de establecimientos y se comparaba la diferencias en los valores entre una muestra realizada por azar simple o vía balanceo bien distribuido. Sin embargo, algunos puntos importantes del proceso de calibración no estaban presente. Quizá el más notorio sea el de la falta de corrección de la no respuesta porque en ambas muestras todos los establecimientos "respondian" la muestra. En esta ocasión, dado que se trata de una muestra de estudiantes, vamos a tener casos sin respuesta, por lo que los ponderadores usuales (*base_weights*), por definición, van a contener algún error que hay que corregir.
+
+Un punto importante en este proceso de calibración es que en esta investigación en particular no tenemos que dudar de la calidad del marco muestral. Esto rara vez sucede en muchos tipos de muestras, aunque es algo más usual en diseños muestrales realizados dentro de grandes organizaciones [@valliant2018a, cap. 1]. El presente marco muestra no parece tener problemas de subcobertura (*undervoverage*) o sobrecobertura (*overcoverage*). En el primer caso, existirían estudiantes o establecimientos en la población objetivo que no están presente en el marco muestral. En el segundo caso, existirían estudiantes o establecimientos en el marco muestral que no están presentes en la población objetivo.
+
+```{r}
+# marco_muestra
+
 ```
