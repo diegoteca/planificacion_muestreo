@@ -1,6 +1,6 @@
 # Introducción
 
-En este curso/taller vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Generalmente, vamos a trabajar con insumoa empíricos que provengan del mundo educativo. Típicamnete con bases de datos de establecimientos educativos con alguna información agregada de sus estudiantes. Con base en este tipo de insumo en una primera instancia nos vamos a focalizar en una serie de *diseños* clásicos de muestreo y en la construcción de ponderadores simples. En una segunda instancia vamos a ver diseños que implican: {#sec-introduccion}
+En este curso/taller vamos a ir interactuando entre algo de teoría, algo de datos y algo de código. Generalmente, vamos a trabajar con insumos empíricos que provengan del mundo educativo. Típicamente con bases de datos de establecimientos educativos con alguna información agregada de sus estudiantes. Con base en este tipo de insumo en una primera instancia nos vamos a focalizar en una serie de *diseños* clásicos de muestreo y en la construcción de ponderadores simples. En una segunda instancia vamos a ver diseños que implican: {#sec-introduccion}
 
 a\) Alguna combinación en más de una etapa de estos diseños clásicos (muestras complejas) o
 
