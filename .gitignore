@@ -51,3 +51,4 @@ rsconnect/
 /.quarto/
 
 **/*.quarto_ipynb
+/Inputs/PEB_2025/simulaciones_secciones_3.rds

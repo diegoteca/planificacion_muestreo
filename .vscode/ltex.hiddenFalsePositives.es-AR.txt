@@ -127,3 +127,6 @@
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qa\\) Alguna combinación en más de una etapa de estos diseños clásicos (muestras complejas) o\\E$"}
 {"rule":"ES_UNPAIRED_BRACKETS","sentence":"^\\Qa\\) Alguna combinación en más de una etapa de estos diseños clásicos (muestras complejas) o\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qa\\) Sector (Estatal/Privado)\\E$"}
+{"rule":"AGREEMENT_POSTPONED_ADJ","sentence":"^\\QComo regla general cuanto menor sea la dispersión de estos valores más robustas serán las estimaciones.\\E$"}
+{"rule":"AGREEMENT_POSTPONED_ADJ","sentence":"^\\QEstos informan sobre la inversa de la probabilidad de inclusión de cada caso (en este caso estudiantes) efectivamente seleccionado en la muestra.\\E$"}
+{"rule":"NOUN_PLURAL2","sentence":"^\\QSi se seleccionaron \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q secciones de un total de \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q disponibles en esa escuela mediante MAS, la probabilidad condicional es \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q.\\E$"}
