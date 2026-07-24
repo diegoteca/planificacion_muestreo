@@ -58,9 +58,9 @@ Si la **clasificación** anterior es correcta se podrían hacer también los sig
 
 La afirmación "Para cada institución, se solicitó información sobre las respuestas a las actividades de 5 estudiantes seleccionados al azar por las y los docentes de cada sección" no parece coincidir con lo realizado. Lo que la muestra selecciona al azar son "establecimientos" pero no "estudiantes".
 
-La regla sobre la discrecionalidad para que el docente elija los 5 primeros o los 5 últimos induce una dosis de arbitrariedad. La traducción de sí esto en un sesgo (o no) es una cuestión que, de forma aproximada, se puede resolver de forma empírica[^1]. Por otro lado, si se asume que cada docente eligirá siempre al "mejor" grupo (comparando a los 5 primeros versus los 5 últimos) esto no generará un mayor problema en las comparaciónes entre establecimientos, secciones, etc. pero, posiblemente, sesge todos los resultados nominales de las pruebas hacia "arriba". En principio, esto se podría testear empíricamente comparando las medias de las notas muestrales de cada sección/establecimiento con las medias de las respectivas notas censales de las mismas secciones/establecimientos que entraron en la muestra.
+La regla sobre la discrecionalidad para que el docente elija los 5 primeros o los 5 últimos induce una dosis de arbitrariedad. La traducción de sí esto en un sesgo (o no) es una cuestión que, de forma aproximada, se puede resolver de forma empírica[^muestra_peb_2025-1]. Por otro lado, si se asume que cada docente eligirá siempre al "mejor" grupo (comparando a los 5 primeros versus los 5 últimos) esto no generará un mayor problema en las comparaciónes entre establecimientos, secciones, etc. pero, posiblemente, sesge todos los resultados nominales de las pruebas hacia "arriba". En principio, esto se podría testear empíricamente comparando las medias de las notas muestrales de cada sección/establecimiento con las medias de las respectivas notas censales de las mismas secciones/establecimientos que entraron en la muestra.
 
-[^1]: Cuanto (o no) esta regla no probabilística es un sesgo en la muestra es una cuestión empírica. Una manera de generar un testeo podría ser la comparación de las medias porcentuales de la poseción de AUH, a nivel de sección y establecimiento, de los primeros 5 estudiantes con la media del respectivo grupo conformado por la sección y el establecimiento. Esto se puede hacer partiendo de una base nominal de estudiante y ordenando los apellidos por orden alfábetico para cada sección y establecimiento. En el primer caso, se calcula la media de los 5 primeros de cada grupo y en la segunda se incluyen a todos los estudiantes de cada grupo. Al realizar el cálculo a nivel de cada sección no solo se puede testear si ambas medias coinciden, sino que también se puede calcular su respectivo desvío.
+[^muestra_peb_2025-1]: Cuanto (o no) esta regla no probabilística es un sesgo en la muestra es una cuestión empírica. Una manera de generar un testeo podría ser la comparación de las medias porcentuales de la poseción de AUH, a nivel de sección y establecimiento, de los primeros 5 estudiantes con la media del respectivo grupo conformado por la sección y el establecimiento. Esto se puede hacer partiendo de una base nominal de estudiante y ordenando los apellidos por orden alfábetico para cada sección y establecimiento. En el primer caso, se calcula la media de los 5 primeros de cada grupo y en la segunda se incluyen a todos los estudiantes de cada grupo. Al realizar el cálculo a nivel de cada sección no solo se puede testear si ambas medias coinciden, sino que también se puede calcular su respectivo desvío.
 
 En este diseño, al menos en su primera etapa, los estudiantes de los establecimientos más grandes tienen menores chances de salir en la muestra. Si esto no se corrige mediante ponderadores (*ex-ante*) o calibradores (*ex-post*) explícitos esto podría generar un sesgo en los análisis de los resultados. En otras palabras, si cada establecimiento dentro de un estrato tuvo la misma probabilidad de ser elegido de forma independientemente de su matrícula, entonces para esa primera etapa **la probabilidad final de selección para un estudiante no es constante**.
 
@@ -881,21 +881,21 @@ write_xlsx(muestra_2025,
 
 ## Calibración
 
-En la sección @sec-calibracion se comentaron algunas cuestiones generales sobre la calibración. La principal diferencia de lo allá realizado con lo que se realizará a continuación es la siguiente. En aquella sección, la calibración se hacía sobre diferentes muestras de establecimientos y se comparaba la diferencias en los valores entre una muestra realizada por azar simple y otra vía balanceo bien distribuido. Sin embargo, algunos puntos usuales del proceso de calibración no estaban presente. Quizá el más notorio sea el de la falta de corrección de la no respuesta porque en ambas muestras todos los establecimientos "respondian" la muestra. En esta ocasión, dado que se trata de una muestra de estudiantes (con una primera etapa de selección de establecimientos y una segunda etapa de selección de secciones), efectivamente vamos a tener casos sin respuesta, por lo que, aparte de los ponderadores usuales (*weight_designs o design_weight*), también habrá que analizar/corregir el factor de no respuesta.
+En la sección @sec-calibracion se comentaron algunas cuestiones generales sobre la calibración. La principal diferencia de lo allá realizado con lo que se realizará a continuación es la siguiente: En aquella sección, la calibración se hacía sobre diferentes muestras de establecimientos y se comparaba la diferencias en los valores entre una muestra realizada por azar simple y otra vía balanceo bien distribuido. Sin embargo, otros puntos usuales del proceso de calibración no estaban presente. Quizá el más notorio sea el de la falta de corrección de la no respuesta porque en ambas muestras utilizadas todos los establecimientos "respondian" la muestra. En esta ocasión, dado que se trata de una muestra final de estudiantes (con una primera etapa de selección de establecimientos y una segunda etapa de selección de secciones), efectivamente vamos a tener casos sin respuesta, por lo que, aparte de los ponderadores usuales (a veces demonimados *base weight* o *design weights*), también habrá que analizar/corregir el factor de no respuesta.
 
-Un punto importante en este proceso de calibración es que en esta investigación en particular no tenemos que dudar de la calidad del marco muestral. Esto rara vez sucede en muchos tipos de muestras, aunque es algo más usual en diseños muestrales realizados dentro de grandes organizaciones [@valliant2018a, cap. 1; @valliant2018, pág. 322]. El presente marco muestral no parece tener problemas de sub-cobertura (*undervoverage*) o sobre-cobertura (*overcoverage*). En el primer caso, existirían estudiantes o establecimientos en la población objetivo que no están presente en el marco muestral. Se afirma que esa situación el marco muestral omite **casos elegibles** de la población objetivo. En el segundo caso, existirían estudiantes o establecimientos en el marco muestral que no están presentes en la población objetivo. A estos se lo denomina **casos inelegibles** [@valliant2018, pág. 321]. En otras palabras, en esta calibración no se realizarán ajustes por defectos en el marco muestral, lo que en el léxico muestral se suele denominar ajustes por "elegilibilidad desconocida" (*unknown eligibility*) [@valliant2018a, pág. 58-59]. Esto quiere decir que todos los casos de la muestra pertenecen a la población objetivo y, por lo tanto, poseen la condición de ser "elegibles".
+Un punto importante en este proceso de calibración es que en esta investigación en particular no tenemos que dudar de la calidad del marco muestral. Esto rara vez sucede en muchos tipos de investigaciones que ejecutan muestras, aunque es algo más usual en diseños muestrales realizados dentro de grandes organizaciones [@valliant2018a, cap. 1; @valliant2018, pág. 322]. El presente marco muestral no parece tener problemas de sub-cobertura (*undervoverage*) o sobre-cobertura (*overcoverage*). En el primer caso, existirían estudiantes o establecimientos en la población objetivo que no están presente en el marco muestral. Se afirma que en esa situación el marco muestral omite **casos elegibles** de la población objetivo. En el segundo caso, existirían estudiantes o establecimientos en el marco muestral que no están presentes en la población objetivo. A estos se lo denomina **casos inelegibles** [@valliant2018, pág. 321]. En otras palabras, en esta calibración no se realizarán ajustes por defectos en el marco muestral, lo que en el léxico muestral se suele denominar ajustes por "elegilibilidad desconocida" (*unknown eligibility*) [@valliant2018a, pág. 58-59]. Esto quiere decir que todos los casos de la muestra pertenecen a la población objetivo y, por lo tanto, poseen la condición de ser "elegibles".
 
-Estrictamente, como ahora veremos, se trata de dos procesos de calibración. Uno para la muestra de estudiantes de tercer año y otra para la muestra de estudiantes de sexto año. Precisamente, hasta la primera etapa, esto es, la selección de las unidades primarias (UPS), la muestra es idéntica para ambas muestras. Las diferencias comienzan a aparecer en las etapas subsiguientes en donde hay que seleccionar secciones dentro del establecimiento y estudiantes dentro de las secciones seleccionadas. Por esta razón haremos con algún detalle la calibración del tercer año primero y luego, *mutatis mutandis*, se harán de una manera menos detallada para sexto año. En ambos casos (3.º y 6.º), los pasos a seguri serán los siguientes:
+Estrictamente, como ahora veremos, el proceso de calibración de las muestras PEB 2025, se trata de dos procesos de calibración. Uno para la muestra de estudiantes de tercer año y otra para la muestra de estudiantes de sexto año. Precisamente, hasta la primera etapa, esto es, la selección de las unidades primarias (UPS), la muestra es idéntica para ambas muestras. Las diferencias comienzan a aparecer en las etapas subsiguientes en donde hay que seleccionar secciones dentro del establecimiento y estudiantes dentro de las secciones seleccionadas. Por esta razón, en primer lugar haremos con algún detalle la calibración del tercer año y luego, *mutatis mutandis*, se hará el mismo proceso (pero de manera menos detallada) para sexto año. En ambos casos (3.º y 6.º), los pasos a seguir serán los siguientes:
 
-- Cálculo de los *weight_design*
+- Cálculo de los *weight_design* o ponderadores de diseño.
 
-- Corrección por no respuesta
+- Corrección por no respuesta.
 
-- Calibración
+- Calibración con fuentes auxiliares.
 
 ### Calibración Tercer Año
 
-El primer paso es reconstruir los *weight_design*, esto es, los ponderadores básicos. Estos informan sobre la inversa de la probabilidad de inclusión de cada caso (en este caso estudiantes) efectivamente seleccionado en la muestra. En esta ocasión, como se trata de una muestra polietápica, los *weight_design* son la inversa de la probabilidad de inclusión del estudiante $k$, de la sección $j$, del establecimiento $i$. En términos prácticos, esto implica que para calcular los *weight_design* primero debemos obtener la probabilidad de inclusión de cada estudiante recién luego calcular su inversa. Por otro lado, la construcción de los *weight_design* implica un trabajo sinérgico entre información que proviene del diseño de la muestra (*ex-ante*) y la información efectivamente conseguida en campo (*ex-post*). Más concretamente se intenta agregar/llevar/relacionar información presente en el marco muestral a la información presente en la muestra conseguida en campo.
+El primer paso es reconstruir los *weight_design*, esto es, los ponderadores básicos que salen del propio diseño de la muestra. Estos informan, finalmente, sobre la inversa de la probabilidad de inclusión de cada caso (en este caso de estudiantes) efectivamente seleccionado en la muestra. En esta ocasión, decimos finalmente por qué al tratarse de una muestra polietápica, los *weight_design* son la inversa de la probabilidad de inclusión del estudiante $k$, de la sección $j$, del establecimiento $i$.
 
 La probabilidad de inclusión de cada estudiante (efectivamente observado y no solo seleccionado) puede representarse como:
 
@@ -903,32 +903,36 @@ $$pi_{ijk} = pi_{i} \times pi_{j|i} \times pi_{k|ij}$$ {#eq-pi_estudiante_peb_25
 
 donde:
 
-$\pi_{i}$ es la probabilidad de inclusión en la primera etapa (establecimiento),
+$pi_{i}$ es la probabilidad de inclusión en la primera etapa (establecimiento),
 
-$\pi_{j|i}$ es la probabilidad condicional de inclusión en la segunda etapa (sección) dado que el establecimiento $i$ fue seleccionado, y
+$pi_{j|i}$ es la probabilidad condicional de inclusión en la segunda etapa (sección) dado que el establecimiento $i$ fue seleccionado, y
 
-$\pi_{k|ij}$ es la probabilidad condicional de inclusión en la tercera etapa (estudiante) dado que la sección $j$ del establecimiento $i$ fue seleccionada.
+$pi_{k|ij}$ es la probabilidad condicional de inclusión en la tercera etapa (estudiante) dado que la sección $j$ del establecimiento $i$ fue seleccionada.
 
-Luego, el peso base inicial ($w_{ijk}^0$) es, por definición, el inverso multiplicativo de dicha probabilidad conjunta:
+Luego, el ponderador de diseño o base inicial ($w_{ijk}$) es, por definición, el inverso multiplicativo de dicha probabilidad conjunta:
 
-$$w\_{ijk}^0 = \frac{1}{\pi_{ijk}}$$ {#eq-base_weight_peb_2025}
+$$w\_{ijk} = \frac{1}{pi_{ijk}}$$ {#eq-base_weight_peb_2025}
+
+En términos prácticos, esto implica que para calcular los *weight_design* primero debemos obtener la probabilidad de inclusión de cada estudiante para recién luego calcular su inversa. Por otro lado, la construcción de los *weight_design* implica un trabajo sinérgico entre información que proviene del diseño de la muestra (*ex-ante*) y la información efectivamente conseguida en campo (*ex-post*).
 
 Se recuerda que la probabilidad de inclusión en la primera etapa, esto es, que el establecimiento $i$ sea seleccionado, devenía de diversos factores como:
 
 - Su inclusion en la muestra de 2024 (para favorecer el seguimiento tipo panel)
 
-- El tamaño del establecimiento (PPS)
+- El tamaño del establecimiento (muestra tipo *PPS*)
 
 - El tipo de jornada (Para registrar establecimientos con Jornada Completa)
 
 Estas probabilidades de inclusión fueron las que se incluyeron como insumo en el método del cubo. En nuestro marco muestral de establecimietos se denominó con el nombre "pi_corregido". Modificando @eq-pi_estudiante_peb_25 bajo esta premisa, la estructura del cálculo de la probabilidad conjunta para el estudiante $k$, de la sección $j$, en el establecimiento $i$ se puede traducir como:
 
-$$\pi_{ijk} = \pi_{i}^{\text{cubo}} \times \pi_{j|i} \times \pi_{k|ij}$$
+$$pi_{ijk} = pi_{i}^{\text{cubo}} \times pi_{j|i} \times pi_{k|ij}$$
 
 Donde $\pi_{i}^{\text{cubo}}$ es, precisamente, el valor numérico que se le asignó a ese establecimiento específico en el vector de entrada del método del cubo.
 
 ```{r}
 #| label: muestra_estudiantes_3
+#| echo: true
+#| code-fold: true
 #Voy a buscar los insumos de la muestra de estudiantes
 #Como la muestra vino en .sav (SPSS) uso la libreria haven
 muestra_estudiantes_3 = read_sav(here("Inputs", "PEB_2025", "PEB_Primaria_3er año_Carga por estudiante_2025_con variables de contexto.sav")) |>
@@ -941,6 +945,8 @@ mutate(anio = 3,
 
 ```{r}
 #| label: calib_3_pi_1
+#| echo: true
+#| code-fold: true
 prob_seleccion_primera_etapa = marco_muestra |>
 select(clave, pi_corregido)
 
@@ -955,6 +961,8 @@ Ahora pasaremos a construir/calcular las probabilidades de inclusión de la segu
 
 ```{r}
 #| label: calib_3_pi_2
+#| echo: true
+#| code-fold: true
 #Finalmente, la probabilida de selección de cada sección estaba en el objeto "resultado_segunda_etapa"
 prob_seleccion_segunda_etapa = resultado_segunda_etapa |>
 rename(prioridad_seccion = rol) |>
@@ -985,7 +993,7 @@ filter(
   ungroup() |>
 select(idseccion, clave, anio, prioridad_seccion, prob_seleccion, size_seccion) 
 
-# Como hay establecimientos que tienen más de una opción de "reserva" (aunque siempre 1 de Principal y 1 de Suplente) me quedo solo con la seccion con mas probailidad de cada establecimiento.
+# Como hay establecimientos que tienen más de una opción de "reserva" (aunque siempre 1 de Principal y 1 de Suplente) me quedo solo con la seccion con mas probabilidad de cada establecimiento.
 
 insumo_calibracion_3 = insumo_calibracion_3 |>
 # Existe un establecimiento que incluyo una sección que no estaba en la base de secciones. Le imputo la misma pi_2 que la de la seccion presente. Hago lo mismo con el idseccion
@@ -994,10 +1002,12 @@ mutate(prioridad_seccion = if_else(clave == "0104PP0002", "Principal", prioridad
 rename(pi_2 = prob_seleccion)
 ```
 
-La tercera etapa constaba, en principio, de una cantidad fija de estudiantes (10) por sección. Si se encontraban secciones con menos de 10 estudiantes se debía seguir en principio con otra sección hasta llegar a la cantidad de 10 estudiantes por establecimiento. Esta etapa es la que, de manera algo previsible, se puede esperar mayores desviaciones entre lo esperado y lo encontrado. Sin embargo, parece útil realizar un ponderador en función de lo esperado que, luego en otro paso, se corrige por otro ponderador de no respuesta. En función de lo anterior, el ponderador de la tercera etapa se calcula siguiendo el criterio de lo esperado más que de lo encontrado/muestrado.
+La tercera etapa constaba, en principio, de una cantidad fija de estudiantes (10) por sección. Si se encontraban secciones con menos de 10 estudiantes se debía seguir con otra sección hasta llegar a la cantidad de 10 estudiantes por establecimiento. Esta etapa es la que, de manera algo previsible, se puede esperar mayores desviaciones entre lo esperado y lo encontrado. Sin embargo, parece útil realizar un ponderador en función de lo esperado para luego en otro paso, se corrige por otro ponderador de no respuesta.
 
 ```{r}
 #| label: calib_3_pi_3
+#| echo: true
+#| code-fold: true
 insumo_calibracion_3 = insumo_calibracion_3 |>
 add_count(clave, anio, idseccion, name = "pik_estudiantes_seccion") |>
 mutate(pi_3_diseno = pik_estudiantes_seccion / size_seccion,
@@ -1008,6 +1018,8 @@ Cálculo del weight_design con la probabilidad inversa
 
 ```{r}
 #| label: calib_3_weight_design
+#| echo: true
+#| code-fold: true
 insumo_calibracion_3 = insumo_calibracion_3 |>
   mutate(
     # PROBABILIDAD DE INCLUSIÓN TOTAL (Producto de todas las etapas)
@@ -1017,12 +1029,14 @@ insumo_calibracion_3 = insumo_calibracion_3 |>
   )
 ```
 
-Finalmente, antes de pasar a la construcción de los ponderadores por no respuesta vamos a hacer algunos análisis breves sobre la distribución de los *weight_design*. Pesos extremadamente altos pueden inflar de forma desmedida la varianza de los estimadores [@kish1987, pág. 231-238]. Por otro lado, no debería haber pesos con NA, valores infinitos o negativos.
+Finalmente, antes de pasar a la construcción de los ponderadores por no respuesta vamos a hacer algunos análisis breves sobre la distribución de los *weight_design*. Pesos extremadamente altos pueden inflar de forma desmedida la varianza de los estimadores [@kish1987, pág. 231-238]. Por otro lado, no debería haber pesos con NA, valores infinitos o negativos. Esto se observa en la @tbl-calib_3_weight_design_test_1.
 
 ```{r}
 #| label: tbl-calib_3_weight_design_test_1
-#| tbl-cap: Chequeos weight_design
-tbl_weight_design = insumo_calibracion_3 |> 
+#| tbl-cap: Chequeos de los ponderadores de diseño
+#| echo: true
+#| code-fold: true
+tbl_weight_design_test_1 = insumo_calibracion_3 |> 
   summarise(
     casos_totales = n(),
     casos_na      = sum(is.na(weight_design)),
@@ -1034,10 +1048,10 @@ tbl_weight_design = insumo_calibracion_3 |>
   ) |>
 gt()
 
-tbl_weight_design
+tbl_weight_design_test_1
 ```
 
-En la @tbl-calib_3_weight_design puede observarse otra dimensión importante de los *weight_design* que es que tan bien se arriman a los totales conocidos del marco muestral.
+En la última columna de @tbl-calib_3_weight_design_test_1 puede observarse otra dimensión importante de los *weight_design* que es que tan bien se arriman a los totales conocidos del marco muestral.
 
 ```{r}
 n_poblacion_3 = tb_secciones_2025 |>
@@ -1048,15 +1062,18 @@ summarise(n_estudiantes_3 = sum(total),
          n_establecimientos_3    = n_distinct(clave, na.rm = TRUE))
 ```
 
-En este caso, los resultados parecen aceptables, ya que, partiendo de una población objetivo de 273.300 `{r} n_poblacion_3$n_poblacion_3` estudiantes (ver @tbl-poblacion_estudiantes_vs_muestra_estudiantes) se obtienen unos 164.704 lo que implica un 60%.
+En este caso, partiendo de una población objetivo de 273.300 `{r} n_poblacion_3$n_poblacion_3` estudiantes (ver también @tbl-poblacion_estudiantes_vs_muestra_estudiantes) se obtienen unos 164.704 lo que implica un 60%. Esto puede saber a poco o sugerir algún error en la construcción de los ponderadores base. Sin embargo, para saber esto todavía falta aproximarse a la dimensión de la no respuesta.
+
+En cambio, en la @tbl-calib_3_weight_design_test_2, se indaga acerca de las medias de cada etapa de los ponderadores de diseño y su efecto o peso en la expansión final de los mismos.
 
 ```{r}
 #| label: tbl-calib_3_weight_design_test_2
 #| tbl-cap: Chequeos descomposición weight_design
-tbl_weight_design_descomposicion = insumo_calibracion_3 |> 
+tbl_weight_design_test_2 = insumo_calibracion_3 |> 
   summarise(
     n_muestra = n(),
-    # Evaluamos las probabilidades medias de cada etapa   media_pi_1 = mean(pi_1, na.rm = TRUE),
+    # Evaluamos las probabilidades medias de cada etapa   
+    media_pi_1 = mean(pi_1, na.rm = TRUE),
     media_pi_2 = mean(pi_2, na.rm = TRUE),
     media_pi_3 = mean(pi_3, na.rm = TRUE),
     
@@ -1067,11 +1084,15 @@ tbl_weight_design_descomposicion = insumo_calibracion_3 |>
   ) |>
 gt()
 
-tbl_weight_design_descomposicion
+tbl_weight_design_test_2
 ```
 
+Finalmente, antes de pasar a la no respuesta, en la @tbl-calib_3_weight_design_test_3 y en la @tbl-calib_3_weight_design_test_4, veremos algunos valores acerca de la distribución del ponderador de diseño.
+
 ```{r}
-insumo_calibracion_3 |> 
+#| label: tbl-calib_3_weight_design_test_3
+#| tbl-cap: Distribución de weight_design
+tbl_calib_3_weight_design_test_3 = insumo_calibracion_3 |> 
   select(weight_design) |> 
   tbl_summary(
     label = list(weight_design ~ "Factor de Expansión (weight_design)"),
@@ -1079,19 +1100,58 @@ insumo_calibracion_3 |>
     digits = list(all_continuous() ~ c(2, 2, 2, 2, 2))
   ) |> 
   bold_labels()
+
+tbl_calib_3_weight_design_test_3
 ```
 
 ```{r}
-quantile(insumo_calibracion_3$weight_design, 
+#| label: tbl-calib_3_weight_design_test_4
+#| tbl-cap: Media del weight_design según diferentes percentiles
+tbl_calib_3_weight_design_test_4 = quantile(insumo_calibracion_3$weight_design, 
          probs = c(0, 0.05, 0.25, 0.50, 0.75, 0.90, 0.95, 0.99, 1), 
-         na.rm = TRUE)
+         na.rm = TRUE) |>
+enframe(name = "Percentil", 
+        value = "Valor") |> 
+  gt() |> 
+  fmt_number(columns = Valor, decimals = 2)
+
+tbl_calib_3_weight_design_test_4
 ```
 
-En la tabla
+```{r}
+# eval: false
+library(tidyverse)
+library(scales)
+
+opa = insumo_calibracion_3 |> 
+  ggplot(aes(x = weight_design)) +
+  geom_density(
+    fill = "#2B4C7E", 
+    color = "#1A2E4C", 
+    alpha = 0.4, 
+    linewidth = 0.7
+  ) +
+  scale_x_continuous(labels = label_comma()) +
+  scale_y_continuous(labels = label_scientific()) +
+  theme_minimal(base_size = 11) +
+  theme(
+    panel.grid.minor = element_blank(),
+    plot.title = element_text(face = "bold", size = 12),
+    plot.subtitle = element_text(color = "grey30", size = 10)
+  ) +
+  labs(
+    title = "Distribución de densidad de los ponderadores base",
+    subtitle = "Variable: weight_design",
+    x = "Ponderador de diseño",
+    y = "Densidad de probabilidad"
+  ) 
+
+ggplotly(opa)
+```
 
 ## No respuesta
 
-Una vez calculados los weight_design comenzamos el proceso de correción por no respuesta. La falta de este proceso suele afectar más al sesgo (*bias*) que a la varianza del estimador [@valliant2018, pág. 322].
+Una vez calculados los *weight_design* comenzamos el proceso de correción por no respuesta. La falta de este proceso suele afectar más al sesgo (*bias*) que a la varianza del estimador [@valliant2018, pág. 322].
 
 Uno de los puntos por los que se puede comenzar a analizar esto es en función de lo esperado/encontrado. Como en nuestro caso contamos con:
 
@@ -1101,18 +1161,18 @@ Uno de los puntos por los que se puede comenzar a analizar esto es en función d
 
 Por una cuestión de practicidad vamos a enfocarnos en la corrección de la no respuesta a nivel del establecimiento y no tanto a nivel de la sección como del estudiante. Por un lado, vamos a considerar a lo "esperado" en función de lo anterior. Quizá lo más importante de justificar en este paso es porque no esperar alguna cantidad específica de secciones.
 
-La construcción la haremos construyendo un índice de **Propensión de Respuesta** por establecimiento**.** Este tiene el beneficio de poder incorporar variables numéricas (p.e. tamaño de la matrícula o porcenatje de AUH) y no solo la construcción de clases mediante variables categóricas [@valliant2018a, cap. 3.2]. Tiene también sus limitaciones que veremos de mejorar para futuras ediciones [@valliant2018a, cap. 3.3].
+La construcción la haremos construyendo un índice de **Propensión de Respuesta** por establecimiento**.** Este tiene el beneficio de poder incorporar variables numéricas (p.e. tamaño de la matrícula o porcenatje de AUH) y no solo la construcción de clases discretas mediante variables categóricas [@valliant2018a, cap. 3.2]. Tiene también algunas limitaciones que veremos de mejorar para futuras ediciones [@valliant2018a, cap. 3.3].
 
-Por otro lado, la construcción de excesivos grupos de control de no respuesta puede hacer poco robustas las correciones porque o bien los grupos construidos o bien poseen pocos casos en la muestra (*ex-ante*) o, de manera derivada, pueden directamente no encontrarse casos con respuestas en la muestra *ex-post*. En este último caso, los ponderadores por no respuesta podrían dar infinito lo que, previsiblemente, no es adecuado.
+Por otro lado, si se mantiene la estrategia de trabajar con variables categóricas, la construcción de excesivos grupos de control de no respuesta puede hacer poco robustas las correciones porque los grupos construidos o bien poseen pocos casos en la muestra (*ex-ante*) o, de manera derivada, pueden directamente no encontrarse casos con respuestas en la muestra *ex-post*. En este último caso, los ponderadores por no respuesta podrían dar infinito lo que, previsiblemente, no es algo deseable desde un punto de vista metodológico.
 
-Antes de pasar al calcular este último paso para la probabilidad de inclusión vamos a explorar la distribución de secciones por establecimientos y de estudiantes por establecimientos. Esto puede ayudar a dar una idea de como se aplicó la muestra en campo y de la distancia con respecto a lo diseñado.
+Antes de pasar al calcular este último paso, vamos a explorar la distribución de secciones por establecimientos y de estudiantes por establecimientos. Esto puede ayudar a dar una idea de como se aplicó la muestra en campo y de la distancia con respecto a lo diseñado.
 
 ```{r}
 #| label: no_respuesta
 df_no_respuesta = marco_muestra |>
 filter(muestra_2025 == 1) |>
 mutate(respuesta_muestra = clave %in% insumo_calibracion_3$clave,
-# Para no rear "grupos" de no respuesta con muy pocos casos (o con ninguno en la muestra) vamos a "agrupar" los tamaños de la matricula y los porcentajes de auh
+# Para no crear "grupos" de no respuesta con muy pocos casos (o con ninguno en la muestra) vamos a "agrupar" los tamaños de la matricula y los porcentajes de auh
 decil_size = ntile(matricula_inicial_2025, 3),
 decil_auh = ntile(auh_pct, 3))
 
@@ -1126,37 +1186,10 @@ factores = df_no_respuesta |>
   mutate(no_respuesta_factor = N_total / N_respuesta)
 ```
 
-```{r}
-#| label: no_respuesta_propensy
-df_no_respuesta = marco_muestra |>
-filter(muestra_2025 == 1) |>
-mutate(respuesta_muestra = as.numeric(clave %in% insumo_calibracion_3$clave))
-
-# Nota: tamaño y porcentaje de AUH ingresan como variables continuas
-modelo_propension = glm(
-  respuesta_muestra ~ matricula_inicial_2025 + auh_pct + Region + sector + jornada_completa + ambito,
-  data = df_no_respuesta,
-  family = binomial(link = "logit")
-)
-
-# Obtener las probabilidades predichas para toda la muestra seleccionada
-df_no_respuesta = df_no_respuesta |>
-  mutate(prob_respuesta = predict(modelo_propension, type = "response"))
-
-# Filtrar los factores para los respondientes y calcular el inverso
-factores_modelo = df_no_respuesta |>
-  filter(respuesta_muestra == 1) |>
-  select(clave, prob_respuesta) |>
-  mutate(inv_no_respuesta = 1 / prob_respuesta)
-
-# Aplicar el factor a su base de estudiantes
-insumo_calibracion_3 = insumo_calibracion_3 |>
-  left_join(factores_modelo, by = "clave") |>
-  mutate(weight_no_respuesta = weight_design * inv_no_respuesta)
-```
+Empezamos con la @tbl-no_respuesta_3_1 en donde se visualizan algunos valores resumen tanto para los establecimientos que "respondieron" como para los que no lo hicieron.
 
 ```{r}
-#| label: tbl-no_respuesta
+#| label: tbl-no_respuesta_3_1
 #| tbl-cap: Distribución de la no respuesta según características de los establecimientos
 # Preparar el dataframe de la muestra seleccionada
 analisis_no_respuesta = marco_muestra |>
@@ -1191,8 +1224,10 @@ add_overall(last = TRUE) |>
 tbl_tabla_comparativa
 ```
 
+En la @fig-no_respuesta_3_size se analiza distribución del tamaño de la matrícula del establecimiento en función de si fue un establecimiente respondiente o no.
+
 ```{r}
-#| label: fig-no_respuesta_size
+#| label: fig-no_respuesta_3_size
 #| fig-cap: Distribución de la no respuesta según tamaño de la matrícula
 
 # Gráfico para la variable Tamaño de establecimiento
@@ -1211,8 +1246,10 @@ fig_no_respuesta_size_i = ggplotly(fig_no_respuesta_size)
 fig_no_respuesta_size_i
 ```
 
+En la @fig-no_respuesta_3_auh, se realiza la misma operación pero ahora en función del porcentaje de AUH del establecimiento.
+
 ```{r}
-#| label: fig-no_respuesta_auh
+#| label: fig-no_respuesta_3_auh
 #| fig-cap: Distribución de la no respuesta según porcentaje de AUH
 
 # Gráfico para la variable Tamaño de establecimiento
@@ -1244,11 +1281,12 @@ mutate(
   n_establecimientos = n())
 ```
 
-En primer lugar, se recuerda que los establecimientos seleccionados en el diseño fueron 673 y los que efectivamente se utilizaron en campo fueron 386 algo más que un 57%. Esto, previsiblemente, impacta en los resultados porque la ausencia de establecimiento rara vez es azarosa. Por otro lado, la muestra esperaba alrededor de 6730 estudiantes (10 estudiantes por cada uno de los 673 establecimientos) aunque finalmente se contactaron (sin todavía indagar sobre su calidad) unos 5320 casos. Esto implica un 79% de la muestra original. Esto ya anticipa que, si bien se fue a menos establecimientos de los diseñados, a pesar de cierta dispersión, en promedio se fue a más de 10 estudiantes por establecimiento.
+A modo de resumen, se recuerda que, en primer lugar, los establecimientos seleccionados en el diseño fueron 673 y los que efectivamente se utilizaron en campo fueron 386 algo más que un 57%. Esto, previsiblemente, impacta en los estimadores en forma de sesgo (*bias*) porque la ausencia de establecimiento rara vez es azarosa. Por otro lado, la muestra esperaba alrededor de 6730 estudiantes (10 estudiantes por cada uno de los 673 establecimientos) y finalmente se contactaron (sin todavía indagar sobre su calidad) unos 5320 casos. Esto implica un 79% de la muestra original. Esto ya anticipa que, si bien se fue a menos establecimientos de los diseñados, a pesar de cierta dispersión, en promedio se fue a más de 10 estudiantes por establecimiento.
 
 ```{r}
 #| label: fig-hist_secciones_establecimientos
 #| fig-cap: Distribución de seccciones seleccionados por establecimiento
+#| eval: false
 fig_secciones_establecimientos = df_exploracion_campo |>
 ggplot(aes(x = n_secciones_campo)) +
   geom_histogram(binwidth = 1, fill = "forestgreen", color = "white", alpha = 0.8) +
@@ -1260,9 +1298,11 @@ ggplot(aes(x = n_secciones_campo)) +
 fig_secciones_establecimientos
 ```
 
+En cuanto a las secciones, en la @tbl-hist_secciones_establecimientos_3, se observa a cuantas secciones por establecimiento efectivamente se seleccionaron.
+
 ```{r}
-#| label:tbl-hist_secciones_establecimientos
-#| tbl-cap: Distribución de seccciones seleccionados por establecimiento
+#| label: tbl-hist_secciones_establecimientos_3
+#| tbl-cap: Distribución de seccciones seleccionadas por establecimiento
 tbl_secciones_establecimientos = df_exploracion_campo |>
 tbl_summary(
     include = n_secciones_campo,
@@ -1278,8 +1318,10 @@ tbl_summary(
 tbl_secciones_establecimientos
 ```
 
+En la @fig-hist_estudiantes_establecimientos_3, ahora a nivel de los estudiantes, se observa cuantas estudiantes por establecimiento efectivamente se seleccionaron.
+
 ```{r}
-#| label: fig-hist_estudiantes_establecimientos
+#| label: fig-hist_estudiantes_establecimientos_3
 #| fig-cap: Distribución de estudiantes seleccionados por establecimiento
 fig_estudiantes_establecimientos = df_exploracion_campo |>
 ggplot(aes(x = n_estudiantes_campo)) +
@@ -1292,8 +1334,10 @@ ggplot(aes(x = n_estudiantes_campo)) +
 fig_estudiantes_establecimientos
 ```
 
+A pesar de haber situaciones en donde se seleccionario menos de 10 estudiantes y otros en donde se seleccionaron varios más, en la @tbl-hist_estudiantes_establecimientos_3, se observa que la mediana se mantuvo en 10 estudiantes por establecimiento.
+
 ```{r}
-#| label:tbl-hist_estudiantes_establecimientos
+#| label: tbl-hist_estudiantes_establecimientos_3
 #| tbl-cap: Distribución de estudiantes seleccionados por establecimiento
 tbl_estudiantes_establecimientos = df_exploracion_campo |>
 tbl_summary(
@@ -1304,13 +1348,13 @@ tbl_summary(
   ) |> 
   # Añadimos un encabezado elegante y el total de N (establecimientos)
   modify_header(label = "**Variable**") |> 
-  modify_footnote(everything() ~ NA) |> # Opcional: remueve notas al pie automáticas si prefiere un estilo más limpio
   bold_labels()
 
 tbl_estudiantes_establecimientos
 ```
 
 ```{r}
+# eval: false
 # Por ahora el objetivo es visualizar distintos aspectos de la no respuesta. Por ejemplo, indagar en la distribución de la no respuesta. Como regla general (aunque puede ser equivocada) vamos a realizar una serie de gráficos de densidad para ver si la no respuesta se distribuye de manera homogénea. La idea es comparar la media de casos por establecimiento. Dado que por diseño todos los establecimientos deberían tener 10, el alejamiento de ese número podría ser un proxy para indicar la no respuesta. Luego se puede realizar este mismo análisis con diferentes covariables.
 
 chequeos_no_respuesta = insumo_calibracion_3 |>
@@ -1321,7 +1365,54 @@ chequeos_no_respuesta = insumo_calibracion_3 |>
     proporcion_no_respuesta = total_no_respuesta / total_estudiantes
   ) |>
   ungroup()
-chequeos_no_respuesta
+
+```
+
+Dado lo observado anteriormente parece necesario, o por lo menos muy útil, realizar un ajuste por no respuesta. En efecto, estos valores de no respuesta son los principales culpables que el total que arrojaban los *weight_design* no coincidieran con los totales del marco muestral.
+
+Para eso, como se había anticipado más arriba, se va a realizar un ajuste de no respuesta por una propensión de no respuesta con las variables:
+
+- Matrícula
+
+- Porcenataje de AUH
+
+- Región
+
+- Sector
+
+- Jornada completa
+
+- Ámbito
+
+```{r}
+#| label: no_respuesta_propensity_score
+#| echo: true
+#| code-fold: true
+df_no_respuesta = marco_muestra |>
+filter(muestra_2025 == 1) |>
+mutate(respuesta_muestra = as.numeric(clave %in% insumo_calibracion_3$clave))
+
+# Nota: tamaño y porcentaje de AUH ingresan como variables continuas
+modelo_propension = glm(
+  respuesta_muestra ~ matricula_inicial_2025 + auh_pct + Region + sector + jornada_completa + ambito,
+  data = df_no_respuesta,
+  family = binomial(link = "logit")
+)
+
+# Obtener las probabilidades predichas para toda la muestra seleccionada
+df_no_respuesta = df_no_respuesta |>
+  mutate(prob_respuesta = predict(modelo_propension, type = "response"))
+
+# Filtrar los factores para los respondientes y calcular el inverso
+factores_modelo = df_no_respuesta |>
+  filter(respuesta_muestra == 1) |>
+  select(clave, prob_respuesta) |>
+  mutate(inv_no_respuesta = 1 / prob_respuesta)
+
+# Aplicar el factor a su base de estudiantes
+insumo_calibracion_3 = insumo_calibracion_3 |>
+  left_join(factores_modelo, by = "clave") |>
+  mutate(weight_no_respuesta = weight_design * inv_no_respuesta)
 
 ```
 
@@ -1333,12 +1424,16 @@ Para este fin usaremos un método de calibración lo bastante general como el GR
 
 En general, los totales poblacionales se deben pasar como valores absolutos o cantidades discretas. Esto suele ser así porque esos valores son los "objetivos" que tiene que maximizar las funciones de calibración. Esto plantea diferentes estrategias para las variables categóricas que para las numéricas. Por otro lado, algunas de las variables tienen origen en el marco muestral (de establecimientos) y otros en el censo (de estudiantes) de las pruebas PEB lo que generar problemas particulares porque ambas tienen diferentes totales.
 
-Variables como sector, ambito, jornada completa y región son categóricas y tienen origen en el marco muestral, ya que son variables de los establecimientos. De cada una de estas se van a extraer los respectivos porcentajes de cada categoría (p.e. sector_privado, ambito_rural_agrupado, etc.) ponderadas por la matrícula. El supuesto, creemos que relativamente inocente en términos agregados, es que para esto no es necesario utilizar la matrícula específica de tercer año lo que hubiera requerdio trabajar con la base de secciones. El punto negativo de esta base es que hay establecimientos del marco muestral que no están presentes en la base de secciones por lo que hubiera sido necesario estimar mediante algún modelo el tamaño de las secciones faltantes.
+Variables como sector, ambito, jornada completa y región son categóricas y tienen origen en el marco muestral, ya que son variables de los establecimientos. De cada una de estas se van a extraer los respectivos porcentajes de cada categoría (p.e. sector_privado, ambito_rural_agrupado, etc.) ponderadas por la matrícula. El supuesto, creemos que relativamente inocente en términos agregados, es que para esto no es necesario utilizar la matrícula específica de tercer año lo que hubiera requerido trabajar con la base de secciones. El punto negativo de esta base es que hay establecimientos del marco muestral que no están presentes en la base de secciones por lo que hubiera sido necesario estimar mediante algún modelo el tamaño de las secciones faltantes. La solución intermedia fue la siguiente. Extraer de la base de secciones el ratio entre el total de la matrícula de la primaria y la matrícula de 3 y 6 año respectivamente. Dado que esta base tiene algunos pequeños faltantes lo importante es el ratio y no el total. Este último se extrae de la propia base de establecimientos y luego se le aplica el respectivo ratio.
 
-En el caso de las variables continuas como porcentaje de AUH (marco muestral) y las notas del IRA (censo PEB) la situación es diferente. En el primer caso, se realiza una media ponderada (por matrícula) y luego se multiplica por la cantidad absoluta de estudiantes en 3.er grado. En el caso de las notas IRA se utiliza la media (no ponderada) y luego se multiplica por la cantidad absoluta de estudiantes en 3.er grado. La cantidad absoluta de estudiantes en tercer grado puede salir tanto de las bases de secciones o de las pruebas PEB. Previsiblemnete, la primera estrategia permita un mayor acercamiento a la población objetivo y la segunda, en cambio, permite una mayor coherencia con el censo.
+En el caso de las variables continuas como porcentaje de AUH (marco muestral) y las notas del IRA (censo PEB) la situación es diferente. En el primer caso, se realiza una media ponderada (por matrícula) y luego se multiplica por la cantidad absoluta de estudiantes en 3.er io 6.º grado. En el caso de las notas IRA se utiliza la media (no ponderada) y luego se multiplica por la cantidad absoluta de estudiantes en 3.er o 6.º grado. La cantidad absoluta de estudiantes en cada grado puede salir tanto de las bases de secciones o de las pruebas PEB. Previsiblemente, la primera estrategia permita un mayor acercamiento a la población objetivo y la segunda, en cambio, permite una mayor coherencia con el censo. El mayor problema de intentar calibrar valores con el censo PEB es que se está trabajando con variables que suelen tener una masa no marginal de valores faltantes.
+
+En general, intentar calibrar valores faltantes (como algo diferentre a casos faltantes) suele ser algo problemático. Concretamente, la mayoria de los algoritmos disponibles en la bibliografía solo permiten calibrar sobre casos que tengan valores completos.
 
 ```{r}
 #| label: n_poblacion_objetivo_3
+#| echo: true
+#| code-fold: true
 # Hay más de una manera de hacerla. Por un lado está la base de secciones. Esto tiene el beneficio, a pesar de tener algunas secciones sin valor, de poder discriminar el peso de los 3 entre toda la matrícula primaria. Esa proporción es la que se puede utilizar tomando como un mejor indicador de toda la masa de estudiante el dato que sale de la base de establecimientos (marco_muestra)
 n_poblacion_3_base_secciones = tb_secciones_2025 |>
 filter(anio == 3) |>
@@ -1363,7 +1458,8 @@ summarise(matricula_3 = sum(matricula_inicial_2025)/ratio_primaria_terceros)
 
 ```{r}
 #| label: totales_discretos_calibracion_marco_muestra
-
+#| echo: true
+#| code-fold: true
 calib_marco_muestra_discretos = marco_muestra |>
 select(clave, matricula_3, Region, ambito, sector, jornada_completa) |>
 rename(region = Region)
@@ -1385,9 +1481,6 @@ df_tot_calib_marco_muestra_discretos = calib_marco_muestra_discretos |>
   mutate(nombre_parametro = paste0(variable, categoria)) |>
 select(nombre_parametro, total)
 
-print("--- Totales de Control: Variables Categóricas ---")
-print(df_tot_calib_marco_muestra_discretos)
-
 insumo_calibracion_3 = insumo_calibracion_3 |>
 left_join(calib_marco_muestra_discretos, by = "clave")
 
@@ -1395,7 +1488,8 @@ left_join(calib_marco_muestra_discretos, by = "clave")
 
 ```{r}
 #| label: totales_continuos_calibracion_marco_muestra
-
+#| echo: true
+#| code-fold: true
 # Calculo una variable, dentro del marco muestra, que indique la proporción de la matricula de 3 ano dentro de la matricula de toda la primaria
 
 calib_marco_muestra_continuos = marco_muestra |>
@@ -1410,9 +1504,8 @@ pivot_longer(cols = everything(),
              names_to = "nombre_parametro", 
              values_to = "total")  
 
-
-print("--- Total de Control: Variable Continua ---")
-print(tot_calib_marco_muestra_continuos)
+calib_marco_muestra_continuos = calib_marco_muestra_continuos |>
+select(clave, auh_pct)
 
 insumo_calibracion_3 = insumo_calibracion_3 |>
 left_join(calib_marco_muestra_continuos, by = "clave")
@@ -1422,6 +1515,7 @@ Ahora vamos a preparar los totales que provienen del censo de las PEB. Estos tie
 
 ```{r}
 #| label: totales_continuos_calibracion_censo_peb
+#| eval: false
 # Hay que agregar los totales de las notas de las PEB
 # Estos totales tienen que representar al total de la población objetivo (no del censo PEB). TEngo que "escalar" la masa utilizando el mismo N que utilizo del marco muestral (o cualquier otro) que se considere como mejor representante de la población objetivo.
 # Hay que averiguar si los datos del informe PEB son una media ponderados o no
@@ -1433,9 +1527,13 @@ df_tot_ira_pl_peb_3 = tibble(
     nombre_parametro = "ira_pl",
     total = 74.5 * n_poblacion_objetivo_3$matricula_3)
 
-insumo_calibracion_3 = insumo_calibracion_3 |>
-rename(ira_mat = "Puntaje_Mate") |>
-rename(ira_pl = "Puntaje_PL")
+```
+
+```{r}
+#totales_calibracion = df_totales_unificado_reducido$total
+#names(totales_calibracion) = df_totales_unificado_reducido$nombre_parametro
+# Las totales de las variables numéricas son más fáciles de agregar a la matrix porque alcanza con sumarlos. En cambio los totales de las variables categóricas es algo más difícil porque hay que hacer los totales para cada categoría. En este sentido, no es lo mismo hacer una calibración para 3 categorías como "Ambito" que para más de 20 como "Región". Al igual que muchas otras funciones (p.e. regresiones) cuando se trabaja con categorías se deja la primera afuera para actúe de intercepto. En este ejemplo Ámbito "Urbano" y Región "1" no están presentes.
+
 ```
 
 ```{r}
@@ -1443,11 +1541,282 @@ rename(ira_pl = "Puntaje_PL")
 #| message: false
 #| warning: false
 #| results: false
+#| echo: true
 #| code-fold: true
 
-# Los totales poblacionales son especificados como una matriz (no como un vector o como un dataframe) en función del modelo o fórmula especificada en el parámetro "formula" de la función "calibrate" de la librería survey
-# Los totlaes estan en los objetos "tot_calib_marco_muestra_discretos", "tot_calib_marco_muestra_continuos" y "tot_peb_3".
+# Unifico todos los totales poblacionales calculados en un único dataframe de referencia
+df_totales_unificado = bind_rows(
+  tibble(nombre_parametro = "(Intercept)", total = n_poblacion_objetivo_3$matricula_3),
+  df_tot_calib_marco_muestra_discretos,
+  df_tot_calib_marco_muestra_continuos,
+ # df_tot_ira_mat_peb_3,
+ # df_tot_ira_pl_peb_3
+)
 
+# Defino la fórmula que voy a utilizar para calibrar
+mi_formula = ~ ambito + jornada_completa + region + sector + auh_pct #+ ira_mat + ira_pl
+
+# Extraigo la matriz de diseño que R construye para la muestra observada
+matriz_muestra = model.matrix(mi_formula, data = insumo_calibracion_3)
+nombres_oficiales = colnames(matriz_muestra)
+
+# Construyo el vector de totales haciendo match por el nombre del parámetro.
+# Esto asegura que los totales estén en el mismo orden que nombres_oficiales
+# y descarta automáticamente los niveles de referencia que R omitió.
+totales_calibracion = df_totales_unificado$total[match(nombres_oficiales, df_totales_unificado$nombre_parametro)]
+names(totales_calibracion) = nombres_oficiales
+
+# Verifico si algún parámetro no encontró su total correspondiente
+if (any(is.na(totales_calibracion))) {
+  warning("Existen parámetros en la matriz de diseño que no tienen total asignado:")
+  print(nombres_oficiales[is.na(totales_calibracion)])
+}
+
+# Defino el tamaño poblacional total para fpc
+insumo_calibracion_3 = insumo_calibracion_3 |>
+  mutate(fpc = n_poblacion_objetivo_3$matricula_3) |>
+  rename(ira_mat = Puntaje_Mate,
+         ira_pl = Puntaje_PL)
+
+# Areglos de tipo de variables
+insumo_calibracion_3 = insumo_calibracion_3 |>
+  mutate(sector = as.factor(sector),
+         ambito = as.factor(ambito),
+         jornada_completa = as.factor(jornada_completa),
+         region = as.factor(region))
+
+# Creo el diseño muestral indicando la corrección por no respuesta
+insumo_calibracion_3_sv = insumo_calibracion_3 |>
+  as_survey_design(ids = id,
+                   weights = weight_no_respuesta,
+                   fpc = fpc)
+
+# Corro la calibración con el vector de totales ordenado correctamente
+muestra_peb_3_cal = calibrate(
+  design = insumo_calibracion_3_sv,
+  formula = mi_formula,
+  population = totales_calibracion,
+  calfun = "linear",
+  bounds = c(0.01, Inf),
+  verbose = FALSE
+)
+
+# Agrego los ponderadores calibrados
+weight_calibrate = weights(muestra_peb_3_cal)
+
+insumo_calibracion_3$weight_calibrate = weight_calibrate
+```
+
+Realizada la calibración ahora vamos a realizar algunos controles de rutina para evaluar su calidad. Por un lado, vamos a comparar los valores calibrados contra los valores esperados en función de la información auxiliar. Por otro lado, vamos a indagar acerca de la dispersión de los valores de los ponderadores de calibración.
+
+```{r}
+#| label: tbl-comparacion_calib_poblacion
+# 1. Creamos el diseño de encuesta para representar a la población objetivo
+poblacion_design_3 = marco_muestra |>
+  mutate(
+    region = as.factor(Region),
+    sector = as.factor(sector),
+    ambito = as.factor(ambito),
+    jornada_completa = as.factor(jornada_completa),
+    auh_pct = auh_pct / 100,
+    ira_mat = 68.7,
+    ira_pl = 74.5
+  ) |>
+  as_survey_design(ids = 1, weights = matricula_3)
+
+# 2. Tabla para la muestra calibrada (forzando tipo continuo)
+tbl_muestra_peb_3_cal_comparacion_mue = muestra_peb_3_cal |>
+  tbl_svysummary(  
+    include = c(matricula_3, auh_pct, region, sector, ambito, jornada_completa, ira_mat, ira_pl),
+    type = list(
+      ira_mat ~ "continuous",
+      ira_pl ~ "continuous"
+    ),
+    digits = list(
+      all_continuous() ~ c(3, 3), 
+      all_categorical() ~ c(1, 0)
+    ),
+    statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                     all_categorical() ~ "{p}% (n={n_unweighted})")
+  )
+
+# 3. Tabla para la población (forzando tipo continuo)
+tbl_poblacion_peb_3 = poblacion_design_3 |>
+  tbl_svysummary(  
+    include = c(matricula_3, auh_pct, region, sector, ambito, jornada_completa, ira_mat, ira_pl),
+    type = list(
+      ira_mat ~ "continuous",
+      ira_pl ~ "continuous"
+    ),
+    digits = list(
+      all_continuous() ~ c(3, 3), 
+      all_categorical() ~ c(1, 0)
+    ),
+    statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                     all_categorical() ~ "{p}% (n={n_unweighted})")
+  )
+
+# 4. Combinación de ambas tablas
+tbl_muestra_peb_3_cal_comparacion = tbl_merge(
+  tbls = list(tbl_muestra_peb_3_cal_comparacion_mue, tbl_poblacion_peb_3),
+  tab_spanner = c("**Muestra Calibrada**", "**Valores Esperados (Población)**")
+)
+
+tbl_muestra_peb_3_cal_comparacion
+```
+
+```{r}
+#| label: chequeos_calidad_calibradores_3
+#| message: false
+#| warning: false
+
+# 1. Resumen estadístico de los ponderadores
+chequeo_pesos_resumen <- insumo_calibracion_3 |>
+  summarise(
+    peso_min              = min(weight_calibrate, na.rm = TRUE),
+    peso_max              = max(weight_calibrate, na.rm = TRUE),
+    casos_negativos       = sum(weight_calibrate < 0, na.rm = TRUE),
+    casos_menores_uno     = sum(weight_calibrate < 1, na.rm = TRUE),
+    suma_pesos_calibrados = sum(weight_calibrate, na.rm = TRUE),
+    suma_pesos_diseno     = sum(weight_design, na.rm = TRUE),
+    suma_pesos_no_resp    = sum(weight_no_respuesta, na.rm = TRUE),
+    n_muestra             = n()
+  )
+
+# 2. Análisis del ratio (Peso Calibrado / Peso No Respuesta)
+insumo_calibracion_3 <- insumo_calibracion_3 |>
+  mutate(ratio_calib_diseno = weight_calibrate / weight_no_respuesta)
+
+chequeo_ratio <- insumo_calibracion_3 |>
+  summarise(
+    ratio_min = min(ratio_calib_diseno, na.rm = TRUE),
+    ratio_p25 = quantile(ratio_calib_diseno, 0.25, na.rm = TRUE),
+    ratio_med = median(ratio_calib_diseno, na.rm = TRUE),
+    ratio_p75 = quantile(ratio_calib_diseno, 0.75, na.rm = TRUE),
+    ratio_max = max(ratio_calib_diseno, na.rm = TRUE),
+    ratio_sd  = sd(ratio_calib_diseno, na.rm = TRUE)
+  )
+
+# 3. Efecto de diseño de Kish debido a ponderación (Deff_wt)
+# n_casos = nrow(insumo_calibracion_3)
+# deff_kish = n_casos * sum(insumo_calibracion_3$weight_calibrate^2) / (sum(insumo_calibracion_3$weight_calibrate)^2)
+
+# 4. Creación del dataframe estructurado para la tabla gt
+df_calidad <- tibble(
+  Grupo = c(
+    rep("Resumen de Ponderadores", 8), 
+    rep("Ratio (Calibrado / No-Respuesta)", 6)
+    #, "Efecto de Diseño" # Descomentar cuando se incluya deff_kish
+  ),
+  Métrica = c(
+    "Peso Mínimo", "Peso Máximo", "Casos Negativos (< 0)", "Casos < 1", 
+    "Suma de Pesos Calibrados", "Suma de Pesos de Diseño", "Suma de Pesos No-Respuesta", "Tamaño de Muestra (n)",
+    "Ratio Mínimo", "Percentil 25 (P25)", "Mediana (P50)", "Percentil 75 (P75)", "Ratio Máximo", "Desviación Estándar (SD)"
+    #, "Efecto de diseño por ponderación (Kish Deff_wt)"
+  ),
+  Valor = c(
+    chequeo_pesos_resumen$peso_min,
+    chequeo_pesos_resumen$peso_max,
+    chequeo_pesos_resumen$casos_negativos,
+    chequeo_pesos_resumen$casos_menores_uno,
+    chequeo_pesos_resumen$suma_pesos_calibrados,
+    chequeo_pesos_resumen$suma_pesos_diseno,
+    chequeo_pesos_resumen$suma_pesos_no_resp,
+    chequeo_pesos_resumen$n_muestra,
+    chequeo_ratio$ratio_min,
+    chequeo_ratio$ratio_p25,
+    chequeo_ratio$ratio_med,
+    chequeo_ratio$ratio_p75,
+    chequeo_ratio$ratio_max,
+    chequeo_ratio$ratio_sd
+    #, deff_kish
+  )
+)
+
+# 5. Generación de la tabla gt estética
+tbl_calidad_gt <- df_calidad |>
+  gt(groupname_col = "Grupo") |>
+  tab_header(
+    title = "Chequeo de Calidad de los Calibradores",
+    subtitle = "Métricas del tercer año de primaria PEP 2025"
+  ) |>
+  fmt_number(
+    columns = Valor,
+    rows = !(Métrica %in% c("Casos Negativos (< 0)", "Casos < 1", "Tamaño de Muestra (n)")),
+    decimals = 3
+  ) |>
+  fmt_integer(
+    columns = Valor,
+    rows = Métrica %in% c("Casos Negativos (< 0)", "Casos < 1", "Tamaño de Muestra (n)")
+  ) |>
+  cols_label(
+    Métrica = "Indicador",
+    Valor = "Valor"
+  ) |>
+  tab_options(
+    row_group.background.color = "#f4f4f4",
+    table.width = pct(100)
+  )
+
+tbl_calidad_gt
+```
+
+### Calibración Sexto Año
+
+Ahora pasaremos a realizar la calibración a la muestra de estudiantes de 6.º año.
+
+```{r}
+#| eval: false
+n_poblacion_6_base_secciones = tb_secciones_2025 |>
+filter(anio == 6) |>
+filter(descripcionofertaeducativa == "Primaria (1° Y 2° ciclo)") |>
+summarise(matricula = sum(total))
+
+ratio_primaria_sexto = n_poblacion_primaria_base_secciones$matricula / 
+                          n_poblacion_3_base_secciones$matricula
+
+# Esto estima la matricula_3 de cada establecimiento
+marco_muestra = marco_muestra |>
+mutate(matricula_6 = matricula_inicial_2025 / ratio_primaria_sexto)
+
+n_poblacion_objetivo_6 = marco_muestra |>
+summarise(matricula_6 = sum(matricula_inicial_2025)/ratio_primaria_sexto)
+
+tot_peb_6 = tibble(
+    ira_mat = 66.7,
+    ira_pl = 73.2
+) |>
+mutate(ira_mat_count = ira_mat * n_poblacion_objetivo_6$matricula_6,
+       ira_pl_count = ira_pl * n_poblacion_objetivo_6$matricula_6)
+```
+
+```{r}
+#| label: calib_muestra_estudiantes_6
+#| eval: false
+#El objetivo es comenzar a realizar el proceso de calibración sobre el objeto marco_muestra
+muestra_estudiantes_6 = read_sav(here("Inputs", "PEB_2025", "PEB_Primaria_6to año_Carga por estudiante_2025_con variables de contexto.sav")) |>
+rename(clave = CLAVE) |>
+rename(prioridad_seccion = IM2) |>
+rename(turno = IM1) |>
+mutate(anio = 6,
+       prioridad_seccion = as_factor(prioridad_seccion))
+```
+
+```{r}
+#| label: consolido_totales_6_propuesta
+#| eval: false
+#| message: false
+#| warning: false
+#| results: false
+#| echo: true
+#| code-fold: true
+
+# 1. Filtramos el insumo para quedarnos solo con casos que tienen información completa 
+# en las variables que utilizaremos para calibrar.
+insumo_calibracion_6_completo = insumo_calibracion_6 |>
+  filter(!is.na(ira_mat), !is.na(ira_pl), !is.na(auh_pct))
+
+# Unifico todos los totales poblacionales calculados en un único dataframe de referencia
 df_totales_unificado = bind_rows(
   tibble(nombre_parametro = "(Intercept)", total = n_poblacion_objetivo_3$matricula_3),
   df_tot_calib_marco_muestra_discretos,
@@ -1456,144 +1825,56 @@ df_totales_unificado = bind_rows(
   df_tot_ira_pl_peb_3
 )
 
-df_totales_unificado_reducido = df_totales_unificado |>
-  filter(!nombre_parametro %in% c("sectorEstatal", "region01", "jornada_completaNO", "ambitoRural Agrupado"))
-
+# Defino la fórmula que voy a utilizar para calibrar
 mi_formula = ~ ambito + jornada_completa + region + sector + auh_pct + ira_mat + ira_pl
 
-# 2. Extraer la matriz de diseño que R construye para su muestra
-matriz_muestra = model.matrix(mi_formula, data = insumo_calibracion_3)
+# Extraigo la matriz de diseño que R construye para la muestra observada (sin NAs)
+matriz_muestra = model.matrix(mi_formula, data = insumo_calibracion_3_completo)
 nombres_oficiales = colnames(matriz_muestra)
 
-# 3. VERIFICACIÓN EN CONSOLA (Diagnóstico)
-# Compare visualmente los nombres oficiales contra los nombres de su vector:
-print("Nombres que R espera:")
-print(nombres_oficiales)
-
-print("Nombres que tiene su vector actualmente:")
-print(names(totales_calibracion))
-
-totales_calibracion = df_totales_unificado_reducido$total
+# Construyo el vector de totales haciendo match por el nombre del parámetro.
+totales_calibracion = df_totales_unificado$total[match(nombres_oficiales, df_totales_unificado$nombre_parametro)]
 names(totales_calibracion) = nombres_oficiales
 
-#totales_calibracion = df_totales_unificado_reducido$total
-#names(totales_calibracion) = df_totales_unificado_reducido$nombre_parametro
-# Las totales de las variables numéricas son más fáciles de agregar a la matrix porque alcanza con sumarlos. En cambio los totales de las variables categóricas es algo más difícil porque hay que hacer los totales para cada categoría. En este sentido, no es lo mismo hacer una calibración para 3 categorías como "Ambito" que para más de 20 como "Región". Al igual que muchas otras funciones (p.e. regresiones) cuando se trabaja con categorías se deja la primera afuera para actúe de intercepto. En este ejemplo Ámbito "Urbano" y Región "1" no están presentes.
-insumo_calibracion_3 = insumo_calibracion_3 |>
-mutate(fpc = n_poblacion_objetivo_3$matricula_3)
+# Verifico si algún parámetro no encontró su total correspondiente
+if (any(is.na(totales_calibracion))) {
+  warning("Existen parámetros en la matriz de diseño que no tienen total asignado:")
+  print(nombres_oficiales[is.na(totales_calibracion)])
+}
 
-insumo_calibracion_3_sv = insumo_calibracion_3 |>
-as_survey_design(ids = id,
-                 weights = weight_no_respuesta,
-                 fpc = fpc)
+# Defino el tamaño poblacional total para fpc en la base filtrada
+insumo_calibracion_3_completo = insumo_calibracion_3_completo |>
+  mutate(fpc = n_poblacion_objetivo_3$matricula_3)
 
-muestra_peb_3_cal = 
-calibrate(design = insumo_calibracion_3_sv,
-          formula = ~ ambito + jornada_completa + region + sector + auh_pct + ira_mat + ira_pl,
-          population = totales_calibracion,
-        #  stage = 1, Esto era si solo se le ponia información de los estab
-          calfun = "linear",
-          verbose = FALSE,
-       #  variance = 
-         )
+# Creo el diseño muestral con los casos completos
+insumo_calibracion_3_sv = insumo_calibracion_3_completo |>
+  as_survey_design(ids = id,
+                   weights = weight_no_respuesta,
+                   fpc = fpc)
 
-tbl_muestra_peb_3_cal = muestra_peb_3_cal |>
-tbl_svysummary(
-include = c(matricula_3, auh_pct, region, sector, ambito, jornada_completa, ira_mat, ira_pl),
-digits = list(deff = label_style_number(digits = 3),
-              sd = label_style_number(digits = 3)),
-statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
-                all_categorical() ~ "{p}% (n={n_unweighted})")) |>
-add_ci() 
-```
+# Corro la calibración con el vector de totales ordenado correctamente
+muestra_peb_3_cal_propuesta = calibrate(
+  design = insumo_calibracion_3_sv,
+  formula = mi_formula,
+  population = totales_calibracion,
+  calfun = "linear",
+  verbose = FALSE
+)
 
-### Calibración Sexto Año
-
-Ahora pasaremos a realizar la calibración a la muestra de estudiantes de 6.º año.
-
-```{r}
-tot_peb_6 = tibble(
-    ira_mat = 66.7,
-    ira_pl = 73.2
-) |>
-mutate(ira_mat_count = ira_mat * n_poblacion_6$n_estudiantes_6,
-       ira_pl_count = ira_pl * n_poblacion_6$n_estudiantes_6)
+# Evalúo los resultados de la calibración
+tbl_muestra_peb_3_cal_propuesta = muestra_peb_3_cal_propuesta |>
+  tbl_svysummary(
+    include = c(matricula_3, auh_pct, region, sector, ambito, jornada_completa, ira_mat, ira_pl),
+    digits = list(deff = label_style_number(digits = 3),
+                  sd = label_style_number(digits = 3)),
+    statistic = list(all_continuous() ~ "{mean} ({mean.std.error})",
+                     all_categorical() ~ "{p}% (n={n_unweighted})")
+  ) |>
+  add_ci()
 ```
 
 ```{r}
-#| label: calib_muestra_estudiantes_6
-#El objetivo es comenzar a realizar el proceso de calibración sobre el objeto marco_muestra
-muestra_estudiantes_6 = read_sav(here("Inputs", "PEB_2025", "PEB_Primaria_6to año_Carga por estudiante_2025_con variables de contexto.sav"))
-
-```
-
-```{r}
-n_poblacion_6 = tb_secciones_2025 |>
-filter(anio == 6) |>
-filter(descripcionofertaeducativa == "Primaria (1° Y 2° ciclo)") |>
-summarise(n_poblacion_6 = sum(total),
-          n_secciones_6   = n_distinct(idseccion, na.rm = TRUE),
-         n_establecimientos_6    = n_distinct(clave, na.rm = TRUE))
-```
-
-```{r}
-#| label: simulacion_secciones_3
 #| eval: false
-
-#Por esta razón vamos a adoptar una estrategia de simulación de Montecarlo para aproximar las probabilidades de inclusión de cada sección. La idea es simular el proceso de selección de secciones múltiples veces y calcular la frecuencia con la que cada sección es seleccionada como principal o suplente. Esta frecuencia empírica servirá como una aproximación a la probabilidad de inclusión de cada sección.
-set.seed(123)
-n_replicas = 10000 # Número de réplicas de Montecarlo para estabilidad
-
-# Simulamos el proceso de selección B veces
-simulaciones_secciones_3 = map_df(1:n_replicas, function(i) {
-  insumo_segunda_etapa |>
-    group_by(clave, anio) |>
-    mutate(
-      prob_seleccion = total / sum(total),
-      orden = rank(- (prob_seleccion * runif(n())))
-    ) |>
-    filter(orden %in% c(1, 2)) |> # Solo nos interesan las seleccionadas (Principal y Suplente)
-    select(idseccion, orden) |>
-    mutate(replica = i)
-})
-
-write_rds(simulaciones_secciones_3,
-          here("Inputs", "PEB_2025", "simulaciones_secciones_3.rds"))
-
-#| label: calib_3_pi_2
-
-simulaciones_secciones_3 = read_rds(here("Inputs", "PEB_2025", "simulaciones_secciones_3.rds"))
-n_replicas = 10000
-# Calculamos las probabilidades de inclusión empíricas
-pi_secciones = simulaciones_secciones_3 |>
-  group_by(idseccion) |>
-  summarise(
-    # Probabilidad de ser Principal (orden 1)
-    pi_seccion_principal = sum(orden == 1) / n_replicas,
-    # Probabilidad de ser Suplente (orden 2)
-    pi_seccion_suplente = sum(orden == 2) / n_replicas,
-    # Probabilidad de inclusión combinada (si usa ambas en la muestra final)
-    pi_seccion_total = n() / n_replicas
-  )
-
-# Unimos estos datos con el resultado de la muestra de la segunda etapa
-# resultado_segunda_etapa es un dataframe de secciones
-resultado_con_pesos = resultado_segunda_etapa |>
-  left_join(pi_secciones, by = "idseccion") |>
-  mutate(
-pi_2 = case_when(
-      orden == 1 ~ pi_seccion_principal,
-      orden == 2 ~ pi_seccion_suplente,
-      TRUE       ~ NA_real_ # Las secciones de reserva no aportarán alumnos
-    ),
-  )
-
-#Obviamente, la versión simple pod'ria haber sido
- #   proba_etapa2_cond = secciones_muestreadas_en_escuela / total_secciones_en_escuela,
-
-```
-
-```{r}
 # Traigo desde tb_secciones_2025 las matriculas de las secciones de 3 y 6.
 # Esto es importante porque se necesiatn los totales absolutos para la calibracion
 # Luego que traigo esas matricuals uso count y pondero por ese valor de las matriculas
@@ -1685,7 +1966,7 @@ N = nrow(tot_calib)
 ```
 
 ```{r}
-
+#| eval: false
 totales_calibracion_3 = n_poblacion_3$n_estudiantes_3 # Es el intercepto
 names(totales_calibracion_3) = 
 totals = c(

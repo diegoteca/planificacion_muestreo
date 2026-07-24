@@ -135,3 +135,5 @@
 {"rule":"CONTINUA","sentence":"^\\QPara este fin usaremos un método de calibración lo bastante general como el GREG @sarndalCalibrationApproachSurvey para así poder incluir tanto variables categóricas como continuas y que permita la inclusión no solo los valores de tendencia central sino también la varianza o distribución de las variables continuas.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qen función de las reglas de Segunda Etapa (Secciones):\\E$"}
 {"rule":"MAS","sentence":"^\\QSi se seleccionaron \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q secciones de un total de \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q disponibles en esa escuela mediante MAS, la probabilidad condicional es \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q.\\E$"}
+{"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdonde:\\E$"}
+{"rule":"AGREEMENT_NUMERAL_PLURAL","sentence":"^\\QExtraer de la base de secciones el ratio entre el total de la matrícula de la primaria y la matrícula de 3 y 6 año respectivamente.\\E$"}

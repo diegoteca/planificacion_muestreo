@@ -70,6 +70,7 @@ Para eso vamos a recuperar el objeto con el cual le informábamos a R que había
 #| message: false
 #| warning: false
 #| results: false
+#| echo: true
 #| code-fold: true
 
 muestra_azar_simple_sv = read_rds(here("Outputs", "muestra_azar_simple_sv.rds"))
@@ -195,6 +196,7 @@ En el caso de la calibración de la muestra bien distribuida el proceso de calib
 #| message: false
 #| warning: false
 #| results: false
+#| echo: true
 #| code-fold: true
 
 
