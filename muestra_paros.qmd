@@ -32,6 +32,7 @@ Dados los objetivos de la muestra y la disposición de la información, se ha se
 #| label: setup_muestra_paros
 #| message: false
 #| warning: false
+#| echo: true
 #| code-fold: true
 library(readxl)
 library(dplyr)
@@ -68,14 +69,11 @@ df_poblacion = df_poblacion |>
 
 ## Cálculo del Tamaño Muestral
 
-Utilizamos la fórmula para estimación de proporciones en poblaciones finitas con corrección por población finita (FPC), asumiendo varianza máxima ($p = 0.5$ y $1-p = 0.5$) y un nivel de confianza del $95\%$ ($z = 1.96$):
-
-\[ n_h = \frac{N_h \cdot z^2 \cdot p \cdot (1-p)}{e_h^2 \cdot (N_h-1) + z^2 \cdot p \cdot (1-p)} \]
-
-Donde $e_h = 0.03$ para Estatal y $e_h = 0.05$ para Privado.
+Utilizamos la fórmula para estimación de proporciones en poblaciones finitas con corrección por población finita $(FPC)$, asumiendo varianza máxima ($p = 0.5$ y $1-p = 0.5$) y un nivel de confianza del $95\%$ ($z = 1.96$). Esto se hace para cada muestra independiente dentro de cada estrato ($h)$: $$n_h = \frac{N_h \cdot z^2 \cdot p \cdot (1-p)}{e_h^2 \cdot (N_h-1) + z^2 \cdot p \cdot (1-p)}$$ Donde $e_h = 0.03$ para Estatal y $e_h = 0.05$ para Privado.
 
 ```{r}
 #| label: calc-tamanios
+#| echo: true
 #| code-fold: true
 calcular_n = function(N, e, z = 1.96, p = 0.5) {
   num = N * (z^2) * p * (1 - p)
@@ -110,22 +108,9 @@ grand_summary_rows(
   )
 ```
 
-## Selección de la Muestra (PPS Sistemático)
-
-La selección se realiza de manera independiente en cada uno de los **12 estratos** que se forman por el cruzamiento de las diferentes celdas.
-
-1.  **Ordenamiento**:
-
-\- Para el sector **Estatal**, las escuelas se ordenan de menor a mayor afectación de paros (usando la media del estrato para imputar casos perdidos si los hubiese).
-
-\- Para el sector **Privado**, las escuelas se ordenan al azar.
-
-2\. **Selección PPS**:
-
-\- Se calcula la matrícula acumulada.
-
 ```{r}
 #| label: seleccion-pps
+#| echo: true
 #| code-fold: true
 
 # Fijamos semilla para reproducibilidad
@@ -226,6 +211,7 @@ En la @fig-paro_densidad-matricula se compara la distribución de la matrícula 
 #| fig-cap: Distribución de la matricula. Población versus muestra.
 #| warning: false
 #| message: false
+#| echo: true
 #| code-fold: true
 g_mat = ggplot(df_comparativa, aes(x = matricula, fill = origen, color = origen)) +
   geom_density(alpha = 0.4) +
@@ -253,6 +239,7 @@ El muestreo sistemático ordenado por la variable continua de afectación de par
 #| fig-cap: "Estratificación Implícita: Distribución de paros (Estatal)"
 #| warning: false
 #| message: false
+#| echo: true
 #| code-fold: true
 df_comp_estatal = df_comparativa |> 
   filter(sector == "Estatal", !is.na(paros_num))
@@ -282,6 +269,7 @@ Para la muestra ponderada, se utiliza el paquete `srvyr` para declarar la muestr
 ```{r}
 #| label: tbl-comparacion_pob_muestra_paro
 #| tbl-cap: Comparación marco muestral, muestra sin ponderar y muestra ponderada
+#| echo: true
 #| code-fold: true
 
 # Definir la estructura básica del marco
