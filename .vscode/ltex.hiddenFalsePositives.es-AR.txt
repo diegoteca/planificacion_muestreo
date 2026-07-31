@@ -137,3 +137,5 @@
 {"rule":"MAS","sentence":"^\\QSi se seleccionaron \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q secciones de un total de \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q disponibles en esa escuela mediante MAS, la probabilidad condicional es \\E(?:Dummy|Ina|Jimmy-|Dummy-|Maniquí-|Maniquíes-|Atrapa-|Dummy\\+|Dummy's\\+)[0-9]+\\Q.\\E$"}
 {"rule":"UPPERCASE_SENTENCE_START","sentence":"^\\Qdonde:\\E$"}
 {"rule":"AGREEMENT_NUMERAL_PLURAL","sentence":"^\\QExtraer de la base de secciones el ratio entre el total de la matrícula de la primaria y la matrícula de 3 y 6 año respectivamente.\\E$"}
+{"rule":"COMMA_ADVERB","sentence":"^\\QPosiblemente la más interesante es que, en diseños polietápicos y en ausencia de no respuesta, la muestra es autoponderada y relativamente económica porque los cluster más grandes tienen mayor chance de salir en la muestra y, por lo tanto, se amortiza más el costo fijo de ir a cada cluster.\\E$"}
+{"rule":"DIACRITICS_02","sentence":"^\\QEn la @fig-paro_densidad-matricula se compara la distribución de la matrícula entre el marco muestral y la muestra.\\E$"}

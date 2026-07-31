@@ -1,0 +1,346 @@
+# Muestra Paro - 03/08/26 {#sec-muestra-paros}
+
+## Introducción y objetivos
+
+En esta ocasión vamos a realizar un diseño muestral con un objetivo relativamente acotado y simple como es estimar el alcance del paro del día 3 de agosto de 2026. Sin saber los detalles del formulario/encuesta se asumen dos cuestiones importantes a la hora del diseño. Por un lado, no parece ser una muestra sobre la cual luego se vayan a realizar una gran cantidad de investigaciones (p.e. dificilmente se convierta en fuente secundaria para otros investigadores) y los que van a contestar las preguntas son directivos en representación de los establecimientos. En otras palabras, no se trata de una muestra polietápica a través de la cual se intenta llegar a los estudiantes.
+
+En cuanto a su precisión se espera que el diseño permita estimaciones para los cruces de los siguientes dominios:
+
+- **Nivel**: Inicial, Primaria y Secundaria.
+
+- **Área**: AMBA e Interior.
+
+- **Sector de Gestión**: Estatal y Privado.
+
+Para el sector **Estatal**, se definió un margen de error máximo del $3\%$ por celda, mientras que para el sector **Privado** el margen de error máximo tolerado es del $5\%$ por celda.
+
+## Metodología
+
+Dados los objetivos de la muestra y la disposición de la información, se ha seleccionado el siguiente diseño:
+
+1.  Los diferentes dominios de estimación se considerarán estratos, por lo que se aspira a realizar una serie de muestras independientes dentro de cada uno de ellos.
+
+2.  Dentro de cada estrato se realiza un diseño proporcional al tamaño del establecimiento (PPS) para realizar un diseño relativamente económico. Dado que se esperan márgenes de error diferentes según sector, la muestra no será autoponderada.
+
+3.  En los casos donde la matrícula es faltante (139 establecimientos en la población), se le imputa el valor $1$ para asegurar que conserven una probabilidad positiva y no nula de selección en el algoritmo PPS.
+
+4.  El diseño es conceptualmente **de una sola etapa**. La encuesta se realiza a directivos del establecimiento sin sub-selección de cursos o estudiantes. Por lo tanto, desde un punto de vista de la estimación del error, el efecto de diseño puede considerar $Deff \approx 1$.
+
+5.  La variable continua referida al porcentaje de paros se utiliza para ordenar los casos y luego realizar un muestreo sistemático. Esta estrategia se conoceo como estratificación implícita [@cochran1977, pág. 205]
+
+```{r}
+#| label: setup_muestra_paros
+#| message: false
+#| warning: false
+library(readxl)
+library(dplyr)
+library(gt)
+library(gtsummary)
+library(ggplot2)
+library(plotly)
+library(here)
+library(janitor)
+library(writexl)
+library(srvyr)
+library(sampling)
+
+df_poblacion = read_excel(here("Inputs/muestra_paro/Base muestra paro 2026_Final AML.xlsx"), sheet = 1) |>
+clean_names() |>
+rename(matricula = matricula_inicial_2026,
+       paros_pct = percent_de_clases_afectadas_promedio_2026)
+
+# Preparar variables
+df_poblacion = df_poblacion |> 
+  mutate(
+    nivel_unificado = case_when(
+      nivel == "1.2.Inicial" ~ "Inicial",
+      nivel == "2.Primaria" ~ "Primaria",
+      nivel %in% c("3.1.Secundaria", "3.2.Secundaria ETP") ~ "Secundaria",
+      TRUE ~ nivel
+    ),
+    # Imputar matrícula NA con 1 para mantener probabilidad > 0
+    matricula = if_else(is.na(matricula), 1, matricula),
+    # Convertir a numérico la afectación
+    paros_num = as.numeric(if_else(paros_pct == "NA", NA_character_, paros_pct))
+  )
+```
+
+## Cálculo del Tamaño Muestral
+
+Utilizamos la fórmula para estimación de proporciones en poblaciones finitas con corrección por población finita (FPC), asumiendo varianza máxima ($p = 0.5$ y $1-p = 0.5$) y un nivel de confianza del $95\%$ ($z = 1.96$):
+
+\[ n_h = \frac{N_h \cdot z^2 \cdot p \cdot (1-p)}{e_h^2 \cdot (N_h-1) + z^2 \cdot p \cdot (1-p)} \]
+
+Donde $e_h = 0.03$ para Estatal y $e_h = 0.05$ para Privado.
+
+```{r}
+#| label: calc-tamanios
+calcular_n = function(N, e, z = 1.96, p = 0.5) {
+  num = N * (z^2) * p * (1 - p)
+  den = (e^2) * (N - 1) + (z^2) * p * (1 - p)
+  return(ceiling(num / den))
+}
+
+res_tamanio = df_poblacion |> 
+  count(nivel_unificado, area, sector, name = "N") |> 
+  mutate(
+    e = if_else(sector == "Estatal", 0.03, 0.05),
+    n_teorico = calcular_n(N, e),
+    n_final = pmin(N, n_teorico)
+  )
+
+res_tamanio |> 
+  gt() |> 
+  tab_header(title = "Tamaño de Muestra Requerido por Estrato") |> 
+  cols_label(
+    nivel_unificado = "Nivel",
+    area = "Área",
+    sector = "Sector",
+    N = "Población (N)",
+    e = "Margen de Error (e)",
+    n_teorico = "n calculado",
+    n_final = "n muestral final"
+  ) |>
+grand_summary_rows(
+    columns = c(N, n_teorico, n_final),
+    fns = list(Total = ~sum(.x, na.rm = TRUE)),
+    fmt = ~ fmt_integer(.x)
+  )
+```
+
+## Selección de la Muestra (PPS Sistemático)
+
+La selección se realiza de manera independiente en cada uno de los **12 estratos** que se forman por el cruzamiento de las diferentes celdas.
+
+1.  **Ordenamiento**:
+
+\- Para el sector **Estatal**, las escuelas se ordenan de menor a mayor afectación de paros (usando la media del estrato para imputar casos perdidos si los hubiese).
+
+\- Para el sector **Privado**, las escuelas se ordenan al azar.
+
+2\. **Selección PPS**:
+
+\- Se calcula la matrícula acumulada.
+
+```{r}
+#| label: seleccion-pps
+
+# Fijamos semilla para reproducibilidad
+set.seed(20260803)
+
+# Unimos los tamaños de muestra requeridos a la población
+df_marco = df_poblacion |> 
+  inner_join(
+    res_tamanio |> select(nivel_unificado, area, sector, n_final),
+    by = c("nivel_unificado", "area", "sector")
+  )
+
+# Función para selección PPS Sistemático formal dentro de un estrato
+seleccionar_estrato_pps = function(sub_df) {
+  n = unique(sub_df$n_final)
+  N = nrow(sub_df)
+  
+  if (n >= N) {
+    # Censo del estrato
+    return(sub_df |> 
+     mutate(prob_inclusion = 1, 
+            ponderador = 1))
+  }
+  
+  # Ordenar de acuerdo a la estratificación implícita
+  if (unique(sub_df$sector) == "Estatal") {
+    # Ordenar por afectación de paros (imputando NA con la media del estrato)
+    paros_media = mean(sub_df$paros_num, na.rm = TRUE)
+    if (is.nan(paros_media)) paros_media = 0
+    
+    sub_df = sub_df |> 
+      mutate(paros_orden = if_else(is.na(paros_num), paros_media, paros_num)) |> 
+      arrange(paros_orden, clave)
+  } else {
+    # Orden al azar para privado
+    sub_df = sub_df |> 
+      sample_frac(1) |> 
+      arrange(clave)
+  }
+  
+  # Calcular probabilidades de inclusión PPS sin reemplazo usando la matrícula como tamaño
+  # La función inclusionprobabilities() de la librería sampling calcula los valores exactos
+  # de pi_i, manejando de forma iterativa las unidades de certidumbre (escuelas grandes).
+  pik = inclusionprobabilities(sub_df$matricula, n)
+  
+  # Selección sistemática PPS sin reemplazo usando UPsystematic
+  # La función UPsystematic() implementa la selección sistemática con probabilidades pik
+  selec = UPsystematic(pik)
+  
+  # Filtrar la muestra y agregar probabilidades y ponderadores
+  df_muestra = sub_df[selec == 1, ] |> 
+    mutate(
+      prob_inclusion = pik[selec == 1],
+      ponderador = 1 / prob_inclusion
+    )
+  
+  return(df_muestra)
+}
+
+# Aplicar selección por estrato
+df_muestra = df_marco |> 
+  group_split(nivel_unificado, area, sector) |> 
+  lapply(seleccionar_estrato_pps) |> 
+  bind_rows()
+
+# Se crea la variable estrato para agregar en la base
+df_muestra = df_muestra |>
+  mutate(estrato = interaction(nivel_unificado, area, sector, drop = TRUE)) 
+
+# Escribir la muestra a disco
+write_xlsx(df_muestra |> select(-starts_with("acum_"), -starts_with("afect_")), 
+          "Inputs/muestra_paro/muestra_paro.xlsx")
+```
+
+La muestra total seleccionada cuenta con `r nrow(df_muestra)` establecimientos.
+
+```{r}
+#| label: definir_df_comparativa
+#| echo: false
+#| message: false
+#| warning: false
+# Definir df_comparativa para los gráficos de densidad
+df_poblacion_flag = df_poblacion |> mutate(origen = "Población (Marco)")
+df_muestra_flag = df_muestra |> mutate(origen = "Muestra Seleccionada")
+df_comparativa = bind_rows(df_poblacion_flag, df_muestra_flag)
+```
+
+### Visualización del Efecto PPS en la distribución de la Matrícula
+
+En la @fig-paro_densidad-matricula se compara la distribución de la matrícula entre el marco muestral y la muestra. Se observa un desplazamiento hacia la derecha en la muestra seleccionada, reflejando que los establecimientos con mayor volumen de matrícula poseen probabilidades de selección superiores en contraste con el marco muestral original.
+
+```{r}
+#| label: fig-paro_densidad-matricula
+#| fig-cap: Distribución de la matricula. Población versus muestra.
+#| warning: false
+#| message: false
+g_mat = ggplot(df_comparativa, aes(x = matricula, fill = origen, color = origen)) +
+  geom_density(alpha = 0.4) +
+  #scale_x_log10(labels = scales::label_comma()) +
+  scale_fill_manual(values = c("Muestra Seleccionada" = "#2c7fb8", "Población (Marco)" = "#bdbdbd")) +
+  scale_color_manual(values = c("Muestra Seleccionada" = "#2c7fb8", "Población (Marco)" = "#737373")) +
+  labs(
+    title = "Efecto PPS: Comparación de Matrícula (Escala Log)",
+    x = "Matrícula",
+    y = "Densidad",
+    fill = "Origen",
+    color = "Origen"
+  ) +
+  theme_minimal()
+
+ggplotly(g_mat)
+```
+
+### Validación del Balance de Afectación de Paros (Estratificación Implícita)
+
+El muestreo sistemático ordenado por la variable continua de afectación de paros actúa como un mecanismo de estratificación implícita. Para validar que la muestra represente correctamente la distribución de los paros (para el sector Estatal), en la @fig-paros_densidad comparamos las densidades correspondientes. La superposición de las curvas indica que la muestra conserva el balance original en esta variable continua de control.
+
+```{r}
+#| label: fig-paros_densidad
+#| fig-cap: "Estratificación Implícita: Distribución de paros (Estatal)"
+#| warning: false
+#| message: false
+df_comp_estatal = df_comparativa |> 
+  filter(sector == "Estatal", !is.na(paros_num))
+
+g_paros = ggplot(df_comp_estatal, aes(x = paros_num, fill = origen, color = origen)) +
+  geom_density(alpha = 0.45) +
+  scale_fill_manual(values = c("Muestra Seleccionada" = "#feb24c", "Población (Marco)" = "#bdbdbd")) +
+  scale_color_manual(values = c("Muestra Seleccionada" = "#f03b20", "Población (Marco)" = "#737373")) +
+  labs(
+   # title = "Estratificación Implícita: Afectación Promedio de Paros (Estatal)",
+    x = "% Paros",
+    y = "Densidad",
+    fill = "Origen",
+    color = "Origen"
+  ) +
+  theme_minimal()
+
+ggplotly(g_paros)
+```
+
+## Simulación y Validación (Muestra vs. Población)
+
+A continuación, comparamos las distribuciones de matrícula y las variables de diseño entre la población (marco muestral), la muestra obtenida sin ponderación y la muestra obtenida aplicando las ponderaciones del diseño de una etapa (ponderada por el inverso de la probabilidad de inclusión).
+
+Para la muestra ponderada, se utiliza el paquete `srvyr` para declarar la muestra como un objeto de diseño complejo (`as_survey_design`) especificando las ponderaciones (`weights = ponderador`) y los estratos (`strata = interaction(nivel_unificado, area, sector)`).
+
+```{r}
+#| label: tbl-comparacion_pob_muestra_paro
+#| tbl-cap: Comparación marco muestral, muestra sin ponderar y muestra ponderada
+
+# Definir la estructura básica del marco
+df_poblacion = df_poblacion |> 
+  mutate(origen = "Población (Marco)")
+
+df_muestra = df_muestra |> 
+  mutate(origen = "Muestra (Sin ponderar)")
+
+# Declarar el diseño muestral complejo para la muestra ponderada usando srvyr
+df_muestra_sv = df_muestra |> 
+  mutate(estrato = interaction(nivel_unificado, area, sector, drop = TRUE)) |> 
+  as_survey_design(
+    strata = estrato,
+    weights = ponderador
+  )
+
+# 1. Tabla resumen para la Población (Marco)
+tbl_pob = df_poblacion |> 
+  select(nivel_unificado, area, sector, matricula, paros_num) |> 
+  tbl_summary(
+    percent = "column",
+    label = list(
+      nivel_unificado ~ "Nivel",
+      area ~ "Área",
+      sector ~ "Sector",
+      matricula ~ "Matrícula Inicial 2026"
+    )
+  )
+
+# 2. Tabla resumen para la Muestra Sin Ponderar
+tbl_muestra_sp = df_muestra |> 
+  select(nivel_unificado, area, sector, matricula, paros_num) |> 
+  tbl_summary(
+    percent = "column",
+    label = list(
+      nivel_unificado ~ "Nivel",
+      area ~ "Área",
+      sector ~ "Sector",
+      matricula ~ "Matrícula Inicial 2026"
+    )
+  )
+
+# 3. Tabla resumen para la Muestra Ponderada (usando el objeto survey design)
+tbl_muestra_pond = df_muestra_sv |> 
+  select(nivel_unificado, area, sector, matricula, paros_num) |> 
+  tbl_svysummary(
+    percent = "column",
+    label = list(
+      nivel_unificado ~ "Nivel",
+      area ~ "Área",
+      sector ~ "Sector",
+      matricula ~ "Matrícula Inicial 2026"
+    )
+  )
+
+# Fusionar las tres tablas en una sola estructura comparativa
+tbl_comparacion_paro = tbl_merge(
+  tbls = list(tbl_muestra_sp, tbl_muestra_pond, tbl_pob),
+  tab_spanner = c("**Muestra (Sin ponderar)**", "**Muestra (Ponderada)**", "**Población (Marco)**")
+) |> 
+  modify_header(label = "**Variable**") |> 
+  as_gt()
+
+tbl_comparacion_paro
+```
+
+Al comparar las tres columnas en la @tbl-comparacion_pob_muestra_paro puede observarse:
+
+1\. La muestra sin ponderar presenta un sesgo deliberado de diseño hacia establecimientos de mayor tamaño debido al algoritmo de selección PPS. Esto se refleja en un promedio de matrícula considerablemente mayor en la muestra sin ponderar en comparación con el marco poblacional.
+
+2\. Al aplicar los ponderadores de diseño (inversa de la probabilidad de inclusión), la distribución de la matrícula y la proporción de escuelas por nivel, área y sector se reestablecen acercándose a las medias, proporciones y totales del marco muestral.

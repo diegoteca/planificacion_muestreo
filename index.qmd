@@ -45,7 +45,7 @@ pacman::p_load(survey, # Lumley
                srvyr, # Schneider
                surveycore, # surveyverse
                surveytidy, # surveyverse
-               spak::pak("JDenn0514/surveywts"), # surveyverse
+               pak::pak("JDenn0514/surveywts"), # surveyverse
                sampling, # Tillé
                BalancedSampling, # Grafstrom
                Spbsampling, # Benedetti

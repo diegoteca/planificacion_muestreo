@@ -44,6 +44,7 @@ book:
       chapters:
          - muestra_peb_2025.qmd
          - muestra_adultos.qmd
+         - muestra_paros.qmd
   appendices:
          - references.qmd
     

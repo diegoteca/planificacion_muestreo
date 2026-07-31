@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.14">
+<meta name="generator" content="quarto-1.11.0">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,13 @@
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
 */
-code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -87,17 +90,17 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./muestra_adultos.html" rel="prev">
+<link href="./muestra_paros.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7832d8100c30e5308af25d4a964213de.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-1f6b49074e5d0829091baadfd4d4b39d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-9e3e5b9121e68b3f077afb32f2c64d95.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-631496449bf32ff9b0bb69a6bfd9195d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <style>
 /* first-line indent styles */
   p {
@@ -246,13 +249,19 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./muestra_peb_2025.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Muestra PEB 2025</span></span></a>
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Muestras PEB 2025</span></span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./muestra_adultos.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Muestra EJAyAM</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./muestra_paros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Muestra Paro - 03/08/26</span></span></a>
   </div>
 </li>
       </ul>
@@ -376,9 +385,19 @@ Hacking, I. (2006). <em>The emergence of probability: A philosophical
 study of early ideas about probability, induction and statistical
 inference</em>. Cambridge University Press.
 </div>
+<div id="ref-hansen1943" class="csl-entry" role="listitem">
+Hansen, M., &amp; Hurwitz, W. (1943). On the theory of sampling from
+finite populations. <em>The Annals of Mathematical Statistics</em>,
+<em>14</em>, 333–362.
+</div>
 <div id="ref-hedlin2015" class="csl-entry" role="listitem">
 Hedlin, D. (2015). <em>Why are design in survey sampling ad design of
 randomised experiments separate areas of statistical science?</em>
+</div>
+<div id="ref-horvitz1952" class="csl-entry" role="listitem">
+Horvitz, D., &amp; Thompson, D. (1952). A generalization of sampling
+without replacement from a finite universe. <em>Journal of the American
+Statistical Association</em>, <em>47</em>(260), 663–685.
 </div>
 <div id="ref-kish1965" class="csl-entry" role="listitem">
 Kish, L. (1965). <em>Survey sampling</em>. John Wiley &amp; Sons.
@@ -393,6 +412,9 @@ Kish, L. (1987). <em>Statistical design for research</em>. John Wiley.
 <div id="ref-klima2022" class="csl-entry" role="listitem">
 Klima, G. (2022). <em>The medieval problem of universals</em> (E. Zalta,
 Ed.; Spring 2022). Stanford University.
+</div>
+<div id="ref-lumley" class="csl-entry" role="listitem">
+Lumley, T. (n.d.). <em>Making use of pre-calibrated weights</em>.
 </div>
 <div id="ref-lumley2010" class="csl-entry" role="listitem">
 Lumley, T. (2010). <em>Complex surveys. A guide to analysis using
@@ -417,6 +439,10 @@ Pearl, J. (2018). <em>The book of why</em>. New York. Basic Books.
 </div>
 <div id="ref-platón2002" class="csl-entry" role="listitem">
 Platón. (2002 [370AVC]). <em>Phaedrus</em>. Oxford University Press.
+</div>
+<div id="ref-särndal" class="csl-entry" role="listitem">
+Särndal, C. E. (n.d.). The calibration approach in survey theory and
+practice. <em>Survey Methodology</em>, <em>33</em>(2), 99–119.
 </div>
 <div id="ref-schneider2024" class="csl-entry" role="listitem">
 Schneider, B. (2024). <em>Simulation-based variance estimation for the
@@ -457,6 +483,10 @@ with spreading and restitution of auxiliary totals.
 <div id="ref-tillé2023" class="csl-entry" role="listitem">
 Tillé, Y., &amp; Matei, A. (2023). <em>Package
 <span>"</span>sampling<span>"</span></em>.
+</div>
+<div id="ref-valliant2018a" class="csl-entry" role="listitem">
+Valliant, R., &amp; Dever, J. (2018). <em>Survey weights. A step by step
+guide to calculation</em>. Stata Press.
 </div>
 <div id="ref-valliant2018" class="csl-entry" role="listitem">
 Valliant, R., Dever, J., &amp; Kreuter, F. (2018). <em>Practical tools
@@ -566,16 +596,16 @@ sample size</em>.
     }
     function toggleCodeHandler(show) {
       return function(e) {
-        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
-        for (let i=0; i<detailsSrc.length; i++) {
-          const details = detailsSrc[i].parentElement;
+        const cellDetails = window.document.querySelectorAll(".cell details.code-fold");
+        for (let i=0; i<cellDetails.length; i++) {
+          const details = cellDetails[i];
           if (show) {
             details.open = true;
           } else {
             details.removeAttribute("open");
           }
         }
-        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const cellCodeDivs = window.document.querySelectorAll(".cell div.sourceCode.cell-code");
         const fromCls = show ? "hidden" : "unhidden";
         const toCls = show ? "unhidden" : "hidden";
         for (let i=0; i<cellCodeDivs.length; i++) {
@@ -927,8 +957,8 @@ sample size</em>.
   </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./muestra_adultos.html" class="pagination-link" aria-label="Muestra EJAyAM">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Muestra EJAyAM</span></span>
+      <a href="./muestra_paros.html" class="pagination-link" aria-label="Muestra Paro - 03/08/26">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Muestra Paro - 03/08/26</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
