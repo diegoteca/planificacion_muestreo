@@ -32,6 +32,7 @@ Dados los objetivos de la muestra y la disposición de la información, se ha se
 #| label: setup_muestra_paros
 #| message: false
 #| warning: false
+#| code-fold: true
 library(readxl)
 library(dplyr)
 library(gt)
@@ -75,6 +76,7 @@ Donde $e_h = 0.03$ para Estatal y $e_h = 0.05$ para Privado.
 
 ```{r}
 #| label: calc-tamanios
+#| code-fold: true
 calcular_n = function(N, e, z = 1.96, p = 0.5) {
   num = N * (z^2) * p * (1 - p)
   den = (e^2) * (N - 1) + (z^2) * p * (1 - p)
@@ -124,6 +126,7 @@ La selección se realiza de manera independiente en cada uno de los **12 estrato
 
 ```{r}
 #| label: seleccion-pps
+#| code-fold: true
 
 # Fijamos semilla para reproducibilidad
 set.seed(20260803)
@@ -204,6 +207,7 @@ La muestra total seleccionada cuenta con `r nrow(df_muestra)` establecimientos.
 #| echo: false
 #| message: false
 #| warning: false
+#| code-fold: true
 # Definir df_comparativa para los gráficos de densidad
 df_poblacion_flag = df_poblacion |> mutate(origen = "Población (Marco)")
 df_muestra_flag = df_muestra |> mutate(origen = "Muestra Seleccionada")
@@ -219,6 +223,7 @@ En la @fig-paro_densidad-matricula se compara la distribución de la matrícula 
 #| fig-cap: Distribución de la matricula. Población versus muestra.
 #| warning: false
 #| message: false
+#| code-fold: true
 g_mat = ggplot(df_comparativa, aes(x = matricula, fill = origen, color = origen)) +
   geom_density(alpha = 0.4) +
   #scale_x_log10(labels = scales::label_comma()) +
@@ -245,6 +250,7 @@ El muestreo sistemático ordenado por la variable continua de afectación de par
 #| fig-cap: "Estratificación Implícita: Distribución de paros (Estatal)"
 #| warning: false
 #| message: false
+#| code-fold: true
 df_comp_estatal = df_comparativa |> 
   filter(sector == "Estatal", !is.na(paros_num))
 
@@ -273,6 +279,7 @@ Para la muestra ponderada, se utiliza el paquete `srvyr` para declarar la muestr
 ```{r}
 #| label: tbl-comparacion_pob_muestra_paro
 #| tbl-cap: Comparación marco muestral, muestra sin ponderar y muestra ponderada
+#| code-fold: true
 
 # Definir la estructura básica del marco
 df_poblacion = df_poblacion |> 
