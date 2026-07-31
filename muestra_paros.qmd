@@ -147,7 +147,8 @@ seleccionar_estrato_pps = function(sub_df) {
     # Censo del estrato
     return(sub_df |> 
      mutate(prob_inclusion = 1, 
-            ponderador = 1))
+            ponderador = 1,
+            muestra = 1))
   }
   
   # Ordenar de acuerdo a la estratificación implícita
@@ -167,36 +168,38 @@ seleccionar_estrato_pps = function(sub_df) {
   }
   
   # Calcular probabilidades de inclusión PPS sin reemplazo usando la matrícula como tamaño
-  # La función inclusionprobabilities() de la librería sampling calcula los valores exactos
-  # de pi_i, manejando de forma iterativa las unidades de certidumbre (escuelas grandes).
   pik = inclusionprobabilities(sub_df$matricula, n)
   
   # Selección sistemática PPS sin reemplazo usando UPsystematic
-  # La función UPsystematic() implementa la selección sistemática con probabilidades pik
   selec = UPsystematic(pik)
   
-  # Filtrar la muestra y agregar probabilidades y ponderadores
-  df_muestra = sub_df[selec == 1, ] |> 
+  # Devolver todos los casos del estrato agregando las variables de diseño y el flag 'muestra'
+  sub_df = sub_df |> 
     mutate(
-      prob_inclusion = pik[selec == 1],
-      ponderador = 1 / prob_inclusion
+      prob_inclusion = pik,
+      ponderador = 1 / prob_inclusion,
+      muestra = selec
     )
   
-  return(df_muestra)
+  return(sub_df)
 }
 
 # Aplicar selección por estrato
-df_muestra = df_marco |> 
+df_marco_completo = df_marco |> 
   group_split(nivel_unificado, area, sector) |> 
   lapply(seleccionar_estrato_pps) |> 
   bind_rows()
 
-# Se crea la variable estrato para agregar en la base
-df_muestra = df_muestra |>
-  mutate(estrato = interaction(nivel_unificado, area, sector, drop = TRUE)) 
+# Se crea la variable estrato para agregar en la base completa
+df_marco_completo = df_marco_completo |>
+  mutate(estrato = interaction(nivel_unificado, area, sector, drop = TRUE))
 
-# Escribir la muestra a disco
-write_xlsx(df_muestra |> select(-starts_with("acum_"), -starts_with("afect_")), 
+# Filtramos los casos seleccionados para los análisis del reporte
+df_muestra = df_marco_completo |> 
+  filter(muestra == 1)
+
+# Escribir la base completa (marco con flag de muestra) a disco
+write_xlsx(df_marco_completo |> select(-starts_with("acum_"), -starts_with("afect_")), 
           "Inputs/muestra_paro/muestra_paro.xlsx")
 ```
 
@@ -346,8 +349,8 @@ tbl_comparacion_paro = tbl_merge(
 tbl_comparacion_paro
 ```
 
-Al comparar las tres columnas en la @tbl-comparacion_pob_muestra_paro puede observarse:
+Al comparar las tres columnas en la @tbl-comparacion_pob_muestra_paro puede observarse que:
 
-1\. La muestra sin ponderar presenta un sesgo deliberado de diseño hacia establecimientos de mayor tamaño debido al algoritmo de selección PPS. Esto se refleja en un promedio de matrícula considerablemente mayor en la muestra sin ponderar en comparación con el marco poblacional.
+1\. La muestra sin ponderar presenta un sesgo de diseño hacia establecimientos de mayor matrícula debido al algoritmo de selección PPS. Esto se refleja en un promedio de matrícula considerablemente mayor en la muestra sin ponderar en comparación con el marco poblacional.
 
 2\. Al aplicar los ponderadores de diseño (inversa de la probabilidad de inclusión), la distribución de la matrícula y la proporción de escuelas por nivel, área y sector se reestablecen acercándose a las medias, proporciones y totales del marco muestral.
