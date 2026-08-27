@@ -59,9 +59,13 @@ citeproc: true # Si se quiere que typst use el suyo, conviene false. Sino true
 csl: apa7.csl
 
 crossref:
-  chapters: true #No se bien que hace
+  chapters: true
   appendix-title: "Anexo"
   appendix-delim: ":"
+  fig-title: "Figura"
+  tbl-title: "Tabla"
+  fig-prefix: "Figura"
+  tbl-prefix: "Tabla"
   lof-title: "Índice de figuras"
   lot-title: "Índice de tablas"
 
@@ -97,36 +101,33 @@ format:
        source: true
        toggle: true
        caption: "Código"
-    css: css_book.css # Hay que ver que cambia y como impacta en typst. En typst se puede usar css pero no es tan directo como en html. Hay que bajar la extensión "typst-partials" y editar los archivos .typ a mano.
+    css: css_book.css
     callout-appearance: minimal
     callout-icon: false
     
-# Pruebo con typst porque ahora ya funciona con quarto book
-# La opción por defecto es orange-book. Si se baja la extensión se puede editar esos "partials" a mano.
-#typst:  
-#    toc: true
- #   toc-title: "Índice de secciones"
-  #  lof: true
-#    lot: true
-#    number-sections: true
-#    papersize: a4
-#    page-numbering: "1"
-#    fig-cap-location: top   
-#    fig-dpi: 300
-#    fig-format: svg
-#    indent: true
-# Fuentes y Tipografía (XeLaTeX permite usar fuentes del sistema)
-#    mainfont: "Libertinus Serif" # O una similar como Linux Libertine
-#    sansfont: "Libertinus Sans"
-#    monofont: "FiraCode"
-#    prefer-html: true
-#    keep-typ: true
-#    logo: 
-#      width: 5cm
-#    cap-location: top
-#    lang: es
-#    callout-appearance: minimal
-#    callout-icon: false
+  typst:  
+    toc: true
+    toc-title: "Índice de secciones"
+    lof: true
+    lot: true
+    number-sections: true
+    papersize: a4
+    page-numbering: "1"
+    fig-cap-location: top   
+    fig-dpi: 300
+    fig-format: svg
+    indent: true
+    mainfont: "Libertinus Serif"
+    sansfont: "Libertinus Sans"
+    monofont: "FiraCode"
+    prefer-html: true
+    keep-typ: true
+    logo: 
+      width: 5cm
+    cap-location: top
+    lang: es
+    callout-appearance: minimal
+    callout-icon: false
 
 editor: visual
 lang: es
@@ -135,8 +136,12 @@ language:
   section-title-appendices: "Anexos"
   section-title-references: "Referencias"
   section-title-copyright: "Licencia"
-  list-of-figure-title: "Lista de Figuras"
-  list-of-table-title: "Lista de Tablas"
+  list-of-figure-title: "Índice de Figuras"
+  list-of-table-title: "Índice de Tablas"
+  crossref-fig-title: "Figura"
+  crossref-tbl-title: "Tabla"
+  crossref-fig-prefix: "Figura"
+  crossref-tbl-prefix: "Tabla"
   crossref-nte-prefix: "Nota de color"
   crossref-tip-prefix: "Tip"
   crossref-wrn-prefix: "Atención"
@@ -146,7 +151,7 @@ language:
   crossref-sec-prefix: "Sec."
   crossref-app-prefix: "Anexo"
   crossref-ch-title: "Capítulos"
-  crossref-app-title: "Anexo" # Sin "s"
+  crossref-app-title: "Anexo"
   callout-nte-title: "Nota de color"
   crossref-nte-title: "Nota de color"
   

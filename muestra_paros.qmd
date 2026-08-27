@@ -46,6 +46,14 @@ library(writexl)
 library(srvyr)
 library(sampling)
 
+theme_gtsummary_journal(journal = "jama")
+theme_gtsummary_compact()
+theme_gtsummary_language(
+  language = "es",
+  decimal.mark = ",",
+  big.mark = "."
+)
+
 df_poblacion = read_excel(here("Inputs/muestra_paro/Base muestra paro 2026_Final AML.xlsx"), sheet = 1) |>
 clean_names() |>
 rename(matricula = matricula_inicial_2026,
@@ -227,7 +235,11 @@ g_mat = ggplot(df_comparativa, aes(x = matricula, fill = origen, color = origen)
   ) +
   theme_minimal()
 
-ggplotly(g_mat)
+if (knitr::is_html_output()) {
+  ggplotly(g_mat)
+} else {
+  g_mat
+}
 ```
 
 ### Validación del Balance de Afectación de Paros (Estratificación Implícita)
@@ -257,7 +269,11 @@ g_paros = ggplot(df_comp_estatal, aes(x = paros_num, fill = origen, color = orig
   ) +
   theme_minimal()
 
-ggplotly(g_paros)
+if (knitr::is_html_output()) {
+  ggplotly(g_paros)
+} else {
+  g_paros
+}
 ```
 
 ## Simulación y Validación (Muestra vs. Población)

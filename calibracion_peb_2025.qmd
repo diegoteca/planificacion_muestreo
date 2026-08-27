@@ -1,11 +1,5 @@
 ---
 title: "Calibración con Metas Cuasicensales (PEB 2025)"
-format: 
-  html:
-    toc: true
-    toc-depth: 3
-    code-fold: show
-    theme: cosmo
 ---
 
 ## Análisis *ex-post*. Construcción de ponderadores base, ponderadores por no respuesta y ponderadores de calibración.
@@ -89,6 +83,8 @@ library(mice)
 
 i_am("calibracion_peb_2025.qmd")
 
+theme_gtsummary_journal(journal = "jama")
+theme_gtsummary_compact()
 theme_gtsummary_language(
 language = "es",
 decimal.mark = ",",
@@ -437,8 +433,12 @@ ggplot(aes(x = matricula_inicial_2025, fill = Estado_Respuesta)) +
   ) +
   theme_minimal(base_size = 12) +
   theme(legend.position = "bottom")
-fig_no_respuesta_size_3_i = ggplotly(fig_no_respuesta_size_3)
-fig_no_respuesta_size_3_i
+
+if (knitr::is_html_output()) {
+  ggplotly(fig_no_respuesta_size_3)
+} else {
+  fig_no_respuesta_size_3
+}
 ```
 
 En la @fig-no_respuesta_3_auh, se realiza la misma operación pero ahora en función del porcentaje de AUH del establecimiento. Este punto es importante porque sugiere que la muestra subrepresenta a los establecimietnos/estudiantes con más AUH (NSE = "Bajo") y que sobrerrepresentan a los de poco AUH (NSE = "Alto").
@@ -459,8 +459,12 @@ ggplot(aes(x = auh_pct, fill = Estado_Respuesta)) +
   ) +
   theme_minimal(base_size = 12) +
   theme(legend.position = "bottom")
-fig_no_respuesta_auh_3_i = ggplotly(fig_no_respuesta_auh_3)
-fig_no_respuesta_auh_3_i
+
+if (knitr::is_html_output()) {
+  ggplotly(fig_no_respuesta_auh_3)
+} else {
+  fig_no_respuesta_auh_3
+}
 ```
 
 A modo de resumen, se recuerda que, en primer lugar, los establecimientos seleccionados en el diseño fueron 673 y los que efectivamente se utilizaron en campo fueron 386, lo que representa algo más que un 57%. Esto, previsiblemente, impacta en los estimadores en forma de sesgo (*bias*) porque la ausencia de establecimiento rara vez es azarosa. Por otro lado, la muestra esperaba era de alrededor de 6730 estudiantes (10 estudiantes por cada uno de los 673 establecimientos) y finalmente se contactaron (sin todavía indagar sobre su calidad) unos 5320 casos. Esto implica un 79% de la muestra original. Esto ya anticipa que, si bien se fue a menos establecimientos de los diseñados, a pesar de cierta dispersión, en promedio se fue a más de 10 estudiantes por establecimiento.

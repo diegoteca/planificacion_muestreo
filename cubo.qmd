@@ -26,6 +26,8 @@ library(tmap)
 
 i_am("cubo.qmd")
 
+theme_gtsummary_journal(journal = "jama")
+theme_gtsummary_compact()
 theme_gtsummary_language(
 language = "es",
 decimal.mark = ",",
@@ -377,8 +379,8 @@ as_survey_design(id = 1,
 ```
 
 ```{r}
-#| label: tbl_cubo_matricula
-##| tbl-cap: "Estimaciones con muestra balanceada para población de estudiantes"
+#| label: tbl-cubo_matricula
+#| tbl-cap: "Estimaciones con muestra balanceada para población de estudiantes"
 
 tbl_cubo_matricula = muestra_cubo_matricula_sv |>
 tbl_svysummary(
@@ -539,7 +541,8 @@ st_as_sf(coords = c("longitud", "latitud"),
          crs = 4326) |>
 select(ambito, region)
 
-tmap_mode("view")
+# Elijo modo interactivo ("view") para HTML y estático ("plot") para Typst/PDF
+tmap_mode(ifelse(knitr::is_html_output(), "view", "plot"))
 
 fig_bien_distribuida = tm_basemap(server = "CartoDB.Positron",
            alpha = 0.5) +
@@ -554,41 +557,4 @@ tm_dots(fill_alpha = 0.9,
 
 fig_bien_distribuida 
 
-```
-
-```{r}
-#| label: fig-mapa_bien_distribuida_pdf
-#| fig-cap: "Distribución de la población de los establecimientos (puntos negros) y de la muestra bien distribuida (puntos azules)"
-#| eval: !expr knitr::is_latex_output()
-#| cache: true
-# Hay que ver esto en typst. Typst quiza no sea latex
-
-tb = tb |>
-st_as_sf(coords = c("longitud", "latitud"),
-         dim = "XY",
-         sf_column_name = "geom_escuela",
-         crs = 4326) |>
-select(ambito, region)
-
-muestra_bien_distribuida = muestra_bien_distribuida |>
-st_as_sf(coords = c("longitud", "latitud"),
-         dim = "XY",
-         sf_column_name = "geom_escuela",
-         crs = 4326) |>
-select(ambito, region)
-
-tmap_mode("plot")
-
-fig_bien_distribuida_pdf = tm_basemap(server = "CartoDB.Positron",
-           alpha = 0.5) +
-tm_shape(tb,
-         name = "Población") +
-tm_dots(fill_alpha = 0.20,
-        fill = "black") +
-tm_shape(muestra_bien_distribuida,
-         name = "Muestra bien distribuida") +
-tm_dots(fill_alpha = 0.9,
-        fill = "blue")
-
-fig_bien_distribuida_pdf
 ```

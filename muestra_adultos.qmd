@@ -515,22 +515,25 @@ tbl_comparacion_establecimientos_estudiantes
 ```{r}
 #| label: fig-comparacion
 #| fig-cap: Comparación exploratorio del marco muestral. Nivel establecimiento (1 fila) y nivel estudiantes (2 fila)
-# Con subplot se puede hacer con plotly
-#fig_comparacion_establecimientos_estudiantes = fig_explo_marco_establecimientos / fig_explo_marco_estudiantes
-subplot(fig_explo_marco_establecimientos_i,
-        fig_explo_marco_estudiantes_i,
-       nrows = 2) |>
-layout(title = '')
 
+if (knitr::is_html_output()) {
+  subplot(fig_explo_marco_establecimientos_i,
+          fig_explo_marco_estudiantes_i,
+         nrows = 2) |>
+  layout(title = '')
+} else {
+  # En PDF/Typst combinamos con patchwork
+  fig_explo_marco_establecimientos / fig_explo_marco_estudiantes
+}
 ```
 
 ```{r}
 #| label: fig-mapa_distritos
 #| fig-cap: Mapa según distrito. Color según matrícula.
-# Quiero realizar un mapa con tmap en version "view" con las coordenadas de los distritos (columan geom_depto) y la cantidad de estudiantes por distrito (matricula). Para esto, tengo que agrupar el dataframe por distrito y sumar la cantidad de estudiantes por distrito. Luego, tengo que unir el dataframe con el dataframe espacial de los distritos para poder graficar el mapa.
-tmap_mode("view")
-# Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df_estudiantes
+# Elijo modo interactivo ("view") para HTML y estático ("plot") para Typst/PDF
+tmap_mode(ifelse(knitr::is_html_output(), "view", "plot"))
 
+# Le agrego la geometría de los distritos. No lo agrego antes para no saturar a df_estudiantes
 insumo_mapa_distritos = df_sampling_frame |>
 left_join(df_sf_distritos, by = "distrito") |>
 relocate(distrito, .after = fna)
@@ -690,7 +693,7 @@ fig_mapa_areas
 Por último, antes de pasar a la siguiente sección, analizaremos la relación entre la cantidad de secciones y el tamaño de los establecimientos. Esto nos puede anticipar una idea de como se comportarían diferentes diseños muestrales en función de como seleccionen o censen a las secciones de cada establecimiento seleccionado en la primera etapa.
 
 ```{r}
-#| label: fig-matricula_seccion
+#| label: fig-matricula_seccion_adultos
 #| fig-cap: Relación entre el tamaño de la matrícula y la cantidad de secciones de los establecimientos
 
 df_estab_matri_seccion = df_sampling_frame |>
@@ -1498,8 +1501,11 @@ ggplot(aes(x = IVSE, fill = Grupo, color = Grupo)) +
   theme(legend.position = "bottom",
         text = element_text(family = "serif"))
 
-fig_densidad_ivse_poblacion_muestra_i = ggplotly(fig_densidad_ivse_poblacion_muestra)
-fig_densidad_ivse_poblacion_muestra_i
+if (knitr::is_html_output()) {
+  ggplotly(fig_densidad_ivse_poblacion_muestra)
+} else {
+  fig_densidad_ivse_poblacion_muestra
+}
 
 ```
 
@@ -1546,8 +1552,11 @@ fig_densidad_ivse_dominios = insumo_fig_densidad_dominios |>
     strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
   )
 
-fig_densidad_ivse_dominios_i = ggplotly(fig_densidad_ivse_dominios)
-fig_densidad_ivse_dominios_i
+if (knitr::is_html_output()) {
+  ggplotly(fig_densidad_ivse_dominios)
+} else {
+  fig_densidad_ivse_dominios
+}
 ```
 
 Ahora volvemos a repetir la operación anterior pero a nivel de Región Agrupada
@@ -1593,8 +1602,11 @@ fig_densidad_ivse_region = insumo_fig_densidad_region |>
     strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
   )
 
-fig_densidad_ivse_region_i = ggplotly(fig_densidad_ivse_region)
-fig_densidad_ivse_region_i
+if (knitr::is_html_output()) {
+  ggplotly(fig_densidad_ivse_region)
+} else {
+  fig_densidad_ivse_region
+}
 ```
 
 Ahora volvemos a repetir la operación anterior pero a nivel de cada Gran Área
@@ -1640,8 +1652,11 @@ fig_densidad_ivse_area = insumo_fig_densidad_area |>
     strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
   )
 
-fig_densidad_ivse_area_i = ggplotly(fig_densidad_ivse_area)
-fig_densidad_ivse_area_i
+if (knitr::is_html_output()) {
+  ggplotly(fig_densidad_ivse_area)
+} else {
+  fig_densidad_ivse_area
+}
 ```
 
 Volvemos a repetir la operación anterior pero a nivel de tipo de establecimiento.
@@ -1687,8 +1702,11 @@ fig_densidad_ivse_tipo_est_adulto = insumo_fig_densidad_tipo_est_adulto |>
     strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
   )
 
-fig_densidad_ivse_tipo_est_adulto_i = ggplotly(fig_densidad_ivse_tipo_est_adulto)
-fig_densidad_ivse_tipo_est_adulto_i
+if (knitr::is_html_output()) {
+  ggplotly(fig_densidad_ivse_tipo_est_adulto)
+} else {
+  fig_densidad_ivse_tipo_est_adulto
+}
 ```
 
 Por último, volvemos a repetir la operación anterior pero a nivel de nivel del establecimiento.
@@ -1734,8 +1752,11 @@ fig_densidad_ivse_nivel = insumo_fig_densidad_nivel |>
     strip.text = element_text(face = "bold") # Resalta los títulos de cada faceta
   )
 
-fig_densidad_ivse_nivel_i = ggplotly(fig_densidad_ivse_nivel)
-fig_densidad_ivse_nivel_i
+if (knitr::is_html_output()) {
+  ggplotly(fig_densidad_ivse_nivel)
+} else {
+  fig_densidad_ivse_nivel
+}
 ```
 
 ```{r}
@@ -1760,6 +1781,8 @@ df_muestra = df_muestra_final |>
 muestra_DEJAyAM = df_universo |> 
   left_join(df_muestra, by = "codigo")
 
+# Creo la carpeta Inputs/muestra_adultos si no existe
+dir.create(here("Inputs", "muestra_adultos"), showWarnings = FALSE, recursive = TRUE)
 write_xlsx(muestra_DEJAyAM, here("Inputs", "muestra_adultos", "muestra_DEJAyAM.xlsx"))
 ```
 

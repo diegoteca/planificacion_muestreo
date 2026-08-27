@@ -37,6 +37,8 @@ library(downloadthis)
 
 i_am("azar.qmd")
 
+theme_gtsummary_journal(journal = "jama")
+theme_gtsummary_compact()
 theme_gtsummary_language(
 language = "es",
 decimal.mark = ",",

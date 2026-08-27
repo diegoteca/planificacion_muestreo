@@ -97,6 +97,8 @@ library(scales)
 
 i_am("muestra_peb_2025.qmd")
 
+theme_gtsummary_journal(journal = "jama")
+theme_gtsummary_compact()
 theme_gtsummary_language(
 language = "es",
 decimal.mark = ",",
@@ -567,9 +569,8 @@ st_as_sf(coords = c("longitud", "latitud"),
          dim = "XY",
          sf_column_name = "geom_escuela",
          crs = 4326) |>
-select(ambito)
-
-tmap_mode("view")
+# Elijo modo interactivo ("view") para HTML y estático ("plot") para Typst/PDF
+tmap_mode(ifelse(knitr::is_html_output(), "view", "plot"))
 
 fig_muestra_2025 = tm_basemap(server = "CartoDB.Positron",
            alpha = 0.5) +

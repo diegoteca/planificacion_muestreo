@@ -15,15 +15,17 @@ quarto render --to html --no-clean
 Write-Host "==========================================" -ForegroundColor Green
 Write-Host " 3. Sincronizando con GitHub..." -ForegroundColor Green
 Write-Host "==========================================" -ForegroundColor Green
-git add .
-$status = git status --porcelain
+
+# Verifico cambios antes o despues de agregarlos al stage
+$status = (git status --porcelain)
 if ($status) {
+    git add -A
     $commitMsg = "Compilacion y publicacion automatica: $((Get-Date).ToString('yyyy-MM-dd HH:mm:ss'))"
     git commit -m $commitMsg
     git push origin main
     Write-Host " Cambios publicados exitosamente en GitHub." -ForegroundColor Green
 } else {
-    Write-Host " No hay cambios pendientes para commitear." -ForegroundColor Yellow
+    Write-Host " No hay cambios detectados para subir." -ForegroundColor Yellow
 }
 
 Write-Host "==========================================" -ForegroundColor Green
