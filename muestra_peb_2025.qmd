@@ -568,9 +568,10 @@ filter(muestra_2025 == 1) |>
 st_as_sf(coords = c("longitud", "latitud"),
          dim = "XY",
          sf_column_name = "geom_escuela",
-         crs = 4326) |>
-# Elijo modo interactivo ("view") para HTML y estático ("plot") para Typst/PDF
-tmap_mode(ifelse(knitr::is_html_output(), "view", "plot"))
+         crs = 4326)
+
+# Modo interactivo para HTML (este chunk solo se evalua en HTML)
+tmap_mode("view")
 
 fig_muestra_2025 = tm_basemap(server = "CartoDB.Positron",
            alpha = 0.5) +

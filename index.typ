@@ -3452,13 +3452,15 @@ supplement: "Tabla",
 
 == Exportación de Bases de Estudiantes con Ponderadores
 <exportación-de-bases-de-estudiantes-con-ponderadores>
-En este bloque se exportan/graban las bases finales de estudiantes (tanto en formato #NormalTok(".csv"); como en #NormalTok(".rds");) conservando toda la trazabilidad de las etapas de muestreo:
+En este bloque se exportan/graban las bases finales de estudiantes (tanto en formato #NormalTok(".csv"); como en #NormalTok(".rds");) conservando las variables originales del operativo y agregando únicamente la trazabilidad de las etapas de muestreo y ponderación descritas a lo largo del documento:
 
 \- #NormalTok("pi_1");: Probabilidad de inclusión del establecimiento (primera etapa - cubo).
 
 \- #NormalTok("pi_2");: Probabilidad condicional de selección de la sección (segunda etapa).
 
-\- #NormalTok("pi_3");: Probabilidad condicional del estudiante dentro de la sección (tercera etapa). - #NormalTok("pi_total_estudiante");: Probabilidad conjunta de inclusión ($p i_1 times p i_2 times p i_3$).
+\- #NormalTok("pi_3");: Probabilidad condicional del estudiante dentro de la sección (tercera etapa).
+
+\- #NormalTok("pi_total_estudiante");: Probabilidad conjunta de inclusión ($p i_1 times p i_2 times p i_3$).
 
 \- #NormalTok("weight_design");: Ponderador base / de diseño inicial ($1\/p i_(t o t a l)$).
 
@@ -3471,8 +3473,8 @@ En este bloque se exportan/graban las bases finales de estudiantes (tanto en for
 #block[
 #block[
 #Skylighting(([#NormalTok("Bases exportadas con éxito en la carpeta Outputs/:");],
-[#NormalTok(" - muestra_estudiantes_3_calibrada.csv / .rds (n = 5230 )");],
-[#NormalTok(" - muestra_estudiantes_6_calibrada.csv / .rds (n = 5026 )");],));
+[#NormalTok(" - muestra_estudiantes_3_calibrada.csv / .rds (n = 5230 , cols = 85 )");],
+[#NormalTok(" - muestra_estudiantes_6_calibrada.csv / .rds (n = 5026 , cols = 85 )");],));
 ]
 ]
 = Muestra EJAyAM

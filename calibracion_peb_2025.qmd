@@ -1343,7 +1343,7 @@ muestra_calibrada_6 = calibrate(
 insumo_calibracion_6$weight_calibrate = weights(muestra_calibrada_6)
 ```
 
-### Contraste muestra calibrada vs. parámetros poblacionales censo PEB 
+### Contraste muestra calibrada vs. parámetros poblacionales censo PEB
 
 ```{r}
 #| label: verificacion_tabla_final_6
@@ -1392,7 +1392,7 @@ res_calibrados_6 |>
   fmt_number(columns = c(N_calibrado, N_celda), decimals = 0)
 ```
 
-### Constraste muestra calibrada vs. parámetros oblacionales marco muestral 
+### Constraste muestra calibrada vs. parámetros oblacionales marco muestral
 
 ```{r}
 #| label: tbl-comparacion_calib_poblacion_global_6
@@ -1547,13 +1547,15 @@ diag_ambos |>
 
 ## Exportación de Bases de Estudiantes con Ponderadores
 
-En este bloque se exportan/graban las bases finales de estudiantes (tanto en formato `.csv` como en `.rds`) conservando toda la trazabilidad de las etapas de muestreo:
+En este bloque se exportan/graban las bases finales de estudiantes (tanto en formato `.csv` como en `.rds`) conservando las variables originales del operativo y agregando únicamente la trazabilidad de las etapas de muestreo y ponderación descritas a lo largo del documento:
 
 \- `pi_1`: Probabilidad de inclusión del establecimiento (primera etapa - cubo).
 
 \- `pi_2`: Probabilidad condicional de selección de la sección (segunda etapa).
 
-\- `pi_3`: Probabilidad condicional del estudiante dentro de la sección (tercera etapa). - `pi_total_estudiante`: Probabilidad conjunta de inclusión ($pi_1 \times pi_2 \times pi_3$).
+\- `pi_3`: Probabilidad condicional del estudiante dentro de la sección (tercera etapa).
+
+\- `pi_total_estudiante`: Probabilidad conjunta de inclusión ($pi_1 \times pi_2 \times pi_3$).
 
 \- `weight_design`: Ponderador base / de diseño inicial ($1 / pi_{total}$).
 
@@ -1569,28 +1571,55 @@ En este bloque se exportan/graban las bases finales de estudiantes (tanto en for
 # 1. Aseguro el directorio de salida
 dir.create(here("Outputs"), showWarnings = FALSE, recursive = TRUE)
 
-# 2. Exporto la muestra de 3.er año
+# Defino el listado de variables metodológicas agregadas a conservar
+vars_ponderadores = c(
+  "pi_1",
+  "pi_2",
+  "pi_3",
+  "pi_total_estudiante",
+  "weight_design",
+  "prob_respuesta",
+  "inv_no_respuesta",
+  "weight_no_respuesta",
+  "weight_calibrate"
+)
+
+# 2. Filtro las columnas de 3.er año (variables originales + ponderadores explícitos)
+base_exportar_3 = insumo_calibracion_3 |>
+  select(
+    any_of(names(muestra_estudiantes_3)),
+    any_of(vars_ponderadores)
+  )
+
+# 3. Filtro las columnas de 6.º año (variables originales + ponderadores explícitos)
+base_exportar_6 = insumo_calibracion_6 |>
+  select(
+    any_of(names(muestra_estudiantes_6)),
+    any_of(vars_ponderadores)
+  )
+
+# 4. Exporto la muestra de 3.er año
 write_csv(
-  x = insumo_calibracion_3,
+  x = base_exportar_3,
   file = here("Outputs", "muestra_estudiantes_3_calibrada.csv")
 )
 write_rds(
-  x = insumo_calibracion_3,
+  x = base_exportar_3,
   file = here("Outputs", "muestra_estudiantes_3_calibrada.rds")
 )
 
-# 3. Exporto la muestra de 6.º año
+# 5. Exporto la muestra de 6.º año
 write_csv(
-  x = insumo_calibracion_6,
+  x = base_exportar_6,
   file = here("Outputs", "muestra_estudiantes_6_calibrada.csv")
 )
 write_rds(
-  x = insumo_calibracion_6,
+  x = base_exportar_6,
   file = here("Outputs", "muestra_estudiantes_6_calibrada.rds")
 )
 
-# 4. Mensaje informativo de confirmación
+# 6. Mensaje informativo de confirmación
 cat("Bases exportadas con éxito en la carpeta Outputs/:\n",
-    "- muestra_estudiantes_3_calibrada.csv / .rds (n =", nrow(insumo_calibracion_3), ")\n",
-    "- muestra_estudiantes_6_calibrada.csv / .rds (n =", nrow(insumo_calibracion_6), ")\n")
+    "- muestra_estudiantes_3_calibrada.csv / .rds (n =", nrow(base_exportar_3), ", cols =", ncol(base_exportar_3), ")\n",
+    "- muestra_estudiantes_6_calibrada.csv / .rds (n =", nrow(base_exportar_6), ", cols =", ncol(base_exportar_6), ")\n")
 ```
