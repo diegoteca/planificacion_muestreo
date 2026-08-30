@@ -1,5 +1,11 @@
 ---
 title: "Calibración con Metas Cuasicensales (PEB 2025)"
+format: 
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: show
+    theme: cosmo
 ---
 
 ## Análisis *ex-post*. Construcción de ponderadores base, ponderadores por no respuesta y ponderadores de calibración.
@@ -83,8 +89,6 @@ library(mice)
 
 i_am("calibracion_peb_2025.qmd")
 
-theme_gtsummary_journal(journal = "jama")
-theme_gtsummary_compact()
 theme_gtsummary_language(
 language = "es",
 decimal.mark = ",",
@@ -433,12 +437,8 @@ ggplot(aes(x = matricula_inicial_2025, fill = Estado_Respuesta)) +
   ) +
   theme_minimal(base_size = 12) +
   theme(legend.position = "bottom")
-
-if (knitr::is_html_output()) {
-  ggplotly(fig_no_respuesta_size_3)
-} else {
-  fig_no_respuesta_size_3
-}
+fig_no_respuesta_size_3_i = ggplotly(fig_no_respuesta_size_3)
+fig_no_respuesta_size_3_i
 ```
 
 En la @fig-no_respuesta_3_auh, se realiza la misma operación pero ahora en función del porcentaje de AUH del establecimiento. Este punto es importante porque sugiere que la muestra subrepresenta a los establecimietnos/estudiantes con más AUH (NSE = "Bajo") y que sobrerrepresentan a los de poco AUH (NSE = "Alto").
@@ -459,12 +459,8 @@ ggplot(aes(x = auh_pct, fill = Estado_Respuesta)) +
   ) +
   theme_minimal(base_size = 12) +
   theme(legend.position = "bottom")
-
-if (knitr::is_html_output()) {
-  ggplotly(fig_no_respuesta_auh_3)
-} else {
-  fig_no_respuesta_auh_3
-}
+fig_no_respuesta_auh_3_i = ggplotly(fig_no_respuesta_auh_3)
+fig_no_respuesta_auh_3_i
 ```
 
 A modo de resumen, se recuerda que, en primer lugar, los establecimientos seleccionados en el diseño fueron 673 y los que efectivamente se utilizaron en campo fueron 386, lo que representa algo más que un 57%. Esto, previsiblemente, impacta en los estimadores en forma de sesgo (*bias*) porque la ausencia de establecimiento rara vez es azarosa. Por otro lado, la muestra esperaba era de alrededor de 6730 estudiantes (10 estudiantes por cada uno de los 673 establecimientos) y finalmente se contactaron (sin todavía indagar sobre su calidad) unos 5320 casos. Esto implica un 79% de la muestra original. Esto ya anticipa que, si bien se fue a menos establecimientos de los diseñados, a pesar de cierta dispersión, en promedio se fue a más de 10 estudiantes por establecimiento.
@@ -751,7 +747,7 @@ medias_cuasicenso_3 |>
   fmt_number(columns = c(media_mat_ref, media_pl_ref), decimals = 2)
 ```
 
-También existía la estrategia complementaria de intentar maximizar los objetivos que provenieran exclusivamente del marco muestral. Esta estrategia era más simple ya que los datos de los establecimientos no tienen valores faltantes y podrían haber realizado una calibración con una inclusión mayor de variables como Región o Ámbito. El punto de negativo de esta estrategia era que, especialmente en las interacciones de las celdas condicionales (no tanto en las medias generales), se desentendía del valor de las IRA.
+También existía la estrategia complementaria de intentar maximizar los objetivos que provenieran exclusivamente del marco muestral. Esta estrategia era más simple, ya que los datos de los establecimientos no tienen valores faltantes y podrían haber realizado una calibración con una inclusión mayor de variables como Región o Ámbito. El punto de negativo de esta estrategia era que, especialmente en las interacciones de las celdas condicionales (no tanto en las medias generales), se desentendía del valor de las IRA.
 
 #### Preparación de los datos
 
@@ -1547,23 +1543,21 @@ diag_ambos |>
 
 ## Exportación de Bases de Estudiantes con Ponderadores
 
-En este bloque se exportan/graban las bases finales de estudiantes (tanto en formato `.csv` como en `.rds`) conservando las variables originales del operativo y agregando únicamente la trazabilidad de las etapas de muestreo y ponderación descritas a lo largo del documento:
+En este bloque se exportan/graban las bases finales de estudiantes (tanto en formato `.csv` como en `.rds`) conservando toda la trazabilidad de las etapas de muestreo:
 
--  `pi_1`: Probabilidad de inclusión del establecimiento (primera etapa - cubo).
+\- `pi_1`: Probabilidad de inclusión del establecimiento (primera etapa - cubo).
 
--  `pi_2`: Probabilidad condicional de selección de la sección (segunda etapa).
+\- `pi_2`: Probabilidad condicional de selección de la sección (segunda etapa).
 
-- `pi_3`: Probabilidad condicional del estudiante dentro de la sección (tercera etapa).
+\- `pi_3`: Probabilidad condicional del estudiante dentro de la sección (tercera etapa). - `pi_total_estudiante`: Probabilidad conjunta de inclusión ($pi_1 \times pi_2 \times pi_3$).
 
-- `pi_total_estudiante`: Probabilidad conjunta de inclusión ($pi_1 \times pi_2 \times pi_3$).
+\- `weight_design`: Ponderador base / de diseño inicial ($1 / pi_{total}$).
 
-- `weight_design`: Ponderador base / de diseño inicial ($1 / pi_{total}$).
+\- `prob_respuesta` e `inv_no_respuesta`: Ajuste por propensión a la respuesta.
 
-- `prob_respuesta` e `inv_no_respuesta`: Ajuste por propensión a la respuesta.
+\- `weight_no_respuesta`: Ponderador ajustado por no respuesta ($weight\_design \times inv\_no\_respuesta$).
 
-- `weight_no_respuesta`: Ponderador ajustado por no respuesta ($weight\_design \times inv\_no\_respuesta$).
-
-- `weight_calibrate`: Ponderador final de calibración.
+\- `weight_calibrate`: Ponderador final de calibración.
 
 ```{r}
 #| label: exportacion_bases_calibradas
@@ -1571,55 +1565,28 @@ En este bloque se exportan/graban las bases finales de estudiantes (tanto en for
 # 1. Aseguro el directorio de salida
 dir.create(here("Outputs"), showWarnings = FALSE, recursive = TRUE)
 
-# Defino el listado de variables metodológicas agregadas a conservar
-vars_ponderadores = c(
-  "pi_1",
-  "pi_2",
-  "pi_3",
-  "pi_total_estudiante",
-  "weight_design",
-  "prob_respuesta",
-  "inv_no_respuesta",
-  "weight_no_respuesta",
-  "weight_calibrate"
-)
-
-# 2. Filtro las columnas de 3.er año (variables originales + ponderadores explícitos)
-base_exportar_3 = insumo_calibracion_3 |>
-  select(
-    any_of(names(muestra_estudiantes_3)),
-    any_of(vars_ponderadores)
-  )
-
-# 3. Filtro las columnas de 6.º año (variables originales + ponderadores explícitos)
-base_exportar_6 = insumo_calibracion_6 |>
-  select(
-    any_of(names(muestra_estudiantes_6)),
-    any_of(vars_ponderadores)
-  )
-
-# 4. Exporto la muestra de 3.er año
+# 2. Exporto la muestra de 3.er año
 write_csv(
-  x = base_exportar_3,
+  x = insumo_calibracion_3,
   file = here("Outputs", "muestra_estudiantes_3_calibrada.csv")
 )
 write_rds(
-  x = base_exportar_3,
+  x = insumo_calibracion_3,
   file = here("Outputs", "muestra_estudiantes_3_calibrada.rds")
 )
 
-# 5. Exporto la muestra de 6.º año
+# 3. Exporto la muestra de 6.º año
 write_csv(
-  x = base_exportar_6,
+  x = insumo_calibracion_6,
   file = here("Outputs", "muestra_estudiantes_6_calibrada.csv")
 )
 write_rds(
-  x = base_exportar_6,
+  x = insumo_calibracion_6,
   file = here("Outputs", "muestra_estudiantes_6_calibrada.rds")
 )
 
-# 6. Mensaje informativo de confirmación
+# 4. Mensaje informativo de confirmación
 cat("Bases exportadas con éxito en la carpeta Outputs/:\n",
-    "- muestra_estudiantes_3_calibrada.csv / .rds (n =", nrow(base_exportar_3), ", cols =", ncol(base_exportar_3), ")\n",
-    "- muestra_estudiantes_6_calibrada.csv / .rds (n =", nrow(base_exportar_6), ", cols =", ncol(base_exportar_6), ")\n")
+    "- muestra_estudiantes_3_calibrada.csv / .rds (n =", nrow(insumo_calibracion_3), ")\n",
+    "- muestra_estudiantes_6_calibrada.csv / .rds (n =", nrow(insumo_calibracion_6), ")\n")
 ```

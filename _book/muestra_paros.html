@@ -401,7 +401,7 @@ window.Quarto = {
 <li><p>Dentro de cada estrato se realiza un diseño proporcional al tamaño del establecimiento (PPS) para realizar un diseño relativamente económico. Dado que se esperan márgenes de error diferentes según sector, la muestra no será autoponderada.</p></li>
 <li><p>En los casos donde la matrícula es faltante (139 establecimientos en la población), se le imputa el valor <span class="math inline">\(1\)</span> para asegurar que conserven una probabilidad positiva y no nula de selección en el algoritmo PPS.</p></li>
 <li><p>El diseño es conceptualmente <strong>de una sola etapa</strong>. La encuesta se realiza a directivos del establecimiento sin sub-selección de cursos o estudiantes. Por lo tanto, desde un punto de vista de la estimación del error, el efecto de diseño puede considerar <span class="math inline">\(Deff \approx 1\)</span>.</p></li>
-<li><p>La variable continua referida al porcentaje de paros se utiliza para ordenar los casos y luego realizar un muestreo sistemático. Esta estrategia se conoceo como estratificación implícita <span class="citation" data-cites="cochran1977">(<a href="references.html#ref-cochran1977" role="doc-biblioref">Cochran, 1977</a>, pág. 205)</span></p></li>
+<li><p>La variable continua referida al porcentaje de paros se utiliza para ordenar los casos y luego realizar un muestreo sistemático. Esta estrategia se conoceo como estratificación implícita <span class="citation" data-cites="cochran1977">(<a href="#ref-cochran1977" role="doc-biblioref">Cochran, 1977</a>, pág. 205)</span></p></li>
 </ol>
 <div class="cell">
 <details class="code-fold">
@@ -1171,7 +1171,7 @@ window.Quarto = {
 <p>La muestra total seleccionada cuenta con 5349 establecimientos.</p>
 <section id="visualización-del-efecto-pps-en-la-distribución-de-la-matrícula" class="level3" data-number="9.3.1">
 <h3 data-number="9.3.1" class="anchored" data-anchor-id="visualización-del-efecto-pps-en-la-distribución-de-la-matrícula"><span class="header-section-number">9.3.1</span> Visualización del Efecto PPS en la distribución de la Matrícula</h3>
-<p>En la <a href="#fig-paro_densidad-matricula" class="quarto-xref">Figura&nbsp;<span>9.1</span></a> se compara la distribución de la matrícula entre el marco muestral y la muestra. Se observa un desplazamiento hacia la derecha en la muestra seleccionada, reflejando que los establecimientos con mayor volumen de matrícula poseen probabilidades de selección superiores en contraste con el marco muestral original.</p>
+<p>En la <a href="#fig-paro_densidad-matricula" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-paro_densidad-matricula</span></a> se compara la distribución de la matrícula entre el marco muestral y la muestra. Se observa un desplazamiento hacia la derecha en la muestra seleccionada, reflejando que los establecimientos con mayor volumen de matrícula poseen probabilidades de selección superiores en contraste con el marco muestral original.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -1210,7 +1210,7 @@ Figura&nbsp;9.1: Distribución de la matricula. Población versus muestra.
 </section>
 <section id="validación-del-balance-de-afectación-de-paros-estratificación-implícita" class="level3" data-number="9.3.2">
 <h3 data-number="9.3.2" class="anchored" data-anchor-id="validación-del-balance-de-afectación-de-paros-estratificación-implícita"><span class="header-section-number">9.3.2</span> Validación del Balance de Afectación de Paros (Estratificación Implícita)</h3>
-<p>El muestreo sistemático ordenado por la variable continua de afectación de paros actúa como un mecanismo de estratificación implícita. Para validar que la muestra represente correctamente la distribución de los paros (para el sector Estatal), en la <a href="#fig-paros_densidad" class="quarto-xref">Figura&nbsp;<span>9.2</span></a> comparamos las densidades correspondientes. La superposición de las curvas indica que la muestra conserva el balance original en esta variable continua de control.</p>
+<p>El muestreo sistemático ordenado por la variable continua de afectación de paros actúa como un mecanismo de estratificación implícita. Para validar que la muestra represente correctamente la distribución de los paros (para el sector Estatal), en la <a href="#fig-paros_densidad" class="quarto-xref">Figura&nbsp;<span class="quarto-unresolved-ref">fig-paros_densidad</span></a> comparamos las densidades correspondientes. La superposición de las curvas indica que la muestra conserva el balance original en esta variable continua de control.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Código</summary>
@@ -1901,14 +1901,14 @@ Tabla&nbsp;9.1: Comparación marco muestral, muestra sin ponderar y muestra pond
 </figure>
 </div>
 </div>
-<p>Al comparar las tres columnas en la <a href="#tbl-comparacion_pob_muestra_paro" class="quarto-xref">Tabla&nbsp;<span>9.1</span></a> puede observarse que:</p>
+<p>Al comparar las tres columnas en la <a href="#tbl-comparacion_pob_muestra_paro" class="quarto-xref">Tabla&nbsp;<span class="quarto-unresolved-ref">tbl-comparacion_pob_muestra_paro</span></a> puede observarse que:</p>
 <p>1. La muestra sin ponderar presenta un sesgo de diseño hacia establecimientos de mayor matrícula debido al algoritmo de selección PPS. Esto se refleja en un promedio de matrícula considerablemente mayor en la muestra sin ponderar en comparación con el marco poblacional.</p>
 <p>2. Al aplicar los ponderadores de diseño (inversa de la probabilidad de inclusión), la distribución de la matrícula y la proporción de escuelas por nivel, área y sector se reestablecen acercándose a las medias, proporciones y totales del marco muestral.</p>
 
 
 <!-- -->
 
-<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list" style="display: none">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" data-line-spacing="2" role="list">
 <div id="ref-cochran1977" class="csl-entry" role="listitem">
 Cochran, W. (1977). <em>Sampling techniques</em>. John Wiley &amp; Sons.
 </div>
